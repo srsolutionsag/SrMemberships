@@ -1,0 +1,39 @@
+{
+  "name": "srsolutions/srmemberships",
+  "description": "",
+  "type": "project",
+  "keywords": [
+    "ILIAS",
+    "Plugin",
+    "SrMemberships"
+  ],
+  "license": "GPL-3.0-only",
+  "authors": [
+    {
+      "name": "sr.solutions",
+      "email": "support@sr.solutions",
+      "homepage": "https://sr.solutions/",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.2"
+  },
+  "require-dev": {
+  },
+  "autoload": {
+    "psr-4": {
+      "srag\\Plugins\\SrMemberships\\": "src/"
+    },
+    "classmap": [
+      "classes"
+    ]
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "classmap-authoritative": true
+  },
+  "scripts": {
+  }
+}
