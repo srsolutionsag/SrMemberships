@@ -1,33 +1,33 @@
-handle_feature_screen#:#Erweiterte Nutzerverwaltung
-msg_back_to#:#Zurück
-general_configuration#:#Allgemeine Einstellungen
-tab_config_index#:#Einstellungen
-workflow_by_role_sync#:#Nach Rollen
-workflow_by_email#:#Nach E-Mail
-workflow_by_matriculation#:#Nach Matrikelnummer
-workflow_by_excel_import#:#Excel-Import
-workflow_by_attribute_sync#:#Nach Attribut
-enabled_workflows#:#Aktivierte Workflows
-enabled_workflows_info#:#Nach Aktivierung eines Workflows erscheint jeweils ein zusätzlicher Einstellungs-Subtab.
-selectable_global_roles#:#Wählbare globale Rollen
-selectable_global_roles_info#:#Nur die aktivierten Rollen können später durch die Nutzenden ausgewählt werden.
-selectable_local_roles#:#Wählbare lokale Rollen
-selectable_local_roles_info#:#Nur die aktivierten Rollen können später durch die Nutzenden ausgewählt werden.
-selectable_global_roles_all#:#Alle globalen Rollen
-select#:#Auswählen
-selectable_local_roles_all#:#Alle lokalen Rollen
-object_types#:#Anbieten in Objekttypen
-object_types_info#:#Die Funktion wird nur in den ausgewählten Objekttypen angeboten.
-object_type_crs#:#Kurse
-object_type_grp#:#Gruppen
-by_role_sync_role_selection#:#Rollen-Auswahl
-by_role_sync_role_selection_info#:#Wählen Sie die Rollen aus, die für die Synchronisation verwendet werden sollen. Personen, welche einer dieser Rollen zugewiesen sind, werden in den Kursen oder die Gruppen synchronisiert. Die Personen werden aber nicht ausgetragen, sollten sie die Rolle verlieren.
-by_role_sync_role_selection_header#:#Automatische Mitgliedersynchronisation
-store_object_config#:#Einstellungen speichern
-msg_object_config_stored#:#Einstellungen gespeichert
-workflow_mode#:#Modus
-workflow_mode_selection#:#Optionen
-workflow_mode_selection_info#:#Wählen Sie die Optionen für die ausgewählte Benutzerverwaltung
-mode_remove_diff#:#Personen aus Mitglieder entfernen, welche nicht in der Liste der übermittelten Personen enthalten sind
-mode_run_as_cronjob#:#Synchronisation regelmässig ausführen
-mode_run_on_save#:#Beim Speichern ausführen
+handle_feature_screen#:#Advanced user management
+msg_back_to#:#Back
+general_configuration#:#General settings
+tab_config_index#:#Settings
+workflow_by_role_sync#:#By roles
+workflow_by_email#:#By email
+workflow_by_matriculation#:#By student number
+workflow_by_excel_import#:#Excel import
+workflow_by_attribute_sync#:#By attribute
+enabled_workflows#:#Enabled workflows
+enabled_workflows_info#:#After activating a workflow, an additional settings subtab appears in each case.
+selectable_global_roles#:#Selectable global roles
+selectable_global_roles_info#:#Only the activated roles can be selected later by the users.
+selectable_local_roles#:#Selectable local roles
+selectable_local_roles_info#:#Only the activated roles can be selected later by the users.
+selectable_global_roles_all#:#All global roles
+select#:#Select
+selectable_local_roles_all#:#All local roles
+object_types#:#Provide in object types
+object_types_info#:#The function is only offered in the selected object types.
+object_type_crs#:#Courses
+object_type_grp#:#groups
+by_role_sync_role_selection#:#role selection
+by_role_sync_role_selection_info#:#Select the roles to be used for synchronisation. People who are assigned to one of these roles will be synchronised in the courses or the groups. However, the persons will not be signed out should they lose the role.
+by_role_sync_role_selection_header#:#Automatic member synchronisation
+store_object_config#:#Save settings
+msg_object_config_stored#:#Stored settings
+workflow_mode#:#Mode
+workflow_mode_selection#:#Options
+workflow_mode_selection_info#:#Select options for the selected user administration
+mode_remove_diff#:#Remove persons from members who are not included in the list of submitted persons
+mode_run_as_cronjob#:#Run synchronisation regularly
+mode_run_on_save#:#Execute on save
