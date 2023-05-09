@@ -4,12 +4,12 @@
 $ilDB->createTable('srms_config', [
     'namespace' => [
         'type' => 'text',
-        'length' => 256,
+        'length' => 64,
         'notnull' => true,
     ],
     'config_key' => [
         'type' => 'text',
-        'length' => 256,
+        'length' => 128,
         'notnull' => true,
     ],
     'value' => [
@@ -32,7 +32,7 @@ $ilDB->addPrimaryKey('srms_config', ['namespace', 'config_key']);
 $ilDB->createTable('srms_object_config', [
     'workflow_id' => [
         'type' => 'text',
-        'length' => 256,
+        'length' => 64,
         'notnull' => true,
     ],
     'context_ref_id' => [
@@ -56,7 +56,7 @@ $ilDB->addPrimaryKey(
 $ilDB->createTable('srms_object_mode', [
     'workflow_id' => [
         'type' => 'text',
-        'length' => 256,
+        'length' => 64,
         'notnull' => true,
     ],
     'context_ref_id' => [
