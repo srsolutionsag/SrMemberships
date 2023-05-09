@@ -76,22 +76,22 @@ class WorkflowContainerRepository
     /**
      * @throws \InvalidArgumentException if feature is not activated or exists.
      */
-    public function getWorkflowById(string $feature_id): WorkflowContainer
+    public function getWorkflowById(string $workflow_id): WorkflowContainer
     {
-        if (!isset($this->all_workflow_containers[$feature_id])) {
-            throw new \InvalidArgumentException("Workflow with id $feature_id does not exist.");
+        if (!isset($this->all_workflow_containers[$workflow_id])) {
+            throw new \InvalidArgumentException("Workflow with id $workflow_id does not exist.");
         }
 
-        return $this->all_workflow_containers[$feature_id];
+        return $this->all_workflow_containers[$workflow_id];
     }
 
-    public function getEnabledWorkflowById(string $feature_id): ?WorkflowContainer
+    public function getEnabledWorkflowById(string $workflow_id): ?WorkflowContainer
     {
-        if (!isset($this->enabled_workflow_containers[$feature_id])) {
+        if (!isset($this->enabled_workflow_containers[$workflow_id])) {
             return null;
         }
 
-        return $this->enabled_workflow_containers[$feature_id];
+        return $this->enabled_workflow_containers[$workflow_id];
     }
 
 }

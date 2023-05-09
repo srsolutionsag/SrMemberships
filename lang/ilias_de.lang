@@ -1,4 +1,4 @@
-handle_feature_screen#:#Erweiterte Nutzerverwaltung
+handle_workflow_screen#:#Erweiterte Nutzerverwaltung
 msg_back_to#:#Zurück
 general_configuration#:#Allgemeine Einstellungen
 tab_config_index#:#Einstellungen
@@ -9,6 +9,7 @@ workflow_by_excel_import#:#Excel-Import
 workflow_by_attribute_sync#:#Nach Attribut
 enabled_workflows#:#Aktivierte Workflows
 enabled_workflows_info#:#Nach Aktivierung eines Workflows erscheint jeweils ein zusätzlicher Einstellungs-Subtab.
+selectable_global_roles#:#Wählbare globale Rollen
 selectable_global_roles#:#Wählbare globale Rollen
 selectable_global_roles_info#:#Nur die aktivierten Rollen können später durch die Nutzenden ausgewählt werden.
 selectable_local_roles#:#Wählbare lokale Rollen

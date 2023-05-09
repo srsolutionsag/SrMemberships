@@ -93,7 +93,7 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
         $workflow_id = $this->workflow_container->getWorkflowID();
         $form = $this->form_builder->getForm($context, $this->workflow_container);
 
-        $title = $this->container->translator()->txt('feature_' . $workflow_id);
+        $title = $this->container->translator()->txt('workflow_' . $workflow_id);
         $identification = $identification_factory->identifier($workflow_id);
 
         return $tool_factory->tool($identification)

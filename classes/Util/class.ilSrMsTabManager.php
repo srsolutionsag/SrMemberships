@@ -36,7 +36,7 @@ class ilSrMsTabManager
     public const TAB_CONFIG = 'tab_config_index';
     // ilSrTabManager language variables:
     protected const MSG_BACK_TO = 'msg_back_to';
-    const FEATURE_PREFIX = 'feature_';
+    const WORKFLOW_PREFIX = 'workflow_';
     /**
      * @var Container
      */
@@ -130,8 +130,8 @@ class ilSrMsTabManager
                 $enabled_feature
             );
             $this->tabs->addSubTab(
-                self::FEATURE_PREFIX . $enabled_feature,
-                $this->translator->txt(self::FEATURE_PREFIX . $enabled_feature),
+                self::WORKFLOW_PREFIX . $enabled_feature,
+                $this->translator->txt(self::WORKFLOW_PREFIX . $enabled_feature),
                 $this->ctrl->getLinkTargetByClass(
                     ilSrMsGeneralConfigurationGUI::class,
                     ilSrMsGeneralConfigurationGUI::CMD_TRIAGE_WORKFLOW
@@ -140,7 +140,7 @@ class ilSrMsTabManager
         }
 
         if ($active_feature !== null) {
-            $this->tabs->activateSubTab(self::FEATURE_PREFIX . $active_feature);
+            $this->tabs->activateSubTab(self::WORKFLOW_PREFIX . $active_feature);
         }
         return $this;
     }

@@ -27,7 +27,7 @@ class ilSrMembershipsHandlerGUI extends ilSrMsAbstractGUI
 
     protected function setupGlobalTemplate(ilGlobalTemplateInterface $template, ilSrMsTabManager $tabs): void
     {
-        $template->setTitle($this->translator->txt("handle_feature_screen"));
+        $template->setTitle($this->translator->txt("handle_workflow_screen"));
 
         $ref_id = $this->container->dic()->http()->request()->getQueryParams()["fallback_ref_id"] ?? 1;
         $tabs->addBackToObject($ref_id);
