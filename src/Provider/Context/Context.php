@@ -77,7 +77,7 @@ class Context
         return $this->object_type;
     }
 
-    public function caUanAdministrateMembers(): bool
+    public function canUserAdministrateMembers(): bool
     {
         return $this->user_can_administrate;
     }

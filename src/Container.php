@@ -119,6 +119,7 @@ class Container extends \Pimple\Container
         $container['user_access_info_provider'] = function (Container $c): UserAccessInfoProvider {
             return new UserAccessInfoProvider(
                 $c->dic()->rbac()->system(),
+                $c->dic()->rbac()->review(),
                 $c->objectInfoProvider()
             );
         };

@@ -43,6 +43,7 @@ interface WorkflowContainer
     public function getConfigClass(): \ilSrMsAbstractGUI;
 
     public function isActivated(): bool;
+    public function isToolAvailable(Context $context): bool;
 
     public function getConfig(): Config;
 

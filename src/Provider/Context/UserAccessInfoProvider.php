@@ -38,13 +38,19 @@ class UserAccessInfoProvider
      * @var ObjectInfoProvider
      */
     private $object_info_provider;
+    /**
+     * @var \ilRbacReview
+     */
+    private $rbac_review;
 
     public function __construct(
         \ilRbacSystem $rbac,
+        \ilRbacReview $rbac_review,
         ObjectInfoProvider $object_info_provider
     ) {
         $this->rbac = $rbac;
         $this->object_info_provider = $object_info_provider;
+        $this->rbac_review = $rbac_review;
     }
 
     public function hasUserPermissionToAdministrate(int $user_id, int $ref_id): bool
@@ -62,5 +68,10 @@ class UserAccessInfoProvider
             default:
                 return $this->cache[$user_id][$ref_id] = false;
         }
+    }
+
+    public function isUserInAtLeastOneRole(int $user_id, array $role_ids): bool
+    {
+        return $this->rbac_review->isAssignedToAtLeastOneGivenRole($user_id, $role_ids);
     }
 }

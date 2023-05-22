@@ -112,12 +112,21 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
         // check if context is valid
         $types = $this->workflow_config->getActivatedForTypes();
         $context_type = $context->getContextType();
-        if (!in_array($context_type, $types)) {
+        if (!in_array($context_type, $types, true)) {
             return false;
         }
+        // ask the container
+        if (!$this->workflow_container->isToolAvailable($context)) {
+            return false;
+        }
+
         if (!$this->container->objectInfoProvider()->isOnMembersTab($context->getCurrentRefId())) {
             return false;
         }
+        if (!$context->canUserAdministrateMembers()) {
+            return false;
+        }
+
         return true;
     }
 

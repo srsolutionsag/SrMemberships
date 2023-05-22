@@ -30,5 +30,9 @@ workflow_mode#:#Modus
 workflow_mode_selection#:#Optionen
 workflow_mode_selection_info#:#Wählen Sie die Optionen für die ausgewählte Benutzerverwaltung
 mode_remove_diff#:#Personen aus Mitglieder entfernen, welche nicht in der Liste der übermittelten Personen enthalten sind
-mode_run_as_cronjob#:#Synchronisation regelmässig ausführen
+mode_run_as_cronjob#:#Regelmässig ausführen
 mode_run_on_save#:#Beim Speichern ausführen
+offer_workflow_to#:#Workflow verfügbar für
+offer_workflow_to_info#:#Der Workflow wir nur den gewählten Personengruppen angeboten.
+offer_workflow_to_object_admins#:#Objekt-Administratoren (Personen mit dem Recht "Mitglieder verwalten" am Objekt)
+

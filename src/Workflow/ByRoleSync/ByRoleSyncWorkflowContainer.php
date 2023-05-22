@@ -31,6 +31,7 @@ use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
 use srag\Plugins\SrMemberships\Action\ActionHandler;
 use srag\Plugins\SrMemberships\Workflow\ByRoleSync\Action\ByRoleSyncActionHandler;
+use srag\Plugins\SrMemberships\Workflow\ByRoleSync\Config\ByRoleSyncConfig;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -56,6 +57,17 @@ class ByRoleSyncWorkflowContainer extends AbstractBaseWorkflowContainer implemen
     public function getConfig(): Config
     {
         return $this->container->config()->byRoleSync();
+    }
+
+    public function isToolAvailable(Context $context): bool
+    {
+        // depends on settings
+        $offered_to = $this->getConfig()->get(ByRoleSyncConfig::F_OFFER_WORKFLOW_TO);
+        if ($offered_to === [-1]) { // the tool will be shown if the user has manage members permission on the object
+            return true;
+        }
+
+        return $this->container->userAccessInfoProvider()->isUserInAtLeastOneRole($context->getUserId(), $offered_to);
     }
 
     public function getConfigClass(): \ilSrMsAbstractGUI

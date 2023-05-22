@@ -30,12 +30,14 @@ use srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider;
 class ByRoleSyncConfig extends AbstractDBWorkflowConfig implements WorkflowConfig
 {
     public const F_SELECTABLE_GLOBAL_ROLES = 'selectable_global_roles';
+    public const F_OFFER_WORKFLOW_TO = 'offer_workflow_to';
     public const F_SELECTABLE_LOCAL_ROLES = 'selectable_local_roles';
 
     public function getNameSpace(): string
     {
         return 'by_role_sync';
     }
+
 
     public function getAvailableRolesForSelection(ObjectInfoProvider $info): array
     {
