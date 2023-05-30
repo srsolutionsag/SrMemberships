@@ -23,13 +23,14 @@ use srag\Plugins\SrMemberships\Container;
 /**
  * @author            Fabian Schmid <fabian@sr.solutions>
  *
- * @ilCtrl_isCalledBy ilSrMembershipsDispatcher : ilUIPluginRouterGUI
- * @ilCtrl_isCalledBy ilSrMembershipsDispatcher : ilSrMembershipsConfigGUI
+ * @ilCtrl_isCalledBy ilSrMembershipsDispatcherGUI : ilUIPluginRouterGUI
+ * @ilCtrl_isCalledBy ilSrMembershipsDispatcherGUI : ilSrMembershipsConfigGUI
+ * @ilCtrl_isCalledBy ilSrMembershipsDispatcherGUI : ilObjComponentSettingsGUI
  *
- * @ilCtrl_Calls      ilSrMembershipsDispatcher : ilSrMsGeneralConfigurationGUI
- * @ilCtrl_Calls      ilSrMembershipsDispatcher : ilSrMsByRoleSyncConfigurationGUI
+ * @ilCtrl_Calls      ilSrMembershipsDispatcherGUI : ilSrMsGeneralConfigurationGUI
+ * @ilCtrl_Calls      ilSrMembershipsDispatcherGUI : ilSrMsByRoleSyncConfigurationGUI
  */
-class ilSrMembershipsDispatcher
+class ilSrMembershipsDispatcherGUI
 {
     public const ORIGIN_TYPE_REPOSITORY = 1;
     public const ORIGIN_TYPE_ADMINISTRATION = 2;
@@ -103,7 +104,7 @@ class ilSrMembershipsDispatcher
         global $DIC;
         $call_history = $DIC->ctrl()->getCallHistory();
         $base_class = array_shift($call_history);
-        $base_class = strtolower($base_class['class']);
+        $base_class = strtolower($base_class['class'] ?? $base_class['cmdClass'] ?? '');
 
         switch ($base_class) {
             // because (somehow) this class cannot be called by ilRepositoryGUI,

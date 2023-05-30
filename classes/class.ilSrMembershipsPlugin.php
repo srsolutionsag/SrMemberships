@@ -19,6 +19,7 @@
 use srag\Plugins\SrMemberships\Provider\Tool\CollectedMainBarProvider;
 use srag\Plugins\SrMemberships\Container;
 
+/** @noRector  */
 require_once(__DIR__ . '/../vendor/autoload.php');
 
 /**
@@ -28,11 +29,9 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
 {
     public const PLUGIN_NAME = 'SrMemberships';
 
-    public function __construct()
+    protected function init(): void
     {
-        parent::__construct();
-
-        if ($this->getActive()) {
+        if ($this->isPluginActive()) {
             $container = Container::getInstance($this);
             $dynamic_tool_provider = new CollectedMainBarProvider($container->dic(), $container->plugin());
             $dynamic_tool_provider->init($container);
@@ -41,31 +40,44 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
 
             // Put form labels to 100% width
             $container->dic()->globalScreen()->layout()->meta()->addInlineCss(
-                '.il-maincontrols-slate-content .il-standard-form .col-sm-3 { width:100%; text-align:left; }'
+                '.il-maincontrols-slate-content .il-standard-form .col-sm-3, .il-maincontrols-slate-content .il-standard-form .col-sm-4 { width:100%; text-align:left; }'
                 . '.il-maincontrols-slate-content .il-standard-form .col-sm-9 { width:100%; }'
             );
         }
     }
 
-    public function getPluginName()
+    private function isPluginActive(): bool
+    {
+        // if parent has method isActive, we use this, otherwise we use getActive
+        if (method_exists(get_parent_class($this), 'isActive')) {
+            return parent::isActive();
+        }
+        return $this->getActive();
+    }
+
+    // we must get a copatible signature with and without string as return type to be compatible with both versions of ILIAS
+    #[ReturnTypeWillChange]
+    public function getPluginName(): string
     {
         return self::PLUGIN_NAME;
     }
 
-    public function getCronJobInstances()
+    #[ReturnTypeWillChange]
+    public function getCronJobInstances(): array
     {
         return [
             new ilSrMembershipsWorkflowJob($this)
         ];
     }
 
-    public function getCronJobInstance($a_job_id)
+    #[ReturnTypeWillChange]
+    public function getCronJobInstance(string $a_job_id): ilCronJob
     {
         switch ($a_job_id) {
             case ilSrMembershipsWorkflowJob::SRMS_WORKFLOW_JOB:
                 return new ilSrMembershipsWorkflowJob($this);
             default:
-                return null;
+                throw new OutOfBoundsException("Unknown job id $a_job_id");
         }
     }
 }

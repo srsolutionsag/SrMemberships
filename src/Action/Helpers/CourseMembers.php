@@ -27,7 +27,6 @@ use srag\Plugins\SrMemberships\Person\Account\Account;
  */
 trait CourseMembers
 {
-
     /**
      * @var int
      */
@@ -37,19 +36,30 @@ trait CourseMembers
      */
     private $course_members;
 
+    private int $member_role_id;
+
     public function __construct(int $course_ref_id)
     {
         $this->course_ref_id = $course_ref_id;
         $this->course_members = new \ilCourseParticipants(\ilObject2::_lookupObjectId($this->course_ref_id));
+        $this->member_role_id = $this->resolveMemberRoleId();
     }
 
     protected function addToContainer(Account $account): void
     {
-        $this->course_members->add($account->getUserId(), IL_CRS_MEMBER);
+        $this->course_members->add(
+            $account->getUserId(),
+            $this->member_role_id
+        );
     }
 
     protected function removeFromContainer(Account $account): void
     {
         $this->course_members->delete($account->getUserId());
+    }
+
+    protected function resolveMemberRoleId(): int
+    {
+        return defined('IL_CRS_MEMBER') ? \IL_CRS_MEMBER : \ilCourseParticipants::IL_CRS_MEMBER;
     }
 }

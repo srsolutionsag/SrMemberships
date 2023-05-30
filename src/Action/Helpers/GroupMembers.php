@@ -27,7 +27,6 @@ use srag\Plugins\SrMemberships\Person\Account\Account;
  */
 trait GroupMembers
 {
-
     /**
      * @var int
      */
@@ -37,19 +36,30 @@ trait GroupMembers
      */
     private $group_members;
 
+    private int $member_role_id;
+
     public function __construct(int $group_ref_id)
     {
         $this->group_ref_id = $group_ref_id;
         $this->group_members = new \ilGroupParticipants(\ilObject2::_lookupObjectId($this->group_ref_id));
+        $this->member_role_id = $this->resolveMemberRoleId();
     }
 
     protected function addToContainer(Account $account): void
     {
-        $this->group_members->add($account->getUserId(), IL_GRP_MEMBER);
+        $this->group_members->add(
+            $account->getUserId(),
+            $this->member_role_id
+        );
     }
 
     protected function removeFromContainer(Account $account): void
     {
         $this->group_members->delete($account->getUserId());
+    }
+
+    protected function resolveMemberRoleId(): int
+    {
+        return defined('IL_GRP_MEMBER') ? \IL_GRP_MEMBER : \ilGroupParticipants::IL_GRP_MEMBER;
     }
 }

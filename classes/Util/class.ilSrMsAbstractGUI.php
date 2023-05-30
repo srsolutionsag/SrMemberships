@@ -1,4 +1,5 @@
-<?php /**
+<?php
+/**
  * This file is part of ILIAS, a powerful learning management system
  * published by ILIAS open source e-Learning e.V.
  *
@@ -192,8 +193,8 @@ abstract class ilSrMsAbstractGUI
 
         // if base_class is ilUIPluginRouterGUI, we need to render the template
         if (strtolower($this->container->dic()->http()->request()->getQueryParams()['baseClass'] ?? '') === strtolower(
-                ilUIPluginRouterGUI::class
-            )) {
+            ilUIPluginRouterGUI::class
+        )) {
             $this->container->dic()->ui()->mainTemplate()->printToStdOut();
         }
     }
@@ -333,7 +334,16 @@ abstract class ilSrMsAbstractGUI
      */
     protected function sendSuccessMessage(string $lang_var): void
     {
-        ilUtil::sendSuccess($this->translator->txt($lang_var), true);
+        $text = $this->translator->txt($lang_var);
+        if (method_exists(ilUtil::class, 'sendSuccess')) {
+            ilUtil::sendSuccess($text, true);
+        } else {
+            $this->container->dic()->ui()->mainTemplate()->setOnScreenMessage(
+                'success',
+                $text,
+                true
+            );
+        }
     }
 
     /**

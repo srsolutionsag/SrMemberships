@@ -44,7 +44,7 @@ class RolesPersonSource implements PersonSource
         foreach ($this->role_ids as $role_id) {
             yield from array_map(function ($user_id) {
                 return (int) $user_id;
-            }, $this->rbac_review->assignedUsers($role_id));
+            }, $this->rbac_review->assignedUsers((int) $role_id));
         }
     }
 }

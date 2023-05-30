@@ -41,32 +41,48 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
         $this->container = Container::getInstance($plugin);
     }
 
-    public function getId()
+    public function getTitle(): string
+    {
+        return "SRMS Workflow Job";
+    }
+
+    public function getDescription(): string
+    {
+        return "This job will run all workflows that are configured to run via cron.";
+    }
+
+    #[ReturnTypeWillChange]
+    public function getId(): string
     {
         return self::SRMS_WORKFLOW_JOB;
     }
 
-    public function hasAutoActivation()
+    #[ReturnTypeWillChange]
+    public function hasAutoActivation(): bool
     {
         return true;
     }
 
-    public function hasFlexibleSchedule()
+    #[ReturnTypeWillChange]
+    public function hasFlexibleSchedule(): bool
     {
         return true;
     }
 
-    public function getDefaultScheduleType()
+    #[ReturnTypeWillChange]
+    public function getDefaultScheduleType(): int
     {
         return ilCronJob::SCHEDULE_TYPE_IN_HOURS;
     }
 
-    public function getDefaultScheduleValue()
+    #[ReturnTypeWillChange]
+    public function getDefaultScheduleValue(): ?int
     {
         return 6;
     }
 
-    public function run()
+    #[ReturnTypeWillChange]
+    public function run(): ilCronJobResult
     {
         $result = new ilCronJobResult();
 
@@ -86,5 +102,4 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
 
         return $result;
     }
-
 }

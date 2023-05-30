@@ -70,7 +70,7 @@ class Container extends \Pimple\Container
         };
 
         $container['origin'] = function () use ($DIC): int {
-            return \ilSrMembershipsDispatcher::getOriginType();
+            return \ilSrMembershipsDispatcherGUI::getOriginType();
         };
 
         $container['tab_manager'] = function (Container $c) use ($DIC): \ilSrMsTabManager {

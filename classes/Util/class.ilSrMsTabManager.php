@@ -1,4 +1,5 @@
-<?php /**
+<?php
+/**
  * This file is part of ILIAS, a powerful learning management system
  * published by ILIAS open source e-Learning e.V.
  *
@@ -36,7 +37,7 @@ class ilSrMsTabManager
     public const TAB_CONFIG = 'tab_config_index';
     // ilSrTabManager language variables:
     protected const MSG_BACK_TO = 'msg_back_to';
-    const WORKFLOW_PREFIX = 'workflow_';
+    public const WORKFLOW_PREFIX = 'workflow_';
     /**
      * @var Container
      */
@@ -250,7 +251,7 @@ class ilSrMsTabManager
      */
     protected function inAdministration(): bool
     {
-        return (ilSrMembershipsDispatcher::ORIGIN_TYPE_ADMINISTRATION === $this->origin);
+        return (ilSrMembershipsDispatcherGUI::ORIGIN_TYPE_ADMINISTRATION === $this->origin);
     }
 
     /**
@@ -260,6 +261,6 @@ class ilSrMsTabManager
      */
     protected function inRepository(): bool
     {
-        return (ilSrMembershipsDispatcher::ORIGIN_TYPE_REPOSITORY === $this->origin);
+        return (ilSrMembershipsDispatcherGUI::ORIGIN_TYPE_REPOSITORY === $this->origin);
     }
 }

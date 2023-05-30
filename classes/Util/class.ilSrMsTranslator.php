@@ -31,7 +31,12 @@ class ilSrMsTranslator implements Translator
         static $plugin;
         if (!isset($plugin)) {
             global $DIC;
-            $plugin = ilPluginAdmin::getPluginObject(
+            if (isset($DIC['component.factory'])) {
+                /** @var ilComponentFactory $component_factory */
+                $component_factory = $DIC['component.factory'];
+                return $plugin = $component_factory->getPlugin('srmem');
+            }
+            return $plugin = ilPluginAdmin::getPluginObject(
                 IL_COMP_SERVICE,
                 "Cron",
                 "crnhk",

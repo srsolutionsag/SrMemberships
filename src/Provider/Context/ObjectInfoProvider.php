@@ -109,10 +109,10 @@ class ObjectInfoProvider
         $command_class = $this->request->getQueryParams()['cmdClass'] ?? null;
         switch ($this->getType($ref_id)) {
             case ObjectInfoProvider::TYPE_CRS:
-                $context_command_class_fits = $command_class === strtolower(\ilCourseMembershipGUI::class);
+                $context_command_class_fits = strtolower($command_class) === strtolower(\ilCourseMembershipGUI::class);
                 break;
             case ObjectInfoProvider::TYPE_GRP:
-                $context_command_class_fits = $command_class === strtolower(\ilGroupMembershipGUI::class);
+                $context_command_class_fits = strtolower($command_class) === strtolower(\ilGroupMembershipGUI::class);
                 break;
             default:
                 $context_command_class_fits = false;
@@ -139,7 +139,7 @@ class ObjectInfoProvider
         $roles = [];
         foreach ($this->rbacreview->getRolesByFilter(\ilRbacReview::FILTER_ALL_GLOBAL) as $role) {
             $role_id = (int) $role['obj_id'];
-            if($role_id === 14) {
+            if ($role_id === 14) {
                 continue;
             }
             $roles[$role_id] = $role['title'];

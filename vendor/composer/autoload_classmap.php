@@ -8,7 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'ilSrMembershipsConfigGUI' => $baseDir . '/classes/class.ilSrMembershipsConfigGUI.php',
-    'ilSrMembershipsDispatcher' => $baseDir . '/classes/class.ilSrMembershipsDispatcher.php',
+    'ilSrMembershipsDispatcherGUI' => $baseDir . '/classes/class.ilSrMembershipsDispatcherGUI.php',
     'ilSrMembershipsHandlerGUI' => $baseDir . '/classes/class.ilSrMembershipsHandlerGUI.php',
     'ilSrMembershipsPlugin' => $baseDir . '/classes/class.ilSrMembershipsPlugin.php',
     'ilSrMembershipsWorkflowJob' => $baseDir . '/classes/Cron/class.ilSrMembershipsWorkflowJob.php',
