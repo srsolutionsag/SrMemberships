@@ -35,8 +35,10 @@ trait GroupMembers
      * @var \ilGroupParticipants
      */
     private $group_members;
-
-    private int $member_role_id;
+    /**
+     * @var int
+     */
+    private $member_role_id;
 
     public function __construct(int $group_ref_id)
     {

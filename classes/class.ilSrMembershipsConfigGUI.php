@@ -27,7 +27,7 @@ class ilSrMembershipsConfigGUI extends ilPluginConfigGUI
      * Forwards the request to @param string $cmd
      * @throws ilCtrlException
      */
-    public function performCommand(string $cmd): void
+    public function performCommand(/*string*/ $cmd): void
     {
         global $DIC;
 

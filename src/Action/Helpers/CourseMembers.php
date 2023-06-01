@@ -35,8 +35,10 @@ trait CourseMembers
      * @var \ilCourseParticipants
      */
     private $course_members;
-
-    private int $member_role_id;
+    /**
+     * @var int
+     */
+    private $member_role_id;
 
     public function __construct(int $course_ref_id)
     {

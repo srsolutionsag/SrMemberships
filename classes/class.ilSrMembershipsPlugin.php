@@ -56,13 +56,13 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
     }
 
     // we must get a copatible signature with and without string as return type to be compatible with both versions of ILIAS
-    #[ReturnTypeWillChange]
+
     public function getPluginName(): string
     {
         return self::PLUGIN_NAME;
     }
 
-    #[ReturnTypeWillChange]
+
     public function getCronJobInstances(): array
     {
         return [
@@ -70,8 +70,8 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
         ];
     }
 
-    #[ReturnTypeWillChange]
-    public function getCronJobInstance(string $a_job_id): ilCronJob
+
+    public function getCronJobInstance($a_job_id): ilCronJob
     {
         switch ($a_job_id) {
             case ilSrMembershipsWorkflowJob::SRMS_WORKFLOW_JOB:

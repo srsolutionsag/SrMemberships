@@ -51,37 +51,36 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
         return "This job will run all workflows that are configured to run via cron.";
     }
 
-    #[ReturnTypeWillChange]
     public function getId(): string
     {
         return self::SRMS_WORKFLOW_JOB;
     }
 
-    #[ReturnTypeWillChange]
+
     public function hasAutoActivation(): bool
     {
         return true;
     }
 
-    #[ReturnTypeWillChange]
+
     public function hasFlexibleSchedule(): bool
     {
         return true;
     }
 
-    #[ReturnTypeWillChange]
+
     public function getDefaultScheduleType(): int
     {
         return ilCronJob::SCHEDULE_TYPE_IN_HOURS;
     }
 
-    #[ReturnTypeWillChange]
+
     public function getDefaultScheduleValue(): ?int
     {
         return 6;
     }
 
-    #[ReturnTypeWillChange]
+
     public function run(): ilCronJobResult
     {
         $result = new ilCronJobResult();

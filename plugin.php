@@ -3,7 +3,7 @@
 require_once __DIR__ . "/vendor/autoload.php";
 
 $id = 'srmem';
-$version = '0.0.3';
+$version = '0.0.4';
 $ilias_min_version = '7.0';
 $ilias_max_version = '7.999';
 $responsible = 'sr.solutions';
