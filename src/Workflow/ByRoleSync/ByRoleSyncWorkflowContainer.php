@@ -62,7 +62,7 @@ class ByRoleSyncWorkflowContainer extends AbstractBaseWorkflowContainer implemen
     public function isToolAvailable(Context $context): bool
     {
         // depends on settings
-        $offered_to = $this->getConfig()->get(ByRoleSyncConfig::F_OFFER_WORKFLOW_TO);
+        $offered_to = $this->getConfig()->get(ByRoleSyncConfig::F_OFFER_WORKFLOW_TO) ?? [];
         if ($offered_to === [-1]) { // the tool will be shown if the user has manage members permission on the object
             return true;
         }
