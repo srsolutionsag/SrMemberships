@@ -30,11 +30,18 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
 {
     public const PLUGIN_NAME = 'SrMemberships';
 
-    protected function init(): void
+    public function __construct()
     {
-        if ($this->isPluginActive()) {
-            $this->provider_collection = $this->provider_collection ?? new PluginProviderCollection();
+        parent::__construct();
+        $this->init(); // we must double init the plugin to have provider_collection available
+    }
 
+    protected function init() : void
+    {
+        if ($this->provider_collection === null) {
+            return;
+        }
+        if ($this->isPluginActive()) {
             $container = Container::getInstance($this);
             $dynamic_tool_provider = new CollectedMainBarProvider($container->dic(), $container->plugin());
             $dynamic_tool_provider->init($container);
@@ -49,7 +56,7 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
         }
     }
 
-    private function isPluginActive(): bool
+    private function isPluginActive() : bool
     {
         // if parent has method isActive, we use this, otherwise we use getActive
         if (method_exists(get_parent_class($this), 'isActive')) {
@@ -60,13 +67,13 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
 
     // we must get a copatible signature with and without string as return type to be compatible with both versions of ILIAS
 
-    public function getPluginName(): string
+    public function getPluginName() : string
     {
         return self::PLUGIN_NAME;
     }
 
 
-    public function getCronJobInstances(): array
+    public function getCronJobInstances() : array
     {
         return [
             new ilSrMembershipsWorkflowJob($this)
@@ -74,7 +81,7 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
     }
 
 
-    public function getCronJobInstance($a_job_id): ilCronJob
+    public function getCronJobInstance($a_job_id) : ilCronJob
     {
         switch ($a_job_id) {
             case ilSrMembershipsWorkflowJob::SRMS_WORKFLOW_JOB:

@@ -107,7 +107,7 @@ class ObjectInfoProvider
 
     public function isOnMembersTab(int $ref_id) : bool
     {
-        $command_class = $this->request->getQueryParams()['cmdClass'] ?? null;
+        $command_class = $this->request->getQueryParams()['cmdClass'] ?? '';
         switch ($this->getType($ref_id)) {
             case ObjectInfoProvider::TYPE_CRS:
                 $context_command_class_fits = strtolower($command_class) === strtolower(\ilCourseMembershipGUI::class);
