@@ -18,6 +18,7 @@
 
 use srag\Plugins\SrMemberships\Provider\Tool\CollectedMainBarProvider;
 use srag\Plugins\SrMemberships\Container;
+use ILIAS\GlobalScreen\Provider\PluginProviderCollection;
 
 /** @noRector  */
 require_once(__DIR__ . '/../vendor/autoload.php');
@@ -32,6 +33,8 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
     protected function init(): void
     {
         if ($this->isPluginActive()) {
+            $this->provider_collection = $this->provider_collection ?? new PluginProviderCollection();
+
             $container = Container::getInstance($this);
             $dynamic_tool_provider = new CollectedMainBarProvider($container->dic(), $container->plugin());
             $dynamic_tool_provider->init($container);
