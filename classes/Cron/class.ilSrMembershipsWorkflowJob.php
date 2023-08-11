@@ -94,7 +94,14 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
             foreach ($this->container->toolObjectConfigRepository()->getAssignedRefIds($workflow) as $ref_id) {
                 $context = $this->container->contextFactory()->get($ref_id, $this->container->dic()->user()->getId());
                 $modes = $this->container->objectModeRepository()->get($ref_id, $workflow);
-                $workflow->getActionHandler($context)->performActions($workflow, $context, $modes);
+                if ($modes === null) {
+                    continue;
+                }
+                try {
+                    $workflow->getActionHandler($context)->performActions($workflow, $context, $modes);
+                } catch (Throwable $e) {
+                    $result->setMessage($result->getMessage() . "\n" . $e->getMessage());
+                }
             }
         }
         $result->setStatus(ilCronJobResult::STATUS_OK);

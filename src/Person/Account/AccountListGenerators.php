@@ -31,11 +31,6 @@ use srag\Plugins\SrMemberships\Person\Account\Source\GroupAccountSource;
  */
 class AccountListGenerators
 {
-
-    /**
-     * @var Container
-     */
-    private $container;
     /**
      * @var \srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider
      */
@@ -43,14 +38,14 @@ class AccountListGenerators
 
     public function __construct(Container $container)
     {
-        $this->container = $container;
         $this->object_info = $container->objectInfoProvider();
     }
 
-    public function fromContainerId(int $ref_id): AccountList
+    public function fromContainerId(int $ref_id) : AccountList
     {
         $resolver = new ContainerAccountResolver();
-        switch ($this->object_info->getType($ref_id)) {
+        $type = $this->object_info->getType($ref_id);
+        switch ($type) {
             case ObjectInfoProvider::TYPE_CRS:
                 $source = new CourseAccountSource($ref_id);
                 break;
@@ -58,13 +53,13 @@ class AccountListGenerators
                 $source = new GroupAccountSource($ref_id);
                 break;
             default:
-                throw new \InvalidArgumentException('Unsupported object type');
+                throw new \InvalidArgumentException('Unsupported object type for ref_id ' . $ref_id . ': ' . $type);
         }
 
         return $resolver->resolveFor($source);
     }
 
-    public function diff(AccountList $current, AccountList $new): AccountList
+    public function diff(AccountList $current, AccountList $new) : AccountList
     {
         $diff = new AccountList();
         foreach ($current->getAccounts() as $account) {

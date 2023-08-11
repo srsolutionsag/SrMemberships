@@ -68,24 +68,25 @@ class ObjectInfoProvider
         $this->valid_parent_types = ['crs', 'grp', 'root', 'cat'];
     }
 
-    public function getType(int $ref_id): string
+    public function getType(int $ref_id) : string
     {
         if (isset($this->cache[$ref_id])) {
             return $this->cache[$ref_id];
         }
 
         $node_info = $this->tree->getNodeData($ref_id);
-        switch ($node_info['type']) {
+        $native_type = $node_info['type'];
+        switch ($native_type) {
             case 'crs':
                 return $this->cache[$ref_id] = self::TYPE_CRS;
             case 'grp':
                 return $this->cache[$ref_id] = self::TYPE_GRP;
             default:
-                return $this->cache[$ref_id] = 'unknown';
+                return $this->cache[$ref_id] = $native_type ?? 'unknown';
         }
     }
 
-    public function getMembersTabLink(int $ref_id): string
+    public function getMembersTabLink(int $ref_id) : string
     {
         $type = $this->getType($ref_id);
         switch ($type) {
@@ -104,7 +105,7 @@ class ObjectInfoProvider
         }
     }
 
-    public function isOnMembersTab(int $ref_id): bool
+    public function isOnMembersTab(int $ref_id) : bool
     {
         $command_class = $this->request->getQueryParams()['cmdClass'] ?? null;
         switch ($this->getType($ref_id)) {
@@ -125,7 +126,7 @@ class ObjectInfoProvider
      * @param array $role_ids of int
      * @return array int => string
      */
-    public function translateRoleIds(array $role_ids): array
+    public function translateRoleIds(array $role_ids) : array
     {
         $roles = [];
         foreach ($role_ids as $role_id) {
@@ -134,7 +135,7 @@ class ObjectInfoProvider
         return $roles;
     }
 
-    public function getGlobalRoles(): array
+    public function getGlobalRoles() : array
     {
         $roles = [];
         foreach ($this->rbacreview->getRolesByFilter(\ilRbacReview::FILTER_ALL_GLOBAL) as $role) {
@@ -148,7 +149,7 @@ class ObjectInfoProvider
         return $roles;
     }
 
-    public function getLocalRoles(): array
+    public function getLocalRoles() : array
     {
         $roles = [];
         foreach ($this->rbacreview->getRolesByFilter(\ilRbacReview::FILTER_ALL_LOCAL) as $role) {
