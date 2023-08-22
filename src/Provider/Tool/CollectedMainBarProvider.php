@@ -55,7 +55,7 @@ class CollectedMainBarProvider extends AbstractDynamicToolPluginProvider
      */
     private $context_factory = null;
 
-    public function getToolsForContextStack(CalledContexts $called_contexts): array
+    public function getToolsForContextStack(CalledContexts $called_contexts) : array
     {
         $current_ref_id = $called_contexts->current()->hasReferenceId()
             ? $called_contexts->current()->getReferenceId()->toInt()
@@ -81,12 +81,12 @@ class CollectedMainBarProvider extends AbstractDynamicToolPluginProvider
         return $tools;
     }
 
-    public function isInterestedInContexts(): ContextCollection
+    public function isInterestedInContexts() : ContextCollection
     {
         return $this->context_collection->repository();
     }
 
-    public function init(\srag\Plugins\SrMemberships\Container $container)
+    public function init(\srag\Plugins\SrMemberships\Container\Container $container)
     {
         $this->translator = $container->translator();
         $this->config = $container->config();

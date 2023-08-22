@@ -22,7 +22,7 @@ namespace srag\Plugins\SrMemberships\Provider\Tool;
 
 use ILIAS\GlobalScreen\Scope\Tool\Factory\Tool;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use srag\Plugins\SrMemberships\Config\Config;
 use srag\Plugins\SrMemberships\Workflow\Config\WorkflowConfig;
@@ -86,7 +86,7 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
         Context $context,
         ToolFactory $tool_factory,
         PluginIdentificationProvider $identification_factory
-    ): ?Tool {
+    ) : ?Tool {
         if (!$this->hasTool($context)) {
             return null;
         }
@@ -107,7 +107,7 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
                             });
     }
 
-    protected function hasTool(Context $context): bool
+    protected function hasTool(Context $context) : bool
     {
         // check if context is valid
         $types = $this->workflow_config->getActivatedForTypes();
@@ -129,5 +129,4 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
 
         return true;
     }
-
 }

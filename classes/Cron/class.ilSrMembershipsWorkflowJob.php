@@ -16,7 +16,8 @@
  *
  *********************************************************************/
 
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
+use srag\Plugins\SrMemberships\Container\Init;
 
 /**
  * This is the entry point of the plugin-configuration.
@@ -38,50 +39,51 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
 
     public function __construct(ilSrMembershipsPlugin $plugin)
     {
-        $this->container = Container::getInstance($plugin);
+        global $DIC;
+        $this->container = Init::init($DIC, $plugin);
     }
 
-    public function getTitle(): string
+    public function getTitle() : string
     {
         return "SRMS Workflow Job";
     }
 
-    public function getDescription(): string
+    public function getDescription() : string
     {
         return "This job will run all workflows that are configured to run via cron.";
     }
 
-    public function getId(): string
+    public function getId() : string
     {
         return self::SRMS_WORKFLOW_JOB;
     }
 
 
-    public function hasAutoActivation(): bool
+    public function hasAutoActivation() : bool
     {
         return true;
     }
 
 
-    public function hasFlexibleSchedule(): bool
+    public function hasFlexibleSchedule() : bool
     {
         return true;
     }
 
 
-    public function getDefaultScheduleType(): int
+    public function getDefaultScheduleType() : int
     {
         return ilCronJob::SCHEDULE_TYPE_IN_HOURS;
     }
 
 
-    public function getDefaultScheduleValue(): ?int
+    public function getDefaultScheduleValue() : ?int
     {
         return 6;
     }
 
 
-    public function run(): ilCronJobResult
+    public function run() : ilCronJobResult
     {
         $result = new ilCronJobResult();
 

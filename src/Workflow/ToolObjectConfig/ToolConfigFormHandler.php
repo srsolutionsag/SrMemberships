@@ -20,7 +20,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow\ToolObjectConfig;
 
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
 use ILIAS\UI\Component\Input\Field\Section;
@@ -31,7 +31,7 @@ use ILIAS\UI\Component\Input\Field\Section;
 class ToolConfigFormHandler
 {
     /**
-     * @var Container
+     * @var \srag\Plugins\SrMemberships\Container\Container
      */
     private $container;
     /**
@@ -59,7 +59,7 @@ class ToolConfigFormHandler
         $this->container = $container;
     }
 
-    public function makeFormSectionStorable(Section $section): Section
+    public function makeFormSectionStorable(Section $section) : Section
     {
         $section = $section->withAdditionalTransformation(
             $this->container->dic()->refinery()->custom()->transformation(function ($value) {
@@ -82,5 +82,4 @@ class ToolConfigFormHandler
         }
         return $section;
     }
-
 }

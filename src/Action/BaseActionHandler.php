@@ -21,7 +21,7 @@ declare(strict_types=1);
 namespace srag\Plugins\SrMemberships\Action;
 
 use srag\Plugins\SrMemberships\Person\PersonsToAccounts;
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>

@@ -6,21 +6,21 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit41e6877b42375d55267017714a73708b
 {
-    public static $prefixLengthsPsr4 = array(
-        's' =>
-        array(
+    public static $prefixLengthsPsr4 = array (
+        's' => 
+        array (
             'srag\\Plugins\\SrMemberships\\' => 27,
         ),
     );
 
-    public static $prefixDirsPsr4 = array(
-        'srag\\Plugins\\SrMemberships\\' =>
-        array(
+    public static $prefixDirsPsr4 = array (
+        'srag\\Plugins\\SrMemberships\\' => 
+        array (
             0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
-    public static $classMap = array(
+    public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'ilSrMembershipsConfigGUI' => __DIR__ . '/../..' . '/classes/class.ilSrMembershipsConfigGUI.php',
         'ilSrMembershipsDispatcherGUI' => __DIR__ . '/../..' . '/classes/class.ilSrMembershipsDispatcherGUI.php',
@@ -62,7 +62,8 @@ class ComposerStaticInit41e6877b42375d55267017714a73708b
         'srag\\Plugins\\SrMemberships\\Config\\NullConfigForm' => __DIR__ . '/../..' . '/src/Config/NullConfigForm.php',
         'srag\\Plugins\\SrMemberships\\Config\\PackedValue' => __DIR__ . '/../..' . '/src/Config/PackedValue.php',
         'srag\\Plugins\\SrMemberships\\Config\\Packer' => __DIR__ . '/../..' . '/src/Config/Packer.php',
-        'srag\\Plugins\\SrMemberships\\Container' => __DIR__ . '/../..' . '/src/Container.php',
+        'srag\\Plugins\\SrMemberships\\Container\\Container' => __DIR__ . '/../..' . '/src/Container/Container.php',
+        'srag\\Plugins\\SrMemberships\\Container\\Init' => __DIR__ . '/../..' . '/src/Container/Init.php',
         'srag\\Plugins\\SrMemberships\\Implementations\\PersonResolverFactory' => __DIR__ . '/../..' . '/src/Implementations/PersonResolverFactory.php',
         'srag\\Plugins\\SrMemberships\\Implementations\\TextList\\ListOfEmailsSource' => __DIR__ . '/../..' . '/src/Implementations/TextList/ListOfEmailsSource.php',
         'srag\\Plugins\\SrMemberships\\Implementations\\TextList\\ListOfMatriculationsSource' => __DIR__ . '/../..' . '/src/Implementations/TextList/ListOfMatriculationsSource.php',
@@ -131,6 +132,7 @@ class ComposerStaticInit41e6877b42375d55267017714a73708b
             $loader->prefixLengthsPsr4 = ComposerStaticInit41e6877b42375d55267017714a73708b::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit41e6877b42375d55267017714a73708b::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit41e6877b42375d55267017714a73708b::$classMap;
+
         }, null, ClassLoader::class);
     }
 }

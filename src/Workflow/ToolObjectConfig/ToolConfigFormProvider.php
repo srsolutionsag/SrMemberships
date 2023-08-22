@@ -20,7 +20,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow\ToolObjectConfig;
 
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
 use ILIAS\UI\Component\Input\Field\Section;
@@ -37,5 +37,5 @@ interface ToolConfigFormProvider
 
     public function getFormSection(
         Context $context
-    ): Section;
+    ) : Section;
 }

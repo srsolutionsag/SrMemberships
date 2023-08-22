@@ -21,7 +21,7 @@ declare(strict_types=1);
 namespace srag\Plugins\SrMemberships\Config;
 
 use ILIAS\UI\Factory;
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
 use ILIAS\UI\Implementation\Component\Input\Field\Text;
 use ILIAS\UI\Component\Input\Field\Checkbox;
 use ILIAS\Refinery\Transformation;
@@ -87,7 +87,7 @@ abstract class AbstractConfigForm implements ConfigForm
         string $config_key,
         string $label,
         string $byline = null
-    ): Text {
+    ) : Text {
         return $this->ui_factory->input()->field()->text($label, $byline)
                                 ->withValue($this->config->get($config_key, ''))
                                 ->withAdditionalTransformation(
@@ -99,7 +99,7 @@ abstract class AbstractConfigForm implements ConfigForm
         string $config_key,
         string $label,
         string $byline = null
-    ): Checkbox {
+    ) : Checkbox {
         return $this->ui_factory->input()->field()->checkbox($label, $byline)
                                 ->withValue($this->config->get($config_key, false))
                                 ->withAdditionalTransformation(
@@ -112,7 +112,7 @@ abstract class AbstractConfigForm implements ConfigForm
         string $label,
         array $options,
         string $byline = null
-    ): Select {
+    ) : Select {
         return $this->ui_factory->input()->field()->select($label, $options, $byline)
                                 ->withValue($this->config->get($config_key, null))
                                 ->withAdditionalTransformation(
@@ -127,7 +127,7 @@ abstract class AbstractConfigForm implements ConfigForm
         int $all_value,
         array $options,
         string $byline = null
-    ): \ILIAS\UI\Component\Input\Field\Group {
+    ) : \ILIAS\UI\Component\Input\Field\Group {
         $value = $this->config->get($config_key, null);
         if (in_array($all_value, $value ?? [], true)) {
             $group_value = self::GROUP_KEY_ALL;
@@ -171,7 +171,7 @@ abstract class AbstractConfigForm implements ConfigForm
         string $label,
         array $options,
         string $byline = null
-    ): MultiSelect {
+    ) : MultiSelect {
         return $this->ui_factory->input()->field()->multiSelect($label, $options, $byline)
                                 ->withValue($this->config->get($config_key, null))
                                 ->withAdditionalTransformation(
@@ -179,7 +179,7 @@ abstract class AbstractConfigForm implements ConfigForm
                                 );
     }
 
-    protected function getTransformation(string $config_key): Transformation
+    protected function getTransformation(string $config_key) : Transformation
     {
         return $this->refinery->custom()->transformation(function ($value) use ($config_key) {
             $this->config->set($config_key, $value);
@@ -187,11 +187,11 @@ abstract class AbstractConfigForm implements ConfigForm
         });
     }
 
-    abstract protected function getFields(): array;
+    abstract protected function getFields() : array;
 
     public function getForm(
         ?ServerRequestInterface $with_request = null
-    ): \ILIAS\UI\Component\Input\Container\Form\Standard {
+    ) : \ILIAS\UI\Component\Input\Container\Form\Standard {
         $post_url = $this->ctrl->getLinkTarget($this->target_gui, $this->target_command);
 
         $standard = $this->ui_factory->input()->container()->form()->standard(

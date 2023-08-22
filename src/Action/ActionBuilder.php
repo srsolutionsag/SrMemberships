@@ -20,7 +20,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Action;
 
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider;
 
 /**
@@ -33,7 +33,7 @@ class ActionBuilder
      */
     private $object_info;
     /**
-     * @var Container
+     * @var \srag\Plugins\SrMemberships\Container\Container
      */
     protected $container;
 
@@ -44,7 +44,7 @@ class ActionBuilder
         $this->object_info = $container->objectInfoProvider();
     }
 
-    public function subscribe(int $ref_id): Action
+    public function subscribe(int $ref_id) : Action
     {
         switch ($this->object_info->getType($ref_id)) {
             case ObjectInfoProvider::TYPE_CRS:
@@ -56,7 +56,7 @@ class ActionBuilder
         }
     }
 
-    public function unsubscribe(int $ref_id): Action
+    public function unsubscribe(int $ref_id) : Action
     {
         switch ($this->object_info->getType($ref_id)) {
             case ObjectInfoProvider::TYPE_CRS:

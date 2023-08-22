@@ -20,7 +20,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow;
 
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Provider\Tool\WorkflowToolProvider;
 use srag\Plugins\SrMemberships\Provider\Tool\StandardWorkflowToolProvider;
 
@@ -30,7 +30,7 @@ use srag\Plugins\SrMemberships\Provider\Tool\StandardWorkflowToolProvider;
 abstract class AbstractBaseWorkflowContainer implements WorkflowContainer
 {
     /**
-     * @var Container
+     * @var \srag\Plugins\SrMemberships\Container\Container
      */
     protected $container;
 
@@ -39,12 +39,12 @@ abstract class AbstractBaseWorkflowContainer implements WorkflowContainer
         $this->container = $container;
     }
 
-    public function isActivated(): bool
+    public function isActivated() : bool
     {
         return $this->container->config()->general()->getEnabledWorkflows()[$this->getWorkflowID()] ?? false;
     }
 
-    public function getToolProvider(): WorkflowToolProvider
+    public function getToolProvider() : WorkflowToolProvider
     {
         return new StandardWorkflowToolProvider(
             $this->container,

@@ -20,7 +20,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Person\Account;
 
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Person\Account\Resolver\ContainerAccountResolver;
 use srag\Plugins\SrMemberships\Person\Account\Source\CourseAccountSource;
 use srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider;

@@ -21,7 +21,7 @@ declare(strict_types=1);
 namespace srag\Plugins\SrMemberships\Workflow;
 
 use srag\Plugins\SrMemberships\Config\ConfigForm;
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Config\Config;
 use srag\Plugins\SrMemberships\Provider\Tool\WorkflowToolProvider;
 use srag\Plugins\SrMemberships\Workflow\ToolObjectConfig\ToolConfigFormProvider;
@@ -36,24 +36,24 @@ interface WorkflowContainer
 {
     public function __construct(Container $container);
 
-    public function getPossiblesModes(): Modes;
+    public function getPossiblesModes() : Modes;
 
-    public function getWorkflowID(): string;
+    public function getWorkflowID() : string;
 
-    public function getConfigClass(): \ilSrMsAbstractGUI;
+    public function getConfigClass() : \ilSrMsAbstractGUI;
 
-    public function isActivated(): bool;
-    public function isToolAvailable(Context $context): bool;
+    public function isActivated() : bool;
+    public function isToolAvailable(Context $context) : bool;
 
-    public function getConfig(): Config;
+    public function getConfig() : Config;
 
-    public function getConfigForm(): ConfigForm;
+    public function getConfigForm() : ConfigForm;
 
-    public function getToolProvider(): WorkflowToolProvider;
+    public function getToolProvider() : WorkflowToolProvider;
 
-    public function getWorkflowToolForm(): ToolConfigFormProvider;
+    public function getWorkflowToolForm() : ToolConfigFormProvider;
 
-    public function getWorkflowToolFormProcessor(): \ilSrMsAbstractWorkflowProcessorGUI;
+    public function getWorkflowToolFormProcessor() : \ilSrMsAbstractWorkflowProcessorGUI;
 
-    public function getActionHandler(Context $context): ActionHandler;
+    public function getActionHandler(Context $context) : ActionHandler;
 }

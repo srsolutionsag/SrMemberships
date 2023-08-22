@@ -20,7 +20,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Person\Persons;
 
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Person\Persons\Resolver\RolesPersonResolver;
 use srag\Plugins\SrMemberships\Person\Persons\Source\RolesPersonSource;
 
@@ -31,7 +31,7 @@ class PersonListGenerators
 {
 
     /**
-     * @var Container
+     * @var \srag\Plugins\SrMemberships\Container\Container
      */
     private $container;
 
@@ -40,7 +40,7 @@ class PersonListGenerators
         $this->container = $container;
     }
 
-    public function byRoleIds(array $role_ids): PersonList
+    public function byRoleIds(array $role_ids) : PersonList
     {
         $resolver = new RolesPersonResolver();
         return $resolver->resolveFor(new RolesPersonSource($role_ids, $this->container->dic()->rbac()->review()));

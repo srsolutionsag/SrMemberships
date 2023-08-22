@@ -18,7 +18,8 @@
 
 declare(strict_types=1);
 
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
+use srag\Plugins\SrMemberships\Container\Init;
 
 /**
  * @author            Fabian Schmid <fabian@sr.solutions>
@@ -57,10 +58,10 @@ class ilSrMembershipsDispatcherGUI
         global $DIC;
         $this->global_template = $DIC->ui()->mainTemplate();
         $this->ctrl = $DIC->ctrl();
-        $this->container = Container::getInstance();
+        $this->container = Init::init($DIC);
     }
 
-    public function executeCommand(): void
+    public function executeCommand() : void
     {
         $next_class = $this->ctrl->getNextClass();
 
@@ -99,7 +100,7 @@ class ilSrMembershipsDispatcherGUI
      *
      * @return int
      */
-    public static function getOriginType(): int
+    public static function getOriginType() : int
     {
         global $DIC;
         $call_history = $DIC->ctrl()->getCallHistory();
@@ -130,7 +131,7 @@ class ilSrMembershipsDispatcherGUI
      * @param string $cmd
      * @return string
      */
-    public static function getLinkTarget(string $class, string $cmd): string
+    public static function getLinkTarget(string $class, string $cmd) : string
     {
         global $DIC;
 
@@ -150,7 +151,7 @@ class ilSrMembershipsDispatcherGUI
      *
      * @param string $class_name
      */
-    protected function safelyForward(string $class_name): void
+    protected function safelyForward(string $class_name) : void
     {
         try {
             $this->ctrl->forwardCommand(new $class_name());
@@ -164,7 +165,7 @@ class ilSrMembershipsDispatcherGUI
         }
     }
 
-    private function isDebugModeEnabled(): bool
+    private function isDebugModeEnabled() : bool
     {
         return true; // TODO move to config
     }
@@ -175,7 +176,7 @@ class ilSrMembershipsDispatcherGUI
      * @param Throwable $exception
      * @return string
      */
-    protected function getExceptionString(Throwable $exception): string
+    protected function getExceptionString(Throwable $exception) : string
     {
         $message = "{$exception->getMessage()} : ";
         $message .= "<br /><br />";

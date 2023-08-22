@@ -20,7 +20,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Provider\Context;
 
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -29,7 +29,7 @@ class ContextFactory
 {
 
     /**
-     * @var Container
+     * @var \srag\Plugins\SrMemberships\Container\Container
      */
     private $container;
     /**
@@ -51,7 +51,7 @@ class ContextFactory
     public function get(
         int $ref_id,
         int $user_id
-    ): Context {
+    ) : Context {
         return new Context(
             $ref_id,
             $user_id,

@@ -21,11 +21,10 @@ declare(strict_types=1);
 namespace srag\Plugins\SrMemberships\Config;
 
 use ILIAS\UI\Factory;
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
 use ILIAS\UI\Implementation\Component\Input\Field\Text;
 use ILIAS\UI\Component\Input\Field\Checkbox;
 use ILIAS\Refinery\Transformation;
-use ILIAS\UI\Component\Input\Field\Input;
 use ILIAS\UI\Component\Input\Field\Select;
 use ILIAS\UI\Component\Input\Field\MultiSelect;
 

@@ -24,7 +24,8 @@ use ILIAS\UI\Renderer;
 use ILIAS\UI\Factory;
 use srag\Plugins\SrMemberships\Translator;
 use srag\Plugins\SrMemberships\Config\Configs;
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
+use srag\Plugins\SrMemberships\Container\Init;
 
 /**
  * This is an abstraction for ILIAS command-class implementations.
@@ -146,7 +147,6 @@ abstract class ilSrMsAbstractGUI
     {
         global $DIC;
 
-        $this->origin =
         $this->global_template = $DIC->ui()->mainTemplate();
         $this->ui_factory = $DIC->ui()->factory();
         $this->renderer = $DIC->ui()->renderer();
@@ -156,7 +156,7 @@ abstract class ilSrMsAbstractGUI
         $this->user = $DIC->user();
         $this->database = $DIC->database();
 
-        $this->container = Container::getInstance();
+        $this->container = Init::init($DIC);
         $this->access_handler = $this->container->accessHandler();
         $this->translator = $this->container->translator();
         $this->tab_manager = $this->container->tabManager();
@@ -173,7 +173,7 @@ abstract class ilSrMsAbstractGUI
      * class in the control flow, and must therefore dispatch ilCtrl's
      * command.
      */
-    public function executeCommand(): void
+    public function executeCommand() : void
     {
         $command = $this->ctrl->getCmd(self::CMD_INDEX);
         if (!method_exists(static::class, $command)) {
@@ -203,7 +203,7 @@ abstract class ilSrMsAbstractGUI
      * This method MUST set up the current page (global template).
      * It should manage things like the page-title, -description or tabs.
      */
-    abstract protected function setupGlobalTemplate(ilGlobalTemplateInterface $template, ilSrMsTabManager $tabs): void;
+    abstract protected function setupGlobalTemplate(ilGlobalTemplateInterface $template, ilSrMsTabManager $tabs) : void;
 
     /**
      * This method MUST check if the given user can execute the command.
@@ -213,7 +213,7 @@ abstract class ilSrMsAbstractGUI
      * differ between the derived classes commands.
      *
      */
-    abstract protected function canUserExecute(ilSrMsAccessHandler $access_handler, string $command): bool;
+    abstract protected function canUserExecute(ilSrMsAccessHandler $access_handler, string $command) : bool;
 
     /**
      * This method is the entry point of the command class.
@@ -224,14 +224,14 @@ abstract class ilSrMsAbstractGUI
      * @see ilSrAbstractGUI::cancel() can also be used within
      * the same GUI class.
      */
-    abstract protected function index(): void;
+    abstract protected function index() : void;
 
     /**
      * Redirects back to the derived classes index method.
      *
      * @see ilSrAbstractGUI::index()
      */
-    protected function cancel(): void
+    protected function cancel() : void
     {
         $this->ctrl->redirectByClass(
             static::class,
@@ -246,7 +246,7 @@ abstract class ilSrMsAbstractGUI
      * @param string $parameter
      * @return string|null
      */
-    protected function getRequestParameter(string $parameter): ?string
+    protected function getRequestParameter(string $parameter) : ?string
     {
         return $this->request->getQueryParams()[$parameter] ?? null;
     }
@@ -256,7 +256,7 @@ abstract class ilSrMsAbstractGUI
      *
      * @param Component $component
      */
-    protected function render(Component $component): void
+    protected function render(Component $component) : void
     {
         $this->global_template->setContent(
             $this->renderer->render($component)
@@ -268,7 +268,7 @@ abstract class ilSrMsAbstractGUI
      *
      * @param int $ref_id
      */
-    protected function redirectToRefId(int $ref_id): void
+    protected function redirectToRefId(int $ref_id) : void
     {
         $this->ctrl->redirectToURL($this->container->objectInfoProvider()->getMembersTabLink($ref_id));
     }
@@ -284,7 +284,7 @@ abstract class ilSrMsAbstractGUI
      * @param string|null $query_parameter
      * @return string
      */
-    protected function getFormAction(string $command, string $query_parameter = null): string
+    protected function getFormAction(string $command, string $query_parameter = null) : string
     {
         // temporarily safe the parameter value if it has been requested.
         if (null !== $query_parameter &&
@@ -312,7 +312,7 @@ abstract class ilSrMsAbstractGUI
      *
      * @param string $lang_var
      */
-    protected function sendErrorMessage(string $lang_var): void
+    protected function sendErrorMessage(string $lang_var) : void
     {
         ilUtil::sendFailure($this->translator->txt($lang_var), true);
     }
@@ -322,7 +322,7 @@ abstract class ilSrMsAbstractGUI
      *
      * @param string $lang_var
      */
-    protected function displayErrorMessage(string $lang_var): void
+    protected function displayErrorMessage(string $lang_var) : void
     {
         $this->displayMessageToast($lang_var, 'failure');
     }
@@ -332,7 +332,7 @@ abstract class ilSrMsAbstractGUI
      *
      * @param string $lang_var
      */
-    protected function sendSuccessMessage(string $lang_var): void
+    protected function sendSuccessMessage(string $lang_var) : void
     {
         $text = $this->translator->txt($lang_var);
         if (method_exists(ilUtil::class, 'sendSuccess')) {
@@ -351,7 +351,7 @@ abstract class ilSrMsAbstractGUI
      *
      * @param string $lang_var
      */
-    protected function displaySuccessMessage(string $lang_var): void
+    protected function displaySuccessMessage(string $lang_var) : void
     {
         $this->displayMessageToast($lang_var, 'success');
     }
@@ -361,7 +361,7 @@ abstract class ilSrMsAbstractGUI
      *
      * @param string $lang_var
      */
-    protected function sendInfoMessage(string $lang_var): void
+    protected function sendInfoMessage(string $lang_var) : void
     {
         ilUtil::sendInfo($this->translator->txt($lang_var), true);
     }
@@ -371,7 +371,7 @@ abstract class ilSrMsAbstractGUI
      *
      * @param string $lang_var
      */
-    protected function displayInfoMessage(string $lang_var): void
+    protected function displayInfoMessage(string $lang_var) : void
     {
         $this->displayMessageToast($lang_var, 'info');
     }
@@ -382,7 +382,7 @@ abstract class ilSrMsAbstractGUI
      * @param string $lang_var
      * @param string $type (info|success|failure)
      */
-    private function displayMessageToast(string $lang_var, string $type): void
+    private function displayMessageToast(string $lang_var, string $type) : void
     {
         $this->render(
             $this->ui_factory->messageBox()->{$type}(

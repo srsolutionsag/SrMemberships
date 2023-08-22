@@ -20,7 +20,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Config;
 
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
 use Psr\Http\Message\ServerRequestInterface;
 
 /**
@@ -40,5 +40,5 @@ interface ConfigForm
 
     public function getForm(
         ?ServerRequestInterface $with_request = null
-    ): \ILIAS\UI\Component\Input\Container\Form\Standard;
+    ) : \ILIAS\UI\Component\Input\Container\Form\Standard;
 }

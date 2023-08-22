@@ -18,7 +18,7 @@
 declare(strict_types=1);
 
 use srag\Plugins\SrMemberships\Translator;
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
 
 /**
  * This class is responsible for managing the plugin tabs.
@@ -83,7 +83,7 @@ class ilSrMsTabManager
         $this->container = $container;
     }
 
-    public function addConfigurationTab(bool $is_active = false, string $activated_feature = null): self
+    public function addConfigurationTab(bool $is_active = false, string $activated_feature = null) : self
     {
         // add plugin-configuration tab only for administrator
         if (!$this->access_handler->isAdministrator()) {
@@ -118,7 +118,7 @@ class ilSrMsTabManager
         return $this;
     }
 
-    public function addFeaturesSubTabs(string $active_feature = null): self
+    public function addFeaturesSubTabs(string $active_feature = null) : self
     {
         if (!$this->access_handler->isAdministrator()) {
             return $this;
@@ -146,7 +146,7 @@ class ilSrMsTabManager
         return $this;
     }
 
-    public function addAnotherTab(bool $is_active = false): self
+    public function addAnotherTab(bool $is_active = false) : self
     {
         // add routine-tab only for routine managers.
 //        if (!$this->access_handler->canManageRoutines()) {
@@ -174,7 +174,7 @@ class ilSrMsTabManager
      * @see ilSrRoutineGUI::index().
      *
      */
-    public function addBackToRoutines(): self
+    public function addBackToRoutines() : self
     {
 //        $this->addBackToTarget(
 //            $this->ctrl->getLinkTargetByClass(
@@ -186,7 +186,7 @@ class ilSrMsTabManager
         return $this;
     }
 
-    public function addBackToIndex(string $class): self
+    public function addBackToIndex(string $class) : self
     {
         $this->addBackToTarget(
             $this->ctrl->getLinkTargetByClass(
@@ -198,20 +198,20 @@ class ilSrMsTabManager
         return $this;
     }
 
-    public function addBackToObject(int $ref_id): self
+    public function addBackToObject(int $ref_id) : self
     {
         $this->addBackToTarget(ilLink::_getLink($ref_id));
         return $this;
     }
 
-    public function addBackToObjectMembersTab(int $ref_id): self
+    public function addBackToObjectMembersTab(int $ref_id) : self
     {
         $members_tab_link = $this->container->objectInfoProvider()->getMembersTabLink($ref_id);
         $this->addBackToTarget($members_tab_link);
         return $this;
     }
 
-    public function addBackToTarget(string $target): self
+    public function addBackToTarget(string $target) : self
     {
         $this->tabs->setBackTarget(
             $this->translator->txt(self::MSG_BACK_TO),
@@ -227,7 +227,7 @@ class ilSrMsTabManager
      * @param string $tab_id
      * @return self
      */
-    public function setActiveTab(string $tab_id): self
+    public function setActiveTab(string $tab_id) : self
     {
         $this->tabs->activateTab($tab_id);
         return $this;
@@ -238,7 +238,7 @@ class ilSrMsTabManager
      *
      * @return $this
      */
-    public function deactivateTabs(): self
+    public function deactivateTabs() : self
     {
         $this->setActiveTab('§');
         return $this;
@@ -249,7 +249,7 @@ class ilSrMsTabManager
      *
      * @return bool
      */
-    protected function inAdministration(): bool
+    protected function inAdministration() : bool
     {
         return (ilSrMembershipsDispatcherGUI::ORIGIN_TYPE_ADMINISTRATION === $this->origin);
     }
@@ -259,7 +259,7 @@ class ilSrMsTabManager
      *
      * @return bool
      */
-    protected function inRepository(): bool
+    protected function inRepository() : bool
     {
         return (ilSrMembershipsDispatcherGUI::ORIGIN_TYPE_REPOSITORY === $this->origin);
     }

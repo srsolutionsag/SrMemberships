@@ -21,7 +21,7 @@ declare(strict_types=1);
 namespace srag\Plugins\SrMemberships\Workflow\ByRoleSync;
 
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Workflow\ByRoleSync\Config\ByRoleSyncConfig;
 use srag\Plugins\SrMemberships\Workflow\ToolObjectConfig\ToolConfigFormProvider;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
@@ -38,7 +38,7 @@ class ByRoleSyncWorkflowToolConfigFormProvider implements ToolConfigFormProvider
      */
     private $workflow_container;
     /**
-     * @var Container
+     * @var \srag\Plugins\SrMemberships\Container\Container
      */
     private $container;
     /**
@@ -62,7 +62,7 @@ class ByRoleSyncWorkflowToolConfigFormProvider implements ToolConfigFormProvider
 
     public function getFormSection(
         Context $context
-    ): Section {
+    ) : Section {
         $selectable_roles = $this->config->getAvailableRolesForSelection(
             $this->container->objectInfoProvider()
         );

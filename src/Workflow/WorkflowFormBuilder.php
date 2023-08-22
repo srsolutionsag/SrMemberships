@@ -20,7 +20,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow;
 
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
 use srag\Plugins\SrMemberships\Workflow\ToolObjectConfig\ToolConfigFormHandler;
 use srag\Plugins\SrMemberships\Workflow\Mode\ModesFormHandler;
@@ -32,7 +32,7 @@ use ILIAS\UI\Component\Input\Container\Form\Standard;
 class WorkflowFormBuilder
 {
     /**
-     * @var Container
+     * @var \srag\Plugins\SrMemberships\Container\Container
      */
     private $container;
 
@@ -45,7 +45,7 @@ class WorkflowFormBuilder
     public function getForm(
         Context $context,
         WorkflowContainer $workflow_container
-    ): Standard {
+    ) : Standard {
         // Prepare URL Building
         $workflow_id = $workflow_container->getWorkflowID();
         $ctrl = $this->container->dic()->ctrl();

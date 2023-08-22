@@ -20,7 +20,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow;
 
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Config\General\GeneralConfig;
 use srag\Plugins\SrMemberships\Workflow\ByRoleSync\ByRoleSyncWorkflowContainer;
 
@@ -36,7 +36,7 @@ class WorkflowContainerRepository
      */
     protected $enabled_workflow_containers;
     /**
-     * @var Container
+     * @var \srag\Plugins\SrMemberships\Container\Container
      */
     protected $container;
 
@@ -63,12 +63,12 @@ class WorkflowContainerRepository
     /**
      * @return WorkflowContainer[]
      */
-    public function getEnabledWorkflows(): array
+    public function getEnabledWorkflows() : array
     {
         return $this->enabled_workflow_containers;
     }
 
-    public function getAllWorkflows(): array
+    public function getAllWorkflows() : array
     {
         return $this->all_workflow_containers;
     }
@@ -76,7 +76,7 @@ class WorkflowContainerRepository
     /**
      * @throws \InvalidArgumentException if feature is not activated or exists.
      */
-    public function getWorkflowById(string $workflow_id): WorkflowContainer
+    public function getWorkflowById(string $workflow_id) : WorkflowContainer
     {
         if (!isset($this->all_workflow_containers[$workflow_id])) {
             throw new \InvalidArgumentException("Workflow with id $workflow_id does not exist.");
@@ -85,7 +85,7 @@ class WorkflowContainerRepository
         return $this->all_workflow_containers[$workflow_id];
     }
 
-    public function getEnabledWorkflowById(string $workflow_id): ?WorkflowContainer
+    public function getEnabledWorkflowById(string $workflow_id) : ?WorkflowContainer
     {
         if (!isset($this->enabled_workflow_containers[$workflow_id])) {
             return null;
@@ -93,5 +93,4 @@ class WorkflowContainerRepository
 
         return $this->enabled_workflow_containers[$workflow_id];
     }
-
 }

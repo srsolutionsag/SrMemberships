@@ -22,7 +22,7 @@ namespace srag\Plugins\SrMemberships\Workflow\Mode;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use ILIAS\UI\Component\Input\Field\Section;
-use srag\Plugins\SrMemberships\Container;
+use srag\Plugins\SrMemberships\Container\Container;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -34,7 +34,7 @@ class ModesFormHandler
      */
     private $context;
     /**
-     * @var Container
+     * @var \srag\Plugins\SrMemberships\Container\Container
      */
     private $container;
     /**
@@ -57,11 +57,12 @@ class ModesFormHandler
         $this->container = $container;
     }
 
-    public function getFormSection(): Section
+    public function getFormSection() : Section
     {
         $modes = $this->workflow_container->getPossiblesModes();
         $possible_modes = $modes->getModesAsStrings(
-            $this->container->translator(), true
+            $this->container->translator(),
+            true
         );
         $ui_factory = $this->container->dic()->ui()->factory();
 
@@ -100,5 +101,4 @@ class ModesFormHandler
         /** @var Section $section */
         return $section;
     }
-
 }
