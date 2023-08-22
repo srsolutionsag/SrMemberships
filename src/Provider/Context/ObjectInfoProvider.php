@@ -152,14 +152,10 @@ class ObjectInfoProvider
     public function getLocalRoles() : array
     {
         $roles = [];
-        foreach ($this->rbacreview->getRolesByFilter(\ilRbacReview::FILTER_ALL_LOCAL) as $role) {
+        foreach ($this->rbacreview->getRolesByFilter(\ilRbacReview::FILTER_NOT_INTERNAL) as $role) {
             $parent = $this->tree->getNodeData($role['parent'] ?? 0);
             $parent_type = $parent['type'] ?? '';
             if (!in_array($parent_type, $this->valid_parent_types, true)) {
-                continue;
-            }
-            // if Role Name starts with il_crs or il_grp, we skip it.
-            if (preg_match('/^il_(crs|grp)_/', $role['title'])) {
                 continue;
             }
 
