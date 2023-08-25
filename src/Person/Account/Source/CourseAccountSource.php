@@ -35,7 +35,7 @@ class CourseAccountSource implements AccountSource
         $this->course_memberships = new \ilCourseParticipants(\ilObject2::_lookupObjectId($ref_id));
     }
 
-    public function getRawEntries(): \Generator
+    public function getRawEntries() : \Generator
     {
         yield from $this->course_memberships->getMembers();
     }

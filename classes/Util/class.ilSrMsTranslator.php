@@ -21,12 +21,13 @@ use srag\Plugins\SrMemberships\Translator;
 
 class ilSrMsTranslator implements Translator
 {
-    public function txt(string $key): string
+    public function txt(string $key) : string
     {
         return $this->resolvePlugin()->txt($key);
     }
 
-    private function resolvePlugin(): ilSrMembershipsPlugin
+    /** @noinspection PhpUndefinedClassInspection */
+    private function resolvePlugin() : ilSrMembershipsPlugin
     {
         static $plugin;
         if (!isset($plugin)) {
@@ -36,6 +37,7 @@ class ilSrMsTranslator implements Translator
                 $component_factory = $DIC['component.factory'];
                 return $plugin = $component_factory->getPlugin('srmem');
             }
+            /** @noinspection PhpIncompatibleReturnTypeInspection */
             return $plugin = ilPluginAdmin::getPluginObject(
                 IL_COMP_SERVICE,
                 "Cron",

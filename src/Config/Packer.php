@@ -25,7 +25,7 @@ namespace srag\Plugins\SrMemberships\Config;
  */
 trait Packer
 {
-    protected function pack($value): PackedValue
+    protected function pack($value) : PackedValue
     {
         if (is_string($value)) {
             return new PackedValue($value, PackedValue::TYPE_STRING);

@@ -195,6 +195,7 @@ abstract class ilSrMsAbstractGUI
         if (strtolower($this->container->dic()->http()->request()->getQueryParams()['baseClass'] ?? '') === strtolower(
             ilUIPluginRouterGUI::class
         )) {
+            /** @noinspection PhpUndefinedMethodInspection */
             $this->container->dic()->ui()->mainTemplate()->printToStdOut();
         }
     }
@@ -307,14 +308,18 @@ abstract class ilSrMsAbstractGUI
         return $form_action;
     }
 
-    /**
-     * displays an error message for given lang-var on the next page (redirect).
-     *
-     * @param string $lang_var
-     */
-    protected function sendErrorMessage(string $lang_var) : void
+    protected function sendErrorMessage(string $text) : void
     {
-        ilUtil::sendFailure($this->translator->txt($lang_var), true);
+        if (method_exists(ilUtil::class, 'sendFailure')) {
+            ilUtil::sendFailure($text, true);
+        } else {
+            /** @noinspection PhpUndefinedMethodInspection */
+            $this->container->dic()->ui()->mainTemplate()->setOnScreenMessage(
+                'failure',
+                $text,
+                true
+            );
+        }
     }
 
     /**
@@ -328,16 +333,14 @@ abstract class ilSrMsAbstractGUI
     }
 
     /**
-     * displays a success message for given lang-var on the next page (redirect).
-     *
-     * @param string $lang_var
+     * @param string $text
      */
-    protected function sendSuccessMessage(string $lang_var) : void
+    protected function sendSuccessMessage(string $text) : void
     {
-        $text = $this->translator->txt($lang_var);
         if (method_exists(ilUtil::class, 'sendSuccess')) {
             ilUtil::sendSuccess($text, true);
         } else {
+            /** @noinspection PhpUndefinedMethodInspection */
             $this->container->dic()->ui()->mainTemplate()->setOnScreenMessage(
                 'success',
                 $text,
@@ -356,14 +359,18 @@ abstract class ilSrMsAbstractGUI
         $this->displayMessageToast($lang_var, 'success');
     }
 
-    /**
-     * displays an info message for given lang-var on the next page (redirect).
-     *
-     * @param string $lang_var
-     */
-    protected function sendInfoMessage(string $lang_var) : void
+    protected function sendInfoMessage(string $text) : void
     {
-        ilUtil::sendInfo($this->translator->txt($lang_var), true);
+        if (method_exists(ilUtil::class, 'sendInfo')) {
+            ilUtil::sendInfo($text, true);
+        } else {
+            /** @noinspection PhpUndefinedMethodInspection */
+            $this->container->dic()->ui()->mainTemplate()->setOnScreenMessage(
+                'info',
+                $text,
+                true
+            );
+        }
     }
 
     /**

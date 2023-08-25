@@ -31,7 +31,7 @@ use srag\Plugins\SrMemberships\Person\Account\Source\GroupAccountSource;
  */
 class ContainerAccountResolver implements AccountResolver
 {
-    public function resolveFor(AccountSource $source): AccountList
+    public function resolveFor(AccountSource $source) : AccountList
     {
         if (!$source instanceof CourseAccountSource && !$source instanceof GroupAccountSource) {
             throw new \InvalidArgumentException('Source must be of type CourseAccountSource or GroupAccountSource');
@@ -44,5 +44,4 @@ class ContainerAccountResolver implements AccountResolver
 
         return $accounts;
     }
-
 }

@@ -22,28 +22,29 @@ namespace srag\Plugins\SrMemberships\Workflow\ByRoleSync\Config;
 
 use srag\Plugins\SrMemberships\Config\AbstractConfigForm;
 use srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider;
+use srag\Plugins\SrMemberships\Workflow\Config\WorkflowConfig;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
 class Form extends AbstractConfigForm
 {
-    private function getGlobalRoles(): array
+    private function getGlobalRoles() : array
     {
         return $this->container->objectInfoProvider()->getGlobalRoles();
     }
 
-    private function getLocalRoles(): array
+    private function getLocalRoles() : array
     {
         return $this->container->objectInfoProvider()->getLocalRoles();
     }
 
-    protected function getFields(): array
+    protected function getFields() : array
     {
         return [
             $this->getMultiSelect(
-                ByRoleSyncConfig::F_OBJECT_TYPES,
-                $this->translator->txt(ByRoleSyncConfig::F_OBJECT_TYPES),
+                WorkflowConfig::F_OBJECT_TYPES,
+                $this->translator->txt(WorkflowConfig::F_OBJECT_TYPES),
                 [
                     ObjectInfoProvider::TYPE_CRS => $this->translator->txt('object_type_crs'),
                     ObjectInfoProvider::TYPE_GRP => $this->translator->txt('object_type_grp'),

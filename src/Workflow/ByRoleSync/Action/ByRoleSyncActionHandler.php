@@ -23,25 +23,25 @@ namespace srag\Plugins\SrMemberships\Workflow\ByRoleSync\Action;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
-use srag\Plugins\SrMemberships\Action\ActionHandler;
 use srag\Plugins\SrMemberships\Action\BaseActionHandler;
 use srag\Plugins\SrMemberships\Workflow\ByRoleSync\ByRoleSyncWorkflowToolConfigFormProvider;
+use srag\Plugins\SrMemberships\Action\Summary;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class ByRoleSyncActionHandler extends BaseActionHandler implements ActionHandler
+class ByRoleSyncActionHandler extends BaseActionHandler
 {
     public function performActions(
         WorkflowContainer $workflow_container,
         Context $context,
         Modes $modes
-    ): void {
+    ) : Summary {
         if ($context->isCli() && !$modes->isModeSet(Modes::RUN_AS_CRONJOB)) {
-            return;
+            return Summary::empty();
         }
         if (!$context->isCli() && !$modes->isModeSet(Modes::RUN_ON_SAVE)) {
-            return;
+            return Summary::empty();
         }
 
         $object_config = $this->container->toolObjectConfigRepository()->get(
@@ -53,20 +53,6 @@ class ByRoleSyncActionHandler extends BaseActionHandler implements ActionHandler
         $person_list = $this->person_list_generators->byRoleIds($role_ids);
         $account_list = $this->persons_to_accounts->translate($person_list);
 
-        $current_members = $this->account_list_generators->fromContainerId($context->getCurrentRefId());
-        $accounts_to_add = $this->account_list_generators->diff($account_list, $current_members);
-
-        // Subscribe new members
-        $this->action_builder->subscribe($context->getCurrentRefId())
-                             ->performFor($accounts_to_add);
-
-        if ($modes->isModeSet(Modes::REMOVE_DIFF)) {
-            $accounts_ro_remove = $this->account_list_generators->diff($current_members, $account_list);
-
-            // Unsubscribe members that are not in the role anymore
-            $this->action_builder->unsubscribe($context->getCurrentRefId())
-                                 ->performFor($accounts_ro_remove);
-        }
+        return $this->generalHandling($context, $account_list, $modes);
     }
-
 }

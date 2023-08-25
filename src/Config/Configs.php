@@ -22,6 +22,7 @@ namespace srag\Plugins\SrMemberships\Config;
 
 use srag\Plugins\SrMemberships\Config\General\GeneralConfig;
 use srag\Plugins\SrMemberships\Workflow\ByRoleSync\Config\ByRoleSyncConfig;
+use srag\Plugins\SrMemberships\Workflow\ByLogin\Config\ByLoginConfig;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -37,6 +38,10 @@ final class Configs
      */
     private $by_role_sync;
     /**
+     * @var ByLoginConfig
+     */
+    private $by_login;
+    /**
      * @var \ilDBInterface
      */
     protected $db;
@@ -46,15 +51,21 @@ final class Configs
         $this->db = $db;
         $this->general = new GeneralConfig($this->db);
         $this->by_role_sync = new ByRoleSyncConfig($this->db);
+        $this->by_login = new ByLoginConfig($this->db);
     }
 
-    public function general(): GeneralConfig
+    public function general() : GeneralConfig
     {
         return $this->general;
     }
 
-    public function byRoleSync(): ByRoleSyncConfig
+    public function byRoleSync() : ByRoleSyncConfig
     {
         return $this->by_role_sync;
+    }
+
+    public function byLogin() : ByLoginConfig
+    {
+        return $this->by_login;
     }
 }

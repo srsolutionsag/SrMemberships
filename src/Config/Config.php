@@ -25,7 +25,7 @@ namespace srag\Plugins\SrMemberships\Config;
  */
 interface Config
 {
-    public function getNameSpace(): string;
+    public function getNameSpace() : string;
 
     /**
      * @param string                $key
@@ -33,7 +33,7 @@ interface Config
      * @return void
      * @throws \InvalidArgumentException if the $value is not of the correct type
      */
-    public function set(string $key, $value): void;
+    public function set(string $key, $value) : void;
 
     /**
      * @param string                $key
@@ -42,5 +42,5 @@ interface Config
      */
     public function get(string $key, $default = null);
 
-    public function read(): void;
+    public function read() : void;
 }

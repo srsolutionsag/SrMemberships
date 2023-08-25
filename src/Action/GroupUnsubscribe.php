@@ -25,7 +25,7 @@ use srag\Plugins\SrMemberships\Action\Helpers\GroupMembers;
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class GroupUnsubscribe extends AbstractUnsubscribe implements Action
+class GroupUnsubscribe extends AbstractUnsubscribe
 {
     use GroupMembers;
 }

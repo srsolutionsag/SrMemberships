@@ -29,10 +29,6 @@ class ContextFactory
 {
 
     /**
-     * @var \srag\Plugins\SrMemberships\Container\Container
-     */
-    private $container;
-    /**
      * @var UserAccessInfoProvider
      */
     private $user_access_info_provider;
@@ -43,7 +39,6 @@ class ContextFactory
 
     public function __construct(Container $container)
     {
-        $this->container = $container;
         $this->user_access_info_provider = $container->userAccessInfoProvider();
         $this->object_info_provider = $container->objectInfoProvider();
     }

@@ -18,12 +18,19 @@
 
 declare(strict_types=1);
 
-namespace srag\Plugins\SrMemberships\Person;
+namespace srag\Plugins\SrMemberships\Workflow\ByLogin\Config;
+
+use srag\Plugins\SrMemberships\Workflow\Config\AbstractDBWorkflowConfig;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-interface PersonResolver
+class ByLoginConfig extends AbstractDBWorkflowConfig
 {
-    public function resolveFor(PersonSource $source) : PersonList;
+    public const F_OFFER_WORKFLOW_TO = 'offer_workflow_to';
+
+    public function getNameSpace() : string
+    {
+        return 'by_login';
+    }
 }

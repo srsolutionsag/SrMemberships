@@ -21,16 +21,16 @@ declare(strict_types=1);
 namespace srag\Plugins\SrMemberships\Person\Persons\Resolver;
 
 use srag\Plugins\SrMemberships\Person\Persons\Source\RolesPersonSource;
-use srag\Plugins\SrMemberships\Person\Persons\PersonList;
 use srag\Plugins\SrMemberships\Person\Persons\UserIdPerson;
 use srag\Plugins\SrMemberships\Person\Persons\Source\PersonSource;
+use srag\Plugins\SrMemberships\Person\Persons\PersonList;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
 class RolesPersonResolver implements PersonResolver
 {
-    public function resolveFor(PersonSource $source): PersonList
+    public function resolveFor(PersonSource $source) : PersonList
     {
         if (!$source instanceof RolesPersonSource) {
             throw new \InvalidArgumentException('RolesPersonResolver can only resolve RolesPersonSource');

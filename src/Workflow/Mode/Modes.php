@@ -44,7 +44,7 @@ class Modes
         }
     }
 
-    private static function getModeTitle(int $mode_id): string
+    private static function getModeTitle(int $mode_id) : string
     {
         $r = new \ReflectionClass(self::class);
         $constants = $r->getConstants();
@@ -57,22 +57,22 @@ class Modes
         throw new \InvalidArgumentException("Invalid mode id: $mode_id");
     }
 
-    public static function cron(): Mode
+    public static function cron() : Mode
     {
         return new Mode(self::CRON, self::getModeTitle(self::CRON), false);
     }
 
-    public static function adHoc(): Mode
+    public static function adHoc() : Mode
     {
         return new Mode(self::AD_HOC, self::getModeTitle(self::AD_HOC), false);
     }
 
-    public static function removeDiff(): Mode
+    public static function removeDiff() : Mode
     {
         return new Mode(self::REMOVE_DIFF, self::getModeTitle(self::REMOVE_DIFF), true);
     }
 
-    public static function runAsCronJob(): Mode
+    public static function runAsCronJob() : Mode
     {
         return new Mode(
             self::RUN_AS_CRONJOB,
@@ -82,7 +82,7 @@ class Modes
         );
     }
 
-    public static function runOnSave(): Mode
+    public static function runOnSave() : Mode
     {
         return new Mode(
             self::RUN_ON_SAVE,
@@ -92,7 +92,7 @@ class Modes
         );
     }
 
-    public static function generic(int $mode_id, bool $selectable): Mode
+    public static function generic(int $mode_id, bool $selectable) : Mode
     {
         switch ($mode_id) {
             case self::CRON:
@@ -107,7 +107,7 @@ class Modes
         return new Mode($mode_id, self::getModeTitle($mode_id), $selectable);
     }
 
-    protected function addMode(Mode $mode): void
+    protected function addMode(Mode $mode) : void
     {
         $this->modes[$mode->getModeId()] = $mode;
         if ($mode->getDependsOn() !== null) {
@@ -115,22 +115,22 @@ class Modes
         }
     }
 
-    public function isModeSet(int $mode_id): bool
+    public function isModeSet(int $mode_id) : bool
     {
         return isset($this->modes[$mode_id]);
     }
 
-    public function isCron(): bool
+    public function isCron() : bool
     {
         return $this->isModeSet(self::CRON);
     }
 
-    public function isAdHoc(): bool
+    public function isAdHoc() : bool
     {
         return $this->isModeSet(self::AD_HOC);
     }
 
-    public function getModes(): array
+    public function getModes() : array
     {
         return $this->modes;
     }
@@ -138,7 +138,7 @@ class Modes
     public function getModesAsStrings(
         Translator $translator,
         bool $selectable_only = true
-    ): array {
+    ) : array {
         $modes_as_strings = [];
         foreach ($this->modes as $mode) {
             if ($selectable_only && !$mode->isSelectable()) {
@@ -150,14 +150,14 @@ class Modes
         return $modes_as_strings;
     }
 
-    public function getSelectableIntersectedModeIds(Modes $modes): array
+    public function getSelectableIntersectedModeIds(Modes $modes) : array
     {
         $to_array = $this->__toArray(true);
         $to_array1 = $modes->__toArray(true);
         return array_intersect($to_array, $to_array1);
     }
 
-    public function __toArray(bool $selectable_only = true): array
+    public function __toArray(bool $selectable_only = true) : array
     {
         return array_map(function (Mode $mode) {
             return $mode->getModeId();
@@ -168,5 +168,4 @@ class Modes
             return true;
         }));
     }
-
 }

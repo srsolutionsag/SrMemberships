@@ -27,6 +27,7 @@ use ILIAS\UI\Component\Input\Field\Checkbox;
 use ILIAS\Refinery\Transformation;
 use ILIAS\UI\Component\Input\Field\Select;
 use ILIAS\UI\Component\Input\Field\MultiSelect;
+use ILIAS\UI\Component\Input\Container\Form\Standard;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -82,6 +83,7 @@ abstract class AbstractForm
         string $label,
         string $byline = null
     ) : Text {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->ui_factory->input()->field()->text($label, $byline)
                                 ->withValue($this->config->get($config_key, ''))
                                 ->withAdditionalTransformation(
@@ -94,6 +96,7 @@ abstract class AbstractForm
         string $label,
         string $byline = null
     ) : Checkbox {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->ui_factory->input()->field()->checkbox($label, $byline)
                                 ->withValue($this->config->get($config_key, false))
                                 ->withAdditionalTransformation(
@@ -107,6 +110,7 @@ abstract class AbstractForm
         array $options,
         string $byline = null
     ) : Select {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->ui_factory->input()->field()->select($label, $options, $byline)
                                 ->withValue($this->config->get($config_key, null))
                                 ->withAdditionalTransformation(
@@ -120,6 +124,7 @@ abstract class AbstractForm
         array $options,
         string $byline = null
     ) : MultiSelect {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->ui_factory->input()->field()->multiSelect($label, $options, $byline)
                                 ->withValue($this->config->get($config_key, null))
                                 ->withAdditionalTransformation(
@@ -137,7 +142,7 @@ abstract class AbstractForm
 
     abstract protected function getFields() : array;
 
-    public function getForm() : \ILIAS\UI\Component\Input\Container\Form\Standard
+    public function getForm() : Standard
     {
         $post_url = $this->ctrl->getLinkTarget($this->target_gui, $this->target_command);
 

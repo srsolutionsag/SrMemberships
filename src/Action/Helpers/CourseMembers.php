@@ -47,7 +47,7 @@ trait CourseMembers
         $this->member_role_id = $this->resolveMemberRoleId();
     }
 
-    protected function addToContainer(Account $account): void
+    protected function addToContainer(Account $account) : void
     {
         $this->course_members->add(
             $account->getUserId(),
@@ -55,13 +55,14 @@ trait CourseMembers
         );
     }
 
-    protected function removeFromContainer(Account $account): void
+    protected function removeFromContainer(Account $account) : void
     {
         $this->course_members->delete($account->getUserId());
     }
 
-    protected function resolveMemberRoleId(): int
+    protected function resolveMemberRoleId() : int
     {
+        /** @noinspection PhpUndefinedClassConstantInspection */
         return defined('IL_CRS_MEMBER') ? \IL_CRS_MEMBER : \ilCourseParticipants::IL_CRS_MEMBER;
     }
 }

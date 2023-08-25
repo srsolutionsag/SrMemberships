@@ -47,7 +47,7 @@ trait GroupMembers
         $this->member_role_id = $this->resolveMemberRoleId();
     }
 
-    protected function addToContainer(Account $account): void
+    protected function addToContainer(Account $account) : void
     {
         $this->group_members->add(
             $account->getUserId(),
@@ -55,13 +55,14 @@ trait GroupMembers
         );
     }
 
-    protected function removeFromContainer(Account $account): void
+    protected function removeFromContainer(Account $account) : void
     {
         $this->group_members->delete($account->getUserId());
     }
 
-    protected function resolveMemberRoleId(): int
+    protected function resolveMemberRoleId() : int
     {
+        /** @noinspection PhpUndefinedClassConstantInspection */
         return defined('IL_GRP_MEMBER') ? \IL_GRP_MEMBER : \ilGroupParticipants::IL_GRP_MEMBER;
     }
 }

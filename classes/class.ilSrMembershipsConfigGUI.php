@@ -27,7 +27,7 @@ class ilSrMembershipsConfigGUI extends ilPluginConfigGUI
      * Forwards the request to @param string $cmd
      * @throws ilCtrlException
      */
-    public function performCommand(/*string*/ $cmd): void
+    public function performCommand(/*string*/ $cmd) : void
     {
         global $DIC;
 
@@ -42,7 +42,7 @@ class ilSrMembershipsConfigGUI extends ilPluginConfigGUI
             // case the request is redirected to the plugins actual config GUI.
             $DIC->ctrl()->redirectByClass(
                 [ilSrMembershipsDispatcherGUI::class, ilSrMsGeneralConfigurationGUI::class],
-                ilSrMsGeneralConfigurationGUI::CMD_INDEX
+                ilSrMsAbstractGUI::CMD_INDEX
             );
         }
     }

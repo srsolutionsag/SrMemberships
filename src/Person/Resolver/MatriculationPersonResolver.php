@@ -20,10 +20,10 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Person\Resolver;
 
-use srag\Plugins\SrMemberships\Person\PersonResolver;
-use srag\Plugins\SrMemberships\Person\PersonList;
-use srag\Plugins\SrMemberships\Person\PersonSource;
 use srag\Plugins\SrMemberships\Person\Persons\MatriculationPerson;
+use srag\Plugins\SrMemberships\Person\Persons\Resolver\PersonResolver;
+use srag\Plugins\SrMemberships\Person\Persons\Source\PersonSource;
+use srag\Plugins\SrMemberships\Person\Persons\PersonList;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>

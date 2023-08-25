@@ -31,17 +31,17 @@ interface ToolObjectConfigRepository
         int $ref_id,
         WorkflowContainer $workflow_container,
         array $data
-    ): void;
+    ) : void;
 
     public function get(
         int $ref_id,
         WorkflowContainer $workflow_container
-    ): ?array;
+    ) : ?array;
 
     public function clear(
         int $ref_id,
         WorkflowContainer $workflow_container
-    ): void;
+    ) : void;
 
-    public function getAssignedRefIds(WorkflowContainer $workflow): \Generator;
+    public function getAssignedRefIds(WorkflowContainer $workflow) : \Generator;
 }

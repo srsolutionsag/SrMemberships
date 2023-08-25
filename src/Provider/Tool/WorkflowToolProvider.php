@@ -34,5 +34,5 @@ interface WorkflowToolProvider
         Context $context,
         ToolFactory $tool_factory,
         PluginIdentificationProvider $identification_factory
-    ): ?Tool;
+    ) : ?Tool;
 }

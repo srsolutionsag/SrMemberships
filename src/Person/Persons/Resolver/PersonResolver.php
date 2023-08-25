@@ -20,13 +20,13 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Person\Persons\Resolver;
 
-use srag\Plugins\SrMemberships\Person\Persons\PersonList;
 use srag\Plugins\SrMemberships\Person\Persons\Source\PersonSource;
+use srag\Plugins\SrMemberships\Person\Persons\PersonList;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
 interface PersonResolver
 {
-    public function resolveFor(PersonSource $source): PersonList;
+    public function resolveFor(PersonSource $source) : PersonList;
 }

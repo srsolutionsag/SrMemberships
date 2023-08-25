@@ -29,5 +29,5 @@ interface WorkflowConfig extends Config
 {
     public const F_OBJECT_TYPES = 'object_types';
 
-    public function getActivatedForTypes(): array;
+    public function getActivatedForTypes() : array;
 }

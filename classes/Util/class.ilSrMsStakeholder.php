@@ -16,14 +16,20 @@
  *
  *********************************************************************/
 
-declare(strict_types=1);
-
-namespace srag\Plugins\SrMemberships\Person;
+use ILIAS\ResourceStorage\Stakeholder\AbstractResourceStakeholder;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-interface PersonSource
+class ilSrMsStakeholder extends AbstractResourceStakeholder
 {
-    public function getRawEntries() : \Generator;
+    public function getId() : string
+    {
+        return 'srms_plugin';
+    }
+
+    public function getOwnerOfNewResources() : int
+    {
+        return 6;
+    }
 }

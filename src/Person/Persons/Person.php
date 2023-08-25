@@ -25,7 +25,7 @@ namespace srag\Plugins\SrMemberships\Person\Persons;
  */
 interface Person
 {
-    public function getUniqueIdentification(): string;
+    public function getUniqueIdentification() : string;
 
-    public function isAccountCreatable(): bool;
+    public function isAccountCreatable() : bool;
 }

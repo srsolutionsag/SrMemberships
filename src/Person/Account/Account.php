@@ -25,6 +25,5 @@ namespace srag\Plugins\SrMemberships\Person\Account;
  */
 interface Account
 {
-    public function getUserId(): int;
-
+    public function getUserId() : int;
 }

@@ -56,15 +56,15 @@ class Context
         $this->user_id = $user_id;
         $this->user_can_administrate = $user_can_administrate;
         $this->object_type = $object_type;
-        $this->is_cli = (php_sapi_name() === 'cli');
+        $this->is_cli = (PHP_SAPI === 'cli');
     }
 
-    public function getCurrentRefId(): int
+    public function getCurrentRefId() : int
     {
         return $this->current_ref_id;
     }
 
-    public function getUserId(): int
+    public function getUserId() : int
     {
         return $this->user_id;
     }
@@ -72,19 +72,18 @@ class Context
     /**
      * @return string|null a valid context type such as
      */
-    public function getContextType(): string
+    public function getContextType() : string
     {
         return $this->object_type;
     }
 
-    public function canUserAdministrateMembers(): bool
+    public function canUserAdministrateMembers() : bool
     {
         return $this->user_can_administrate;
     }
 
-    public function isCli(): bool
+    public function isCli() : bool
     {
         return $this->is_cli;
     }
-
 }

@@ -32,6 +32,7 @@ class GeneralConfig extends AbstractDBConfig
     public const BY_ATTRIBUTE_SYNC = 'by_attribute_sync';
     public const BY_MATRICULATION = 'by_matriculation';
     public const BY_ROLE_SYNC = 'by_role_sync';
+    public const BY_LOGIN = 'by_login';
     public const F_ENABLED_WORKFLOWS = 'enabled_workflows';
 
     public function getEnabledWorkflows()
@@ -39,32 +40,7 @@ class GeneralConfig extends AbstractDBConfig
         return $this->get(self::F_ENABLED_WORKFLOWS, []);
     }
 
-    public function isByEmailEnabled(): bool
-    {
-        return in_array(self::BY_EMAIL, $this->getEnabledWorkflows(), true);
-    }
-
-    public function isByRoleSyncEnabled(): bool
-    {
-        return in_array(self::BY_ROLE_SYNC, $this->getEnabledWorkflows(), true);
-    }
-
-    public function isByMatriculationEnabled(): bool
-    {
-        return in_array(self::BY_MATRICULATION, $this->getEnabledWorkflows(), true);
-    }
-
-    public function isByExcelImportEnabled(): bool
-    {
-        return in_array(self::BY_EXCEL_IMPORT, $this->getEnabledWorkflows(), true);
-    }
-
-    public function isByAttributeSyncEnabled(): bool
-    {
-        return in_array(self::BY_ATTRIBUTE_SYNC, $this->getEnabledWorkflows(), true);
-    }
-
-    public function getNameSpace(): string
+    public function getNameSpace() : string
     {
         return 'general';
     }

@@ -2,11 +2,7 @@ handle_workflow_screen#:#Advanced user management
 msg_back_to#:#Back
 general_configuration#:#General settings
 tab_config_index#:#Settings
-workflow_by_role_sync#:#By roles
-workflow_by_email#:#By email
-workflow_by_matriculation#:#By student number
-workflow_by_excel_import#:#Excel import
-workflow_by_attribute_sync#:#By attribute
+workflow_by_role_sync#:#By Roles
 enabled_workflows#:#Enabled workflows
 enabled_workflows_info#:#After activating a workflow, an additional settings subtab appears in each case.
 selectable_global_roles#:#Selectable global roles
@@ -19,7 +15,7 @@ selectable_local_roles_all#:#All local roles
 object_types#:#Provide in object types
 object_types_info#:#The function is only offered in the selected object types.
 object_type_crs#:#Courses
-object_type_grp#:#groups
+object_type_grp#:#Groups
 by_role_sync_role_selection#:#role selection
 by_role_sync_role_selection_info#:#Select the roles to be used for synchronisation. People who are assigned to one of these roles will be synchronised in the courses or the groups. However, the persons will not be signed out should they lose the role.
 by_role_sync_role_selection_header#:#Automatic member synchronisation
@@ -34,3 +30,13 @@ mode_run_on_save#:#Run on save
 offer_workflow_to#:#Workflow available for
 offer_workflow_to_info#:#The workflow is only offered to the selected groups of people.
 offer_workflow_to_object_admins#:#Object administrators (persons with the permission "Manage members" on the object)
+
+workflow_by_login#:#By Login
+by_login_header#:#Import List of Logins
+by_login_source#:#Source
+by_login_text_list#:#List of Logins
+by_login_file_import#:#File Import
+
+result_error#:#An error occurred during processing: %s
+result_accounts_added_and_removed#:#%s account(s) added and %s account(s) removed
+result_empty_list#:#No accounts added or removed

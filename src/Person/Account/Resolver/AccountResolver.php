@@ -28,5 +28,5 @@ use srag\Plugins\SrMemberships\Person\Account\AccountList;
  */
 interface AccountResolver
 {
-    public function resolveFor(AccountSource $source): AccountList;
+    public function resolveFor(AccountSource $source) : AccountList;
 }

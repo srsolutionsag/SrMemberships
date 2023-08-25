@@ -95,7 +95,7 @@ class ilSrMsTabManager
             $this->translator->txt(self::TAB_CONFIG),
             $this->ctrl->getLinkTargetByClass(
                 ilSrMsGeneralConfigurationGUI::class,
-                ilSrMsGeneralConfigurationGUI::CMD_INDEX
+                ilSrMsAbstractGUI::CMD_INDEX
             )
         );
         if ($is_active) {
@@ -104,7 +104,7 @@ class ilSrMsTabManager
                 $this->translator->txt(self::TAB_CONFIG),
                 $this->ctrl->getLinkTargetByClass(
                     ilSrMsGeneralConfigurationGUI::class,
-                    ilSrMsGeneralConfigurationGUI::CMD_INDEX
+                    ilSrMsAbstractGUI::CMD_INDEX
                 )
             );
             $this->tabs->activateSubTab(self::TAB_CONFIG);

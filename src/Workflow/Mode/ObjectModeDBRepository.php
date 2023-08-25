@@ -41,21 +41,21 @@ class ObjectModeDBRepository implements ObjectModeRepository
         $this->db = $db;
     }
 
-    private function hasAny(int $ref_id, string $workflow_id): bool
+    private function hasAny(int $ref_id, string $workflow_id) : bool
     {
         $q = "SELECT * FROM " . self::TABLE_NAME . " WHERE context_ref_id = %s AND workflow_id = %s ";
         $r = $this->db->queryF($q, ['integer', 'text'], [$ref_id, $workflow_id]);
         return $r->numRows() > 0;
     }
 
-    private function has(int $ref_id, string $workflow_id, int $mode_id): bool
+    private function has(int $ref_id, string $workflow_id, int $mode_id) : bool
     {
         $q = "SELECT * FROM " . self::TABLE_NAME . " WHERE context_ref_id = %s AND workflow_id = %s AND mode_id = %s";
         $r = $this->db->queryF($q, ['integer', 'text', 'integer'], [$ref_id, $workflow_id, $mode_id]);
         return $r->numRows() > 0;
     }
 
-    public function clear(int $ref_id, WorkflowContainer $workflow_container): void
+    public function clear(int $ref_id, WorkflowContainer $workflow_container) : void
     {
         $this->db->manipulateF(
             "DELETE FROM " . self::TABLE_NAME . " WHERE context_ref_id = %s AND workflow_id = %s",
@@ -68,7 +68,7 @@ class ObjectModeDBRepository implements ObjectModeRepository
         int $ref_id,
         WorkflowContainer $workflow_container,
         Modes $modes
-    ): void {
+    ) : void {
         $this->clear($ref_id, $workflow_container);
         foreach ($modes->getModes() as $mode) {
             $this->db->manipulateF(
@@ -83,7 +83,7 @@ class ObjectModeDBRepository implements ObjectModeRepository
         int $ref_id,
         WorkflowContainer $workflow_container,
         array $mode_ids
-    ): void {
+    ) : void {
         $this->store(
             $ref_id,
             $workflow_container,
@@ -98,7 +98,7 @@ class ObjectModeDBRepository implements ObjectModeRepository
     public function get(
         int $ref_id,
         WorkflowContainer $workflow_container
-    ): ?Modes {
+    ) : ?Modes {
         if (!$this->hasAny($ref_id, $workflow_container->getWorkflowId())) {
             return new Modes();
         }

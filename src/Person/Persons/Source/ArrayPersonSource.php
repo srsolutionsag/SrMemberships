@@ -18,25 +18,29 @@
 
 declare(strict_types=1);
 
-namespace srag\Plugins\SrMemberships\Person\Resolver;
-
-use srag\Plugins\SrMemberships\Person\PersonResolver;
-use srag\Plugins\SrMemberships\Person\PersonList;
-use srag\Plugins\SrMemberships\Person\PersonSource;
-use srag\Plugins\SrMemberships\Person\Persons\EmailPerson;
+namespace srag\Plugins\SrMemberships\Person\Persons\Source;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class EmailPersonResolver implements PersonResolver
+class ArrayPersonSource implements PersonSource
 {
-    public function resolveFor(PersonSource $source) : PersonList
-    {
-        $persons = [];
-        foreach ($source as $item) {
-            $persons[] = new EmailPerson($item);
-        }
 
-        return new PersonList($persons);
+    /**
+     * @var array
+     */
+    private $items;
+
+    public function __construct(
+        array $items
+    ) {
+        $this->items = $items;
+    }
+
+    public function getRawEntries() : \Generator
+    {
+        foreach ($this->items as $item) {
+            yield trim($item);
+        }
     }
 }

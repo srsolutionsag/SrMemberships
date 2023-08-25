@@ -73,7 +73,7 @@ class ilSrMsAccessHandler
      *
      * @return bool
      */
-    public function isAdministrator(): bool
+    public function isAdministrator() : bool
     {
         return $this->access->review()->isAssigned(
             $this->user->getId(),
@@ -87,7 +87,7 @@ class ilSrMsAccessHandler
      * @param int $ref_id
      * @return bool
      */
-    public function isAdministratorOf(int $ref_id): bool
+    public function isAdministratorOf(int $ref_id) : bool
     {
         if ($this->isAdministrator()) {
             return true;
@@ -111,7 +111,7 @@ class ilSrMsAccessHandler
      *
      * @return bool
      */
-    public function isAnonymous(): bool
+    public function isAnonymous() : bool
     {
         return (ANONYMOUS_USER_ID === $this->user->getId());
     }
@@ -122,7 +122,7 @@ class ilSrMsAccessHandler
      * @param int $user_id
      * @return bool
      */
-    public function isCurrentUser(int $user_id): bool
+    public function isCurrentUser(int $user_id) : bool
     {
         return ($user_id === $this->user->getId());
     }

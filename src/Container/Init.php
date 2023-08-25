@@ -66,15 +66,15 @@ final class Init
             return new Configs($ilias_container->database());
         });
 
-        $container->glue(Translator::class, function () use ($ilias_container) : Translator {
+        $container->glue(Translator::class, function () : Translator {
             return new \ilSrMsTranslator();
         });
 
-        $container['_origin'] = function () use ($ilias_container) : int {
+        $container['_origin'] = function () : int {
             return \ilSrMembershipsDispatcherGUI::getOriginType();
         };
 
-        $container->glue(\ilSrMsTabManager::class, function (Container $c) use ($ilias_container) : \ilSrMsTabManager {
+        $container->glue(\ilSrMsTabManager::class, function (Container $c) : \ilSrMsTabManager {
             return new \ilSrMsTabManager(
                 $c
             );

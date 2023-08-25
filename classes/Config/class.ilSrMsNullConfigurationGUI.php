@@ -39,18 +39,18 @@ class ilSrMsNullConfigurationGUI extends ilSrMsAbstractGUI
         );
     }
 
-    protected function index(): void
+    protected function index() : void
     {
-        //
+        $this->render($this->form->getForm());
     }
 
     protected function setupGlobalTemplate(
         ilGlobalTemplateInterface $template,
         ilSrMsTabManager $tabs
-    ): void {
+    ) : void {
     }
 
-    protected function canUserExecute(ilSrMsAccessHandler $access_handler, string $command): bool
+    protected function canUserExecute(ilSrMsAccessHandler $access_handler, string $command) : bool
     {
         return false;
     }

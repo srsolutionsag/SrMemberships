@@ -24,7 +24,6 @@ use ILIAS\GlobalScreen\Scope\Tool\Factory\Tool;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
 use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
-use srag\Plugins\SrMemberships\Config\Config;
 use srag\Plugins\SrMemberships\Workflow\Config\WorkflowConfig;
 use ILIAS\GlobalScreen\Scope\Tool\Factory\ToolFactory;
 use ILIAS\GlobalScreen\Identification\PluginIdentificationProvider;
@@ -35,10 +34,6 @@ use srag\Plugins\SrMemberships\Workflow\WorkflowFormBuilder;
  */
 class StandardWorkflowToolProvider implements WorkflowToolProvider
 {
-    /**
-     * @var Config
-     */
-    private $general_config;
     /**
      * @var WorkflowConfig
      */
@@ -71,7 +66,6 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
     ) {
         $this->container = $container;
         $this->workflow_container = $workflow_container;
-        $this->general_config = $container->config();
         $this->workflow_config = $workflow_container->getConfig();
         //
         $this->ui_factory = $container->dic()->ui()->factory();
@@ -96,6 +90,7 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
         $title = $this->container->translator()->txt('workflow_' . $workflow_id);
         $identification = $identification_factory->identifier($workflow_id);
 
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $tool_factory->tool($identification)
                             ->withTitle($title)
                             ->withContentWrapper(function () use ($form) {

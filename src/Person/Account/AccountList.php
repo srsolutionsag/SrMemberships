@@ -25,14 +25,14 @@ namespace srag\Plugins\SrMemberships\Person\Account;
  */
 class AccountList
 {
-    private $accounts = [];
+    private $accounts;
 
     public function __construct(array $accounts = [])
     {
         $this->accounts = $accounts;
     }
 
-    public function addAccount(Account $account): void
+    public function addAccount(Account $account) : void
     {
         if (isset($this->accounts[$account->getUserId()])) {
             return;
@@ -40,7 +40,7 @@ class AccountList
         $this->accounts[$account->getUserId()] = $account;
     }
 
-    public function removeAccount(Account $account): void
+    public function removeAccount(Account $account) : void
     {
         if (!isset($this->accounts[$account->getUserId()])) {
             return;
@@ -51,13 +51,23 @@ class AccountList
     /**
      * @return Account[]
      */
-    public function getAccounts(): array
+    public function getAccounts() : array
     {
         return $this->accounts;
     }
 
-    public function has(Account $account): bool
+    public function has(Account $account) : bool
     {
         return isset($this->accounts[$account->getUserId()]);
+    }
+
+    public function count() : int
+    {
+        return count($this->accounts);
+    }
+
+    public function isEmpty() : bool
+    {
+        return $this->count() === 0;
     }
 }

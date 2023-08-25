@@ -17,10 +17,9 @@
  *********************************************************************/
 
 use srag\Plugins\SrMemberships\Provider\Tool\CollectedMainBarProvider;
-use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Container\Init;
 
-/** @noRector  */
+/** @noRector */
 require_once(__DIR__ . '/../vendor/autoload.php');
 
 /**
@@ -42,6 +41,7 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
             return;
         }
         if ($this->isPluginActive()) {
+            $this->updateLanguages(); // FSX TODO remove
             global $DIC;
             $container = Init::init($DIC, $this);
             $dynamic_tool_provider = new CollectedMainBarProvider($container->dic(), $container->plugin());
@@ -53,6 +53,7 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
             $container->dic()->globalScreen()->layout()->meta()->addInlineCss(
                 '.il-maincontrols-slate-content .il-standard-form .col-sm-3, .il-maincontrols-slate-content .il-standard-form .col-sm-4 { width:100%; text-align:left; }'
                 . '.il-maincontrols-slate-content .il-standard-form .col-sm-9 { width:100%; }'
+            // . '.il-maincontrols-slate-content li { padding: 10px 0px !important; }'
             );
         }
     }
@@ -73,7 +74,6 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
         return self::PLUGIN_NAME;
     }
 
-
     public function getCronJobInstances() : array
     {
         return [
@@ -81,9 +81,9 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
         ];
     }
 
-
     public function getCronJobInstance($a_job_id) : ilCronJob
     {
+        /** @noinspection DegradedSwitchInspection */
         switch ($a_job_id) {
             case ilSrMembershipsWorkflowJob::SRMS_WORKFLOW_JOB:
                 return new ilSrMembershipsWorkflowJob($this);

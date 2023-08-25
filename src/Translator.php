@@ -25,5 +25,5 @@ namespace srag\Plugins\SrMemberships;
  */
 interface Translator
 {
-    public function txt(string $key): string;
+    public function txt(string $key) : string;
 }

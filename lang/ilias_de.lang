@@ -3,10 +3,6 @@ msg_back_to#:#Zurück
 general_configuration#:#Allgemeine Einstellungen
 tab_config_index#:#Einstellungen
 workflow_by_role_sync#:#Nach Rollen
-workflow_by_email#:#Nach E-Mail
-workflow_by_matriculation#:#Nach Matrikelnummer
-workflow_by_excel_import#:#Excel-Import
-workflow_by_attribute_sync#:#Nach Attribut
 enabled_workflows#:#Aktivierte Workflows
 enabled_workflows_info#:#Nach Aktivierung eines Workflows erscheint jeweils ein zusätzlicher Einstellungs-Subtab.
 selectable_global_roles#:#Wählbare globale Rollen
@@ -36,3 +32,12 @@ offer_workflow_to#:#Workflow verfügbar für
 offer_workflow_to_info#:#Der Workflow wir nur den gewählten Personengruppen angeboten.
 offer_workflow_to_object_admins#:#Objekt-Administratoren (Personen mit dem Recht "Mitglieder verwalten" am Objekt)
 
+workflow_by_login#:#Nach Login
+by_login_header#:#Import von Loginnamen
+by_login_source#:#Quelle
+by_login_text_list#:#Liste von Loginnamen
+by_login_file_import#:#Dateiimport
+
+result_error#:#Bei der Verarbeitung ist ein Fehler aufgetreten: %s
+result_accounts_added_and_removed#:#%s Personen hinzugefügt und %s Personen entfernt
+result_empty_list#:#Keine Personen zum Verarbeiten

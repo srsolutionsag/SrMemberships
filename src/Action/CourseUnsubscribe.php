@@ -25,7 +25,7 @@ use srag\Plugins\SrMemberships\Action\Helpers\CourseMembers;
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class CourseUnsubscribe extends AbstractUnsubscribe implements Action
+class CourseUnsubscribe extends AbstractUnsubscribe
 {
     use CourseMembers;
 }

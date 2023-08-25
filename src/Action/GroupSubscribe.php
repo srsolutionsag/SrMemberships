@@ -25,7 +25,7 @@ use srag\Plugins\SrMemberships\Action\Helpers\GroupMembers;
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class GroupSubscribe extends AbstractSubscribe implements Action
+class GroupSubscribe extends AbstractSubscribe
 {
     use GroupMembers;
 }

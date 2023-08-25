@@ -25,12 +25,12 @@ namespace srag\Plugins\SrMemberships\Config;
  */
 class NullConfig implements Config
 {
-    public function getNameSpace(): string
+    public function getNameSpace() : string
     {
         return 'null';
     }
 
-    public function set(string $key, $value): void
+    public function set(string $key, $value) : void
     {
     }
 
@@ -39,8 +39,7 @@ class NullConfig implements Config
         return null;
     }
 
-    public function read(): void
+    public function read() : void
     {
     }
-
 }

@@ -25,13 +25,14 @@ use srag\Plugins\SrMemberships\Person\Persons\UserIdPerson;
 use srag\Plugins\SrMemberships\Person\Account\AccountList;
 use srag\Plugins\SrMemberships\Person\Persons\Person;
 use srag\Plugins\SrMemberships\Person\Persons\PersonList;
+use srag\Plugins\SrMemberships\Person\Persons\LoginPerson;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
 class PersonsToAccounts
 {
-    public function translate(PersonList $person_list): AccountList
+    public function translate(PersonList $person_list) : AccountList
     {
         $account_list = new AccountList();
         foreach ($person_list->getPersons() as $person) {
@@ -39,15 +40,21 @@ class PersonsToAccounts
             if ($user_id !== null) {
                 $account_list->addAccount(new ILIASAccount($user_id));
             }
+            // TODO add other account types aka NonExistingAccounts
         }
         return $account_list;
     }
 
-    private function getUserID(Person $person): ?int
+    private function getUserID(Person $person) : ?int
     {
         switch (true) {
             case ($person instanceof UserIdPerson):
                 return (int) $person->getUniqueIdentification();
+            case ($person instanceof LoginPerson):
+                $login = $person->getUniqueIdentification();
+                $looked_up_id = (int) \ilObjUser::_lookupId($login);
+
+                return $looked_up_id > 0 ? $looked_up_id : null;
             default:
                 throw new \InvalidArgumentException("Person " . get_class($person) . " is currently not supported");
         }

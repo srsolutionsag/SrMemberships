@@ -21,25 +21,23 @@ declare(strict_types=1);
 namespace srag\Plugins\SrMemberships\Workflow\ByRoleSync\Config;
 
 use srag\Plugins\SrMemberships\Workflow\Config\AbstractDBWorkflowConfig;
-use srag\Plugins\SrMemberships\Workflow\Config\WorkflowConfig;
 use srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class ByRoleSyncConfig extends AbstractDBWorkflowConfig implements WorkflowConfig
+class ByRoleSyncConfig extends AbstractDBWorkflowConfig
 {
     public const F_SELECTABLE_GLOBAL_ROLES = 'selectable_global_roles';
     public const F_OFFER_WORKFLOW_TO = 'offer_workflow_to';
     public const F_SELECTABLE_LOCAL_ROLES = 'selectable_local_roles';
 
-    public function getNameSpace(): string
+    public function getNameSpace() : string
     {
         return 'by_role_sync';
     }
 
-
-    public function getAvailableRolesForSelection(ObjectInfoProvider $info): array
+    public function getAvailableRolesForSelection(ObjectInfoProvider $info) : array
     {
         $global_roles = $this->get(ByRoleSyncConfig::F_SELECTABLE_GLOBAL_ROLES) ?? [];
         if ($global_roles === [-1]) {

@@ -25,9 +25,9 @@ namespace srag\Plugins\SrMemberships\Workflow\ToolObjectConfig;
  */
 interface ToolConfig
 {
-    public function getContextRefId(): int;
+    public function getContextRefId() : int;
 
-    public function getWorkflowID(): string;
+    public function getWorkflowID() : string;
 
     /**
      * @param string                $key
@@ -35,7 +35,7 @@ interface ToolConfig
      * @return void
      * @throws \InvalidArgumentException if the $value is not of the correct type
      */
-    public function set(string $key, $value): void;
+    public function set(string $key, $value) : void;
 
     /**
      * @param string                $key
@@ -44,5 +44,5 @@ interface ToolConfig
      */
     public function get(string $key, $default = null);
 
-    public function read(): void;
+    public function read() : void;
 }

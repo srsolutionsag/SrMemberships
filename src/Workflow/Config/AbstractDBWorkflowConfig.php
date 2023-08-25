@@ -27,7 +27,7 @@ use srag\Plugins\SrMemberships\Config\AbstractDBConfig;
  */
 abstract class AbstractDBWorkflowConfig extends AbstractDBConfig implements WorkflowConfig
 {
-    public function getActivatedForTypes(): array
+    public function getActivatedForTypes() : array
     {
         return $this->get(self::F_OBJECT_TYPES, []);
     }

@@ -21,19 +21,19 @@ declare(strict_types=1);
 namespace srag\Plugins\SrMemberships\Config\General;
 
 use srag\Plugins\SrMemberships\Config\AbstractConfigForm;
-use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
 class GeneralConfigForm extends AbstractConfigForm
 {
-    protected function getFields(): array
+    protected function getFields() : array
     {
         $all_workflows = [];
         foreach ($this->container->workflows()->getAllWorkflows() as $workflow) {
-            $all_workflows[$workflow->getWorkflowID()] = $this->translator->txt(
-                'workflow_' . $workflow->getWorkflowID()
+            $workflow_id = $workflow->getWorkflowID();
+            $all_workflows[$workflow_id] = $this->translator->txt(
+                'workflow_' . $workflow_id
             );
         }
 

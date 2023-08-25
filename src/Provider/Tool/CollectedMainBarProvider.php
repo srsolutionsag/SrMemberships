@@ -33,27 +33,27 @@ class CollectedMainBarProvider extends AbstractDynamicToolPluginProvider
     /**
      * @var \srag\Plugins\SrMemberships\Translator|null
      */
-    private $translator = null;
+    private $translator;
     /**
      * @var \srag\Plugins\SrMemberships\Config\Configs|null
      */
-    private $config = null;
+    private $config;
     /**
      * @var \srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider|null
      */
-    private $object_info_resolver = null;
+    private $object_info_resolver;
     /**
      * @var \srag\Plugins\SrMemberships\Provider\Context\UserAccessInfoProvider|null
      */
-    private $access_info_resolver = null;
+    private $access_info_resolver;
     /**
      * @var \srag\Plugins\SrMemberships\Workflow\WorkflowContainerRepository|null
      */
-    private $workflow_repository = null;
+    private $workflow_repository;
     /**
      * @var \srag\Plugins\SrMemberships\Provider\Context\ContextFactory|null
      */
-    private $context_factory = null;
+    private $context_factory;
 
     public function getToolsForContextStack(CalledContexts $called_contexts) : array
     {

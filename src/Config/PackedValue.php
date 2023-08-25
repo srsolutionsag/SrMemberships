@@ -50,7 +50,7 @@ class PackedValue
         $this->type = $type;
     }
 
-    private function checkType(int $type): void
+    private function checkType(int $type) : void
     {
         if (!in_array($type, [
             self::TYPE_STRING,
@@ -64,12 +64,12 @@ class PackedValue
         }
     }
 
-    public function getPackedValue(): string
+    public function getPackedValue() : string
     {
         return $this->packed_value;
     }
 
-    public function getType(): int
+    public function getType() : int
     {
         return $this->type;
     }

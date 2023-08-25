@@ -35,9 +35,8 @@ class ILIASAccount implements Account
         $this->user_id = $user_id;
     }
 
-    public function getUserId(): int
+    public function getUserId() : int
     {
         return $this->user_id;
     }
-
 }

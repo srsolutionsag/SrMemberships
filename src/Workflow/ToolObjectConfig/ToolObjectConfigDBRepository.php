@@ -46,19 +46,20 @@ class ToolObjectConfigDBRepository implements ToolObjectConfigRepository
         int $ref_id,
         WorkflowContainer $workflow_container,
         array $data
-    ): void {
+    ) : void {
         $this->clear($ref_id, $workflow_container);
         $packed = $this->pack($data);
         $this->db->manipulateF(
             "INSERT INTO " . self::TABLE_NAME . " (context_ref_id, workflow_id, config_data) VALUES (%s, %s, %s)",
-            ['integer', 'text', 'text'], [$ref_id, $workflow_container->getWorkflowId(), $packed->getPackedValue()]
+            ['integer', 'text', 'text'],
+            [$ref_id, $workflow_container->getWorkflowId(), $packed->getPackedValue()]
         );
     }
 
     public function get(
         int $ref_id,
         WorkflowContainer $workflow_container
-    ): ?array {
+    ) : ?array {
         $q = "SELECT * FROM " . self::TABLE_NAME . " WHERE context_ref_id = %s AND workflow_id = %s";
         $res = $this->db->queryF($q, ['integer', 'text'], [$ref_id, $workflow_container->getWorkflowId()]);
         $data = $this->db->fetchObject($res);
@@ -68,14 +69,15 @@ class ToolObjectConfigDBRepository implements ToolObjectConfigRepository
     public function clear(
         int $ref_id,
         WorkflowContainer $workflow_container
-    ): void {
+    ) : void {
         $this->db->manipulateF(
             "DELETE FROM " . self::TABLE_NAME . " WHERE context_ref_id = %s AND workflow_id = %s",
-            ['integer', 'text'], [$ref_id, $workflow_container->getWorkflowId()]
+            ['integer', 'text'],
+            [$ref_id, $workflow_container->getWorkflowId()]
         );
     }
 
-    public function getAssignedRefIds(WorkflowContainer $workflow): \Generator
+    public function getAssignedRefIds(WorkflowContainer $workflow) : \Generator
     {
         $q = "SELECT DISTINCT context_ref_id FROM " . self::TABLE_NAME . " WHERE workflow_id = %s";
         $res = $this->db->queryF($q, ['text'], [$workflow->getWorkflowId()]);
@@ -83,5 +85,4 @@ class ToolObjectConfigDBRepository implements ToolObjectConfigRepository
             yield (int) $row['context_ref_id'];
         }
     }
-
 }

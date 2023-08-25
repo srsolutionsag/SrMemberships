@@ -18,36 +18,30 @@
 
 declare(strict_types=1);
 
-namespace srag\Plugins\SrMemberships\Implementations\TextList;
-
-use srag\Plugins\SrMemberships\Person\PersonSource;
+namespace srag\Plugins\SrMemberships\Person\Persons;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class ListOfEmailsSource implements PersonSource
+class LoginPerson implements Person
 {
-
     /**
-     * @var array|string[]
+     * @var string
      */
-    private $raw_data;
+    protected $login;
 
-    public function __construct()
+    public function __construct(string $login)
     {
-        $this->raw_data = [
-            'katharina@sr.solutions',
-            'fabian@sr.solutions',
-            'marcel@sr.solutions',
-            'robin@sr.solutions',
-            'thibeau@sr.solutions',
-            'lukas@sr.solutions',
-            'noreply@sr.solutions'
-        ];
+        $this->login = $login;
     }
 
-    public function getRawEntries() : \Generator
+    public function getUniqueIdentification() : string
     {
-        yield from $this->raw_data;
+        return $this->login;
+    }
+
+    public function isAccountCreatable() : bool
+    {
+        return true;
     }
 }

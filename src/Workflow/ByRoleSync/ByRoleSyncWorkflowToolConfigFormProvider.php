@@ -32,11 +32,7 @@ use ILIAS\UI\Component\Input\Field\Section;
  */
 class ByRoleSyncWorkflowToolConfigFormProvider implements ToolConfigFormProvider
 {
-    const ROLE_SELECTION = 'role_selection';
-    /**
-     * @var WorkflowContainer
-     */
-    private $workflow_container;
+    public const ROLE_SELECTION = 'role_selection';
     /**
      * @var \srag\Plugins\SrMemberships\Container\Container
      */
@@ -55,8 +51,7 @@ class ByRoleSyncWorkflowToolConfigFormProvider implements ToolConfigFormProvider
         WorkflowContainer $workflow_container
     ) {
         $this->container = $container;
-        $this->workflow_container = $workflow_container;
-        $this->config = $this->workflow_container->getConfig();
+        $this->config = $workflow_container->getConfig();
         $this->ui_factory = $this->container->dic()->ui()->factory();
     }
 

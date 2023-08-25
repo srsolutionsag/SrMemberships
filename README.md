@@ -1,9 +1,6 @@
 SrMemberships
 ====================
 
-
-
-
 ### ILIAS Plugin SLA
 
 We love and live the philosophy of Open Source Software! Most of our developments, which we develop on behalf of

@@ -28,7 +28,7 @@ use srag\Plugins\SrMemberships\Person\Account\Account;
  */
 abstract class AbstractSubscribe implements Action
 {
-    public function performFor(AccountList $accounts): int
+    public function performFor(AccountList $accounts) : int
     {
         $counter = 0;
         foreach ($accounts->getAccounts() as $account) {
@@ -38,5 +38,5 @@ abstract class AbstractSubscribe implements Action
         return $counter;
     }
 
-    abstract protected function addToContainer(Account $account): void;
+    abstract protected function addToContainer(Account $account) : void;
 }

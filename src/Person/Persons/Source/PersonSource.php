@@ -25,5 +25,5 @@ namespace srag\Plugins\SrMemberships\Person\Persons\Source;
  */
 interface PersonSource
 {
-    public function getRawEntries(): \Generator;
+    public function getRawEntries() : \Generator;
 }

@@ -18,34 +18,25 @@
 
 declare(strict_types=1);
 
-namespace srag\Plugins\SrMemberships\Implementations\TextList;
+namespace srag\Plugins\SrMemberships\Person\Resolver;
 
-use srag\Plugins\SrMemberships\Person\PersonSource;
+use srag\Plugins\SrMemberships\Person\Persons\LoginPerson;
+use srag\Plugins\SrMemberships\Person\Persons\Resolver\PersonResolver;
+use srag\Plugins\SrMemberships\Person\Persons\Source\PersonSource;
+use srag\Plugins\SrMemberships\Person\Persons\PersonList;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class ListOfMatriculationsSource implements PersonSource
+class LoginPersonResolver implements PersonResolver
 {
-
-    /**
-     * @var array|string[]
-     */
-    private $raw_data;
-
-    public function __construct()
+    public function resolveFor(PersonSource $source) : PersonList
     {
-        $this->raw_data = [
-            '1145214632115',
-            '1145214632116',
-            '1145214632117',
-            '1145214632118',
-            '1145214632119',
-        ];
-    }
+        $persons = [];
+        foreach ($source->getRawEntries() as $item) {
+            $persons[] = new LoginPerson($item);
+        }
 
-    public function getRawEntries() : \Generator
-    {
-        yield from $this->raw_data;
+        return new PersonList($persons);
     }
 }

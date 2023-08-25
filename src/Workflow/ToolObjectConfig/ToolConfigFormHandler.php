@@ -61,6 +61,7 @@ class ToolConfigFormHandler
 
     public function makeFormSectionStorable(Section $section) : Section
     {
+        /** @noinspection CallableParameterUseCaseInTypeContextInspection */
         $section = $section->withAdditionalTransformation(
             $this->container->dic()->refinery()->custom()->transformation(function ($value) {
                 $this->repository->store(
@@ -72,6 +73,7 @@ class ToolConfigFormHandler
             })
         );
         try {
+            /** @noinspection CallableParameterUseCaseInTypeContextInspection */
             $section = $section->withValue(
                 $this->repository->get(
                     $this->context->getCurrentRefId(),
@@ -80,6 +82,7 @@ class ToolConfigFormHandler
             );
         } catch (\Throwable $e) {
         }
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $section;
     }
 }

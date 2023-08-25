@@ -25,25 +25,25 @@ use srag\Plugins\SrMemberships\Config\General\GeneralConfig;
 use srag\Plugins\SrMemberships\Config\Config;
 use srag\Plugins\SrMemberships\Workflow\ByRoleSync\Config\Form;
 use srag\Plugins\SrMemberships\Workflow\AbstractBaseWorkflowContainer;
-use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use srag\Plugins\SrMemberships\Workflow\ToolObjectConfig\ToolConfigFormProvider;
 use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
 use srag\Plugins\SrMemberships\Action\ActionHandler;
 use srag\Plugins\SrMemberships\Workflow\ByRoleSync\Action\ByRoleSyncActionHandler;
 use srag\Plugins\SrMemberships\Workflow\ByRoleSync\Config\ByRoleSyncConfig;
+use ilSrMsBaseConfigurationGUI;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class ByRoleSyncWorkflowContainer extends AbstractBaseWorkflowContainer implements WorkflowContainer
+class ByRoleSyncWorkflowContainer extends AbstractBaseWorkflowContainer
 {
-    public function getWorkflowID(): string
+    public function getWorkflowID() : string
     {
         return GeneralConfig::BY_ROLE_SYNC;
     }
 
-    public function getPossiblesModes(): Modes
+    public function getPossiblesModes() : Modes
     {
         return new Modes(
             Modes::cron(),
@@ -54,12 +54,12 @@ class ByRoleSyncWorkflowContainer extends AbstractBaseWorkflowContainer implemen
         );
     }
 
-    public function getConfig(): Config
+    public function getConfig() : Config
     {
         return $this->container->config()->byRoleSync();
     }
 
-    public function isToolAvailable(Context $context): bool
+    public function isToolAvailable(Context $context) : bool
     {
         // depends on settings
         $offered_to = $this->getConfig()->get(ByRoleSyncConfig::F_OFFER_WORKFLOW_TO) ?? [];
@@ -70,22 +70,22 @@ class ByRoleSyncWorkflowContainer extends AbstractBaseWorkflowContainer implemen
         return $this->container->userAccessInfoProvider()->isUserInAtLeastOneRole($context->getUserId(), $offered_to);
     }
 
-    public function getConfigClass(): \ilSrMsAbstractGUI
+    public function getConfigClass() : \ilSrMsAbstractGUI
     {
         return new \ilSrMsByRoleSyncConfigurationGUI();
     }
 
-    public function getConfigForm(): ConfigForm
+    public function getConfigForm() : ConfigForm
     {
         return new Form(
             $this->getConfigClass(),
-            \ilSrMsByRoleSyncConfigurationGUI::CMD_SAVE,
+            ilSrMsBaseConfigurationGUI::CMD_SAVE,
             $this->getConfig(),
             $this->container
         );
     }
 
-    public function getWorkflowToolForm(): ToolConfigFormProvider
+    public function getWorkflowToolForm() : ToolConfigFormProvider
     {
         return new ByRoleSyncWorkflowToolConfigFormProvider(
             $this->container,
@@ -93,14 +93,13 @@ class ByRoleSyncWorkflowContainer extends AbstractBaseWorkflowContainer implemen
         );
     }
 
-    public function getWorkflowToolFormProcessor(): \ilSrMsAbstractWorkflowProcessorGUI
+    public function getWorkflowToolFormProcessor() : \ilSrMsAbstractWorkflowProcessorGUI
     {
         return new \ilSrMsStoreObjectConfigGUI();
     }
 
-    public function getActionHandler(Context $context): ActionHandler
+    public function getActionHandler(Context $context) : ActionHandler
     {
         return new ByRoleSyncActionHandler($this->container);
     }
-
 }

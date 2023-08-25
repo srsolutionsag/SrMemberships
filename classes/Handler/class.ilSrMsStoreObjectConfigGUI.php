@@ -27,13 +27,13 @@ use srag\Plugins\SrMemberships\Provider\Context\Context;
  */
 class ilSrMsStoreObjectConfigGUI extends ilSrMsAbstractWorkflowProcessorGUI
 {
-    protected function setupGlobalTemplate(ilGlobalTemplateInterface $template, ilSrMsTabManager $tabs): void
+    protected function setupGlobalTemplate(ilGlobalTemplateInterface $template, ilSrMsTabManager $tabs) : void
     {
         parent::setupGlobalTemplate($template, $tabs);
         $template->setTitle($this->translator->txt('store_object_config'));
     }
 
-    protected function canUserExecute(ilSrMsAccessHandler $access_handler, string $command): bool
+    protected function canUserExecute(ilSrMsAccessHandler $access_handler, string $command) : bool
     {
         return true;
     }
@@ -42,7 +42,7 @@ class ilSrMsStoreObjectConfigGUI extends ilSrMsAbstractWorkflowProcessorGUI
         WorkflowContainer $workflow_container,
         ServerRequestInterface $request,
         Context $context
-    ): void {
+    ) : void {
         $form = $this->form_builder->getForm($context, $workflow_container)->withRequest($request);
         $data = $form->getData();
         if ($data !== null) {
@@ -51,17 +51,24 @@ class ilSrMsStoreObjectConfigGUI extends ilSrMsAbstractWorkflowProcessorGUI
                 $context->getCurrentRefId(),
                 $workflow_container
             );
+            if ($modes === null) {
+                $modes = [];
+            }
 
-            $workflow_container->getActionHandler($context)->performActions(
+            $summary = $workflow_container->getActionHandler($context)->performActions(
                 $workflow_container,
                 $context,
                 $modes
             );
+            if ($summary->isOK()) {
+                $this->sendInfoMessage($summary->getMessage());
+            } else {
+                $this->sendErrorMessage($summary->getMessage());
+            }
 
-            $this->sendSuccessMessage('msg_object_config_stored');
+            $this->sendSuccessMessage($this->translator->txt('msg_object_config_stored'));
             $this->redirectToRefId($context->getCurrentRefId());
         }
         $this->render($form);
     }
-
 }

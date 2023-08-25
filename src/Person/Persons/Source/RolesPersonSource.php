@@ -39,7 +39,7 @@ class RolesPersonSource implements PersonSource
         $this->rbac_review = $rbac_review;
     }
 
-    public function getRawEntries(): \Generator
+    public function getRawEntries() : \Generator
     {
         foreach ($this->role_ids as $role_id) {
             yield from array_map(function ($user_id) {

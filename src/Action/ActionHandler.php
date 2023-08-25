@@ -33,5 +33,5 @@ interface ActionHandler
         WorkflowContainer $workflow_container,
         Context $context,
         Modes $modes
-    ): void;
+    ) : Summary;
 }

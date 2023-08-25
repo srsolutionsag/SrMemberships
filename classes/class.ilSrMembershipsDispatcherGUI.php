@@ -30,6 +30,8 @@ use srag\Plugins\SrMemberships\Container\Init;
  *
  * @ilCtrl_Calls      ilSrMembershipsDispatcherGUI : ilSrMsGeneralConfigurationGUI
  * @ilCtrl_Calls      ilSrMembershipsDispatcherGUI : ilSrMsByRoleSyncConfigurationGUI
+ * @ilCtrl_Calls      ilSrMembershipsDispatcherGUI : ilSrMsByLoginConfigurationGUI
+ * @ilCtrl_Calls      ilSrMembershipsDispatcherGUI : ilSrMsGeneralUploadHandlerGUI
  */
 class ilSrMembershipsDispatcherGUI
 {
@@ -77,6 +79,9 @@ class ilSrMembershipsDispatcherGUI
         switch ($next_class) {
             case strtolower(ilSrMsGeneralConfigurationGUI::class):
                 $this->safelyForward(ilSrMsGeneralConfigurationGUI::class);
+                break;
+            case strtolower(ilSrMsGeneralUploadHandlerGUI::class):
+                $this->safelyForward(ilSrMsGeneralUploadHandlerGUI::class);
                 break;
             case strtolower(self::class):
                 throw new LogicException(self::class . " MUST never be the executing class.");

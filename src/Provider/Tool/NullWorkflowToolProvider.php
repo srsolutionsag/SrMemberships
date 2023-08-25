@@ -34,7 +34,7 @@ class NullWorkflowToolProvider implements WorkflowToolProvider
         Context $context,
         ToolFactory $tool_factory,
         PluginIdentificationProvider $identification_factory
-    ): ?Tool {
+    ) : ?Tool {
         return null;
     }
 }

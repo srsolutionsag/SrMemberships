@@ -58,30 +58,25 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
         return self::SRMS_WORKFLOW_JOB;
     }
 
-
     public function hasAutoActivation() : bool
     {
         return true;
     }
-
 
     public function hasFlexibleSchedule() : bool
     {
         return true;
     }
 
-
     public function getDefaultScheduleType() : int
     {
         return ilCronJob::SCHEDULE_TYPE_IN_HOURS;
     }
 
-
     public function getDefaultScheduleValue() : ?int
     {
         return 6;
     }
-
 
     public function run() : ilCronJobResult
     {
@@ -100,7 +95,7 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
                     continue;
                 }
                 try {
-                    $workflow->getActionHandler($context)->performActions($workflow, $context, $modes);
+                    $summary = $workflow->getActionHandler($context)->performActions($workflow, $context, $modes);
                 } catch (Throwable $e) {
                     $result->setMessage($result->getMessage() . "\n" . $e->getMessage());
                 }

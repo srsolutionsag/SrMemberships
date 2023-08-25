@@ -25,7 +25,7 @@ use srag\Plugins\SrMemberships\Action\Helpers\CourseMembers;
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class CourseSubscribe extends AbstractSubscribe implements Action
+class CourseSubscribe extends AbstractSubscribe
 {
     use CourseMembers;
 }

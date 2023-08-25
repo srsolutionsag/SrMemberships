@@ -40,14 +40,14 @@ class ilSrMsGeneralConfigurationGUI extends ilSrMsAbstractGUI
         );
     }
 
-    protected function index(): void
+    protected function index() : void
     {
         $this->render(
             $this->form->getForm()
         );
     }
 
-    protected function triageWorkflow(): void
+    protected function triageWorkflow() : void
     {
         $workflow_id = $this->request->getQueryParams()[self::PARAM_WORKFLOW];
 
@@ -62,7 +62,7 @@ class ilSrMsGeneralConfigurationGUI extends ilSrMsAbstractGUI
         $this->render($this->ui_factory->legacy($workflow_id));
     }
 
-    protected function save(): void
+    protected function save() : void
     {
         $sent_form = $this->form->getForm()->withRequest($this->request);
         if ($sent_form->getData() === null) {
@@ -75,13 +75,13 @@ class ilSrMsGeneralConfigurationGUI extends ilSrMsAbstractGUI
     protected function setupGlobalTemplate(
         ilGlobalTemplateInterface $template,
         ilSrMsTabManager $tabs
-    ): void {
+    ) : void {
         $template->setTitle($this->translator->txt("general_configuration"));
 
         $tabs->addConfigurationTab(true);
     }
 
-    protected function canUserExecute(ilSrMsAccessHandler $access_handler, string $command): bool
+    protected function canUserExecute(ilSrMsAccessHandler $access_handler, string $command) : bool
     {
         return $access_handler->isAdministrator();
     }

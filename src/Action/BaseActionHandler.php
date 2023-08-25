@@ -22,6 +22,8 @@ namespace srag\Plugins\SrMemberships\Action;
 
 use srag\Plugins\SrMemberships\Person\PersonsToAccounts;
 use srag\Plugins\SrMemberships\Container\Container;
+use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
+use srag\Plugins\SrMemberships\Provider\Context\Context;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -57,5 +59,34 @@ abstract class BaseActionHandler implements ActionHandler
         $this->person_list_generators = $container->personListGenerators();
         $this->account_list_generators = $container->accountListGenerators();
         $this->action_builder = new ActionBuilder($container);
+    }
+
+    protected function generalHandling(
+        Context $context,
+        \srag\Plugins\SrMemberships\Person\Account\AccountList $account_list,
+        Modes $modes
+    ) : Summary {
+        $current_members = $this->account_list_generators->fromContainerId($context->getCurrentRefId());
+        $accounts_to_add = $this->account_list_generators->diff($account_list, $current_members);
+
+        // Subscribe new members
+        if ($modes->isModeSet(Modes::RUN_ON_SAVE)) {
+            $this->action_builder->subscribe($context->getCurrentRefId())
+                                 ->performFor($accounts_to_add);
+        }
+        $accounts_ro_remove = null;
+        if ($modes->isModeSet(Modes::REMOVE_DIFF)) {
+            $accounts_ro_remove = $this->account_list_generators->diff($current_members, $account_list);
+
+            // Unsubscribe members that are not in the role anymore
+            $this->action_builder->unsubscribe($context->getCurrentRefId())
+                                 ->performFor($accounts_ro_remove);
+        }
+
+        if ($accounts_to_add->isEmpty() && ($accounts_ro_remove === null || $accounts_ro_remove->isEmpty())) {
+            return Summary::empty();
+        }
+
+        return Summary::from($accounts_to_add, $accounts_ro_remove);
     }
 }

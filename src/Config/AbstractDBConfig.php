@@ -43,7 +43,7 @@ abstract class AbstractDBConfig implements Config
         $this->read();
     }
 
-    public function read(): void
+    public function read() : void
     {
         $this->values = [];
         $set = $this->db->query('SELECT * FROM ' . self::TABLE_NAME);
@@ -62,7 +62,7 @@ abstract class AbstractDBConfig implements Config
         return $this->values[$this->getNamespace()][$key] ?? $default;
     }
 
-    public function set(string $key, $value): void
+    public function set(string $key, $value) : void
     {
         $this->values[$this->getNamespace()][$key] = $value;
         $this->saveToDB($key, $value);
@@ -74,7 +74,7 @@ abstract class AbstractDBConfig implements Config
      * @return void
      * @throws \JsonException
      */
-    protected function saveToDB(string $key, $value): void
+    protected function saveToDB(string $key, $value) : void
     {
         $packed_value = $this->pack($value);
 

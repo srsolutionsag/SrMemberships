@@ -18,14 +18,21 @@
 
 declare(strict_types=1);
 
-namespace srag\Plugins\SrMemberships\Person;
+namespace srag\Plugins\SrMemberships;
+
+use ILIAS\Refinery\Transformation;
+use srag\Plugins\SrMemberships\Container\Init;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-interface Person
+trait TrafoGenerator
 {
-    public function getUniqueIdentification() : string;
+    public function trafo(\Closure $closure) : Transformation
+    {
+        $container = Init::init($GLOBALS['DIC']);
+        $refinery = $container->dic()->refinery();
 
-    public function isAccountCreatable() : bool;
+        return $refinery->custom()->transformation($closure);
+    }
 }

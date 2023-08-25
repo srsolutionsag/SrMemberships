@@ -30,21 +30,21 @@ interface ObjectModeRepository
         int $ref_id,
         WorkflowContainer $workflow_container,
         Modes $modes
-    ): void;
+    ) : void;
 
     public function storeFromArrayOfModeIds(
         int $ref_id,
         WorkflowContainer $workflow_container,
         array $mode_ids
-    ): void;
+    ) : void;
 
     public function get(
         int $ref_id,
         WorkflowContainer $workflow_container
-    ): ?Modes;
+    ) : ?Modes;
 
     public function clear(
         int $ref_id,
         WorkflowContainer $workflow_container
-    ): void;
+    ) : void;
 }

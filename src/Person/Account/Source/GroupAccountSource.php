@@ -35,7 +35,7 @@ class GroupAccountSource implements AccountSource
         $this->group_members = new \ilGroupParticipants(\ilObject2::_lookupObjectId($ref_id));
     }
 
-    public function getRawEntries(): \Generator
+    public function getRawEntries() : \Generator
     {
         yield from $this->group_members->getMembers();
     }

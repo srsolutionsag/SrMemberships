@@ -25,6 +25,7 @@ use srag\Plugins\SrMemberships\Provider\Context\Context;
 use srag\Plugins\SrMemberships\Workflow\ToolObjectConfig\ToolConfigFormHandler;
 use srag\Plugins\SrMemberships\Workflow\Mode\ModesFormHandler;
 use ILIAS\UI\Component\Input\Container\Form\Standard;
+use ilSrMsAbstractGUI;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -64,7 +65,7 @@ class WorkflowFormBuilder
 
         $post_url = $this->container->dic()->ctrl()->getFormActionByClass(
             [\ilUIPluginRouterGUI::class, get_class($processor)],
-            \ilSrMsAbstractWorkflowProcessorGUI::CMD_INDEX
+            ilSrMsAbstractGUI::CMD_INDEX
         );
 
         // Tools Form

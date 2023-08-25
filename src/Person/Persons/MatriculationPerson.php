@@ -35,12 +35,12 @@ class MatriculationPerson implements Person
         $this->matriculation = $matriculation;
     }
 
-    public function getUniqueIdentification(): string
+    public function getUniqueIdentification() : string
     {
         return $this->matriculation;
     }
 
-    public function isAccountCreatable(): bool
+    public function isAccountCreatable() : bool
     {
         return false;
     }

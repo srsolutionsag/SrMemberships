@@ -25,7 +25,7 @@ class ilSrMembershipsHandlerGUI extends ilSrMsAbstractGUI
 {
     public const CMD_SAVE = 'save';
 
-    protected function setupGlobalTemplate(ilGlobalTemplateInterface $template, ilSrMsTabManager $tabs): void
+    protected function setupGlobalTemplate(ilGlobalTemplateInterface $template, ilSrMsTabManager $tabs) : void
     {
         $template->setTitle($this->translator->txt("handle_workflow_screen"));
 
@@ -33,12 +33,12 @@ class ilSrMembershipsHandlerGUI extends ilSrMsAbstractGUI
         $tabs->addBackToObject($ref_id);
     }
 
-    protected function canUserExecute(ilSrMsAccessHandler $access_handler, string $command): bool
+    protected function canUserExecute(ilSrMsAccessHandler $access_handler, string $command) : bool
     {
         return true;
     }
 
-    protected function index(): void
+    protected function index() : void
     {
         $this->render(
             $this->ui_factory->legacy('<pre>' . print_r($_POST, true) . '</pre>')

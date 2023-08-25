@@ -28,6 +28,7 @@ use ILIAS\Refinery\Transformation;
 use ILIAS\UI\Component\Input\Field\Select;
 use ILIAS\UI\Component\Input\Field\MultiSelect;
 use Psr\Http\Message\ServerRequestInterface;
+use ILIAS\UI\Component\Input\Container\Form\Standard;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -88,6 +89,7 @@ abstract class AbstractConfigForm implements ConfigForm
         string $label,
         string $byline = null
     ) : Text {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->ui_factory->input()->field()->text($label, $byline)
                                 ->withValue($this->config->get($config_key, ''))
                                 ->withAdditionalTransformation(
@@ -100,6 +102,7 @@ abstract class AbstractConfigForm implements ConfigForm
         string $label,
         string $byline = null
     ) : Checkbox {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->ui_factory->input()->field()->checkbox($label, $byline)
                                 ->withValue($this->config->get($config_key, false))
                                 ->withAdditionalTransformation(
@@ -113,6 +116,7 @@ abstract class AbstractConfigForm implements ConfigForm
         array $options,
         string $byline = null
     ) : Select {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->ui_factory->input()->field()->select($label, $options, $byline)
                                 ->withValue($this->config->get($config_key, null))
                                 ->withAdditionalTransformation(
@@ -150,13 +154,13 @@ abstract class AbstractConfigForm implements ConfigForm
                 $this->translator->txt(self::GROUP_KEY_SELECT)
             )
         ];
-
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $factory
             ->switchableGroup($group_fields, $label)
             ->withValue($group_value)
             ->withAdditionalTransformation(
                 $this->refinery->custom()->transformation(function ($value) use ($config_key, $all_value) {
-                    if ($value[0] === AbstractConfigForm::GROUP_KEY_ALL) {
+                    if ($value[0] === ConfigForm::GROUP_KEY_ALL) {
                         $this->config->set($config_key, [$all_value]);
                     } else {
                         $this->config->set($config_key, $value[1][0]);
@@ -172,6 +176,7 @@ abstract class AbstractConfigForm implements ConfigForm
         array $options,
         string $byline = null
     ) : MultiSelect {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->ui_factory->input()->field()->multiSelect($label, $options, $byline)
                                 ->withValue($this->config->get($config_key, null))
                                 ->withAdditionalTransformation(
@@ -191,7 +196,7 @@ abstract class AbstractConfigForm implements ConfigForm
 
     public function getForm(
         ?ServerRequestInterface $with_request = null
-    ) : \ILIAS\UI\Component\Input\Container\Form\Standard {
+    ) : Standard {
         $post_url = $this->ctrl->getLinkTarget($this->target_gui, $this->target_command);
 
         $standard = $this->ui_factory->input()->container()->form()->standard(

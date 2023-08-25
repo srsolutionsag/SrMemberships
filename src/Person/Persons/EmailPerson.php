@@ -35,12 +35,12 @@ class EmailPerson implements Person
         $this->email = $email;
     }
 
-    public function getUniqueIdentification(): string
+    public function getUniqueIdentification() : string
     {
         return $this->email;
     }
 
-    public function isAccountCreatable(): bool
+    public function isAccountCreatable() : bool
     {
         return true;
     }

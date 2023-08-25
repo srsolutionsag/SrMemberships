@@ -23,6 +23,9 @@ namespace srag\Plugins\SrMemberships\Person\Persons;
 use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Person\Persons\Resolver\RolesPersonResolver;
 use srag\Plugins\SrMemberships\Person\Persons\Source\RolesPersonSource;
+use srag\Plugins\SrMemberships\Person\Resolver\LoginPersonResolver;
+use srag\Plugins\SrMemberships\Person\Persons\Source\StringPersonSource;
+use srag\Plugins\SrMemberships\Person\Persons\Source\ArrayPersonSource;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -42,7 +45,22 @@ class PersonListGenerators
 
     public function byRoleIds(array $role_ids) : PersonList
     {
-        $resolver = new RolesPersonResolver();
-        return $resolver->resolveFor(new RolesPersonSource($role_ids, $this->container->dic()->rbac()->review()));
+        return (new RolesPersonResolver())->resolveFor(
+            new RolesPersonSource($role_ids, $this->container->dic()->rbac()->review())
+        );
+    }
+
+    public function byLogins(array $logins) : PersonList
+    {
+        return (new LoginPersonResolver())->resolveFor(
+            new ArrayPersonSource($logins)
+        );
+    }
+
+    public function byLoginsFromString(string $logins) : PersonList
+    {
+        return (new LoginPersonResolver())->resolveFor(
+            new StringPersonSource($logins)
+        );
     }
 }

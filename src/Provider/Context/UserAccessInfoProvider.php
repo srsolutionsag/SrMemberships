@@ -53,7 +53,7 @@ class UserAccessInfoProvider
         $this->rbac_review = $rbac_review;
     }
 
-    public function hasUserPermissionToAdministrate(int $user_id, int $ref_id): bool
+    public function hasUserPermissionToAdministrate(int $user_id, int $ref_id) : bool
     {
         if (isset($this->cache[$user_id][$ref_id])) {
             return $this->cache[$user_id][$ref_id];
@@ -63,14 +63,16 @@ class UserAccessInfoProvider
             case ObjectInfoProvider::TYPE_CRS:
             case ObjectInfoProvider::TYPE_GRP:
                 return $this->cache[$user_id][$ref_id] = $this->rbac->checkAccessOfUser(
-                    $user_id, 'manage_members', $ref_id
+                    $user_id,
+                    'manage_members',
+                    $ref_id
                 );
             default:
                 return $this->cache[$user_id][$ref_id] = false;
         }
     }
 
-    public function isUserInAtLeastOneRole(int $user_id, array $role_ids): bool
+    public function isUserInAtLeastOneRole(int $user_id, array $role_ids) : bool
     {
         return $this->rbac_review->isAssignedToAtLeastOneGivenRole($user_id, $role_ids);
     }

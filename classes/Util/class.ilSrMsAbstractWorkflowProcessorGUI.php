@@ -37,13 +37,13 @@ abstract class ilSrMsAbstractWorkflowProcessorGUI extends ilSrMsAbstractGUI
         $this->form_builder = new WorkflowFormBuilder($this->container);
     }
 
-    protected function setupGlobalTemplate(ilGlobalTemplateInterface $template, ilSrMsTabManager $tabs): void
+    protected function setupGlobalTemplate(ilGlobalTemplateInterface $template, ilSrMsTabManager $tabs) : void
     {
         $fallback_ref_id = $this->getRequestParameter(self::FALLBACK_REF_ID) ?? null;
         $tabs->addBackToObjectMembersTab((int) $fallback_ref_id);
     }
 
-    protected function index(): void
+    protected function index() : void
     {
         $workflow_container_id = $this->getRequestParameter(self::WORKFLOW_CONTAINER_ID) ?? null;
         $fallback_ref_id = $this->getRequestParameter(self::FALLBACK_REF_ID) ?? null;
@@ -60,5 +60,5 @@ abstract class ilSrMsAbstractWorkflowProcessorGUI extends ilSrMsAbstractGUI
         WorkflowContainer $workflow_container,
         ServerRequestInterface $request,
         Context $context
-    ): void;
+    ) : void;
 }

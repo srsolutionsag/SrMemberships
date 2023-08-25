@@ -25,14 +25,14 @@ namespace srag\Plugins\SrMemberships\Person\Persons;
  */
 class PersonList
 {
-    private $persons = [];
+    private $persons;
 
     public function __construct(array $persons = [])
     {
         $this->persons = $persons;
     }
 
-    public function addPerson(Person $person): void
+    public function addPerson(Person $person) : void
     {
         if (isset($this->persons[$person->getUniqueIdentification()])) {
             return;
@@ -40,7 +40,7 @@ class PersonList
         $this->persons[$person->getUniqueIdentification()] = $person;
     }
 
-    public function removePerson(Person $person): void
+    public function removePerson(Person $person) : void
     {
         if (!isset($this->persons[$person->getUniqueIdentification()])) {
             return;
@@ -51,7 +51,7 @@ class PersonList
     /**
      * @return Person[]
      */
-    public function getPersons(): array
+    public function getPersons() : array
     {
         return $this->persons;
     }

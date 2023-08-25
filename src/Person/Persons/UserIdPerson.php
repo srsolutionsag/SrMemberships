@@ -35,12 +35,12 @@ class UserIdPerson implements Person
         $this->user_id = $user_id;
     }
 
-    public function getUniqueIdentification(): string
+    public function getUniqueIdentification() : string
     {
         return (string) $this->user_id;
     }
 
-    public function isAccountCreatable(): bool
+    public function isAccountCreatable() : bool
     {
         return false;
     }

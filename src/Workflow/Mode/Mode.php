@@ -35,11 +35,11 @@ class Mode
     /**
      * @var bool
      */
-    private $is_selectable = false;
+    private $is_selectable;
     /**
      * @var Mode|null
      */
-    private $depends_on = null;
+    private $depends_on;
 
     public function __construct(
         int $mode_id,
@@ -53,24 +53,23 @@ class Mode
         $this->depends_on = $depends_on;
     }
 
-    public function getModeId(): int
+    public function getModeId() : int
     {
         return $this->mode_id;
     }
 
-    public function getModeTitle(): string
+    public function getModeTitle() : string
     {
         return $this->mode_title;
     }
 
-    public function isSelectable(): bool
+    public function isSelectable() : bool
     {
         return $this->is_selectable;
     }
 
-    public function getDependsOn(): ?Mode
+    public function getDependsOn() : ?Mode
     {
         return $this->depends_on;
     }
-
 }
