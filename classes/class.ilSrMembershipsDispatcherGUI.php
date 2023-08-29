@@ -31,6 +31,7 @@ use srag\Plugins\SrMemberships\Container\Init;
  * @ilCtrl_Calls      ilSrMembershipsDispatcherGUI : ilSrMsGeneralConfigurationGUI
  * @ilCtrl_Calls      ilSrMembershipsDispatcherGUI : ilSrMsByRoleSyncConfigurationGUI
  * @ilCtrl_Calls      ilSrMembershipsDispatcherGUI : ilSrMsByLoginConfigurationGUI
+ * @ilCtrl_Calls      ilSrMembershipsDispatcherGUI : ilSrMsByMatriculationConfigurationGUI
  * @ilCtrl_Calls      ilSrMembershipsDispatcherGUI : ilSrMsGeneralUploadHandlerGUI
  */
 class ilSrMembershipsDispatcherGUI

@@ -30,9 +30,9 @@ class GeneralConfig extends AbstractDBConfig
     public const BY_EMAIL = 'by_email';
     public const BY_EXCEL_IMPORT = 'by_excel_import';
     public const BY_ATTRIBUTE_SYNC = 'by_attribute_sync';
-    public const BY_MATRICULATION = 'by_matriculation';
     public const BY_ROLE_SYNC = 'by_role_sync';
     public const BY_LOGIN = 'by_login';
+    public const BY_MATRICULATION = 'by_matriculation';
     public const F_ENABLED_WORKFLOWS = 'enabled_workflows';
 
     public function getEnabledWorkflows()

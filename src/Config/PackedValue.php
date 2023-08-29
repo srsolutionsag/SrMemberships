@@ -41,13 +41,13 @@ class PackedValue
      */
     private $type;
 
-    public function __construct(string $packed_value, int $type)
+    public function __construct(?string $packed_value, int $type)
     {
         // Check Type
         $this->checkType($type);
 
         $this->packed_value = $packed_value;
-        $this->type = $type;
+        $this->type = $packed_value === null ? self::TYPE_NULL : $type;
     }
 
     private function checkType(int $type) : void

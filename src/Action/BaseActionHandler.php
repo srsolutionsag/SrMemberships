@@ -55,7 +55,7 @@ abstract class BaseActionHandler implements ActionHandler
     public function __construct(Container $container)
     {
         $this->container = $container;
-        $this->persons_to_accounts = new PersonsToAccounts();
+        $this->persons_to_accounts = new PersonsToAccounts($container->dic()->database());
         $this->person_list_generators = $container->personListGenerators();
         $this->account_list_generators = $container->accountListGenerators();
         $this->action_builder = new ActionBuilder($container);

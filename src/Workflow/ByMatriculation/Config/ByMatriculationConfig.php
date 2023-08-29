@@ -18,17 +18,19 @@
 
 declare(strict_types=1);
 
-namespace srag\Plugins\SrMemberships\Workflow\ByLogin;
+namespace srag\Plugins\SrMemberships\Workflow\ByMatriculation\Config;
 
-use srag\Plugins\SrMemberships\Workflow\General\AbstractByStringListWorkflowToolConfigFormProvider;
+use srag\Plugins\SrMemberships\Workflow\Config\AbstractDBWorkflowConfig;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class ByLoginWorkflowToolConfigFormProvider extends AbstractByStringListWorkflowToolConfigFormProvider
+class ByMatriculationConfig extends AbstractDBWorkflowConfig
 {
-    protected function getPrefix() : string
+    public const F_OFFER_WORKFLOW_TO = 'offer_workflow_to';
+
+    public function getNameSpace() : string
     {
-        return 'by_login';
+        return 'by_matriculation';
     }
 }

@@ -41,3 +41,9 @@ by_login_file_import#:#Dateiimport
 result_error#:#Bei der Verarbeitung ist ein Fehler aufgetreten: %s
 result_accounts_added_and_removed#:#%s Personen hinzugefügt und %s Personen entfernt
 result_empty_list#:#Keine Personen zum Verarbeiten
+
+workflow_by_matriculation#:#Nach Matrikelnummer
+by_matriculation_header#:#Import von Matrikelnummern
+by_matriculation_source#:#Quelle
+by_matriculation_text_list#:#Liste von Loginnamen
+by_matriculation_file_import#:#Dateiimport

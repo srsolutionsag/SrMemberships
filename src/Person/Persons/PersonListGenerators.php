@@ -26,6 +26,7 @@ use srag\Plugins\SrMemberships\Person\Persons\Source\RolesPersonSource;
 use srag\Plugins\SrMemberships\Person\Resolver\LoginPersonResolver;
 use srag\Plugins\SrMemberships\Person\Persons\Source\StringPersonSource;
 use srag\Plugins\SrMemberships\Person\Persons\Source\ArrayPersonSource;
+use srag\Plugins\SrMemberships\Person\Resolver\MatriculationPersonResolver;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -61,6 +62,13 @@ class PersonListGenerators
     {
         return (new LoginPersonResolver())->resolveFor(
             new StringPersonSource($logins)
+        );
+    }
+
+    public function byMatriculationsFromString(string $matriculations) : PersonList
+    {
+        return (new MatriculationPersonResolver())->resolveFor(
+            new StringPersonSource($matriculations)
         );
     }
 }

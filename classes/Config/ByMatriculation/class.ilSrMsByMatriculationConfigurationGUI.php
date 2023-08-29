@@ -16,22 +16,25 @@
  *
  *********************************************************************/
 
-declare(strict_types=1);
+use srag\Plugins\SrMemberships\Workflow\ByMatriculation\Config\Form;
+use srag\Plugins\SrMemberships\Config\General\GeneralConfig;
 
-namespace srag\Plugins\SrMemberships\Workflow\ByLogin\Action;
-
-use srag\Plugins\SrMemberships\Workflow\General\AbstractByStringActionHandler;
-use srag\Plugins\SrMemberships\Person\Persons\PersonList;
-
-/**
- * @author Fabian Schmid <fabian@sr.solutions>
- */
-class ByLoginActionHandler extends AbstractByStringActionHandler
+class ilSrMsByMatriculationConfigurationGUI extends ilSrMsBaseConfigurationGUI
 {
-    protected function getPersonList(string $text) : PersonList
+    public function __construct()
     {
-        return $this->person_list_generators->byLoginsFromString(
-            $text
+        parent::__construct(
+            new Form(
+                $this,
+                self::CMD_SAVE,
+                $this->config()->byMatriculation(),
+                $this->container()
+            )
         );
+    }
+
+    protected function getSubTabId() : string
+    {
+        return GeneralConfig::BY_MATRICULATION;
     }
 }

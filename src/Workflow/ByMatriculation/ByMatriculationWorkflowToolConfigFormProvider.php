@@ -18,17 +18,17 @@
 
 declare(strict_types=1);
 
-namespace srag\Plugins\SrMemberships\Workflow\ByLogin;
+namespace srag\Plugins\SrMemberships\Workflow\ByMatriculation;
 
 use srag\Plugins\SrMemberships\Workflow\General\AbstractByStringListWorkflowToolConfigFormProvider;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class ByLoginWorkflowToolConfigFormProvider extends AbstractByStringListWorkflowToolConfigFormProvider
+class ByMatriculationWorkflowToolConfigFormProvider extends AbstractByStringListWorkflowToolConfigFormProvider
 {
     protected function getPrefix() : string
     {
-        return 'by_login';
+        return 'by_matriculation';
     }
 }

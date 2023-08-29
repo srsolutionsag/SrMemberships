@@ -24,6 +24,7 @@ use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Config\General\GeneralConfig;
 use srag\Plugins\SrMemberships\Workflow\ByRoleSync\ByRoleSyncWorkflowContainer;
 use srag\Plugins\SrMemberships\Workflow\ByLogin\ByLoginWorkflowContainer;
+use srag\Plugins\SrMemberships\Workflow\ByMatriculation\ByMatriculationWorkflowContainer;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -49,7 +50,8 @@ class WorkflowContainerRepository
         // All available workflows
         $this->all_workflow_containers = [
             GeneralConfig::BY_ROLE_SYNC => new ByRoleSyncWorkflowContainer($this->container),
-            GeneralConfig::BY_LOGIN => new ByLoginWorkflowContainer($this->container)
+            GeneralConfig::BY_LOGIN => new ByLoginWorkflowContainer($this->container),
+            GeneralConfig::BY_MATRICULATION => new ByMatriculationWorkflowContainer($this->container),
             // TODO add more workflows here, later we should use an artifact to load all workflows.
         ];
 

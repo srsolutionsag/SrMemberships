@@ -26,12 +26,23 @@ use srag\Plugins\SrMemberships\Person\Account\AccountList;
 use srag\Plugins\SrMemberships\Person\Persons\Person;
 use srag\Plugins\SrMemberships\Person\Persons\PersonList;
 use srag\Plugins\SrMemberships\Person\Persons\LoginPerson;
+use srag\Plugins\SrMemberships\Person\Persons\MatriculationPerson;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
 class PersonsToAccounts
 {
+    /**
+     * @var \ilDBInterface
+     */
+    protected $db;
+
+    public function __construct(\ilDBInterface $db)
+    {
+        $this->db = $db;
+    }
+
     public function translate(PersonList $person_list) : AccountList
     {
         $account_list = new AccountList();
@@ -55,6 +66,18 @@ class PersonsToAccounts
                 $looked_up_id = (int) \ilObjUser::_lookupId($login);
 
                 return $looked_up_id > 0 ? $looked_up_id : null;
+            case ($person instanceof MatriculationPerson):
+                $matriculation = $person->getUniqueIdentification();
+
+                $query = "SELECT usr_id FROM usr_data WHERE matriculation = " . $this->db->quote(
+                    $matriculation,
+                    "text"
+                );
+                $result = $this->db->query($query)->fetchAssoc();
+                if (!empty($result)) {
+                    return (int) $result["usr_id"];
+                }
+                return null;
             default:
                 throw new \InvalidArgumentException("Person " . get_class($person) . " is currently not supported");
         }

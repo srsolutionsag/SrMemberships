@@ -63,7 +63,7 @@ class ToolObjectConfigDBRepository implements ToolObjectConfigRepository
         $q = "SELECT * FROM " . self::TABLE_NAME . " WHERE context_ref_id = %s AND workflow_id = %s";
         $res = $this->db->queryF($q, ['integer', 'text'], [$ref_id, $workflow_container->getWorkflowId()]);
         $data = $this->db->fetchObject($res);
-        return $this->unpack(new PackedValue($data->config_data, PackedValue::TYPE_ARRAY)) ?? null;
+        return $this->unpack(new PackedValue($data->config_data ?? null, PackedValue::TYPE_ARRAY)) ?? null;
     }
 
     public function clear(

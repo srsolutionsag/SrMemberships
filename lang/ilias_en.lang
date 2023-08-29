@@ -40,3 +40,9 @@ by_login_file_import#:#File Import
 result_error#:#An error occurred during processing: %s
 result_accounts_added_and_removed#:#%s account(s) added and %s account(s) removed
 result_empty_list#:#No accounts added or removed
+
+workflow_by_matriculation#:#By Matriculation Number
+by_matriculation_header#:#Import List of Matriculation Numbers
+by_matriculation_source#:#Source
+by_matriculation_text_list#:#List of Matriculation Numbers
+by_matriculation_file_import#:#File Import

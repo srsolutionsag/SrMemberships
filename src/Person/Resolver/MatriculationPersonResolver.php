@@ -33,7 +33,7 @@ class MatriculationPersonResolver implements PersonResolver
     public function resolveFor(PersonSource $source) : PersonList
     {
         $persons = [];
-        foreach ($source as $item) {
+        foreach ($source->getRawEntries() as $item) {
             $persons[] = new MatriculationPerson($item);
         }
 
