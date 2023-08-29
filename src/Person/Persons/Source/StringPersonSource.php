@@ -38,11 +38,42 @@ class StringPersonSource implements PersonSource
         "\r\n",
         "\t",
     ];
+    /**
+     * @var string|null
+     */
+    private $original_mime_type;
 
     public function __construct(
-        string $list
+        string $list,
+        ?string $original_mime_type = null
     ) {
         $this->list = $list;
+        $this->original_mime_type = $original_mime_type;
+    }
+
+    private function yieldFromCsv() : \Generator
+    {
+        // first check if there are more than one column in the CSV
+        $lines = explode("\n", $this->list);
+        $first_line = array_shift($lines);
+        try {
+            $separator = $this->determineSeparator($first_line);
+        } catch (\InvalidArgumentException $e) {
+            $separator = ',';
+        }
+
+        $first_line = str_getcsv($first_line, $separator);
+        if (count($first_line) !== 1) {
+            throw new \InvalidArgumentException('To many columns in CSV, only one supported');
+        }
+        // now read the CSV and add items to the array
+        $items = [];
+        foreach ($lines as $line) {
+            $line = str_getcsv($line, $separator);
+            $items[] = $line[0];
+        }
+        $array_person_source = new ArrayPersonSource($items);
+        yield from $array_person_source->getRawEntries();
     }
 
     private function determineSeparator(string $list) : string
@@ -71,6 +102,21 @@ class StringPersonSource implements PersonSource
     }
 
     public function getRawEntries() : \Generator
+    {
+        switch ($this->original_mime_type) {
+            case 'text/plain':
+            case null:
+                yield from $this->yieldFromPlainText();
+                break;
+            case 'text/csv':
+                yield from $this->yieldFromCsv();
+                // no break
+            default:
+                break;
+        }
+    }
+
+    protected function yieldFromPlainText() : \Generator
     {
         // we try to determine which separator (;, , or \n) is used
         try {

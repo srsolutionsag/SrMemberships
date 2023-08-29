@@ -36,6 +36,8 @@ by_login_header#:#Import List of Logins
 by_login_source#:#Source
 by_login_text_list#:#List of Logins
 by_login_file_import#:#File Import
+by_login_text_list_byline#:#Insert a list of Logins here. The Logins numbers can be in a new line or separated by the following characters: comma, semicolon, tabulator.
+by_login_file_list_byline#:#Upload a text file containing a list of Logins. The Logins numbers can be in a new line or separated by the following characters: comma, semicolon, tabulator. For CSV files, the relevant data must be in the first column.
 
 result_error#:#An error occurred during processing: %s
 result_accounts_added_and_removed#:#%s account(s) added and %s account(s) removed
@@ -46,3 +48,6 @@ by_matriculation_header#:#Import List of Matriculation Numbers
 by_matriculation_source#:#Source
 by_matriculation_text_list#:#List of Matriculation Numbers
 by_matriculation_file_import#:#File Import
+by_matriculation_text_list_byline#:#Insert a list of matriculation numbers here. The matriculation numbers can be in a new line or separated by the following characters: comma, semicolon, tabulator.
+by_matriculation_file_list_byline#:#Upload a text file containing a list of matriculation numbers. The matriculation numbers can be in a new line or separated by the following characters: comma, semicolon, tabulator. For CSV files, the relevant data must be in the first column.
+

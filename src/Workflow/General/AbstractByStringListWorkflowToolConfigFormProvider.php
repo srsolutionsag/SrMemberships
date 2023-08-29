@@ -90,7 +90,8 @@ abstract class AbstractByStringListWorkflowToolConfigFormProvider implements Too
                             [
                                 self::F_TEXT_LIST => $factory
                                     ->textarea(
-                                        ''
+                                        '',
+                                        $this->translator->txt($this->getPrefix() . '_text_list_byline')
                                     )->withValue($text_list)
                             ],
                             $this->translator->txt($this->getPrefix() . '_text_list')
@@ -101,9 +102,10 @@ abstract class AbstractByStringListWorkflowToolConfigFormProvider implements Too
                                     self::F_FILE_LIST => $factory
                                         ->file(
                                             new \ilSrMsGeneralUploadHandlerGUI(),
-                                            ''
+                                            '',
+                                            $this->translator->txt($this->getPrefix() . '_file_list_byline')
                                         )
-                                        ->withAcceptedMimeTypes(['text/plain'])
+                                        ->withAcceptedMimeTypes(['text/plain', 'text/csv'])
                                         ->withValue($file_list)
 
                                 ],

@@ -28,10 +28,11 @@ use srag\Plugins\SrMemberships\Person\Persons\PersonList;
  */
 class ByLoginActionHandler extends AbstractByStringActionHandler
 {
-    protected function getPersonList(string $text) : PersonList
+    protected function getPersonList(string $text, ?string $original_mime_type = null) : PersonList
     {
         return $this->person_list_generators->byLoginsFromString(
-            $text
+            $text,
+            $original_mime_type
         );
     }
 }

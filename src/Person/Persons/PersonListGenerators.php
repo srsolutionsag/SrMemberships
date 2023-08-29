@@ -58,17 +58,17 @@ class PersonListGenerators
         );
     }
 
-    public function byLoginsFromString(string $logins) : PersonList
+    public function byLoginsFromString(string $logins, ?string $original_mime_type = null) : PersonList
     {
         return (new LoginPersonResolver())->resolveFor(
-            new StringPersonSource($logins)
+            new StringPersonSource($logins, $original_mime_type)
         );
     }
 
-    public function byMatriculationsFromString(string $matriculations) : PersonList
+    public function byMatriculationsFromString(string $matriculations, ?string $original_mime_type = null) : PersonList
     {
         return (new MatriculationPersonResolver())->resolveFor(
-            new StringPersonSource($matriculations)
+            new StringPersonSource($matriculations, $original_mime_type)
         );
     }
 }

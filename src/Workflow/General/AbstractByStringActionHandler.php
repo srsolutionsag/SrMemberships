@@ -46,7 +46,7 @@ abstract class AbstractByStringActionHandler extends BaseActionHandler
         $this->irss = $container->dic()->resourceStorage();
     }
 
-    abstract protected function getPersonList(string $text) : PersonList;
+    abstract protected function getPersonList(string $text, ?string $original_mime_type = null) : PersonList;
 
     public function performActions(
         WorkflowContainer $workflow_container,
@@ -68,6 +68,7 @@ abstract class AbstractByStringActionHandler extends BaseActionHandler
         $type = $object_config['type'] ?? null;
         switch ($type) {
             case 'text':
+                $mime_type = null;
                 $strings = $object_config['content']['text_list'] ?? '';
                 break;
             case 'file':
@@ -77,13 +78,15 @@ abstract class AbstractByStringActionHandler extends BaseActionHandler
                     return Summary::error('File not found');
                 }
                 $strings = (string) $this->irss->consume()->stream($rid)->getStream();
+                $mime_type = $this->irss->manage()->getCurrentRevision($rid)->getInformation()->getMimeType();
                 break;
             default:
+                $mime_type = null;
                 $strings = '';
         }
 
         try {
-            $person_list = $this->getPersonList($strings);
+            $person_list = $this->getPersonList($strings, $mime_type);
         } catch (InvalidArgumentException $e) {
             return Summary::throwable($e);
         }
