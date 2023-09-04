@@ -18,7 +18,7 @@
 
 declare(strict_types=1);
 
-namespace srag\Plugins\SrMemberships\Config;
+namespace srag\Plugins\SrMemberships\Workflow\Mode;
 
 use ILIAS\UI\Factory;
 use srag\Plugins\SrMemberships\Container\Container;
@@ -66,12 +66,10 @@ abstract class AbstractForm
     public function __construct(
         \ilSrMsAbstractGUI $target_gui,
         string $target_command,
-        Config $config,
         Container $container
     ) {
         $this->target_gui = $target_gui;
         $this->target_command = $target_command;
-        $this->config = $config;
         $this->translator = $container->translator();
         $this->ui_factory = $container->dic()->ui()->factory();
         $this->ctrl = $container->dic()->ctrl();

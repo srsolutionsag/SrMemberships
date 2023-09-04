@@ -21,12 +21,6 @@ by_role_sync_role_selection_info#:#Select the roles to be used for synchronisati
 by_role_sync_role_selection_header#:#Automatic member synchronisation
 store_object_config#:#Save settings
 msg_object_config_stored#:#Stored settings
-workflow_mode#:#Mode
-workflow_mode_selection#:#Options
-workflow_mode_selection_info#:#Select options for the selected user administration
-mode_remove_diff#:#Remove persons from members who are not included in the list of submitted persons
-mode_run_as_cronjob#:#Run regularly
-mode_run_on_save#:#Run on save
 offer_workflow_to#:#Workflow available for
 offer_workflow_to_info#:#The workflow is only offered to the selected groups of people.
 offer_workflow_to_object_admins#:#Object administrators (persons with the permission "Manage members" on the object)
@@ -51,3 +45,21 @@ by_matriculation_file_import#:#File Import
 by_matriculation_text_list_byline#:#Insert a list of matriculation numbers here. The matriculation numbers can be in a new line or separated by the following characters: comma, semicolon, tabulator.
 by_matriculation_file_list_byline#:#Upload a text file containing a list of matriculation numbers. The matriculation numbers can be in a new line or separated by the following characters: comma, semicolon, tabulator. For CSV files, the relevant data must be in the first column.
 
+sync_modes#:#Synchronisation mode
+sync_mode#:#Select the desired behavior
+sync_missing_users#:#Enroll missing persons
+sync_missing_users_byline#:#The persons are enrolled in the course or group if they are not already members.
+sync_bidirectional#:#Ensure list of persons
+sync_bidirectional_byline#:#The persons are enrolled in the course or group if they are not already members. Persons who are already members but are not on the list are removed from the course or group.
+sync_remove#:#Remove persons
+sync_remove_byline#:#Persons who are on the list are removed from the course or group.
+
+run_modes#:#Processing
+run_mode#:#Select the desired processing variants for synchronization
+run_on_save#:#Run immediately after saving
+run_on_save_byline#:#The synchronization is performed immediately after saving the settings.
+run_as_cronjob#:#Run periodically
+run_as_cronjob_byline#:#The synchronization is performed periodically by a cronjob.
+
+msg_multiple_workflows_assigned#:#There are multiple workflows enabled for this Container. Please note that the workflows can influence each other.
+remove_workflow#:#Remove Workflow

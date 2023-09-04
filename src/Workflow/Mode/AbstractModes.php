@@ -22,9 +22,9 @@ namespace srag\Plugins\SrMemberships\Workflow\Mode;
 use srag\Plugins\SrMemberships\Translator;
 
 /**
- * @author Fabian Schmid <fabian@sr.solutions>
+ * @author      Fabian Schmid <fabian@sr.solutions>
  */
-abstract class AbstractModes
+abstract class AbstractModes implements Modes
 {
 
     /**
@@ -41,7 +41,7 @@ abstract class AbstractModes
 
     protected static function getModeTitle(int $mode_id) : string
     {
-        $r = new \ReflectionClass(self::class);
+        $r = new \ReflectionClass(static::class);
         $constants = $r->getConstants();
 
         foreach ($constants as $constant_name => $constant_value) {
@@ -57,7 +57,7 @@ abstract class AbstractModes
         return new Mode($mode_id, self::getModeTitle($mode_id), $selectable);
     }
 
-    protected function addMode(Mode $mode) : void
+    public function addMode(Mode $mode) : void
     {
         $this->modes[$mode->getModeId()] = $mode;
         if ($mode->getDependsOn() !== null) {
@@ -103,9 +103,9 @@ abstract class AbstractModes
 
     public function __toArray(bool $selectable_only = true) : array
     {
-        return array_map(function (Mode $mode) {
+        return array_map(static function (Mode $mode) {
             return $mode->getModeId();
-        }, array_filter($this->modes, function (Mode $mode) use ($selectable_only) {
+        }, array_filter($this->modes, static function (Mode $mode) use ($selectable_only) {
             if ($selectable_only) {
                 return $mode->isSelectable();
             }

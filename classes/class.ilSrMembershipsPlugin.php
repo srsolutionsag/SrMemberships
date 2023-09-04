@@ -41,7 +41,7 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
             return;
         }
         if ($this->isPluginActive()) {
-            $this->updateLanguages(); // FSX TODO remove
+            // $this->updateLanguages(); // FSX TODO remove
             global $DIC;
             $container = Init::init($DIC, $this);
             $dynamic_tool_provider = new CollectedMainBarProvider($container->dic(), $container->plugin());

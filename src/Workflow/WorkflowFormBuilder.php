@@ -23,9 +23,10 @@ namespace srag\Plugins\SrMemberships\Workflow;
 use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
 use srag\Plugins\SrMemberships\Workflow\ToolObjectConfig\ToolConfigFormHandler;
-use srag\Plugins\SrMemberships\Workflow\Mode\ModesFormHandler;
 use ILIAS\UI\Component\Input\Container\Form\Standard;
 use ilSrMsAbstractGUI;
+use srag\Plugins\SrMemberships\Workflow\Mode\Sync\Form as SyncForm;
+use srag\Plugins\SrMemberships\Workflow\Mode\Run\Form as RunForm;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -78,11 +79,18 @@ class WorkflowFormBuilder
         $tools_form_section = $workflow_container->getWorkflowToolForm()->getFormSection($context);
         $tools_form_section = $tools_form_handler->makeFormSectionStorable($tools_form_section);
 
-        // Modes Form
-        $modes_form = new ModesFormHandler(
-            $this->container,
+        // Sync Modes
+        $sync_modes_form = new SyncForm(
+            $workflow_container,
             $context,
-            $workflow_container
+            $this->container
+        );
+
+        // Run Modes
+        $run_modes_form = new RunForm(
+            $workflow_container,
+            $context,
+            $this->container
         );
 
         // Build Form
@@ -90,7 +98,8 @@ class WorkflowFormBuilder
             $post_url,
             [
                 $tools_form_section,
-                $modes_form->getFormSection(),
+                $sync_modes_form->getFormSection(),
+                $run_modes_form->getFormSection()
             ]
         );
     }

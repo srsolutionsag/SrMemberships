@@ -44,4 +44,6 @@ interface ToolObjectConfigRepository
     ) : void;
 
     public function getAssignedRefIds(WorkflowContainer $workflow) : \Generator;
+
+    public function countAssignedWorkflows(int $ref_id) : int;
 }

@@ -110,7 +110,7 @@ class StringPersonSource implements PersonSource
                 break;
             case 'text/csv':
                 yield from $this->yieldFromCsv();
-                // no break
+            // no break
             default:
                 break;
         }

@@ -21,7 +21,7 @@ declare(strict_types=1);
 namespace srag\Plugins\SrMemberships\Workflow\General;
 
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
-use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
+use srag\Plugins\SrMemberships\Workflow\Mode\ModesLegacy;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
 use srag\Plugins\SrMemberships\Action\BaseActionHandler;
 use srag\Plugins\SrMemberships\Action\Summary;
@@ -29,6 +29,8 @@ use srag\Plugins\SrMemberships\Container\Container;
 use ILIAS\ResourceStorage\Services;
 use InvalidArgumentException;
 use srag\Plugins\SrMemberships\Person\Persons\PersonList;
+use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
+use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -51,12 +53,13 @@ abstract class AbstractByStringActionHandler extends BaseActionHandler
     public function performActions(
         WorkflowContainer $workflow_container,
         Context $context,
-        Modes $modes
+        SyncModes $sync_modes,
+        RunModes $run_modes
     ) : Summary {
-        if ($context->isCli() && !$modes->isModeSet(Modes::RUN_AS_CRONJOB)) {
+        if ($context->isCli() && !$run_modes->isRunAsCron()) {
             return Summary::empty();
         }
-        if (!$context->isCli() && !$modes->isModeSet(Modes::RUN_ON_SAVE)) {
+        if (!$context->isCli() && !$run_modes->isRunOnSave()) {
             return Summary::empty();
         }
 
@@ -93,6 +96,6 @@ abstract class AbstractByStringActionHandler extends BaseActionHandler
 
         $account_list = $this->persons_to_accounts->translate($person_list);
 
-        return $this->generalHandling($context, $account_list, $modes);
+        return $this->generalHandling($context, $account_list, $sync_modes);
     }
 }

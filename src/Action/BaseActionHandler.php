@@ -22,8 +22,11 @@ namespace srag\Plugins\SrMemberships\Action;
 
 use srag\Plugins\SrMemberships\Person\PersonsToAccounts;
 use srag\Plugins\SrMemberships\Container\Container;
-use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
+use srag\Plugins\SrMemberships\Workflow\Mode\ModesLegacy;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
+use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
+use srag\Plugins\SrMemberships\Person\Account\AccountList;
+use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -63,30 +66,55 @@ abstract class BaseActionHandler implements ActionHandler
 
     protected function generalHandling(
         Context $context,
-        \srag\Plugins\SrMemberships\Person\Account\AccountList $account_list,
-        Modes $modes
+        AccountList $account_list,
+        SyncModes $sync_modes
     ) : Summary {
         $current_members = $this->account_list_generators->fromContainerId($context->getCurrentRefId());
-        $accounts_to_add = $this->account_list_generators->diff($account_list, $current_members);
 
-        // Subscribe new members
-        if ($modes->isModeSet(Modes::RUN_ON_SAVE)) {
-            $this->action_builder->subscribe($context->getCurrentRefId())
-                                 ->performFor($accounts_to_add);
-        }
+        // get first sync mode since currently only one is supported
         $accounts_ro_remove = null;
-        if ($modes->isModeSet(Modes::REMOVE_DIFF)) {
-            $accounts_ro_remove = $this->account_list_generators->diff($current_members, $account_list);
+        $sync_modes_array = $sync_modes->getModes();
+        $sync_mode = reset($sync_modes_array);
 
-            // Unsubscribe members that are not in the role anymore
-            $this->action_builder->unsubscribe($context->getCurrentRefId())
-                                 ->performFor($accounts_ro_remove);
+        // run depending on sync mode
+        switch ($sync_mode->getModeId()) {
+            case SyncModes::SYNC_MISSING_USERS:
+                // Subscribe members that are not already subscribed
+                $missing_account_list = $this->account_list_generators->diff($account_list, $current_members);
+                $this->action_builder->subscribe($context->getCurrentRefId())
+                                     ->performFor($missing_account_list);
+
+                return Summary::from($missing_account_list);
+            case SyncModes::SYNC_BIDIRECTIONAL:
+                // Subscribe members that are not already subscribed
+                $missing_account_list = $this->account_list_generators->diff($account_list, $current_members);
+                $this->action_builder->subscribe($context->getCurrentRefId())
+                                     ->performFor($missing_account_list);
+                $superfluous_account_list = $this->account_list_generators->diff($current_members, $account_list);
+                // Unsubscribe members that are not the given list
+                $this->action_builder->unsubscribe($context->getCurrentRefId())
+                                     ->performFor($superfluous_account_list);
+
+                return Summary::from($missing_account_list, $superfluous_account_list);
+
+            case SyncModes::SYNC_REMOVE:
+                // remove all from the given list
+                $this->action_builder->unsubscribe($context->getCurrentRefId())
+                                     ->performFor($account_list);
+
+                return Summary::from(new AccountList(), $account_list);
+            default:
+                break;
         }
 
-        if ($accounts_to_add->isEmpty() && ($accounts_ro_remove === null || $accounts_ro_remove->isEmpty())) {
-            return Summary::empty();
-        }
+        return Summary::empty();
+    }
 
-        return Summary::from($accounts_to_add, $accounts_ro_remove);
+    public function getDeleteWorkflowURL(WorkflowContainer $workflow_container) : string
+    {
+        return $this->container->dic()->ctrl()->getLinkTargetByClass(
+            [\ilUIPluginRouterGUI::class, get_class($workflow_container->getWorkflowToolFormProcessor())],
+            \ilSrMsAbstractWorkflowProcessorGUI::CMD_HANDLE_WORKFLOW_DELETION
+        );
     }
 }

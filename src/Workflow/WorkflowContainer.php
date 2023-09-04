@@ -25,9 +25,12 @@ use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Config\Config;
 use srag\Plugins\SrMemberships\Provider\Tool\WorkflowToolProvider;
 use srag\Plugins\SrMemberships\Workflow\ToolObjectConfig\ToolConfigFormProvider;
-use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
+use srag\Plugins\SrMemberships\Workflow\Mode\ModesLegacy;
 use srag\Plugins\SrMemberships\Action\ActionHandler;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
+use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
+use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
+use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -36,7 +39,15 @@ interface WorkflowContainer
 {
     public function __construct(Container $container);
 
-    public function getPossiblesModes() : Modes;
+    /**
+     * @return SyncModes
+     */
+    public function getPossiblesSyncModes() : Modes;
+
+    /**
+     * @return RunModes
+     */
+    public function getPossiblesRunModes() : Modes;
 
     public function getWorkflowID() : string;
 

@@ -20,31 +20,21 @@ declare(strict_types=1);
 namespace srag\Plugins\SrMemberships\Workflow\Mode;
 
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
+use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
 interface ObjectModeRepository
 {
-    public function store(
-        int $ref_id,
-        WorkflowContainer $workflow_container,
-        Modes $modes
-    ) : void;
+    public function getSyncMode(int $ref_id, WorkflowContainer $workflow_container) : ?Mode;
 
-    public function storeFromArrayOfModeIds(
-        int $ref_id,
-        WorkflowContainer $workflow_container,
-        array $mode_ids
-    ) : void;
+    public function storeSyncMode(int $ref_id, WorkflowContainer $workflow_container, Mode $mode) : void;
 
-    public function get(
-        int $ref_id,
-        WorkflowContainer $workflow_container
-    ) : ?Modes;
+    /**
+     * @return RunModes|null
+     */
+    public function getRunModes(int $ref_id, WorkflowContainer $workflow_container) : ?Modes;
 
-    public function clear(
-        int $ref_id,
-        WorkflowContainer $workflow_container
-    ) : void;
+    public function storeRunModes(int $ref_id, WorkflowContainer $workflow_container, RunModes $modes) : void;
 }

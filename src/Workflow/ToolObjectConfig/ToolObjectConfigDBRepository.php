@@ -85,4 +85,12 @@ class ToolObjectConfigDBRepository implements ToolObjectConfigRepository
             yield (int) $row['context_ref_id'];
         }
     }
+
+    public function countAssignedWorkflows(int $ref_id) : int
+    {
+        $q = "SELECT COUNT(*) AS cnt FROM " . self::TABLE_NAME . " WHERE context_ref_id = %s";
+        $res = $this->db->queryF($q, ['integer'], [$ref_id]);
+        $row = $this->db->fetchAssoc($res);
+        return (int) $row['cnt'];
+    }
 }

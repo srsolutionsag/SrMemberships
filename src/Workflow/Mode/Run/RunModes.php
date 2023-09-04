@@ -17,10 +17,15 @@
 
 declare(strict_types=1);
 
-namespace srag\Plugins\SrMemberships\Workflow\Mode;
+namespace srag\Plugins\SrMemberships\Workflow\Mode\Run;
+
+use srag\Plugins\SrMemberships\Workflow\Mode\AbstractModes;
+use srag\Plugins\SrMemberships\Workflow\Mode\Mode;
 
 /**
- * @author Fabian Schmid <fabian@sr.solutions>
+ * @author      Fabian Schmid <fabian@sr.solutions>
+ *
+ * @description RunModes define how and when a synchronization is executed. RunModes have an ID < 32
  */
 class RunModes extends AbstractModes
 {
@@ -29,7 +34,22 @@ class RunModes extends AbstractModes
 
     protected function getPrefix() : string
     {
-        return "mode_";
+        return "run_mode_";
+    }
+
+    public function getDefaultMode() : Mode
+    {
+        return self::runOnSave();
+    }
+
+    public function isRunAsCron() : bool
+    {
+        return $this->isModeSet(self::RUN_AS_CRONJOB);
+    }
+
+    public function isRunOnSave() : bool
+    {
+        return $this->isModeSet(self::RUN_ON_SAVE);
     }
 
     public static function runAsCronJob() : Mode
@@ -57,7 +77,8 @@ class RunModes extends AbstractModes
                 return self::runAsCronJob();
             case self::RUN_ON_SAVE:
                 return self::runOnSave();
+            default:
+                return new Mode($mode_id, self::getModeTitle($mode_id), $selectable);
         }
-        return new Mode($mode_id, self::getModeTitle($mode_id), $selectable);
     }
 }

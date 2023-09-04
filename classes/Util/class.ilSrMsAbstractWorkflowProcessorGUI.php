@@ -24,6 +24,7 @@ use srag\Plugins\SrMemberships\Workflow\WorkflowFormBuilder;
 abstract class ilSrMsAbstractWorkflowProcessorGUI extends ilSrMsAbstractGUI
 {
     public const CMD_HANDLE_WORKFLOW = 'handleWorkflow';
+    public const CMD_HANDLE_WORKFLOW_DELETION = 'handleDelete';
     public const WORKFLOW_CONTAINER_ID = 'wfcid';
     public const FALLBACK_REF_ID = 'fallback_ref_id';
     /**
@@ -52,7 +53,7 @@ abstract class ilSrMsAbstractWorkflowProcessorGUI extends ilSrMsAbstractGUI
         }
 
         $workflow_container = $this->container->workflows()->getWorkflowById($workflow_container_id);
-        $context = $this->container->contextFactory()->get((int) $fallback_ref_id, $this->user->getId());
+        $context = $this->buildContext($fallback_ref_id);
         $this->handleWorkflow($workflow_container, $this->request, $context);
     }
 
@@ -61,4 +62,22 @@ abstract class ilSrMsAbstractWorkflowProcessorGUI extends ilSrMsAbstractGUI
         ServerRequestInterface $request,
         Context $context
     ) : void;
+
+    protected function handleDelete() : void
+    {
+        $workflow_container_id = $this->getRequestParameter(self::WORKFLOW_CONTAINER_ID) ?? null;
+        $fallback_ref_id = $this->getRequestParameter(self::FALLBACK_REF_ID) ?? null;
+        $context = $this->buildContext($fallback_ref_id);
+        $workflow_container = $this->container->workflows()->getWorkflowById($workflow_container_id);
+
+        $this->container->toolObjectConfigRepository()->clear($context->getCurrentRefId(), $workflow_container);
+
+        $this->sendSuccessMessage($this->translator->txt('msg_object_config_stored'));
+        $this->redirectToRefId($context->getCurrentRefId());
+    }
+
+    protected function buildContext(?string $fallback_ref_id) : Context
+    {
+        return $this->container->contextFactory()->get((int) $fallback_ref_id, $this->user->getId());
+    }
 }

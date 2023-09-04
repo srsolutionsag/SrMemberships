@@ -21,11 +21,13 @@ declare(strict_types=1);
 namespace srag\Plugins\SrMemberships\Workflow\ByRoleSync\Action;
 
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
-use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
+use srag\Plugins\SrMemberships\Workflow\Mode\ModesLegacy;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
 use srag\Plugins\SrMemberships\Action\BaseActionHandler;
 use srag\Plugins\SrMemberships\Workflow\ByRoleSync\ByRoleSyncWorkflowToolConfigFormProvider;
 use srag\Plugins\SrMemberships\Action\Summary;
+use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
+use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -35,12 +37,13 @@ class ByRoleSyncActionHandler extends BaseActionHandler
     public function performActions(
         WorkflowContainer $workflow_container,
         Context $context,
-        Modes $modes
+        SyncModes $sync_modes,
+        RunModes $run_modes
     ) : Summary {
-        if ($context->isCli() && !$modes->isModeSet(Modes::RUN_AS_CRONJOB)) {
+        if ($context->isCli() && !$run_modes->isRunAsCron()) {
             return Summary::empty();
         }
-        if (!$context->isCli() && !$modes->isModeSet(Modes::RUN_ON_SAVE)) {
+        if (!$context->isCli() && !$run_modes->isRunOnSave()) {
             return Summary::empty();
         }
 
@@ -53,6 +56,6 @@ class ByRoleSyncActionHandler extends BaseActionHandler
         $person_list = $this->person_list_generators->byRoleIds($role_ids);
         $account_list = $this->persons_to_accounts->translate($person_list);
 
-        return $this->generalHandling($context, $account_list, $modes);
+        return $this->generalHandling($context, $account_list, $sync_modes);
     }
 }

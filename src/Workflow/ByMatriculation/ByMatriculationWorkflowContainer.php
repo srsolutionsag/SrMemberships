@@ -26,7 +26,7 @@ use srag\Plugins\SrMemberships\Config\Config;
 use srag\Plugins\SrMemberships\Workflow\ByMatriculation\Config\Form;
 use srag\Plugins\SrMemberships\Workflow\AbstractBaseWorkflowContainer;
 use srag\Plugins\SrMemberships\Workflow\ToolObjectConfig\ToolConfigFormProvider;
-use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
+use srag\Plugins\SrMemberships\Workflow\Mode\ModesLegacy;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
 use srag\Plugins\SrMemberships\Action\ActionHandler;
 use ilSrMsBaseConfigurationGUI;
@@ -41,17 +41,6 @@ class ByMatriculationWorkflowContainer extends AbstractBaseWorkflowContainer
     public function getWorkflowID() : string
     {
         return GeneralConfig::BY_MATRICULATION;
-    }
-
-    public function getPossiblesModes() : Modes
-    {
-        return new Modes(
-            Modes::cron(),
-            Modes::adHoc(),
-            Modes::removeDiff(),
-            Modes::runAsCronJob(),
-            Modes::runOnSave()
-        );
     }
 
     public function getConfig() : Config

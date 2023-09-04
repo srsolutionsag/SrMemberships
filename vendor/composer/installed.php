@@ -3,7 +3,7 @@
         'name' => 'srsolutions/srmemberships',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => '123a11ac389dbc2b7ce6939ebee51f73249d920d',
+        'reference' => '781cce279dac4e5f2ac1997f3dbc27883a9aefbb',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'srsolutions/srmemberships' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => '123a11ac389dbc2b7ce6939ebee51f73249d920d',
+            'reference' => '781cce279dac4e5f2ac1997f3dbc27883a9aefbb',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

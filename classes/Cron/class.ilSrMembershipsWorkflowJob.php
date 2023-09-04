@@ -18,6 +18,7 @@
 
 use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Container\Init;
+use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
 
 /**
  * This is the entry point of the plugin-configuration.
@@ -84,18 +85,28 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
 
         $workflows = $this->container->workflows()->getEnabledWorkflows();
         foreach ($workflows as $workflow) {
-            if (!$workflow->getPossiblesModes()->isCron()) {
+            if (!$workflow->getPossiblesRunModes()->isRunAsCron()) {
                 continue;
             }
             // Get all assigned objects of this workflow
             foreach ($this->container->toolObjectConfigRepository()->getAssignedRefIds($workflow) as $ref_id) {
                 $context = $this->container->contextFactory()->get($ref_id, $this->container->dic()->user()->getId());
-                $modes = $this->container->objectModeRepository()->get($ref_id, $workflow);
-                if ($modes === null) {
+
+                $sync_modes = new SyncModes(
+                    $this->container->objectModeRepository()->getSyncMode($ref_id, $workflow)
+                );
+                $run_modes = $this->container->objectModeRepository()->getRunModes($ref_id, $workflow);
+
+                if ($run_modes === null) {
                     continue;
                 }
                 try {
-                    $summary = $workflow->getActionHandler($context)->performActions($workflow, $context, $modes);
+                    $summary = $workflow->getActionHandler($context)->performActions(
+                        $workflow,
+                        $context,
+                        $sync_modes,
+                        $run_modes
+                    );
                 } catch (Throwable $e) {
                     $result->setMessage($result->getMessage() . "\n" . $e->getMessage());
                 }

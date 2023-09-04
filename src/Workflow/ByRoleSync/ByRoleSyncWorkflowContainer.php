@@ -26,7 +26,7 @@ use srag\Plugins\SrMemberships\Config\Config;
 use srag\Plugins\SrMemberships\Workflow\ByRoleSync\Config\Form;
 use srag\Plugins\SrMemberships\Workflow\AbstractBaseWorkflowContainer;
 use srag\Plugins\SrMemberships\Workflow\ToolObjectConfig\ToolConfigFormProvider;
-use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
+use srag\Plugins\SrMemberships\Workflow\Mode\ModesLegacy;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
 use srag\Plugins\SrMemberships\Action\ActionHandler;
 use srag\Plugins\SrMemberships\Workflow\ByRoleSync\Action\ByRoleSyncActionHandler;
@@ -41,17 +41,6 @@ class ByRoleSyncWorkflowContainer extends AbstractBaseWorkflowContainer
     public function getWorkflowID() : string
     {
         return GeneralConfig::BY_ROLE_SYNC;
-    }
-
-    public function getPossiblesModes() : Modes
-    {
-        return new Modes(
-            Modes::cron(),
-            Modes::adHoc(),
-            Modes::removeDiff(),
-            Modes::runAsCronJob(),
-            Modes::runOnSave()
-        );
     }
 
     public function getConfig() : Config

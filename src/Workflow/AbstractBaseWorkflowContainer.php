@@ -23,6 +23,10 @@ namespace srag\Plugins\SrMemberships\Workflow;
 use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Provider\Tool\WorkflowToolProvider;
 use srag\Plugins\SrMemberships\Provider\Tool\StandardWorkflowToolProvider;
+use srag\Plugins\SrMemberships\Workflow\Mode\ModesLegacy;
+use srag\Plugins\SrMemberships\Workflow\Mode\Sync\StandardSyncModes;
+use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
+use srag\Plugins\SrMemberships\Workflow\Mode\Run\StandardRunModes;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -50,5 +54,15 @@ abstract class AbstractBaseWorkflowContainer implements WorkflowContainer
             $this->container,
             $this
         );
+    }
+
+    public function getPossiblesSyncModes() : Modes
+    {
+        return new StandardSyncModes();
+    }
+
+    public function getPossiblesRunModes() : Modes
+    {
+        return new StandardRunModes();
     }
 }

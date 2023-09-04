@@ -22,7 +22,9 @@ namespace srag\Plugins\SrMemberships\Action;
 
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
-use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
+use srag\Plugins\SrMemberships\Workflow\Mode\ModesLegacy;
+use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
+use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -32,7 +34,8 @@ class NullActionHandler implements ActionHandler
     public function performActions(
         WorkflowContainer $workflow_container,
         Context $context,
-        Modes $modes
+        SyncModes $sync_modes,
+        RunModes $run_modes
     ) : Summary {
         return Summary::empty();
     }

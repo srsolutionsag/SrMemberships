@@ -19,6 +19,8 @@
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use Psr\Http\Message\ServerRequestInterface;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
+use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
+use srag\Plugins\SrMemberships\Workflow\Mode\Run\StandardRunModes;
 
 /**
  * Class ilSrMsStoreObjectConfigGUI
@@ -47,18 +49,22 @@ class ilSrMsStoreObjectConfigGUI extends ilSrMsAbstractWorkflowProcessorGUI
         $data = $form->getData();
         if ($data !== null) {
             // Run Action Handler
-            $modes = $this->container->objectModeRepository()->get(
+            $sync_mode = $this->container->objectModeRepository()->getSyncMode(
                 $context->getCurrentRefId(),
                 $workflow_container
             );
-            if ($modes === null) {
-                $modes = [];
-            }
+            $sync_modes = new SyncModes($sync_mode);
+
+            $run_modes = $this->container->objectModeRepository()->getRunModes(
+                $context->getCurrentRefId(),
+                $workflow_container
+            ) ?? new StandardRunModes();
 
             $summary = $workflow_container->getActionHandler($context)->performActions(
                 $workflow_container,
                 $context,
-                $modes
+                $sync_modes,
+                $run_modes
             );
             if ($summary->isOK()) {
                 $this->sendInfoMessage($summary->getMessage());

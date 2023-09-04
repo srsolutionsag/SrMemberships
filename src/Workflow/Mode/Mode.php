@@ -21,8 +21,9 @@ namespace srag\Plugins\SrMemberships\Workflow\Mode;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
+ * @internal
  */
-class Mode
+final class Mode
 {
     /**
      * @var string
@@ -53,22 +54,22 @@ class Mode
         $this->depends_on = $depends_on;
     }
 
-    public function getModeId() : int
+    public function getModeId(): int
     {
         return $this->mode_id;
     }
 
-    public function getModeTitle() : string
+    public function getModeTitle(): string
     {
         return $this->mode_title;
     }
 
-    public function isSelectable() : bool
+    public function isSelectable(): bool
     {
         return $this->is_selectable;
     }
 
-    public function getDependsOn() : ?Mode
+    public function getDependsOn(): ?Mode
     {
         return $this->depends_on;
     }

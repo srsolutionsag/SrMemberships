@@ -22,12 +22,6 @@ by_role_sync_role_selection_info#:#Wählen Sie die Rollen aus, die für die Sync
 by_role_sync_role_selection_header#:#Automatische Mitgliedersynchronisation
 store_object_config#:#Einstellungen speichern
 msg_object_config_stored#:#Einstellungen gespeichert
-workflow_mode#:#Modus
-workflow_mode_selection#:#Optionen
-workflow_mode_selection_info#:#Wählen Sie die Optionen für die ausgewählte Benutzerverwaltung
-mode_remove_diff#:#Personen aus Mitglieder entfernen, welche nicht in der Liste der übermittelten Personen enthalten sind
-mode_run_as_cronjob#:#Regelmässig ausführen
-mode_run_on_save#:#Beim Speichern ausführen
 offer_workflow_to#:#Workflow verfügbar für
 offer_workflow_to_info#:#Der Workflow wir nur den gewählten Personengruppen angeboten.
 offer_workflow_to_object_admins#:#Objekt-Administratoren (Personen mit dem Recht "Mitglieder verwalten" am Objekt)
@@ -51,3 +45,22 @@ by_matriculation_text_list#:#Liste von Loginnamen
 by_matriculation_file_import#:#Dateiimport
 by_matriculation_text_list_byline#:#Fügen Sie hier eine Liste von Matrikelnummern ein. Die Matrikelnummern können dabei jeweils in einer neuen Zeile stehen oder durch folgende Trennzeichen getrennt sein: Komma, Semikolon, Tabulator.
 by_matriculation_file_list_byline#:#Laden Sie hier eine Datei mit Matrikelnummer hoch. Die Matrikelnummern können dabei jeweils in einer neuen Zeile stehen oder durch folgende Trennzeichen getrennt sein: Komma, Semikolon, Tabulator. Bei CSV-Dateien müssen die relevanten Daten in der ersten Spalte sein.
+
+sync_modes#:#Synchronisationsmodus
+sync_mode#:#Wählen Sie das gewünschte Verhalten
+sync_missing_users#:#Fehlende Personen einschreiben
+sync_missing_users_byline#:#Die Personen werden in den Kurs oder die Gruppe eingeschrieben, wenn sie nicht bereits Mitglied sind.
+sync_bidirectional#:#Personenliste sichern
+sync_bidirectional_byline#:#Die Personen sind in den Kurs oder die Gruppe eingeschrieben, wenn sie nicht bereits Mitglied sind. Personen, die bereits Mitglied sind, aber nicht auf der Liste stehen, werden aus dem Kurs oder der Gruppe entfernt.
+sync_remove#:#Personen entfernen
+sync_remove_byline#:#Personen, die auf der Liste stehen, werden aus dem Kurs oder der Gruppe entfernt.
+
+run_modes#:#Verarbeitung
+run_mode#:#Wählen Sie die gewünschten Verarbeitungsvarianten für die Synchronisation
+run_on_save#:#Sofortiges Ausführen nach dem Speichern
+run_on_save_byline#:#Die Synchronisation wird sofort nach dem Speichern der Einstellungen durchgeführt.
+run_as_cronjob#:#Periodisch ausführen
+run_as_cronjob_byline#:#Die Synchronisierung wird periodisch durch einen Cronjob ausgeführt.
+
+msg_multiple_workflows_assigned#:#Es sind mehrere Workflows für dieses Objekt aktiviert. Bitte ebachten Sie, dass die Workflows sich gegenseitig beeinflussen können.
+remove_workflow#:#Workflow entfernen
