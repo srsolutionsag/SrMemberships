@@ -23,10 +23,10 @@ namespace srag\Plugins\SrMemberships\Person\Persons;
 use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Person\Persons\Resolver\RolesPersonResolver;
 use srag\Plugins\SrMemberships\Person\Persons\Source\RolesPersonSource;
-use srag\Plugins\SrMemberships\Person\Resolver\LoginPersonResolver;
+use srag\Plugins\SrMemberships\Person\Persons\Resolver\LoginPersonResolver;
 use srag\Plugins\SrMemberships\Person\Persons\Source\StringPersonSource;
 use srag\Plugins\SrMemberships\Person\Persons\Source\ArrayPersonSource;
-use srag\Plugins\SrMemberships\Person\Resolver\MatriculationPersonResolver;
+use srag\Plugins\SrMemberships\Person\Persons\Resolver\MatriculationPersonResolver;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>

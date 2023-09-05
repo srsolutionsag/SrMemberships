@@ -23,24 +23,67 @@ namespace srag\Plugins\SrMemberships\Person\Persons;
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class EmailPerson implements Person
+class EmailPerson implements CreatablePerson
 {
+    /**
+     * @var string
+     */
+    protected $login;
     /**
      * @var string
      */
     protected $email;
 
-    public function __construct(string $email)
+    public function __construct(
+        string $email,
+        ?string $login = null,
+    )
     {
         $this->email = $email;
+        $this->login = $login ?? $email;
     }
 
-    public function getUniqueIdentification() : string
+    public function getUniqueIdentification(): string
     {
         return $this->email;
     }
 
-    public function isAccountCreatable() : bool
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getLogin(): string
+    {
+        return $this->login;
+    }
+
+    public function getAuthMode(): string
+    {
+        return 'ilias'; // only local accounts support atm
+    }
+
+    public function getPassword(): ?string
+    {
+        return null;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return null;
+    }
+
+    public function getLastName(): ?string
+    {
+        return null;
+    }
+
+    public function getGender(): ?string
+    {
+        return null;
+    }
+
+    public function isAccountCreatable(): bool
     {
         return true;
     }

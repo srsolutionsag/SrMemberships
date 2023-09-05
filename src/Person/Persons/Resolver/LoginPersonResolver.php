@@ -18,23 +18,22 @@
 
 declare(strict_types=1);
 
-namespace srag\Plugins\SrMemberships\Person\Resolver;
+namespace srag\Plugins\SrMemberships\Person\Persons\Resolver;
 
-use srag\Plugins\SrMemberships\Person\Persons\MatriculationPerson;
-use srag\Plugins\SrMemberships\Person\Persons\Resolver\PersonResolver;
+use srag\Plugins\SrMemberships\Person\Persons\LoginPerson;
 use srag\Plugins\SrMemberships\Person\Persons\Source\PersonSource;
 use srag\Plugins\SrMemberships\Person\Persons\PersonList;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class MatriculationPersonResolver implements PersonResolver
+class LoginPersonResolver implements PersonResolver
 {
     public function resolveFor(PersonSource $source) : PersonList
     {
         $persons = [];
         foreach ($source->getRawEntries() as $item) {
-            $persons[] = new MatriculationPerson($item);
+            $persons[] = new LoginPerson($item);
         }
 
         return new PersonList($persons);
