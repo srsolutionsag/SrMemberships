@@ -56,7 +56,7 @@ class Form extends AbstractConfigForm
                 $this->translator->txt(ByRoleSyncConfig::F_OFFER_WORKFLOW_TO),
                 $this->translator->txt('offer_workflow_to_object_admins'),
                 -1,
-                $this->getGlobalRoles(),
+                $this->getSelectableRoles(),
                 $this->translator->txt('offer_workflow_to_info')
             ),
             $this->getAllOrMultiSelect(

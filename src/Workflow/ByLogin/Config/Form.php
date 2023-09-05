@@ -29,11 +29,6 @@ use srag\Plugins\SrMemberships\Workflow\Config\WorkflowConfig;
  */
 class Form extends AbstractConfigForm
 {
-    private function getGlobalRoles() : array
-    {
-        return $this->container->objectInfoProvider()->getGlobalRoles();
-    }
-
     protected function getFields() : array
     {
         return [
@@ -51,7 +46,7 @@ class Form extends AbstractConfigForm
                 $this->translator->txt(ByLoginConfig::F_OFFER_WORKFLOW_TO),
                 $this->translator->txt('offer_workflow_to_object_admins'),
                 -1,
-                $this->getGlobalRoles(),
+                $this->getSelectableRoles(),
                 $this->translator->txt('offer_workflow_to_info')
             )
         ];

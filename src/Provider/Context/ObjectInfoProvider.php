@@ -135,6 +135,11 @@ class ObjectInfoProvider
         return $roles;
     }
 
+    public function getGlobalAndLocalRoles() : array
+    {
+        return array_merge($this->getGlobalRoles(), $this->getLocalRoles());
+    }
+
     public function getGlobalRoles() : array
     {
         $roles = [];

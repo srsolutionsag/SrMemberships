@@ -209,4 +209,9 @@ abstract class AbstractConfigForm implements ConfigForm
 
         return $standard;
     }
+
+    protected function getSelectableRoles() : array
+    {
+        return $this->container->objectInfoProvider()->getGlobalAndLocalRoles();
+    }
 }
