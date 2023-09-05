@@ -37,11 +37,16 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
      * @var Container
      */
     private $container;
+    /**
+     * @var ilLogger
+     */
+    private $logger;
 
     public function __construct(ilSrMembershipsPlugin $plugin)
     {
         global $DIC;
         $this->container = Init::init($DIC, $plugin);
+        $this->logger = $this->container->dic()->logger()->root();
     }
 
     public function getTitle() : string
@@ -107,6 +112,7 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
                         $sync_modes,
                         $run_modes
                     );
+                    $this->logger->info('Ref-ID ' . $context->getCurrentRefId() . ':' . $summary->getSummary());
                 } catch (Throwable $e) {
                     $result->setMessage($result->getMessage() . "\n" . $e->getMessage());
                 }
