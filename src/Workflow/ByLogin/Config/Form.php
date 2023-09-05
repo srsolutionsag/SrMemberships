@@ -48,7 +48,18 @@ class Form extends AbstractConfigForm
                 -1,
                 $this->getSelectableRoles(),
                 $this->translator->txt('offer_workflow_to_info')
-            )
+            ),
+            $this->getSelect(
+                ByLoginConfig::F_MATCHING_FIELD,
+                $this->translator->txt(ByLoginConfig::F_MATCHING_FIELD),
+                [
+                    ByLoginConfig::MATCHING_FIELD_LOGIN => $this->translator->txt(ByLoginConfig::MATCHING_FIELD_LOGIN),
+                    ByLoginConfig::MATCHING_FIELD_EXT_ACCOUNT => $this->translator->txt(
+                        ByLoginConfig::MATCHING_FIELD_EXT_ACCOUNT
+                    ),
+                ],
+                $this->translator->txt(ByLoginConfig::F_MATCHING_FIELD . '_byline')
+            )->withRequired(true)
         ];
     }
 }

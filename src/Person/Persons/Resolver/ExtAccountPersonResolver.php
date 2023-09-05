@@ -18,22 +18,24 @@
 
 declare(strict_types=1);
 
-namespace srag\Plugins\SrMemberships\Workflow\ByLogin\Config;
+namespace srag\Plugins\SrMemberships\Person\Persons\Resolver;
 
-use srag\Plugins\SrMemberships\Workflow\Config\AbstractDBWorkflowConfig;
+use srag\Plugins\SrMemberships\Person\Persons\Source\PersonSource;
+use srag\Plugins\SrMemberships\Person\Persons\PersonList;
+use srag\Plugins\SrMemberships\Person\Persons\ExtAccountPerson;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class ByLoginConfig extends AbstractDBWorkflowConfig
+class ExtAccountPersonResolver implements PersonResolver
 {
-    public const F_OFFER_WORKFLOW_TO = 'offer_workflow_to';
-    public const F_MATCHING_FIELD = 'matching_field';
-    public const MATCHING_FIELD_LOGIN = 'login';
-    public const MATCHING_FIELD_EXT_ACCOUNT = 'ext_account';
-
-    public function getNameSpace() : string
+    public function resolveFor(PersonSource $source) : PersonList
     {
-        return 'by_login';
+        $persons = [];
+        foreach ($source->getRawEntries() as $item) {
+            $persons[] = new ExtAccountPerson($item);
+        }
+
+        return new PersonList($persons);
     }
 }

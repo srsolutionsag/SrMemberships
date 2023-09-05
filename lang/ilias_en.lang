@@ -65,3 +65,7 @@ msg_multiple_workflows_assigned#:#There are multiple workflows enabled for this 
 remove_workflow#:#Remove Workflow
 
 actions#:#Actions
+matching_field#:#Account field for matching.
+matching_field_byline#:#Select the field to be used for matching. The "Login" and "External account" fields can be used for matching. In case of "External Account" please note that this field is not unique in ILIAS and unexpected results may occur.
+login#:#Login Name
+ext_account#:#External account

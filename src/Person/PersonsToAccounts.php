@@ -27,6 +27,7 @@ use srag\Plugins\SrMemberships\Person\Persons\Person;
 use srag\Plugins\SrMemberships\Person\Persons\PersonList;
 use srag\Plugins\SrMemberships\Person\Persons\LoginPerson;
 use srag\Plugins\SrMemberships\Person\Persons\MatriculationPerson;
+use srag\Plugins\SrMemberships\Person\Persons\ExtAccountPerson;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -61,6 +62,19 @@ class PersonsToAccounts
         switch (true) {
             case ($person instanceof UserIdPerson):
                 return (int) $person->getUniqueIdentification();
+            case ($person instanceof ExtAccountPerson):
+                $ext_account = $person->getUniqueIdentification();
+                $query = "SELECT usr_id FROM usr_data WHERE ext_account = %s LIMIT 1";
+
+                $result = $this->db->queryF(
+                    $query,
+                    ['text'],
+                    [$ext_account]
+                )->fetchAssoc();
+                if (!empty($result)) {
+                    return (int) $result["usr_id"];
+                }
+                return null;
             case ($person instanceof LoginPerson):
                 $login = $person->getUniqueIdentification();
                 $looked_up_id = (int) \ilObjUser::_lookupId($login);

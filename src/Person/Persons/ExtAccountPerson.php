@@ -18,21 +18,30 @@
 
 declare(strict_types=1);
 
-namespace srag\Plugins\SrMemberships\Workflow\ToolObjectConfig;
-
-use srag\Plugins\SrMemberships\Container\Container;
-use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
+namespace srag\Plugins\SrMemberships\Person\Persons;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-interface ToolObjectConfigFormHandler
+class ExtAccountPerson implements Person
 {
-    public function __construct(
-        Container $container,
-        WorkflowContainer $workflow_container,
-        ToolConfigFormProvider $form
-    );
+    /**
+     * @var string
+     */
+    protected $ext_account;
 
-    public function processWithRequest();
+    public function __construct(string $ext_account)
+    {
+        $this->ext_account = $ext_account;
+    }
+
+    public function getUniqueIdentification() : string
+    {
+        return $this->ext_account;
+    }
+
+    public function isAccountCreatable() : bool
+    {
+        return false;
+    }
 }

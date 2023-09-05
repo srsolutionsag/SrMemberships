@@ -27,6 +27,7 @@ use srag\Plugins\SrMemberships\Person\Persons\Resolver\LoginPersonResolver;
 use srag\Plugins\SrMemberships\Person\Persons\Source\StringPersonSource;
 use srag\Plugins\SrMemberships\Person\Persons\Source\ArrayPersonSource;
 use srag\Plugins\SrMemberships\Person\Persons\Resolver\MatriculationPersonResolver;
+use srag\Plugins\SrMemberships\Person\Persons\Resolver\ExtAccountPersonResolver;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -61,6 +62,13 @@ class PersonListGenerators
     public function byLoginsFromString(string $logins, ?string $original_mime_type = null) : PersonList
     {
         return (new LoginPersonResolver())->resolveFor(
+            new StringPersonSource($logins, $original_mime_type)
+        );
+    }
+
+    public function byExtAccountsFromString(string $logins, ?string $original_mime_type = null) : PersonList
+    {
+        return (new ExtAccountPersonResolver())->resolveFor(
             new StringPersonSource($logins, $original_mime_type)
         );
     }

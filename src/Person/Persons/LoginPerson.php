@@ -42,6 +42,6 @@ class LoginPerson implements Person
 
     public function isAccountCreatable() : bool
     {
-        return true;
+        return false;
     }
 }

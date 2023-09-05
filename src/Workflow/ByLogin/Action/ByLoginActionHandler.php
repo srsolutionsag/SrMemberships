@@ -22,6 +22,7 @@ namespace srag\Plugins\SrMemberships\Workflow\ByLogin\Action;
 
 use srag\Plugins\SrMemberships\Workflow\General\AbstractByStringActionHandler;
 use srag\Plugins\SrMemberships\Person\Persons\PersonList;
+use srag\Plugins\SrMemberships\Workflow\ByLogin\Config\ByLoginConfig;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -30,9 +31,21 @@ class ByLoginActionHandler extends AbstractByStringActionHandler
 {
     protected function getPersonList(string $text, ?string $original_mime_type = null) : PersonList
     {
-        return $this->person_list_generators->byLoginsFromString(
-            $text,
-            $original_mime_type
-        );
+        switch ($this->container->config()->byLogin()->get(ByLoginConfig::F_MATCHING_FIELD)) {
+            case ByLoginConfig::MATCHING_FIELD_LOGIN:
+                return $this->person_list_generators->byLoginsFromString(
+                    $text,
+                    $original_mime_type
+                );
+            case ByLoginConfig::MATCHING_FIELD_EXT_ACCOUNT:
+                return $this->person_list_generators->byExtAccountsFromString(
+                    $text,
+                    $original_mime_type
+                );
+            default:
+                throw new \InvalidArgumentException(
+                    "Invalid matching field, an administrator must configure the workflow first."
+                );
+        }
     }
 }

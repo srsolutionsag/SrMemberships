@@ -6,21 +6,21 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit41e6877b42375d55267017714a73708b
 {
-    public static $prefixLengthsPsr4 = array (
-        's' => 
-        array (
+    public static $prefixLengthsPsr4 = array(
+        's' =>
+        array(
             'srag\\Plugins\\SrMemberships\\' => 27,
         ),
     );
 
-    public static $prefixDirsPsr4 = array (
-        'srag\\Plugins\\SrMemberships\\' => 
-        array (
+    public static $prefixDirsPsr4 = array(
+        'srag\\Plugins\\SrMemberships\\' =>
+        array(
             0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
-    public static $classMap = array (
+    public static $classMap = array(
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'ilSrMembershipsConfigGUI' => __DIR__ . '/../..' . '/classes/class.ilSrMembershipsConfigGUI.php',
         'ilSrMembershipsDispatcherGUI' => __DIR__ . '/../..' . '/classes/class.ilSrMembershipsDispatcherGUI.php',
@@ -81,12 +81,14 @@ class ComposerStaticInit41e6877b42375d55267017714a73708b
         'srag\\Plugins\\SrMemberships\\Person\\PersonsToAccounts' => __DIR__ . '/../..' . '/src/Person/PersonsToAccounts.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\CreatablePerson' => __DIR__ . '/../..' . '/src/Person/Persons/CreatablePerson.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\EmailPerson' => __DIR__ . '/../..' . '/src/Person/Persons/EmailPerson.php',
+        'srag\\Plugins\\SrMemberships\\Person\\Persons\\ExtAccountPerson' => __DIR__ . '/../..' . '/src/Person/Persons/ExtAccountPerson.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\LoginPerson' => __DIR__ . '/../..' . '/src/Person/Persons/LoginPerson.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\MatriculationPerson' => __DIR__ . '/../..' . '/src/Person/Persons/MatriculationPerson.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\Person' => __DIR__ . '/../..' . '/src/Person/Persons/Person.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\PersonList' => __DIR__ . '/../..' . '/src/Person/Persons/PersonList.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\PersonListGenerators' => __DIR__ . '/../..' . '/src/Person/Persons/PersonListGenerators.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\Resolver\\EmailPersonResolver' => __DIR__ . '/../..' . '/src/Person/Persons/Resolver/EmailPersonResolver.php',
+        'srag\\Plugins\\SrMemberships\\Person\\Persons\\Resolver\\ExtAccountPersonResolver' => __DIR__ . '/../..' . '/src/Person/Persons/Resolver/ExtAccountPersonResolver.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\Resolver\\LoginPersonResolver' => __DIR__ . '/../..' . '/src/Person/Persons/Resolver/LoginPersonResolver.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\Resolver\\MatriculationPersonResolver' => __DIR__ . '/../..' . '/src/Person/Persons/Resolver/MatriculationPersonResolver.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\Resolver\\PersonResolver' => __DIR__ . '/../..' . '/src/Person/Persons/Resolver/PersonResolver.php',
@@ -156,7 +158,6 @@ class ComposerStaticInit41e6877b42375d55267017714a73708b
             $loader->prefixLengthsPsr4 = ComposerStaticInit41e6877b42375d55267017714a73708b::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit41e6877b42375d55267017714a73708b::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit41e6877b42375d55267017714a73708b::$classMap;
-
         }, null, ClassLoader::class);
     }
 }

@@ -66,3 +66,7 @@ msg_multiple_workflows_assigned#:#Es sind mehrere Workflows für dieses Objekt a
 remove_workflow#:#Workflow entfernen
 
 actions#:#Aktionen
+matching_field#:#Account-Feld für den Abgleich
+matching_field_byline#:#Wählen Sie das Feld, welches für den Abgleich verwendet werden soll. Die Felder "Login" und "Externer Account" können für den Abgleich verwendet werden. Im Falle von "Externer Account" ist zu beachten, dass dieses Feld nicht einmalig in ILIAS ist und es zu unerwarteten Ergebnissen kommen kann.
+login#:#Login-Name
+ext_account#:#Externer Account
