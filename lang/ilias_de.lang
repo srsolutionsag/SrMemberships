@@ -34,9 +34,12 @@ by_login_file_import#:#Dateiimport
 by_login_text_list_byline#:#Fügen Sie hier eine Liste von Logins ein. Die Logins können dabei jeweils in einer neuen Zeile stehen oder durch folgende Trennzeichen getrennt sein: Komma, Semikolon, Tabulator.
 by_login_file_list_byline#:#Laden Sie hier eine Datei mit Logins hoch. Die Logins können dabei jeweils in einer neuen Zeile stehen oder durch folgende Trennzeichen getrennt sein: Komma, Semikolon, Tabulator. Bei CSV-Dateien müssen die relevanten Daten in der ersten Spalte sein.
 
-result_error#:#Bei der Verarbeitung ist ein Fehler aufgetreten: %s
-result_accounts_added_and_removed#:#%s Personen hinzugefügt und %s Personen entfernt
-result_empty_list#:#Keine Personen zum Verarbeiten
+summary_ok#:#Zusammenfassung der durchgeführten Aktionen:
+summary_error#:#Bei der Bearbeitung der Personenliste ist ein Fehler aufgetreten:
+accounts_added#:#Hinzufügte Konten: %s
+accounts_removed#:#Entfernte Konten: %s
+persons_not_found#:#Konten nicht gefunden: %s
+msg_error_to_many_columns_in_csv#:#Zu viele Spalten im CSV, es werden nur Dateien mit einer Spalte unterstützt.
 
 workflow_by_matriculation#:#Nach Matrikelnummer
 by_matriculation_header#:#Import von Matrikelnummern

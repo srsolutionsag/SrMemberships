@@ -56,6 +56,11 @@ class ByRoleSyncActionHandler extends BaseActionHandler
         $person_list = $this->person_list_generators->byRoleIds($role_ids);
         $account_list = $this->persons_to_accounts->translate($person_list);
 
-        return $this->generalHandling($context, $account_list, $sync_modes);
+        return $this->generalHandling(
+            $context,
+            $account_list,
+            $person_list,
+            $sync_modes
+        );
     }
 }

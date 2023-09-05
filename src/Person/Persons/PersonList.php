@@ -29,7 +29,9 @@ class PersonList
 
     public function __construct(array $persons = [])
     {
-        $this->persons = $persons;
+        foreach ($persons as $person) {
+            $this->addPerson($person);
+        }
     }
 
     public function addPerson(Person $person) : void
@@ -54,5 +56,10 @@ class PersonList
     public function getPersons() : array
     {
         return $this->persons;
+    }
+
+    public function count() : int
+    {
+        return count($this->persons);
     }
 }

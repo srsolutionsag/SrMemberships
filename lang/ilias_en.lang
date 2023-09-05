@@ -33,9 +33,12 @@ by_login_file_import#:#File Import
 by_login_text_list_byline#:#Insert a list of Logins here. The Logins numbers can be in a new line or separated by the following characters: comma, semicolon, tabulator.
 by_login_file_list_byline#:#Upload a text file containing a list of Logins. The Logins numbers can be in a new line or separated by the following characters: comma, semicolon, tabulator. For CSV files, the relevant data must be in the first column.
 
-result_error#:#An error occurred during processing: %s
-result_accounts_added_and_removed#:#%s account(s) added and %s account(s) removed
-result_empty_list#:#No accounts added or removed
+summary_ok#:#Summary of the performed actions:
+summary_error#:#An error occurred during the processing of the list of persons:
+accounts_added#:#Accounts enrolled: %s
+accounts_removed#:#Accounts removed: %s
+persons_not_found#:#Accounts not found: %s
+msg_error_to_many_columns_in_csv#:#Too many columns in CSV, only files with one column are supported.
 
 workflow_by_matriculation#:#By Matriculation Number
 by_matriculation_header#:#Import List of Matriculation Numbers

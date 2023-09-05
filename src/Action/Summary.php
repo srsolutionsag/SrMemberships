@@ -22,6 +22,8 @@ namespace srag\Plugins\SrMemberships\Action;
 
 use srag\Plugins\SrMemberships\Container\Init;
 use srag\Plugins\SrMemberships\Person\Account\AccountList;
+use srag\Plugins\SrMemberships\Person\Persons\PersonList;
+use srag\Plugins\SrMemberships\Person\Persons\Person;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -38,44 +40,74 @@ class Summary
     /**
      * @var string
      */
-    private $message;
+    private $header;
 
     private $status = self::OK;
+    /**
+     * @var AccountList|null
+     */
+    private $accounts_added;
+    /**
+     * @var AccountList|null
+     */
+    private $accounts_removed;
+    /**
+     * @var PersonList|null
+     */
+    private $persons_not_found;
+    /**
+     * @var string|null
+     */
+    private $additional_message = null;
 
-    private function __construct()
-    {
+    private function __construct(
+        ?AccountList $accounts_added = null,
+        ?AccountList $accounts_removed = null,
+        ?PersonList $persons_not_found = null
+    ) {
         $container = Init::init($GLOBALS['DIC']);
         $this->translator = $container->translator();
+
+        $this->accounts_added = $accounts_added;
+        $this->accounts_removed = $accounts_removed;
+        $this->persons_not_found = $persons_not_found;
     }
 
     public static function empty() : self
     {
-        return (new self())->setMessage('result_empty_list', [])->nok();
+        return (new self())->setHeader('result_empty_list')->nok();
     }
 
     public static function throwable(\Throwable $t) : self
     {
-        return self::error($t->getMessage());
+        $txt_key = $t->getMessage();
+        $container = Init::init($GLOBALS['DIC']);
+
+        return self::error($container->translator()->txt($txt_key));
     }
 
     public static function error(string $error_message) : self
     {
-        return (new self())->setMessage('result_error', [$error_message])->nok();
+        return (new self())->setHeader('summary_error')->setAdditionalMessage($error_message)->nok();
     }
 
-    public static function from(AccountList $accounts_added, ?AccountList $accounts_removed = null) : self
-    {
-        $placeholders = [
-            $accounts_added->count(),
-            $accounts_removed === null ? 0 : $accounts_removed->count(),
-        ];
-
-        return (new self())->setMessage('result_accounts_added_and_removed', $placeholders)->ok();
+    public static function from(
+        ?AccountList $accounts_added = null,
+        ?AccountList $accounts_removed = null,
+        ?PersonList $persons_not_found = null
+    ) : self {
+        return (new self($accounts_added, $accounts_removed, $persons_not_found))->setHeader('summary_ok')->ok();
     }
 
-    protected function setMessage(string $message_key, array $placeholders) : self
+    protected function setHeader(string $message_key, array $placeholders = []) : self
     {
-        $this->message = sprintf($this->translator->txt($message_key), ...$placeholders);
+        $this->header = $this->buildStringWithPlaceholder($message_key, $placeholders);
+        return $this;
+    }
+
+    public function setAdditionalMessage(string $additional_message) : self
+    {
+        $this->additional_message = $additional_message;
         return $this;
     }
 
@@ -91,13 +123,43 @@ class Summary
         return $this;
     }
 
-    public function getMessage() : string
+    public function getSummary() : string
     {
-        return $this->message;
+        $summary = $this->header . "\n\n";
+
+        if ($this->accounts_added) {
+            $placeholders = [$this->accounts_added->count()];
+            $summary .= $this->buildStringWithPlaceholder('accounts_added', $placeholders) . "\n";
+        }
+
+        if ($this->accounts_removed) {
+            $placeholders = [$this->accounts_removed->count()];
+            $summary .= $this->buildStringWithPlaceholder('accounts_removed', $placeholders) . "\n";
+        }
+
+        if ($this->persons_not_found && $this->persons_not_found->count() > 0) {
+            $placeholders = [$this->persons_not_found->count()];
+            $summary .= $this->buildStringWithPlaceholder('persons_not_found', $placeholders) . "\n";
+            $this->additional_message = implode(
+                "\n",
+                array_map(static function (Person $person) : string {
+                    return $person->getUniqueIdentification();
+                }, $this->persons_not_found->getPersons())
+            );
+        }
+
+        $summary .= $this->additional_message ?? '';
+
+        return $summary;
     }
 
     public function isOK() : bool
     {
         return $this->status === self::OK;
+    }
+
+    protected function buildStringWithPlaceholder(string $message_key, array $placeholders) : string
+    {
+        return sprintf($this->translator->txt($message_key), ...$placeholders);
     }
 }

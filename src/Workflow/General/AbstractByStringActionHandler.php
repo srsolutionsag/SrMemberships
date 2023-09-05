@@ -78,7 +78,7 @@ abstract class AbstractByStringActionHandler extends BaseActionHandler
                 $rid = $object_config['content']['file_list'][0] ?? '';
                 $rid = $this->irss->manage()->find($rid);
                 if (!$rid) {
-                    return Summary::error('File not found');
+                    return Summary::error($this->container->translator()->txt('msg_file_not_found'));
                 }
                 $strings = (string) $this->irss->consume()->stream($rid)->getStream();
                 $mime_type = $this->irss->manage()->getCurrentRevision($rid)->getInformation()->getMimeType();
@@ -94,8 +94,13 @@ abstract class AbstractByStringActionHandler extends BaseActionHandler
             return Summary::throwable($e);
         }
 
-        $account_list = $this->persons_to_accounts->translate($person_list);
+        $account_list = $this->persons_to_accounts->translate($person_list, true);
 
-        return $this->generalHandling($context, $account_list, $sync_modes);
+        return $this->generalHandling(
+            $context,
+            $account_list,
+            $person_list,
+            $sync_modes
+        );
     }
 }

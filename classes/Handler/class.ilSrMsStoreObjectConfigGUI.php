@@ -67,9 +67,9 @@ class ilSrMsStoreObjectConfigGUI extends ilSrMsAbstractWorkflowProcessorGUI
                 $run_modes
             );
             if ($summary->isOK()) {
-                $this->sendInfoMessage($summary->getMessage());
+                $this->sendInfoMessage(nl2br($summary->getSummary()));
             } else {
-                $this->sendErrorMessage($summary->getMessage());
+                $this->sendErrorMessage(nl2br($summary->getSummary()));
             }
 
             $this->sendSuccessMessage($this->translator->txt('msg_object_config_stored'));

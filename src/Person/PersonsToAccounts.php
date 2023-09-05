@@ -44,15 +44,17 @@ class PersonsToAccounts
         $this->db = $db;
     }
 
-    public function translate(PersonList $person_list) : AccountList
+    public function translate(PersonList $person_list, bool $remove_found = true) : AccountList
     {
         $account_list = new AccountList();
         foreach ($person_list->getPersons() as $person) {
             $user_id = $this->getUserID($person);
             if ($user_id !== null) {
                 $account_list->addAccount(new ILIASAccount($user_id));
+                if ($remove_found) {
+                    $person_list->removePerson($person);
+                }
             }
-            // TODO add other account types aka NonExistingAccounts
         }
         return $account_list;
     }

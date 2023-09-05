@@ -27,6 +27,7 @@ use srag\Plugins\SrMemberships\Provider\Context\Context;
 use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
 use srag\Plugins\SrMemberships\Person\Account\AccountList;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
+use srag\Plugins\SrMemberships\Person\Persons\PersonList;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -67,6 +68,7 @@ abstract class BaseActionHandler implements ActionHandler
     protected function generalHandling(
         Context $context,
         AccountList $account_list,
+        PersonList $not_found_persons,
         SyncModes $sync_modes
     ) : Summary {
         $current_members = $this->account_list_generators->fromContainerId($context->getCurrentRefId());
@@ -95,14 +97,16 @@ abstract class BaseActionHandler implements ActionHandler
                 $this->action_builder->unsubscribe($context->getCurrentRefId())
                                      ->performFor($superfluous_account_list);
 
-                return Summary::from($missing_account_list, $superfluous_account_list);
+                return Summary::from($missing_account_list, $superfluous_account_list, $not_found_persons);
 
             case SyncModes::SYNC_REMOVE:
                 // remove all from the given list
                 $this->action_builder->unsubscribe($context->getCurrentRefId())
                                      ->performFor($account_list);
 
-                return Summary::from(new AccountList(), $account_list);
+                $superfluous_account_list = $this->account_list_generators->diff($current_members, $account_list);
+
+                return Summary::from(new AccountList(), $superfluous_account_list, $not_found_persons);
             default:
                 break;
         }

@@ -64,7 +64,7 @@ class StringPersonSource implements PersonSource
 
         $first_line = str_getcsv($first_line, $separator);
         if (count($first_line) !== 1) {
-            throw new \InvalidArgumentException('To many columns in CSV, only one supported');
+            throw new \InvalidArgumentException('msg_error_to_many_columns_in_csv');
         }
         // now read the CSV and add items to the array
         $items = [];
