@@ -70,4 +70,16 @@ class AccountListGenerators
 
         return $diff;
     }
+
+    public function intersect(AccountList $current, AccountList $new) : AccountList
+    {
+        $intersect = new AccountList();
+        // create an account list of accounts which are in both lists
+        foreach ($current->getAccounts() as $account) {
+            if ($new->has($account)) {
+                $intersect->addAccount($account);
+            }
+        }
+        return $intersect;
+    }
 }

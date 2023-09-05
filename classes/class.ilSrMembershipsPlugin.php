@@ -91,4 +91,13 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
                 throw new OutOfBoundsException("Unknown job id $a_job_id");
         }
     }
+
+    protected function afterUninstall()
+    {
+        global $DIC;
+        $container = Init::init($DIC, $this);
+        $container->dic()->database()->dropTable('srms_config', false);
+        $container->dic()->database()->dropTable('srms_object_config', false);
+        $container->dic()->database()->dropTable('srms_object_mode', false);
+    }
 }

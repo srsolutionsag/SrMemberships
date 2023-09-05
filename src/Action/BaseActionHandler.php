@@ -74,7 +74,6 @@ abstract class BaseActionHandler implements ActionHandler
         $current_members = $this->account_list_generators->fromContainerId($context->getCurrentRefId());
 
         // get first sync mode since currently only one is supported
-        $accounts_ro_remove = null;
         $sync_modes_array = $sync_modes->getModes();
         $sync_mode = reset($sync_modes_array);
 
@@ -101,12 +100,12 @@ abstract class BaseActionHandler implements ActionHandler
 
             case SyncModes::SYNC_REMOVE:
                 // remove all from the given list
+                $accounts_to_remove = $this->account_list_generators->intersect($account_list, $current_members);
+
                 $this->action_builder->unsubscribe($context->getCurrentRefId())
-                                     ->performFor($account_list);
+                                     ->performFor($accounts_to_remove);
 
-                $superfluous_account_list = $this->account_list_generators->diff($current_members, $account_list);
-
-                return Summary::from(new AccountList(), $superfluous_account_list, $not_found_persons);
+                return Summary::from(new AccountList(), $accounts_to_remove, $not_found_persons);
             default:
                 break;
         }
