@@ -63,3 +63,5 @@ run_as_cronjob_byline#:#The synchronization is performed periodically by a cronj
 
 msg_multiple_workflows_assigned#:#There are multiple workflows enabled for this Container. Please note that the workflows can influence each other.
 remove_workflow#:#Remove Workflow
+
+actions#:#Actions

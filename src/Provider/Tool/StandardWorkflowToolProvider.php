@@ -92,20 +92,35 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
 
         $components = [];
 
+        $remove_button = $this->ui_factory->button()->shy(
+            $this->container->translator()->txt('remove_workflow'),
+            $this->workflow_container->getActionHandler($context)->getDeleteWorkflowURL(
+                $this->workflow_container
+            )
+        );
+
+        if ($this->container->toolObjectConfigRepository()->get(
+                $context->getCurrentRefId(), $this->workflow_container
+            ) !== null) {
+            $components[] = $this->ui_factory->panel()->secondary()->legacy(
+                $this->container->translator()->txt('actions'),
+                $this->ui_factory->legacy('')
+            )->withActions($this->ui_factory->dropdown()->standard([
+                $remove_button
+            ]));
+        }
+
+
         if ($this->container->toolObjectConfigRepository()->countAssignedWorkflows($context->getCurrentRefId()) > 1) {
             $components[] = $this->ui_factory->messageBox()->info(
                 $this->container->translator()->txt('msg_multiple_workflows_assigned')
             )->withButtons([
-                $this->ui_factory->button()->standard(
-                    $this->container->translator()->txt('remove_workflow'),
-                    $this->workflow_container->getActionHandler($context)->getDeleteWorkflowURL(
-                        $this->workflow_container
-                    )
-                )
+                $remove_button
             ]);
         }
 
         $components[] = $form;
+
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $tool_factory->tool($identification)
                             ->withTitle($title)
