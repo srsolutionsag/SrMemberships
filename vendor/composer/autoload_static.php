@@ -6,21 +6,21 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit41e6877b42375d55267017714a73708b
 {
-    public static $prefixLengthsPsr4 = array(
-        's' =>
-        array(
+    public static $prefixLengthsPsr4 = array (
+        's' => 
+        array (
             'srag\\Plugins\\SrMemberships\\' => 27,
         ),
     );
 
-    public static $prefixDirsPsr4 = array(
-        'srag\\Plugins\\SrMemberships\\' =>
-        array(
+    public static $prefixDirsPsr4 = array (
+        'srag\\Plugins\\SrMemberships\\' => 
+        array (
             0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
-    public static $classMap = array(
+    public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'ilSrMembershipsConfigGUI' => __DIR__ . '/../..' . '/classes/class.ilSrMembershipsConfigGUI.php',
         'ilSrMembershipsDispatcherGUI' => __DIR__ . '/../..' . '/classes/class.ilSrMembershipsDispatcherGUI.php',
@@ -106,6 +106,7 @@ class ComposerStaticInit41e6877b42375d55267017714a73708b
         'srag\\Plugins\\SrMemberships\\Provider\\Tool\\NullWorkflowToolProvider' => __DIR__ . '/../..' . '/src/Provider/Tool/NullWorkflowToolProvider.php',
         'srag\\Plugins\\SrMemberships\\Provider\\Tool\\StandardWorkflowToolProvider' => __DIR__ . '/../..' . '/src/Provider/Tool/StandardWorkflowToolProvider.php',
         'srag\\Plugins\\SrMemberships\\Provider\\Tool\\WorkflowToolProvider' => __DIR__ . '/../..' . '/src/Provider/Tool/WorkflowToolProvider.php',
+        'srag\\Plugins\\SrMemberships\\StringSanitizer' => __DIR__ . '/../..' . '/src/StringSanitizer.php',
         'srag\\Plugins\\SrMemberships\\TrafoGenerator' => __DIR__ . '/../..' . '/src/TrafoGenerator.php',
         'srag\\Plugins\\SrMemberships\\Translator' => __DIR__ . '/../..' . '/src/Translator.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\AbstractBaseWorkflowContainer' => __DIR__ . '/../..' . '/src/Workflow/AbstractBaseWorkflowContainer.php',
@@ -141,11 +142,9 @@ class ComposerStaticInit41e6877b42375d55267017714a73708b
         'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Sync\\Form' => __DIR__ . '/../..' . '/src/Workflow/Mode/Sync/Form.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Sync\\StandardSyncModes' => __DIR__ . '/../..' . '/src/Workflow/Mode/Sync/StandardSyncModes.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Sync\\SyncModes' => __DIR__ . '/../..' . '/src/Workflow/Mode/Sync/SyncModes.php',
-        'srag\\Plugins\\SrMemberships\\Workflow\\ToolObjectConfig\\ToolConfig' => __DIR__ . '/../..' . '/src/Workflow/ToolObjectConfig/ToolConfig.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\ToolObjectConfig\\ToolConfigFormHandler' => __DIR__ . '/../..' . '/src/Workflow/ToolObjectConfig/ToolConfigFormHandler.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\ToolObjectConfig\\ToolConfigFormProvider' => __DIR__ . '/../..' . '/src/Workflow/ToolObjectConfig/ToolConfigFormProvider.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\ToolObjectConfig\\ToolObjectConfigDBRepository' => __DIR__ . '/../..' . '/src/Workflow/ToolObjectConfig/ToolObjectConfigDBRepository.php',
-        'srag\\Plugins\\SrMemberships\\Workflow\\ToolObjectConfig\\ToolObjectConfigFormHandler' => __DIR__ . '/../..' . '/src/Workflow/ToolObjectConfig/ToolObjectConfigFormHandler.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\ToolObjectConfig\\ToolObjectConfigRepository' => __DIR__ . '/../..' . '/src/Workflow/ToolObjectConfig/ToolObjectConfigRepository.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\WorkflowContainer' => __DIR__ . '/../..' . '/src/Workflow/WorkflowContainer.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\WorkflowContainerRepository' => __DIR__ . '/../..' . '/src/Workflow/WorkflowContainerRepository.php',
@@ -158,6 +157,7 @@ class ComposerStaticInit41e6877b42375d55267017714a73708b
             $loader->prefixLengthsPsr4 = ComposerStaticInit41e6877b42375d55267017714a73708b::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit41e6877b42375d55267017714a73708b::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInit41e6877b42375d55267017714a73708b::$classMap;
+
         }, null, ClassLoader::class);
     }
 }

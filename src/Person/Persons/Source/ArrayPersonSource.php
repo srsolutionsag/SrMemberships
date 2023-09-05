@@ -20,11 +20,14 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Person\Persons\Source;
 
+use srag\Plugins\SrMemberships\StringSanitizer;
+
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
 class ArrayPersonSource implements PersonSource
 {
+    use StringSanitizer;
 
     /**
      * @var array
@@ -40,7 +43,7 @@ class ArrayPersonSource implements PersonSource
     public function getRawEntries() : \Generator
     {
         foreach ($this->items as $item) {
-            yield trim($item);
+            yield trim($this->sanitize($item));
         }
     }
 }
