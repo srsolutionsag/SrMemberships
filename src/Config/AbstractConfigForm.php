@@ -139,6 +139,10 @@ abstract class AbstractConfigForm implements ConfigForm
             $group_value = self::GROUP_KEY_SELECT;
         }
 
+        if (is_array($value)) {
+            $value = array_intersect($value, array_keys($options));
+        }
+
         $factory = $this->ui_factory->input()->field();
 
         $group_fields = [
@@ -177,8 +181,13 @@ abstract class AbstractConfigForm implements ConfigForm
         string $byline = null
     ) : MultiSelect {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
+        $value = $this->config->get($config_key, null);
+        if (is_array($value)) {
+            $value = array_intersect($value, array_keys($options));
+        }
+
         return $this->ui_factory->input()->field()->multiSelect($label, $options, $byline)
-                                ->withValue($this->config->get($config_key, null))
+                                ->withValue($value)
                                 ->withAdditionalTransformation(
                                     $this->getTransformation($config_key)
                                 );
