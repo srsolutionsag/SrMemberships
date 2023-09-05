@@ -25,7 +25,7 @@ namespace srag\Plugins\SrMemberships\Person\Persons;
  */
 class PersonList
 {
-    private $persons;
+    private $persons = [];
 
     public function __construct(array $persons = [])
     {

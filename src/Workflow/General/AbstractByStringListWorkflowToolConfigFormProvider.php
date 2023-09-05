@@ -26,6 +26,7 @@ use srag\Plugins\SrMemberships\Workflow\ToolObjectConfig\ToolConfigFormProvider;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
 use ILIAS\UI\Component\Input\Field\Section;
 use srag\Plugins\SrMemberships\TrafoGenerator;
+use srag\Plugins\SrMemberships\Person\Persons\Source\StringPersonSource;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -105,7 +106,15 @@ abstract class AbstractByStringListWorkflowToolConfigFormProvider implements Too
                                             '',
                                             $this->translator->txt($this->getPrefix() . '_file_list_byline')
                                         )
-                                        ->withAcceptedMimeTypes(['text/plain', 'text/csv'])
+                                        ->withAcceptedMimeTypes(
+                                            array_merge(
+                                                [
+                                                    StringPersonSource::MIME_TEXT_PLAIN,
+                                                    StringPersonSource::MIME_TEXT_CSV
+                                                ],
+                                                StringPersonSource::MIME_EXCEL
+                                            )
+                                        )
                                         ->withValue($file_list)
 
                                 ],

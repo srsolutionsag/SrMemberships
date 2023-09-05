@@ -20,11 +20,29 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Person\Persons\Source;
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use ILIAS\Filesystem\Stream\Streams;
+
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
 class StringPersonSource implements PersonSource
 {
+    public const MIME_TEXT_PLAIN = 'text/plain';
+    public const MIME_TEXT_CSV = 'text/csv';
+
+    public const MIME_EXCEL = [
+        'application/vnd.ms-excel',
+        'application/msexcel',
+        'application/x-msexcel',
+        'application/x-ms-excel',
+        'application/x-excel',
+        'application/x-dos_ms_excel',
+        'application/xls',
+        'application/x-xls',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    ];
 
     /**
      * @var string
@@ -104,14 +122,17 @@ class StringPersonSource implements PersonSource
     public function getRawEntries() : \Generator
     {
         switch ($this->original_mime_type) {
-            case 'text/plain':
+            case self::MIME_TEXT_PLAIN:
             case null:
                 yield from $this->yieldFromPlainText();
                 break;
-            case 'text/csv':
+            case self::MIME_TEXT_CSV:
                 yield from $this->yieldFromCsv();
             // no break
             default:
+                if (in_array($this->original_mime_type, self::MIME_EXCEL, true)) {
+                    yield from $this->yieldFromExcel();
+                }
                 break;
         }
     }
@@ -128,6 +149,35 @@ class StringPersonSource implements PersonSource
         if (count($items) === 1 && $items[0] === '') {
             throw new \InvalidArgumentException('No items found in list');
         }
+        $array_person_source = new ArrayPersonSource($items);
+        yield from $array_person_source->getRawEntries();
+    }
+
+    private function yieldFromExcel() : \Generator
+    {
+        $spreadsheet = IOFactory::load($this->list);
+
+        $worksheet = $spreadsheet->getActiveSheet();
+        $highestRow = $worksheet->getHighestRow();
+
+        $items = [];
+        for ($row = 2; $row <= $highestRow; ++$row) {
+            $col = 1;
+            $cell = $worksheet->getCell([$col, $row]);
+            // Skip empty cells
+            while (in_array($cell->getValue(), [null, ''], true)) {
+                $col++;
+                $cell = $worksheet->getCell([$col, $row]);
+            }
+            $maxCol = $col + 1;
+            for (; $col <= $maxCol; ++$col) {
+                $value = $worksheet->getCell([$col, $row])->getValue();
+                if ($value !== null && $value !== '') {
+                    $items[] = $value;
+                }
+            }
+        }
+
         $array_person_source = new ArrayPersonSource($items);
         yield from $array_person_source->getRawEntries();
     }

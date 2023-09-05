@@ -31,6 +31,7 @@ use InvalidArgumentException;
 use srag\Plugins\SrMemberships\Person\Persons\PersonList;
 use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
 use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
+use srag\Plugins\SrMemberships\Person\Persons\Source\StringPersonSource;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -82,6 +83,9 @@ abstract class AbstractByStringActionHandler extends BaseActionHandler
                 }
                 $strings = (string) $this->irss->consume()->stream($rid)->getStream();
                 $mime_type = $this->irss->manage()->getCurrentRevision($rid)->getInformation()->getMimeType();
+                if (in_array($mime_type, StringPersonSource::MIME_EXCEL)) {
+                    $strings = $this->irss->consume()->stream($rid)->getStream()->getMetadata()['uri'];
+                }
                 break;
             default:
                 $mime_type = null;
