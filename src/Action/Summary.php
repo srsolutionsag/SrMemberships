@@ -30,6 +30,7 @@ use srag\Plugins\SrMemberships\Person\Persons\Person;
  */
 class Summary
 {
+    private const NULL = 0;
     private const OK = 1;
     private const NOK = 2;
 
@@ -76,6 +77,14 @@ class Summary
     public static function empty() : self
     {
         return (new self())->setHeader('result_empty_list')->nok();
+    }
+
+    public static function null() : self
+    {
+        $null = new self();
+        $null->status = self::NULL;
+
+        return $null;
     }
 
     public static function throwable(\Throwable $t) : self
@@ -151,6 +160,11 @@ class Summary
         $summary .= $this->additional_message ?? '';
 
         return $summary;
+    }
+
+    public function isNull() : bool
+    {
+        return $this->status === self::NULL;
     }
 
     public function isOK() : bool

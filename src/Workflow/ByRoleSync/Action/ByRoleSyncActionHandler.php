@@ -40,11 +40,8 @@ class ByRoleSyncActionHandler extends BaseActionHandler
         SyncModes $sync_modes,
         RunModes $run_modes
     ) : Summary {
-        if ($context->isCli() && !$run_modes->isRunAsCron()) {
-            return Summary::empty();
-        }
-        if (!$context->isCli() && !$run_modes->isRunOnSave()) {
-            return Summary::empty();
+        if ($summary = $this->checkRunMode($context, $run_modes)) {
+            return $summary;
         }
 
         $object_config = $this->container->toolObjectConfigRepository()->get(

@@ -61,8 +61,8 @@ class ComposerStaticInit41e6877b42375d55267017714a73708b
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -1009,6 +1009,7 @@ class ComposerStaticInit41e6877b42375d55267017714a73708b
         'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\ObjectModeDBRepository' => __DIR__ . '/../..' . '/src/Workflow/Mode/ObjectModeDBRepository.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\ObjectModeRepository' => __DIR__ . '/../..' . '/src/Workflow/Mode/ObjectModeRepository.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Run\\Form' => __DIR__ . '/../..' . '/src/Workflow/Mode/Run/Form.php',
+        'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Run\\NullRunModes' => __DIR__ . '/../..' . '/src/Workflow/Mode/Run/NullRunModes.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Run\\RunModes' => __DIR__ . '/../..' . '/src/Workflow/Mode/Run/RunModes.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Run\\StandardRunModes' => __DIR__ . '/../..' . '/src/Workflow/Mode/Run/StandardRunModes.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Sync\\Form' => __DIR__ . '/../..' . '/src/Workflow/Mode/Sync/Form.php',

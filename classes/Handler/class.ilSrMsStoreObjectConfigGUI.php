@@ -21,6 +21,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
 use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
 use srag\Plugins\SrMemberships\Workflow\Mode\Run\StandardRunModes;
+use srag\Plugins\SrMemberships\Workflow\Mode\Run\NullRunModes;
 
 /**
  * Class ilSrMsStoreObjectConfigGUI
@@ -58,7 +59,7 @@ class ilSrMsStoreObjectConfigGUI extends ilSrMsAbstractWorkflowProcessorGUI
             $run_modes = $this->container->objectModeRepository()->getRunModes(
                 $context->getCurrentRefId(),
                 $workflow_container
-            ) ?? new StandardRunModes();
+            ) ?? new NullRunModes();
 
             $summary = $workflow_container->getActionHandler($context)->performActions(
                 $workflow_container,
@@ -66,10 +67,16 @@ class ilSrMsStoreObjectConfigGUI extends ilSrMsAbstractWorkflowProcessorGUI
                 $sync_modes,
                 $run_modes
             );
-            if ($summary->isOK()) {
-                $this->sendInfoMessage(nl2br($summary->getSummary()));
-            } else {
-                $this->sendErrorMessage(nl2br($summary->getSummary()));
+
+            switch (true) {
+                case $summary->isNull():
+                    break;
+                case $summary->isOK():
+                    $this->sendInfoMessage(nl2br($summary->getSummary()));
+                    break;
+                case !$summary->isOK():
+                    $this->sendErrorMessage(nl2br($summary->getSummary()));
+                    break;
             }
 
             $this->sendSuccessMessage($this->translator->txt('msg_object_config_stored'));

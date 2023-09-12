@@ -39,4 +39,9 @@ class NullActionHandler implements ActionHandler
     ) : Summary {
         return Summary::empty();
     }
+
+    public function getDeleteWorkflowURL(WorkflowContainer $workflow_container) : string
+    {
+        return '';
+    }
 }

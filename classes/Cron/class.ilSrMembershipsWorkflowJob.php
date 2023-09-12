@@ -112,7 +112,20 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
                         $sync_modes,
                         $run_modes
                     );
-                    $this->logger->info('Ref-ID ' . $context->getCurrentRefId() . ':' . $summary->getSummary());
+                    $summary_text = implode(
+                        '; ',
+                        array_filter(
+                            explode(
+                                "\n",
+                                $summary->getSummary()
+                            ),
+                            static function ($line) {
+                                return trim($line) !== ''; // Remove empty lines
+                            }
+                        )
+                    );
+
+                    $this->logger->info('Ref-ID ' . $context->getCurrentRefId() . ': ' . $summary_text);
                 } catch (Throwable $e) {
                     $result->setMessage($result->getMessage() . "\n" . $e->getMessage());
                 }

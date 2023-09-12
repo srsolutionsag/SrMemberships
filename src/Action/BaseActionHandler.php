@@ -28,6 +28,7 @@ use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
 use srag\Plugins\SrMemberships\Person\Account\AccountList;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use srag\Plugins\SrMemberships\Person\Persons\PersonList;
+use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -119,5 +120,16 @@ abstract class BaseActionHandler implements ActionHandler
             [\ilUIPluginRouterGUI::class, get_class($workflow_container->getWorkflowToolFormProcessor())],
             \ilSrMsAbstractWorkflowProcessorGUI::CMD_HANDLE_WORKFLOW_DELETION
         );
+    }
+
+    protected function checkRunMode(Context $context, RunModes $run_modes) : ?Summary
+    {
+        if ($context->isCli() && !$run_modes->isRunAsCron()) {
+            return Summary::null();
+        }
+        if (!$context->isCli() && !$run_modes->isRunOnSave()) {
+            return Summary::null();
+        }
+        return null;
     }
 }

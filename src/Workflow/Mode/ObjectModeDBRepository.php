@@ -22,6 +22,7 @@ namespace srag\Plugins\SrMemberships\Workflow\Mode;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
 use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
+use srag\Plugins\SrMemberships\Workflow\Mode\Run\NullRunModes;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -78,7 +79,7 @@ class ObjectModeDBRepository implements ObjectModeRepository
         $q = "SELECT mode_id FROM " . self::TABLE_NAME . " WHERE context_ref_id = %s AND workflow_id = %s AND mode_id < 32";
         $r = $this->db->queryF($q, ['integer', 'text'], [$ref_id, $workflow_container->getWorkflowID()]);
         if ($r->numRows() === 0) {
-            return null;
+            return new NullRunModes();
         }
         $modes = new RunModes();
         while ($row = $this->db->fetchAssoc($r)) {
