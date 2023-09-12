@@ -71,7 +71,7 @@ abstract class AbstractByStringListWorkflowToolConfigFormProvider implements Too
 
     public function getFormSection(
         Context $context
-    ) : Section {
+    ): Section {
         $factory = $this->ui_factory->input()->field();
 
         $object_config = $this->container->toolObjectConfigRepository()->get(
@@ -80,7 +80,7 @@ abstract class AbstractByStringListWorkflowToolConfigFormProvider implements Too
         );
 
         $type = $object_config[self::F_TYPE] ?? self::TYPE_TEXT;
-        $file_list = $object_config[self::F_CONTENT][self::F_FILE_LIST] ?? null;
+        $file_list = $object_config[self::F_CONTENT][self::F_FILE_LIST] ?? [];
         $text_list = $object_config[self::F_CONTENT][self::F_TEXT_LIST] ?? '';
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $factory->section(

@@ -29,9 +29,12 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
 {
     public const PLUGIN_NAME = 'SrMemberships';
 
-    public function __construct()
-    {
-        parent::__construct();
+    public function __construct(
+        \ilDBInterface $db,
+        \ilComponentRepositoryWrite $component_repository,
+        string $id
+    ) {
+        parent::__construct($db, $component_repository, $id);
         $this->init(); // we must double init the plugin to have provider_collection available
     }
 
@@ -92,7 +95,7 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
         }
     }
 
-    protected function afterUninstall()
+    protected function afterUninstall(): void
     {
         global $DIC;
         $container = Init::init($DIC, $this);

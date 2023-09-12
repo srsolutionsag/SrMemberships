@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 2.0.0
+- Support for ILIAS 8
+
 ## Version 1.0.0
 
 - The plugin currently supports three workflows: Import of persons via login/external account, import of persons via matriculation numbers, enrollment of persons based on role affiliation.

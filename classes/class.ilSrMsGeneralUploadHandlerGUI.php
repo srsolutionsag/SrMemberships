@@ -94,17 +94,11 @@ class ilSrMsGeneralUploadHandlerGUI extends AbstractCtrlAwareUploadHandler
         );
     }
 
-    protected function getInfoResult(string $identifier) : FileInfoResult
+    public function getInfoResult(string $identifier): ?FileInfoResult
     {
         $rid = $this->irss->manage()->find($identifier);
         if ($rid === null) {
-            return new BasicFileInfoResult(
-                self::DEFAULT_FILE_ID_PARAMETER,
-                $identifier,
-                'filename',
-                0,
-                'mime'
-            );
+            return null;
         }
         $revision = $this->irss->manage()->getCurrentRevision($rid);
 
