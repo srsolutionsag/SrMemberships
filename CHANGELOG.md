@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 2.0.1
+- [FIX] an issue with newer PHP versions (wrong type)
+- [FIX] updated classmap to avoid php version check
+
 ## Version 2.0.0
 - Support for ILIAS 8
 
