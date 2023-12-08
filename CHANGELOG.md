@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 1.0.1
+- [FIX] an issue with newer PHP versions (wrong type)
+- [FIX] updated classmap to avoid php version check 
+
 ## Version 1.0.0
 
 - The plugin currently supports three workflows: Import of persons via login/external account, import of persons via matriculation numbers, enrollment of persons based on role affiliation.
