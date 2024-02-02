@@ -72,7 +72,9 @@ class PersonsToAccounts
                     $query,
                     ['text'],
                     [$ext_account]
-                )->fetchAssoc();
+                );
+                $result = $this->db->fetchAssoc($result);
+
                 if (!empty($result)) {
                     return (int) $result["usr_id"];
                 }
@@ -89,7 +91,9 @@ class PersonsToAccounts
                     $matriculation,
                     "text"
                 );
-                $result = $this->db->query($query)->fetchAssoc();
+                $result = $this->db->query($query);
+                $result = $this->db->fetchAssoc($result);
+
                 if (!empty($result)) {
                     return (int) $result["usr_id"];
                 }
