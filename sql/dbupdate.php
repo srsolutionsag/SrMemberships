@@ -75,3 +75,12 @@ $ilDB->addPrimaryKey(
     ['workflow_id', 'context_ref_id', 'mode_id']
 );
 ?>
+<#4>
+<?php
+// migrate existing RUN_AS_DIFF (8) modes to sync_mode (4)
+$ilDB->manipulateF(
+    'UPDATE srms_object_mode SET mode_id = %s WHERE mode_id = %s',
+    ['integer', 'integer'],
+    [64, 8]
+);
+?>
