@@ -84,3 +84,17 @@ $ilDB->manipulateF(
     [64, 8]
 );
 ?>
+<#5>
+<?php
+// migrate other modes
+$ilDB->manipulateF(
+    'UPDATE srms_object_mode SET mode_id = %s WHERE mode_id = %s',
+    ['integer', 'integer'],
+    [4, 2]
+);
+$ilDB->manipulateF(
+    'UPDATE srms_object_mode SET mode_id = %s WHERE mode_id = %s',
+    ['integer', 'integer'],
+    [16, 1]
+);
+?>

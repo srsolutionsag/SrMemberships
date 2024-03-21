@@ -1,8 +1,11 @@
 # Changelog
 
+## Version 2.1.1
+- [FIX] migrate other modes to new modes
+
 ## Version 2.1.0
 - [FIX] an issue in some database calls
-- [FIX] mirgate old mode 8 to new SyncMode:64
+- [FIX] migrate old mode 8 to new SyncMode:64
 - [FEATURE] added support CLI installation
 
 ## Version 2.0.1
