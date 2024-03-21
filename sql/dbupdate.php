@@ -86,12 +86,32 @@ $ilDB->manipulateF(
 ?>
 <#5>
 <?php
+// removed faulty migration, see step 6
+?>
+<#6>
+<?php
 // migrate other modes
+$ilDB->manipulateF(
+    "DELETE m1 FROM srms_object_mode m1
+         JOIN srms_object_mode m2 ON m1.workflow_id = m2.workflow_id AND m1.context_ref_id = m2.context_ref_id AND m2.mode_id = %s
+WHERE m1.mode_id = %s",
+    ['integer', 'integer'],
+    [4, 2]
+);
+
 $ilDB->manipulateF(
     'UPDATE srms_object_mode SET mode_id = %s WHERE mode_id = %s',
     ['integer', 'integer'],
     [4, 2]
 );
+$ilDB->manipulateF(
+    "DELETE m1 FROM srms_object_mode m1
+         JOIN srms_object_mode m2 ON m1.workflow_id = m2.workflow_id AND m1.context_ref_id = m2.context_ref_id AND m2.mode_id = %s
+WHERE m1.mode_id = %s",
+    ['integer', 'integer'],
+    [16, 1]
+);
+
 $ilDB->manipulateF(
     'UPDATE srms_object_mode SET mode_id = %s WHERE mode_id = %s',
     ['integer', 'integer'],

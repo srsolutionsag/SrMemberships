@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 2.1.2
+- [FIX] migrate other modes to new modes (fixed step)
+
 ## Version 2.1.1
 - [FIX] migrate other modes to new modes
 
