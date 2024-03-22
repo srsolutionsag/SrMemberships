@@ -97,8 +97,12 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
             foreach ($this->container->toolObjectConfigRepository()->getAssignedRefIds($workflow) as $ref_id) {
                 $context = $this->container->contextFactory()->get($ref_id, $this->container->dic()->user()->getId());
 
+                $mode = $this->container->objectModeRepository()->getSyncMode($ref_id, $workflow);
+                if ($mode === null) {
+                    continue;
+                }
                 $sync_modes = new SyncModes(
-                    $this->container->objectModeRepository()->getSyncMode($ref_id, $workflow)
+                    $mode
                 );
                 $run_modes = $this->container->objectModeRepository()->getRunModes($ref_id, $workflow);
 
@@ -127,7 +131,7 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
 
                     $this->logger->info('Ref-ID ' . $context->getCurrentRefId() . ': ' . $summary_text);
                 } catch (Throwable $e) {
-                    $result->setMessage($result->getMessage() . "\n" . $e->getMessage());
+                    $this->logger->info($e->getMessage());
                 }
             }
         }
