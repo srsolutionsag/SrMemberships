@@ -75,7 +75,7 @@ class ObjectInfoProvider
         }
 
         $node_info = $this->tree->getNodeData($ref_id);
-        $native_type = $node_info['type'];
+        $native_type = $node_info['type'] ?? null;
         switch ($native_type) {
             case 'crs':
                 return $this->cache[$ref_id] = self::TYPE_CRS;
