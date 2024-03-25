@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 2.1.3
+- [FIX] unsupported object type lead to an error
+- [FIX] array access for object_type
+- [FIX] write errors to log instead of collection in cron result
+
 ## Version 2.1.2
 - [FIX] migrate other modes to new modes (fixed step)
 
