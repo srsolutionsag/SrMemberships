@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 1.1.1
+- [FIX] unsupported object type lead to an error
+- [FIX] array access for object_type
+- [FIX] write errors to log instead of collection in cron result
+- [FIX] migrate old modes to new modes
+
 ## Version 1.1.0
 - [FIX] an issue in some database calls
 - [FIX] mirgate old mode 8 to new SyncMode:64
