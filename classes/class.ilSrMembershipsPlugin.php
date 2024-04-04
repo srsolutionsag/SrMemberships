@@ -40,12 +40,11 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
 
     protected function init() : void
     {
+        global $DIC;
         if ($this->provider_collection === null) {
             return;
         }
-        if ($this->isPluginActive()) {
-            // $this->updateLanguages(); // FSX TODO remove
-            global $DIC;
+        if (isset($DIC['global_screen']) && $this->isActive()) {
             $container = Init::init($DIC, $this);
             $dynamic_tool_provider = new CollectedMainBarProvider($container->dic(), $container->plugin());
             $dynamic_tool_provider->init($container);
