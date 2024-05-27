@@ -14,8 +14,8 @@ git clone https://github.com/srsolutionsag/SrMemberships.git
 As ILIAS administrator go to "Administration->Plugins" and install/activate the plugin or install via CLI.
 Requirements
 
-    ILIAS 7.x
-    PHP >= 7.3
+    ILIAS 8.x
+    PHP >= 7.4
 
 
 ## ILIAS Plugin SLA
