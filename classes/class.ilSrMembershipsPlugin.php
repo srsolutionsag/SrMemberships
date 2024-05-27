@@ -55,9 +55,9 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
             $container->dic()->globalScreen()->layout()->meta()->addInlineCss(
                 '.il-maincontrols-slate-content .il-standard-form .col-sm-2, .il-maincontrols-slate-content .il-standard-form .col-sm-4 { width:100%; text-align:left; }'
                 . '.il-maincontrols-slate-content .il-standard-form .col-sm-8 { width:100%; }'
-                . '.il-maincontrols-slate-content li { padding: 10px 0px !important; }'
-                . '.il-maincontrols-slate-content .il-section-input-header h2 { padding: 0px 0px !important; }'
-                . '.il-maincontrols-slate-content .il-section-input-header { padding: 0px 10px 0px 10px !important; }'
+                . '.il-maincontrols-slate-content .il-standard-form li, .il-maincontrols-slate-content .il-standard-form .il-input-radiooption { padding: 5px 0px !important; }'
+                . '.il-maincontrols-slate-content .il-standard-form .il-section-input-header h2 { padding: 0px 0px !important; }'
+                . '.il-maincontrols-slate-content .il-standard-form .il-section-input-header { padding: 0px 10px 0px 10px !important; }'
                 . '.il-maincontrols-slate-content .il-standard-form .il-standard-form-header + .il-section-input { margin-top: 0px !important; }'
             );
         }
