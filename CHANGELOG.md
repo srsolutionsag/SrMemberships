@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 2.1.4
+- [FIX] fixed an issue with CLI installation/update
+- [FIX] improved CSS for in-slate forms
+
 ## Version 2.1.3
 - [FIX] unsupported object type lead to an error
 - [FIX] array access for object_type
