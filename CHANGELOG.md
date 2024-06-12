@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 2.1.5
+- [FIX] improved CSS for slate contents
+- [FIX] Supported versions in Readme
+
 ## Version 2.1.4
 - [FIX] fixed an issue with CLI installation/update
 - [FIX] improved CSS for in-slate forms
