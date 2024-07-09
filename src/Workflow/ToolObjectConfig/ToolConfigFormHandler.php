@@ -23,8 +23,6 @@ use ILIAS\UI\Component\Input\Field\Section;
  */
 class ToolConfigFormHandler
 {
-    protected Context $context;
-    protected WorkflowContainer $workflow_container;
     /**
      * @readonly
      */
@@ -36,11 +34,9 @@ class ToolConfigFormHandler
 
     public function __construct(
         Container $container,
-        Context $context,
-        WorkflowContainer $workflow_container
+        protected Context $context,
+        protected WorkflowContainer $workflow_container
     ) {
-        $this->context = $context;
-        $this->workflow_container = $workflow_container;
         $this->repository = $container->toolObjectConfigRepository();
         $this->container = $container;
     }
@@ -66,7 +62,7 @@ class ToolConfigFormHandler
                     $this->workflow_container
                 )
             );
-        } catch (Throwable $exception) {
+        } catch (Throwable) {
         }
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $section;

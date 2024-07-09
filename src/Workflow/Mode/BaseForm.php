@@ -27,21 +27,16 @@ abstract class BaseForm
 {
     use TrafoGenerator;
 
-    protected WorkflowContainer $workflow_container;
-    protected Context $context;
-
     protected ObjectModeRepository $repository;
     protected Modes $possible_modes;
     protected Translator $translator;
     protected Factory $ui_factory;
 
     public function __construct(
-        WorkflowContainer $workflow_container,
-        Context $context,
+        protected WorkflowContainer $workflow_container,
+        protected Context $context,
         Container $container
     ) {
-        $this->workflow_container = $workflow_container;
-        $this->context = $context;
         $this->possible_modes = $this->readPossibleModes($this->workflow_container);
         $this->ui_factory = $container->dic()->ui()->factory();
         $this->translator = $container->translator();

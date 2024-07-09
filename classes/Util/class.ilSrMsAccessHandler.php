@@ -32,20 +32,12 @@ use ILIAS\DI\RBACServices;
  */
 class ilSrMsAccessHandler
 {
-    protected RBACServices $access;
-
-    protected \ilObjUser $user;
-
     /**
      * @param RBACServices $access
      * @param ilObjUser    $user
      */
-    public function __construct(
-        RBACServices $access,
-        ilObjUser $user
-    ) {
-        $this->access = $access;
-        $this->user = $user;
+    public function __construct(protected RBACServices $access, protected \ilObjUser $user)
+    {
     }
 
     /**
@@ -75,7 +67,7 @@ class ilSrMsAccessHandler
 
         try {
             $participants = ilParticipants::getInstance($ref_id);
-        } catch (InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException) {
             return false;
         }
 

@@ -26,14 +26,8 @@ use srag\Plugins\SrMemberships\Person\Persons\Resolver\ExtAccountPersonResolver;
  */
 class PersonListGenerators
 {
-    /**
-     * @readonly
-     */
-    private Container $container;
-
-    public function __construct(Container $container)
+    public function __construct(private readonly Container $container)
     {
-        $this->container = $container;
     }
 
     public function byRoleIds(array $role_ids): PersonList

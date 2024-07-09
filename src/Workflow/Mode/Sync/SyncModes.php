@@ -66,15 +66,11 @@ class SyncModes extends AbstractModes
 
     public static function generic(int $mode_id, bool $selectable): Mode
     {
-        switch ($mode_id) {
-            case self::SYNC_MISSING_USERS:
-                return self::syncMissing();
-            case self::SYNC_BIDIRECTIONAL:
-                return self::syncBidirectional();
-            case self::SYNC_REMOVE:
-                return self::syncRemove();
-            default:
-                return new Mode($mode_id, self::getModeTitle($mode_id), $selectable);
-        }
+        return match ($mode_id) {
+            self::SYNC_MISSING_USERS => self::syncMissing(),
+            self::SYNC_BIDIRECTIONAL => self::syncBidirectional(),
+            self::SYNC_REMOVE => self::syncRemove(),
+            default => new Mode($mode_id, self::getModeTitle($mode_id), $selectable),
+        };
     }
 }

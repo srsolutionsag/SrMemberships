@@ -29,11 +29,8 @@ use srag\Plugins\SrMemberships\Person\Persons\ExtAccountPerson;
  */
 class PersonsToAccounts
 {
-    protected \ilDBInterface $db;
-
-    public function __construct(ilDBInterface $db)
+    public function __construct(protected \ilDBInterface $db)
     {
-        $this->db = $db;
     }
 
     public function translate(PersonList $person_list, bool $remove_found = true): AccountList
@@ -91,7 +88,7 @@ class PersonsToAccounts
                 }
                 return null;
             default:
-                throw new InvalidArgumentException("Person " . get_class($person) . " is currently not supported");
+                throw new InvalidArgumentException("Person " . $person::class . " is currently not supported");
         }
     }
 }

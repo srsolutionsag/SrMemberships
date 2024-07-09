@@ -24,9 +24,6 @@ use srag\Plugins\SrMemberships\Person\Persons\Person;
  */
 class Summary
 {
-    private ?AccountList $accounts_added = null;
-    private ?AccountList $accounts_removed = null;
-    private ?PersonList $persons_not_found = null;
     private const NULL = 0;
     private const OK = 1;
     private const NOK = 2;
@@ -41,13 +38,10 @@ class Summary
     private ?string $additional_message = null;
 
     private function __construct(
-        ?AccountList $accounts_added = null,
-        ?AccountList $accounts_removed = null,
-        ?PersonList $persons_not_found = null
+        private ?AccountList $accounts_added = null,
+        private ?AccountList $accounts_removed = null,
+        private ?PersonList $persons_not_found = null
     ) {
-        $this->accounts_added = $accounts_added;
-        $this->accounts_removed = $accounts_removed;
-        $this->persons_not_found = $persons_not_found;
         $container = Init::init($GLOBALS['DIC']);
         $this->translator = $container->translator();
     }
@@ -130,7 +124,7 @@ class Summary
             $this->additional_message = implode(
                 "\n",
                 array_map(
-                    static fn (Person $person): string => $person->getUniqueIdentification(),
+                    static fn(Person $person): string => $person->getUniqueIdentification(),
                     $this->persons_not_found->getPersons()
                 )
             );

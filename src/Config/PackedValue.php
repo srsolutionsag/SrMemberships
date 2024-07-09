@@ -19,7 +19,6 @@ use InvalidArgumentException;
  */
 class PackedValue
 {
-    private ?string $packed_value;
     public const TYPE_STRING = 1;
     public const TYPE_INT = 2;
     public const TYPE_BOOL = 4;
@@ -31,9 +30,8 @@ class PackedValue
      */
     private int $type;
 
-    public function __construct(?string $packed_value, int $type)
+    public function __construct(private ?string $packed_value, int $type)
     {
-        $this->packed_value = $packed_value;
         // Check Type
         $this->checkType($type);
         $this->type = $this->packed_value === null ? self::TYPE_NULL : $type;

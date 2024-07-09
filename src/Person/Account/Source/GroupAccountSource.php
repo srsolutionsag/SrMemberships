@@ -21,6 +21,9 @@ use Generator;
  */
 class GroupAccountSource implements AccountSource
 {
+    /**
+     * @readonly
+     */
     private \ilGroupParticipants $group_members;
 
     public function __construct(int $ref_id)

@@ -21,39 +21,31 @@ use srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider;
  */
 class ActionBuilder
 {
-    protected Container $container;
     /**
      * @readonly
      */
     private ObjectInfoProvider $object_info;
 
-    public function __construct(Container $container)
+    public function __construct(protected Container $container)
     {
-        $this->container = $container;
         $this->object_info = $this->container->objectInfoProvider();
     }
 
     public function subscribe(int $ref_id): Action
     {
-        switch ($this->object_info->getType($ref_id)) {
-            case ObjectInfoProvider::TYPE_CRS:
-                return new CourseSubscribe($ref_id);
-            case ObjectInfoProvider::TYPE_GRP:
-                return new GroupSubscribe($ref_id);
-            default:
-                throw new InvalidArgumentException('Unsupported object type');
-        }
+        return match ($this->object_info->getType($ref_id)) {
+            ObjectInfoProvider::TYPE_CRS => new CourseSubscribe($ref_id),
+            ObjectInfoProvider::TYPE_GRP => new GroupSubscribe($ref_id),
+            default => throw new InvalidArgumentException('Unsupported object type'),
+        };
     }
 
     public function unsubscribe(int $ref_id): Action
     {
-        switch ($this->object_info->getType($ref_id)) {
-            case ObjectInfoProvider::TYPE_CRS:
-                return new CourseUnsubscribe($ref_id);
-            case ObjectInfoProvider::TYPE_GRP:
-                return new GroupUnsubscribe($ref_id);
-            default:
-                throw new InvalidArgumentException('Unsupported object type');
-        }
+        return match ($this->object_info->getType($ref_id)) {
+            ObjectInfoProvider::TYPE_CRS => new CourseUnsubscribe($ref_id),
+            ObjectInfoProvider::TYPE_GRP => new GroupUnsubscribe($ref_id),
+            default => throw new InvalidArgumentException('Unsupported object type'),
+        };
     }
 }

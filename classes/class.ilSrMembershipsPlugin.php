@@ -80,12 +80,10 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
 
     public function getCronJobInstance($a_job_id): ilCronJob
     {
-        switch ($a_job_id) {
-            case ilSrMembershipsWorkflowJob::SRMS_WORKFLOW_JOB:
-                return new ilSrMembershipsWorkflowJob($this);
-            default:
-                throw new OutOfBoundsException("Unknown job id $a_job_id");
-        }
+        return match ($a_job_id) {
+            ilSrMembershipsWorkflowJob::SRMS_WORKFLOW_JOB => new ilSrMembershipsWorkflowJob($this),
+            default => throw new OutOfBoundsException("Unknown job id $a_job_id"),
+        };
     }
 
     protected function afterUninstall(): void

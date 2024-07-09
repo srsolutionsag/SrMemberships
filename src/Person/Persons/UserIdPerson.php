@@ -17,11 +17,8 @@ namespace srag\Plugins\SrMemberships\Person\Persons;
  */
 class UserIdPerson implements Person
 {
-    protected int $user_id;
-
-    public function __construct(int $user_id)
+    public function __construct(protected int $user_id)
     {
-        $this->user_id = $user_id;
     }
 
     public function getUniqueIdentification(): string

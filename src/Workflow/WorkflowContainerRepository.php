@@ -24,7 +24,6 @@ use srag\Plugins\SrMemberships\Workflow\ByMatriculation\ByMatriculationWorkflowC
  */
 class WorkflowContainerRepository
 {
-    protected Container $container;
     protected $all_workflow_containers = [];
 
     /**
@@ -32,9 +31,8 @@ class WorkflowContainerRepository
      */
     protected $enabled_workflow_containers = [];
 
-    public function __construct(Container $container)
+    public function __construct(protected Container $container)
     {
-        $this->container = $container;
         // All available workflows
         $this->all_workflow_containers = [
             GeneralConfig::BY_ROLE_SYNC => new ByRoleSyncWorkflowContainer($this->container),

@@ -17,28 +17,14 @@ namespace srag\Plugins\SrMemberships\Provider\Context;
  */
 class Context
 {
-    protected int $current_ref_id;
-    protected int $user_id;
-    /**
-     * @readonly
-     */
-    private bool $user_can_administrate;
-    /**
-     * @readonly
-     */
-    private string $object_type;
     protected bool $is_cli;
 
     public function __construct(
-        int $current_ref_id,
-        int $user_id,
-        bool $user_can_administrate,
-        string $object_type
+        protected int $current_ref_id,
+        protected int $user_id,
+        private readonly bool $user_can_administrate,
+        private readonly string $object_type
     ) {
-        $this->current_ref_id = $current_ref_id;
-        $this->user_id = $user_id;
-        $this->user_can_administrate = $user_can_administrate;
-        $this->object_type = $object_type;
         $this->is_cli = (PHP_SAPI === 'cli');
     }
 

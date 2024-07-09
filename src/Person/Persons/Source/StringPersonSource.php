@@ -21,14 +21,6 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
  */
 class StringPersonSource implements PersonSource
 {
-    /**
-     * @readonly
-     */
-    private string $list;
-    /**
-     * @readonly
-     */
-    private ?string $original_mime_type = null;
     public const MIME_TEXT_PLAIN = 'text/plain';
     public const MIME_TEXT_CSV = 'text/csv';
 
@@ -52,10 +44,8 @@ class StringPersonSource implements PersonSource
         "\t",
     ];
 
-    public function __construct(string $list, ?string $original_mime_type = null)
+    public function __construct(private string $list, private ?string $original_mime_type = null)
     {
-        $this->list = $list;
-        $this->original_mime_type = $original_mime_type;
     }
 
     private function yieldFromCsv(): Generator
@@ -65,7 +55,7 @@ class StringPersonSource implements PersonSource
         $first_line = array_shift($lines);
         try {
             $separator = $this->determineSeparator($first_line);
-        } catch (InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException) {
             $separator = ',';
         }
 
@@ -131,7 +121,7 @@ class StringPersonSource implements PersonSource
         // we try to determine which separator (;, , or \n) is used
         try {
             $separator = $this->determineSeparator($this->list);
-        } catch (InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException) {
             $separator = '|||';
         }
         $items = explode($separator, $this->list);

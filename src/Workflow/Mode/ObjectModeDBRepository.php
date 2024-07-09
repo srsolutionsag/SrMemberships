@@ -24,15 +24,13 @@ use srag\Plugins\SrMemberships\Workflow\Mode\Run\NullRunModes;
 class ObjectModeDBRepository implements ObjectModeRepository
 {
     private const TABLE_NAME = 'srms_object_mode';
-    private \ilDBInterface $db;
     /**
      * @var array
      */
     protected $cache = [];
 
-    public function __construct(ilDBInterface $db)
+    public function __construct(private readonly \ilDBInterface $db)
     {
-        $this->db = $db;
     }
 
     public function getSyncMode(int $ref_id, WorkflowContainer $workflow_container): ?Mode

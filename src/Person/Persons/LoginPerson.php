@@ -17,11 +17,8 @@ namespace srag\Plugins\SrMemberships\Person\Persons;
  */
 class LoginPerson implements Person
 {
-    protected string $login;
-
-    public function __construct(string $login)
+    public function __construct(protected string $login)
     {
-        $this->login = $login;
     }
 
     public function getUniqueIdentification(): string

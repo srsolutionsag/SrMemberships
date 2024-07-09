@@ -21,6 +21,9 @@ use Generator;
  */
 class CourseAccountSource implements AccountSource
 {
+    /**
+     * @readonly
+     */
     private \ilCourseParticipants $course_memberships;
 
     public function __construct(int $ref_id)

@@ -20,22 +20,10 @@ use ilRbacReview;
  */
 class UserAccessInfoProvider
 {
-    /**
-     * @readonly
-     */
-    private ObjectInfoProvider $object_info_provider;
-    private \ilRbacSystem $rbac;
     private array $cache = [];
-    private \ilRbacReview $rbac_review;
 
-    public function __construct(
-        ilRbacSystem $rbac,
-        ilRbacReview $rbac_review,
-        ObjectInfoProvider $object_info_provider
-    ) {
-        $this->object_info_provider = $object_info_provider;
-        $this->rbac = $rbac;
-        $this->rbac_review = $rbac_review;
+    public function __construct(private readonly \ilRbacSystem $rbac, private readonly \ilRbacReview $rbac_review, private readonly ObjectInfoProvider $object_info_provider)
+    {
     }
 
     public function hasUserPermissionToAdministrate(int $user_id, int $ref_id): bool
@@ -44,19 +32,14 @@ class UserAccessInfoProvider
             return $this->cache[$user_id][$ref_id];
         }
 
-        switch ($this->object_info_provider->getType($ref_id)) {
-            case ObjectInfoProvider::TYPE_CRS:
-            case ObjectInfoProvider::TYPE_GRP:
-                $this->cache[$user_id][$ref_id] = $this->rbac->checkAccessOfUser(
-                    $user_id,
-                    'manage_members',
-                    $ref_id
-                );
-                break;
-            default:
-                $this->cache[$user_id][$ref_id] = false;
-                break;
-        }
+        $this->cache[$user_id][$ref_id] = match ($this->object_info_provider->getType($ref_id)) {
+            ObjectInfoProvider::TYPE_CRS, ObjectInfoProvider::TYPE_GRP => $this->rbac->checkAccessOfUser(
+                $user_id,
+                'manage_members',
+                $ref_id
+            ),
+            default => false,
+        };
 
         return $this->cache[$user_id][$ref_id];
     }

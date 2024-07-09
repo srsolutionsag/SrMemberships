@@ -30,14 +30,18 @@ use srag\Plugins\SrMemberships\Workflow\WorkflowFormBuilder;
  */
 class StandardWorkflowToolProvider implements WorkflowToolProvider
 {
-    protected Container $container;
-    protected WorkflowContainer $workflow_container;
     /**
      * @var WorkflowConfig
      * @readonly
      */
     private Config $workflow_config;
+    /**
+     * @readonly
+     */
     private Factory $ui_factory;
+    /**
+     * @readonly
+     */
     private Renderer $ui_renderer;
     /**
      * @readonly
@@ -45,11 +49,9 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
     private WorkflowFormBuilder $form_builder;
 
     public function __construct(
-        Container $container,
-        WorkflowContainer $workflow_container
+        protected Container $container,
+        protected WorkflowContainer $workflow_container
     ) {
-        $this->container = $container;
-        $this->workflow_container = $workflow_container;
         $this->workflow_config = $this->workflow_container->getConfig();
         //
         $this->ui_factory = $this->container->dic()->ui()->factory();
@@ -110,7 +112,7 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $tool_factory->tool($identification)
                             ->withTitle($title)
-                            ->withContentWrapper(fn (): Legacy => $this->ui_factory->legacy(
+                            ->withContentWrapper(fn(): Legacy => $this->ui_factory->legacy(
                                 $this->ui_renderer->render(
                                     $components
                                 )

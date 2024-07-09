@@ -22,11 +22,8 @@ class ArrayPersonSource implements PersonSource
 {
     use StringSanitizer;
 
-    private array $items;
-
-    public function __construct(array $items)
+    public function __construct(private array $items)
     {
-        $this->items = $items;
     }
 
     public function getRawEntries(): Generator

@@ -30,16 +30,14 @@ use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
  */
 abstract class BaseActionHandler implements ActionHandler
 {
-    protected Container $container;
     protected AccountListGenerators $account_list_generators;
     protected ActionBuilder $action_builder;
     protected PersonListGenerators $person_list_generators;
 
     protected PersonsToAccounts $persons_to_accounts;
 
-    public function __construct(Container $container)
+    public function __construct(protected Container $container)
     {
-        $this->container = $container;
         $this->persons_to_accounts = new PersonsToAccounts($this->container->dic()->database());
         $this->person_list_generators = $this->container->personListGenerators();
         $this->account_list_generators = $this->container->accountListGenerators();
@@ -97,7 +95,7 @@ abstract class BaseActionHandler implements ActionHandler
     public function getDeleteWorkflowURL(WorkflowContainer $workflow_container): string
     {
         return $this->container->dic()->ctrl()->getLinkTargetByClass(
-            [ilUIPluginRouterGUI::class, get_class($workflow_container->getWorkflowToolFormProcessor())],
+            [ilUIPluginRouterGUI::class, $workflow_container->getWorkflowToolFormProcessor()::class],
             ilSrMsAbstractWorkflowProcessorGUI::CMD_HANDLE_WORKFLOW_DELETION
         );
     }

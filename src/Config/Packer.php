@@ -43,19 +43,13 @@ trait Packer
 
     protected function unpack(PackedValue $value)
     {
-        switch ($value->getType()) {
-            case PackedValue::TYPE_STRING:
-                return $value->getPackedValue();
-            case PackedValue::TYPE_INT:
-                return (int) $value->getPackedValue();
-            case PackedValue::TYPE_BOOL:
-                return $value->getPackedValue() === 'true';
-            case PackedValue::TYPE_ARRAY:
-                return json_decode($value->getPackedValue(), true, 512, JSON_THROW_ON_ERROR);
-            case PackedValue::TYPE_NULL:
-                return null;
-            default:
-                throw new InvalidArgumentException('Unknown type: ' . $value->getType());
-        }
+        return match ($value->getType()) {
+            PackedValue::TYPE_STRING => $value->getPackedValue(),
+            PackedValue::TYPE_INT => (int) $value->getPackedValue(),
+            PackedValue::TYPE_BOOL => $value->getPackedValue() === 'true',
+            PackedValue::TYPE_ARRAY => json_decode($value->getPackedValue(), true, 512, JSON_THROW_ON_ERROR),
+            PackedValue::TYPE_NULL => null,
+            default => throw new InvalidArgumentException('Unknown type: ' . $value->getType()),
+        };
     }
 }

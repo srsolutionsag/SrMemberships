@@ -23,15 +23,13 @@ abstract class AbstractDBConfig implements Config
     use Packer;
 
     public const TABLE_NAME = 'srms_config';
-    protected \ilDBInterface $db;
     /**
      * @var array
      */
     protected $values = [];
 
-    public function __construct(ilDBInterface $db)
+    public function __construct(protected \ilDBInterface $db)
     {
-        $this->db = $db;
         $this->read();
     }
 
@@ -62,11 +60,10 @@ abstract class AbstractDBConfig implements Config
 
     /**
      * @param string $key
-     * @param mixed  $value
      * @return void
      * @throws JsonException
      */
-    protected function saveToDB(string $key, $value): void
+    protected function saveToDB(string $key, mixed $value): void
     {
         $packed_value = $this->pack($value);
 

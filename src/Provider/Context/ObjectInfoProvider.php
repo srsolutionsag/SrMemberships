@@ -28,32 +28,17 @@ use ilObject2;
  */
 class ObjectInfoProvider
 {
-    /**
-     * @readonly
-     */
-    private ServerRequestInterface $request;
     public const TYPE_CRS = 'crs';
     public const TYPE_GRP = 'grp';
-    private \ilTree $tree;
     private array $cache = [];
-    private \ilCtrl $ctrl;
-    private \ilRbacReview $rbacreview;
 
     /**
      * @var string[]
      */
     private array $valid_parent_types = ['crs', 'grp', 'root', 'cat'];
 
-    public function __construct(
-        ilTree $tree,
-        ilCtrl $ctrl,
-        ServerRequestInterface $request,
-        ilRbacReview $rbac_review
-    ) {
-        $this->request = $request;
-        $this->tree = $tree;
-        $this->ctrl = $ctrl;
-        $this->rbacreview = $rbac_review;
+    public function __construct(private readonly \ilTree $tree, private readonly \ilCtrl $ctrl, private readonly ServerRequestInterface $request, private readonly \ilRbacReview $rbacreview)
+    {
     }
 
     public function getType(int $ref_id): string
@@ -64,17 +49,11 @@ class ObjectInfoProvider
 
         $node_info = $this->tree->getNodeData($ref_id);
         $native_type = $node_info['type'] ?? null;
-        switch ($native_type) {
-            case 'crs':
-                $this->cache[$ref_id] = self::TYPE_CRS;
-                break;
-            case 'grp':
-                $this->cache[$ref_id] = self::TYPE_GRP;
-                break;
-            default:
-                $this->cache[$ref_id] = $native_type ?? 'unknown';
-                break;
-        }
+        $this->cache[$ref_id] = match ($native_type) {
+            'crs' => self::TYPE_CRS,
+            'grp' => self::TYPE_GRP,
+            default => $native_type ?? 'unknown',
+        };
 
         return $this->cache[$ref_id];
     }
@@ -101,14 +80,11 @@ class ObjectInfoProvider
     public function isOnMembersTab(int $ref_id): bool
     {
         $command_class = $this->request->getQueryParams()['cmdClass'] ?? '';
-        switch ($this->getType($ref_id)) {
-            case ObjectInfoProvider::TYPE_CRS:
-                return strtolower((string) $command_class) === strtolower(ilCourseMembershipGUI::class);
-            case ObjectInfoProvider::TYPE_GRP:
-                return strtolower((string) $command_class) === strtolower(ilGroupMembershipGUI::class);
-            default:
-                return false;
-        }
+        return match ($this->getType($ref_id)) {
+            ObjectInfoProvider::TYPE_CRS => strtolower((string) $command_class) === strtolower(ilCourseMembershipGUI::class),
+            ObjectInfoProvider::TYPE_GRP => strtolower((string) $command_class) === strtolower(ilGroupMembershipGUI::class),
+            default => false,
+        };
     }
 
     /**

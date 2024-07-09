@@ -28,14 +28,6 @@ use ILIAS\UI\Component\Input\Container\Form\Standard;
  */
 abstract class AbstractForm
 {
-    /**
-     * @readonly
-     */
-    private ilSrMsAbstractGUI $target_gui;
-    /**
-     * @readonly
-     */
-    private string $target_command;
     protected Translator $translator;
     /**
      * @var \ilCtrl
@@ -49,12 +41,10 @@ abstract class AbstractForm
     protected $config;
 
     public function __construct(
-        ilSrMsAbstractGUI $target_gui,
-        string $target_command,
+        private readonly ilSrMsAbstractGUI $target_gui,
+        private readonly string $target_command,
         Container $container
     ) {
-        $this->target_gui = $target_gui;
-        $this->target_command = $target_command;
         $this->translator = $container->translator();
         $this->ui_factory = $container->dic()->ui()->factory();
         $this->ctrl = $container->dic()->ctrl();

@@ -27,14 +27,8 @@ use srag\Plugins\SrMemberships\Workflow\Mode\Run\Form as RunForm;
  */
 class WorkflowFormBuilder
 {
-    /**
-     * @readonly
-     */
-    private Container $container;
-
-    public function __construct(Container $container)
+    public function __construct(private readonly Container $container)
     {
-        $this->container = $container;
     }
 
     public function getForm(
@@ -58,7 +52,7 @@ class WorkflowFormBuilder
         );
 
         $post_url = $this->container->dic()->ctrl()->getFormActionByClass(
-            [ilUIPluginRouterGUI::class, get_class($processor)],
+            [ilUIPluginRouterGUI::class, $processor::class],
             ilSrMsAbstractGUI::CMD_INDEX
         );
 

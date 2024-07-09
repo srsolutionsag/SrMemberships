@@ -20,22 +20,15 @@ use Generator;
  */
 class RolesPersonSource implements PersonSource
 {
-    protected array $role_ids;
-    private \ilRbacReview $rbac_review;
-
-    public function __construct(
-        array $role_ids,
-        ilRbacReview $rbac_review
-    ) {
-        $this->role_ids = $role_ids;
-        $this->rbac_review = $rbac_review;
+    public function __construct(protected array $role_ids, private readonly \ilRbacReview $rbac_review)
+    {
     }
 
     public function getRawEntries(): Generator
     {
         foreach ($this->role_ids as $role_id) {
             yield from array_map(
-                fn ($user_id): int => (int) $user_id,
+                fn($user_id): int => (int) $user_id,
                 $this->rbac_review->assignedUsers((int) $role_id)
             );
         }

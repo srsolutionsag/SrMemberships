@@ -13,6 +13,7 @@ use srag\Plugins\SrMemberships\Workflow\Mode\Mode;
 use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
 use srag\Plugins\SrMemberships\Container\Init;
 use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
+use ILIAS\Cron\Schedule\CronJobScheduleType;
 
 /**
  * This is the entry point of the plugin-configuration.
@@ -68,9 +69,9 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
         return true;
     }
 
-    public function getDefaultScheduleType(): int
+    public function getDefaultScheduleType(): CronJobScheduleType
     {
-        return ilCronJob::SCHEDULE_TYPE_IN_HOURS;
+        return CronJobScheduleType::SCHEDULE_TYPE_IN_HOURS;
     }
 
     public function getDefaultScheduleValue(): ?int

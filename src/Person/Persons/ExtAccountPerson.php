@@ -17,11 +17,8 @@ namespace srag\Plugins\SrMemberships\Person\Persons;
  */
 class ExtAccountPerson implements Person
 {
-    protected string $ext_account;
-
-    public function __construct(string $ext_account)
+    public function __construct(protected string $ext_account)
     {
-        $this->ext_account = $ext_account;
     }
 
     public function getUniqueIdentification(): string

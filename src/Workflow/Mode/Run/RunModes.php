@@ -65,13 +65,10 @@ class RunModes extends AbstractModes
 
     public static function generic(int $mode_id, bool $selectable): Mode
     {
-        switch ($mode_id) {
-            case self::RUN_AS_CRONJOB:
-                return self::runAsCronJob();
-            case self::RUN_ON_SAVE:
-                return self::runOnSave();
-            default:
-                return new Mode($mode_id, self::getModeTitle($mode_id), $selectable);
-        }
+        return match ($mode_id) {
+            self::RUN_AS_CRONJOB => self::runAsCronJob(),
+            self::RUN_ON_SAVE => self::runOnSave(),
+            default => new Mode($mode_id, self::getModeTitle($mode_id), $selectable),
+        };
     }
 }

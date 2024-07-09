@@ -38,16 +38,11 @@ class AccountListGenerators
     {
         $resolver = new ContainerAccountResolver();
         $type = $this->object_info->getType($ref_id);
-        switch ($type) {
-            case ObjectInfoProvider::TYPE_CRS:
-                $source = new CourseAccountSource($ref_id);
-                break;
-            case ObjectInfoProvider::TYPE_GRP:
-                $source = new GroupAccountSource($ref_id);
-                break;
-            default:
-                throw new InvalidArgumentException('Unsupported object type for ref_id ' . $ref_id . ': ' . $type);
-        }
+        $source = match ($type) {
+            ObjectInfoProvider::TYPE_CRS => new CourseAccountSource($ref_id),
+            ObjectInfoProvider::TYPE_GRP => new GroupAccountSource($ref_id),
+            default => throw new InvalidArgumentException('Unsupported object type for ref_id ' . $ref_id . ': ' . $type),
+        };
 
         return $resolver->resolveFor($source);
     }

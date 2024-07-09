@@ -59,7 +59,7 @@ class ilSrMembershipsDispatcherGUI
 
         // Dynamically forward to the next class, if it is a workflow type mathing.
         foreach ($this->container->workflows()->getAllWorkflows() as $workflow) {
-            $class_name = get_class($workflow->getConfigClass());
+            $class_name = $workflow->getConfigClass()::class;
             if ($next_class === strtolower($class_name)) {
                 $this->safelyForward($class_name);
                 return;
@@ -102,14 +102,11 @@ class ilSrMembershipsDispatcherGUI
         $base_class = array_shift($call_history);
         $base_class = strtolower((string) ($base_class['class'] ?? $base_class['cmdClass'] ?? ''));
 
-        switch ($base_class) {
-            case strtolower(ilUIPluginRouterGUI::class):
-                return self::ORIGIN_TYPE_REPOSITORY;
-            case strtolower(ilAdministrationGUI::class):
-                return self::ORIGIN_TYPE_ADMINISTRATION;
-            default:
-                return self::ORIGIN_TYPE_UNKNOWN;
-        }
+        return match ($base_class) {
+            strtolower(ilUIPluginRouterGUI::class) => self::ORIGIN_TYPE_REPOSITORY,
+            strtolower(ilAdministrationGUI::class) => self::ORIGIN_TYPE_ADMINISTRATION,
+            default => self::ORIGIN_TYPE_UNKNOWN,
+        };
     }
 
     /**

@@ -17,11 +17,8 @@ namespace srag\Plugins\SrMemberships\Person\Account;
  */
 class AccountList
 {
-    private array $accounts = [];
-
-    public function __construct(array $accounts = [])
+    public function __construct(private array $accounts = [])
     {
-        $this->accounts = $accounts;
     }
 
     public function addAccount(Account $account): void

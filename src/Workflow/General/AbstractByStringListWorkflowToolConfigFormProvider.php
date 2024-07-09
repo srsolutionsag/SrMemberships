@@ -30,9 +30,6 @@ abstract class AbstractByStringListWorkflowToolConfigFormProvider implements Too
 {
     use TrafoGenerator;
 
-    protected Container $container;
-    protected WorkflowContainer $workflow_container;
-
     public const F_TYPE = 'type';
     public const F_CONTENT = 'content';
     public const TYPE_TEXT = 'text';
@@ -43,11 +40,9 @@ abstract class AbstractByStringListWorkflowToolConfigFormProvider implements Too
     protected Translator $translator;
 
     public function __construct(
-        Container $container,
-        WorkflowContainer $workflow_container
+        protected Container $container,
+        protected WorkflowContainer $workflow_container
     ) {
-        $this->container = $container;
-        $this->workflow_container = $workflow_container;
         $this->translator = $this->container->translator();
         $this->ui_factory = $this->container->dic()->ui()->factory();
     }
@@ -110,7 +105,7 @@ abstract class AbstractByStringListWorkflowToolConfigFormProvider implements Too
             $this->container->translator()->txt($this->getPrefix() . '_header')
         )->withAdditionalTransformation(
             $this->trafo(
-                fn ($v): array => [
+                fn($v): array => [
                     self::F_TYPE => $v[0][0],
                     self::F_CONTENT => $v[0][1]
                 ]

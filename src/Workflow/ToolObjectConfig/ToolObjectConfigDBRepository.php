@@ -26,11 +26,9 @@ class ToolObjectConfigDBRepository implements ToolObjectConfigRepository
     use Packer;
 
     public const TABLE_NAME = 'srms_object_config';
-    protected \ilDBInterface $db;
 
-    public function __construct(ilDBInterface $db)
+    public function __construct(protected \ilDBInterface $db)
     {
-        $this->db = $db;
     }
 
     public function store(

@@ -24,11 +24,8 @@ use srag\Plugins\SrMemberships\Workflow\Mode\Run\StandardRunModes;
  */
 abstract class AbstractBaseWorkflowContainer implements WorkflowContainer
 {
-    protected Container $container;
-
-    public function __construct(Container $container)
+    public function __construct(protected Container $container)
     {
-        $this->container = $container;
     }
 
     public function isActivated(): bool

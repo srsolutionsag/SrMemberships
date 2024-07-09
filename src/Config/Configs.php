@@ -39,11 +39,9 @@ final class Configs
      * @readonly
      */
     private ByMatriculationConfig $by_matriculation;
-    protected \ilDBInterface $db;
 
-    public function __construct(ilDBInterface $db)
+    public function __construct(protected \ilDBInterface $db)
     {
-        $this->db = $db;
         $this->general = new GeneralConfig($this->db);
         $this->by_role_sync = new ByRoleSyncConfig($this->db);
         $this->by_login = new ByLoginConfig($this->db);

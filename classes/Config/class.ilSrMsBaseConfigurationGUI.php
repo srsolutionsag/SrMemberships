@@ -15,12 +15,10 @@ use srag\Plugins\SrMemberships\Container\Container;
 
 abstract class ilSrMsBaseConfigurationGUI extends ilSrMsAbstractGUI
 {
-    protected AbstractConfigForm $form;
     public const CMD_SAVE = 'save';
 
-    public function __construct(AbstractConfigForm $form)
+    public function __construct(protected AbstractConfigForm $form)
     {
-        $this->form = $form;
         parent::__construct();
     }
 

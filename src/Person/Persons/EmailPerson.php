@@ -17,12 +17,10 @@ namespace srag\Plugins\SrMemberships\Person\Persons;
  */
 class EmailPerson implements CreatablePerson
 {
-    protected string $email;
     protected string $login;
 
-    public function __construct(string $email, ?string $login = null)
+    public function __construct(protected string $email, ?string $login = null)
     {
-        $this->email = $email;
         $this->login = $login ?? $this->email;
     }
 

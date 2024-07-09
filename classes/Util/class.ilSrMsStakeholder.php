@@ -19,6 +19,7 @@ class ilSrMsStakeholder extends AbstractResourceStakeholder
     {
     }
 
+
     public function getId(): string
     {
         return 'srms_plugin';

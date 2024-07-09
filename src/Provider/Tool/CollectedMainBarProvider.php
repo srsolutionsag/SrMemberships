@@ -22,14 +22,14 @@ use srag\Plugins\SrMemberships\Container\Container;
 use ILIAS\GlobalScreen\ScreenContext\Stack\ContextCollection;
 use ILIAS\GlobalScreen\ScreenContext\Stack\CalledContexts;
 use ILIAS\GlobalScreen\Scope\Tool\Provider\AbstractDynamicToolPluginProvider;
-use ILIAS\GlobalScreen\Identification\PluginIdentificationProvider;
+use ILIAS\GlobalScreen\Identification\IdentificationProviderInterface;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
 class CollectedMainBarProvider extends AbstractDynamicToolPluginProvider
 {
-    protected PluginIdentificationProvider $if;
+    protected IdentificationProviderInterface $if;
     private ?Translator $translator = null;
     private ?Configs $config = null;
     private ?ObjectInfoProvider $object_info_resolver = null;

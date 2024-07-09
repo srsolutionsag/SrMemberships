@@ -30,16 +30,6 @@ use ILIAS\UI\Component\Input\Container\Form\Standard;
  */
 abstract class AbstractConfigForm implements ConfigForm
 {
-    /**
-     * @readonly
-     */
-    private ilSrMsAbstractGUI $target_gui;
-    /**
-     * @readonly
-     */
-    private string $target_command;
-    protected Config $config;
-    protected Container $container;
     protected Translator $translator;
     /**
      * @var \ilCtrl
@@ -49,15 +39,11 @@ abstract class AbstractConfigForm implements ConfigForm
     protected Factory $ui_factory;
 
     public function __construct(
-        ilSrMsAbstractGUI $target_gui,
-        string $target_command,
-        Config $config,
-        Container $container
+        private readonly ilSrMsAbstractGUI $target_gui,
+        private readonly string $target_command,
+        protected Config $config,
+        protected Container $container
     ) {
-        $this->target_gui = $target_gui;
-        $this->target_command = $target_command;
-        $this->config = $config;
-        $this->container = $container;
         $this->translator = $this->container->translator();
         $this->ui_factory = $this->container->dic()->ui()->factory();
         $this->ctrl = $this->container->dic()->ctrl();

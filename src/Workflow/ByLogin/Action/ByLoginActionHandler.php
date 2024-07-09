@@ -24,21 +24,18 @@ class ByLoginActionHandler extends AbstractByStringActionHandler
 {
     protected function getPersonList(string $text, ?string $original_mime_type = null): PersonList
     {
-        switch ($this->container->config()->byLogin()->get(ByLoginConfig::F_MATCHING_FIELD)) {
-            case ByLoginConfig::MATCHING_FIELD_LOGIN:
-                return $this->person_list_generators->byLoginsFromString(
-                    $text,
-                    $original_mime_type
-                );
-            case ByLoginConfig::MATCHING_FIELD_EXT_ACCOUNT:
-                return $this->person_list_generators->byExtAccountsFromString(
-                    $text,
-                    $original_mime_type
-                );
-            default:
-                throw new InvalidArgumentException(
-                    "Invalid matching field, an administrator must configure the workflow first."
-                );
-        }
+        return match ($this->container->config()->byLogin()->get(ByLoginConfig::F_MATCHING_FIELD)) {
+            ByLoginConfig::MATCHING_FIELD_LOGIN => $this->person_list_generators->byLoginsFromString(
+                $text,
+                $original_mime_type
+            ),
+            ByLoginConfig::MATCHING_FIELD_EXT_ACCOUNT => $this->person_list_generators->byExtAccountsFromString(
+                $text,
+                $original_mime_type
+            ),
+            default => throw new InvalidArgumentException(
+                "Invalid matching field, an administrator must configure the workflow first."
+            ),
+        };
     }
 }
