@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 3.0.0
+
+- [FEATURE] ILIAS 9 Support
+- [FIX] more type declarations
+
+
 ## Version 2.1.6
 
 - [FIX] Rector ILIAS 8 - code optimization and cleanup, no functional changes
