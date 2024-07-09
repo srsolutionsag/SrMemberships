@@ -18,8 +18,8 @@ As ILIAS administrator go to "Administration->Plugins" and install/activate the
 plugin or install via CLI.
 Requirements
 
-    ILIAS 8.x
-    PHP >= 7.4
+    ILIAS 9.x
+    PHP >= 8.1
 
 ## ILIAS Plugin SLA
 
@@ -30,7 +30,7 @@ at https://github.com/srsolutionsag.
 
 Do you use one of our plugins professionally? Secure the timely availability of
 this plugin also for future ILIAS versions by signing an SLA. Find out more
-about this at https://sr.solutions/plugins.
+about this at https://sr.solutions/plugin-slas.
 
 Please note that we only guarantee support and release maintenance for
 institutions that sign an SLA.
