@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -34,46 +26,45 @@ use srag\Plugins\SrMemberships\Person\Persons\Resolver\ExtAccountPersonResolver;
  */
 class PersonListGenerators
 {
-
     /**
-     * @var \srag\Plugins\SrMemberships\Container\Container
+     * @readonly
      */
-    private $container;
+    private Container $container;
 
     public function __construct(Container $container)
     {
         $this->container = $container;
     }
 
-    public function byRoleIds(array $role_ids) : PersonList
+    public function byRoleIds(array $role_ids): PersonList
     {
         return (new RolesPersonResolver())->resolveFor(
             new RolesPersonSource($role_ids, $this->container->dic()->rbac()->review())
         );
     }
 
-    public function byLogins(array $logins) : PersonList
+    public function byLogins(array $logins): PersonList
     {
         return (new LoginPersonResolver())->resolveFor(
             new ArrayPersonSource($logins)
         );
     }
 
-    public function byLoginsFromString(string $logins, ?string $original_mime_type = null) : PersonList
+    public function byLoginsFromString(string $logins, ?string $original_mime_type = null): PersonList
     {
         return (new LoginPersonResolver())->resolveFor(
             new StringPersonSource($logins, $original_mime_type)
         );
     }
 
-    public function byExtAccountsFromString(string $logins, ?string $original_mime_type = null) : PersonList
+    public function byExtAccountsFromString(string $logins, ?string $original_mime_type = null): PersonList
     {
         return (new ExtAccountPersonResolver())->resolveFor(
             new StringPersonSource($logins, $original_mime_type)
         );
     }
 
-    public function byMatriculationsFromString(string $matriculations, ?string $original_mime_type = null) : PersonList
+    public function byMatriculationsFromString(string $matriculations, ?string $original_mime_type = null): PersonList
     {
         return (new MatriculationPersonResolver())->resolveFor(
             new StringPersonSource($matriculations, $original_mime_type)

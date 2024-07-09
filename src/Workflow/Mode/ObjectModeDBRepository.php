@@ -1,24 +1,18 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
+ * https://sr.solutions
  *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
- */
+ *********************************************************************/
 
 declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow\Mode;
 
+use ilDBInterface;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
 use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
@@ -39,12 +33,12 @@ class ObjectModeDBRepository implements ObjectModeRepository
      */
     protected $cache = [];
 
-    public function __construct(\ilDBInterface $db)
+    public function __construct(ilDBInterface $db)
     {
         $this->db = $db;
     }
 
-    public function getSyncMode(int $ref_id, WorkflowContainer $workflow_container) : ?Mode
+    public function getSyncMode(int $ref_id, WorkflowContainer $workflow_container): ?Mode
     {
         $q = "SELECT mode_id FROM " . self::TABLE_NAME . " WHERE context_ref_id = %s AND workflow_id = %s AND mode_id >= 32";
         $r = $this->db->queryF($q, ['integer', 'text'], [$ref_id, $workflow_container->getWorkflowID()]);
@@ -55,7 +49,7 @@ class ObjectModeDBRepository implements ObjectModeRepository
         return SyncModes::generic((int) $row['mode_id'], true);
     }
 
-    public function storeSyncMode(int $ref_id, WorkflowContainer $workflow_container, Mode $mode) : void
+    public function storeSyncMode(int $ref_id, WorkflowContainer $workflow_container, Mode $mode): void
     {
         // remove all other sync modes
         $this->db->manipulateF(
@@ -74,7 +68,7 @@ class ObjectModeDBRepository implements ObjectModeRepository
         );
     }
 
-    public function getRunModes(int $ref_id, WorkflowContainer $workflow_container) : ?Modes
+    public function getRunModes(int $ref_id, WorkflowContainer $workflow_container): ?Modes
     {
         $q = "SELECT mode_id FROM " . self::TABLE_NAME . " WHERE context_ref_id = %s AND workflow_id = %s AND mode_id < 32";
         $r = $this->db->queryF($q, ['integer', 'text'], [$ref_id, $workflow_container->getWorkflowID()]);
@@ -88,7 +82,7 @@ class ObjectModeDBRepository implements ObjectModeRepository
         return $modes;
     }
 
-    public function storeRunModes(int $ref_id, WorkflowContainer $workflow_container, RunModes $modes) : void
+    public function storeRunModes(int $ref_id, WorkflowContainer $workflow_container, RunModes $modes): void
     {
         // first delete all existing
         $this->db->manipulateF(

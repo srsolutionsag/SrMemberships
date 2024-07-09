@@ -1,19 +1,12 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
+ * https://sr.solutions
  *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
- */
+ *********************************************************************/
 
 declare(strict_types=1);
 
@@ -26,27 +19,27 @@ namespace srag\Plugins\SrMemberships\Workflow\Mode;
 final class Mode
 {
     /**
-     * @var string
+     * @readonly
      */
-    private $mode_title;
+    private int $mode_id;
     /**
-     * @var int
+     * @readonly
      */
-    private $mode_id;
+    private string $mode_title;
     /**
-     * @var bool
+     * @readonly
      */
-    private $is_selectable;
+    private bool $is_selectable;
     /**
-     * @var Mode|null
+     * @readonly
      */
-    private $depends_on;
+    private ?\srag\Plugins\SrMemberships\Workflow\Mode\Mode $depends_on = null;
 
     public function __construct(
         int $mode_id,
         string $mode_title,
         bool $is_selectable,
-        ?Mode $depends_on = null
+        ?\srag\Plugins\SrMemberships\Workflow\Mode\Mode $depends_on = null
     ) {
         $this->mode_id = $mode_id;
         $this->mode_title = $mode_title;

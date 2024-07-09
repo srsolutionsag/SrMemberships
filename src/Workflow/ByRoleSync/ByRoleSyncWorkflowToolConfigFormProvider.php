@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,6 +12,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow\ByRoleSync;
 
+use srag\Plugins\SrMemberships\Config\Config;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Workflow\ByRoleSync\Config\ByRoleSyncConfig;
@@ -32,15 +25,13 @@ use ILIAS\UI\Component\Input\Field\Section;
  */
 class ByRoleSyncWorkflowToolConfigFormProvider implements ToolConfigFormProvider
 {
+    private Container $container;
     public const ROLE_SELECTION = 'role_selection';
     /**
-     * @var \srag\Plugins\SrMemberships\Container\Container
-     */
-    private $container;
-    /**
      * @var ByRoleSyncConfig
+     * @readonly
      */
-    private $config;
+    private Config $config;
     /**
      * @var \ILIAS\UI\Factory
      */
@@ -57,7 +48,7 @@ class ByRoleSyncWorkflowToolConfigFormProvider implements ToolConfigFormProvider
 
     public function getFormSection(
         Context $context
-    ) : Section {
+    ): Section {
         $selectable_roles = $this->config->getAvailableRolesForSelection(
             $this->container->objectInfoProvider()
         );

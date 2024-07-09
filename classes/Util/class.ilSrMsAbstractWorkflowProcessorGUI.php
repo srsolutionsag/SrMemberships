@@ -1,16 +1,9 @@
-<?php /**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+<?php
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -27,10 +20,7 @@ abstract class ilSrMsAbstractWorkflowProcessorGUI extends ilSrMsAbstractGUI
     public const CMD_HANDLE_WORKFLOW_DELETION = 'handleDelete';
     public const WORKFLOW_CONTAINER_ID = 'wfcid';
     public const FALLBACK_REF_ID = 'fallback_ref_id';
-    /**
-     * @var WorkflowFormBuilder
-     */
-    protected $form_builder;
+    protected WorkflowFormBuilder $form_builder;
 
     public function __construct()
     {
@@ -38,13 +28,13 @@ abstract class ilSrMsAbstractWorkflowProcessorGUI extends ilSrMsAbstractGUI
         $this->form_builder = new WorkflowFormBuilder($this->container);
     }
 
-    protected function setupGlobalTemplate(ilGlobalTemplateInterface $template, ilSrMsTabManager $tabs) : void
+    protected function setupGlobalTemplate(ilGlobalTemplateInterface $template, ilSrMsTabManager $tabs): void
     {
         $fallback_ref_id = $this->getRequestParameter(self::FALLBACK_REF_ID) ?? null;
         $tabs->addBackToObjectMembersTab((int) $fallback_ref_id);
     }
 
-    protected function index() : void
+    protected function index(): void
     {
         $workflow_container_id = $this->getRequestParameter(self::WORKFLOW_CONTAINER_ID) ?? null;
         $fallback_ref_id = $this->getRequestParameter(self::FALLBACK_REF_ID) ?? null;
@@ -61,9 +51,9 @@ abstract class ilSrMsAbstractWorkflowProcessorGUI extends ilSrMsAbstractGUI
         WorkflowContainer $workflow_container,
         ServerRequestInterface $request,
         Context $context
-    ) : void;
+    ): void;
 
-    protected function handleDelete() : void
+    protected function handleDelete(): void
     {
         $workflow_container_id = $this->getRequestParameter(self::WORKFLOW_CONTAINER_ID) ?? null;
         $fallback_ref_id = $this->getRequestParameter(self::FALLBACK_REF_ID) ?? null;
@@ -76,7 +66,7 @@ abstract class ilSrMsAbstractWorkflowProcessorGUI extends ilSrMsAbstractGUI
         $this->redirectToRefId($context->getCurrentRefId());
     }
 
-    protected function buildContext(?string $fallback_ref_id) : Context
+    protected function buildContext(?string $fallback_ref_id): Context
     {
         return $this->container->contextFactory()->get((int) $fallback_ref_id, $this->user->getId());
     }

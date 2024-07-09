@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -30,15 +22,15 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
     public const PLUGIN_NAME = 'SrMemberships';
 
     public function __construct(
-        \ilDBInterface $db,
-        \ilComponentRepositoryWrite $component_repository,
+        ilDBInterface $db,
+        ilComponentRepositoryWrite $component_repository,
         string $id
     ) {
         parent::__construct($db, $component_repository, $id);
         $this->init(); // we must double init the plugin to have provider_collection available
     }
 
-    protected function init() : void
+    protected function init(): void
     {
         global $DIC;
         if ($this->provider_collection === null) {
@@ -63,7 +55,7 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
         }
     }
 
-    private function isPluginActive() : bool
+    private function isPluginActive(): bool
     {
         // if parent has method isActive, we use this, otherwise we use getActive
         if (method_exists(get_parent_class($this), 'isActive')) {
@@ -74,21 +66,20 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
 
     // we must get a copatible signature with and without string as return type to be compatible with both versions of ILIAS
 
-    public function getPluginName() : string
+    public function getPluginName(): string
     {
         return self::PLUGIN_NAME;
     }
 
-    public function getCronJobInstances() : array
+    public function getCronJobInstances(): array
     {
         return [
             new ilSrMembershipsWorkflowJob($this)
         ];
     }
 
-    public function getCronJobInstance($a_job_id) : ilCronJob
+    public function getCronJobInstance($a_job_id): ilCronJob
     {
-        /** @noinspection DegradedSwitchInspection */
         switch ($a_job_id) {
             case ilSrMembershipsWorkflowJob::SRMS_WORKFLOW_JOB:
                 return new ilSrMembershipsWorkflowJob($this);

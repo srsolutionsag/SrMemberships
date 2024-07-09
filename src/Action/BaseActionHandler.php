@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,9 +12,12 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Action;
 
+use srag\Plugins\SrMemberships\Person\Account\AccountListGenerators;
+use srag\Plugins\SrMemberships\Person\Persons\PersonListGenerators;
+use ilUIPluginRouterGUI;
+use ilSrMsAbstractWorkflowProcessorGUI;
 use srag\Plugins\SrMemberships\Person\PersonsToAccounts;
 use srag\Plugins\SrMemberships\Container\Container;
-use srag\Plugins\SrMemberships\Workflow\Mode\ModesLegacy;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
 use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
 use srag\Plugins\SrMemberships\Person\Account\AccountList;
@@ -35,35 +30,20 @@ use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
  */
 abstract class BaseActionHandler implements ActionHandler
 {
-    /**
-     * @var \srag\Plugins\SrMemberships\Person\Account\AccountListGenerators
-     */
-    protected $account_list_generators;
-    /**
-     * @var ActionBuilder
-     */
-    protected $action_builder;
-    /**
-     * @var \srag\Plugins\SrMemberships\Person\Persons\PersonListGenerators
-     */
-    protected $person_list_generators;
-    /**
-     * @var Container
-     */
-    protected $container;
+    protected Container $container;
+    protected AccountListGenerators $account_list_generators;
+    protected ActionBuilder $action_builder;
+    protected PersonListGenerators $person_list_generators;
 
-    /**
-     * @var PersonsToAccounts
-     */
-    protected $persons_to_accounts;
+    protected PersonsToAccounts $persons_to_accounts;
 
     public function __construct(Container $container)
     {
         $this->container = $container;
-        $this->persons_to_accounts = new PersonsToAccounts($container->dic()->database());
-        $this->person_list_generators = $container->personListGenerators();
-        $this->account_list_generators = $container->accountListGenerators();
-        $this->action_builder = new ActionBuilder($container);
+        $this->persons_to_accounts = new PersonsToAccounts($this->container->dic()->database());
+        $this->person_list_generators = $this->container->personListGenerators();
+        $this->account_list_generators = $this->container->accountListGenerators();
+        $this->action_builder = new ActionBuilder($this->container);
     }
 
     protected function generalHandling(
@@ -71,7 +51,7 @@ abstract class BaseActionHandler implements ActionHandler
         AccountList $account_list,
         PersonList $not_found_persons,
         SyncModes $sync_modes
-    ) : Summary {
+    ): Summary {
         $current_members = $this->account_list_generators->fromContainerId($context->getCurrentRefId());
 
         // get first sync mode since currently only one is supported
@@ -114,22 +94,25 @@ abstract class BaseActionHandler implements ActionHandler
         return Summary::empty();
     }
 
-    public function getDeleteWorkflowURL(WorkflowContainer $workflow_container) : string
+    public function getDeleteWorkflowURL(WorkflowContainer $workflow_container): string
     {
         return $this->container->dic()->ctrl()->getLinkTargetByClass(
-            [\ilUIPluginRouterGUI::class, get_class($workflow_container->getWorkflowToolFormProcessor())],
-            \ilSrMsAbstractWorkflowProcessorGUI::CMD_HANDLE_WORKFLOW_DELETION
+            [ilUIPluginRouterGUI::class, get_class($workflow_container->getWorkflowToolFormProcessor())],
+            ilSrMsAbstractWorkflowProcessorGUI::CMD_HANDLE_WORKFLOW_DELETION
         );
     }
 
-    protected function checkRunMode(Context $context, RunModes $run_modes) : ?Summary
+    protected function checkRunMode(Context $context, RunModes $run_modes): ?Summary
     {
         if ($context->isCli() && !$run_modes->isRunAsCron()) {
             return Summary::null();
         }
-        if (!$context->isCli() && !$run_modes->isRunOnSave()) {
-            return Summary::null();
+        if ($context->isCli()) {
+            return null;
         }
-        return null;
+        if ($run_modes->isRunOnSave()) {
+            return null;
+        }
+        return Summary::null();
     }
 }

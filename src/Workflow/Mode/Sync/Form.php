@@ -1,24 +1,18 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
+ * https://sr.solutions
  *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
- */
+ *********************************************************************/
 
 declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow\Mode\Sync;
 
+use InvalidArgumentException;
 use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use srag\Plugins\SrMemberships\Workflow\Mode\BaseForm;
@@ -28,7 +22,7 @@ use srag\Plugins\SrMemberships\Workflow\Mode\BaseForm;
  */
 class Form extends BaseForm
 {
-    protected function getFields() : array
+    protected function getFields(): array
     {
         $radio = $this->ui_factory->input()->field()->radio(
             $this->translator->txt("sync_mode")
@@ -73,20 +67,20 @@ class Form extends BaseForm
         ];
     }
 
-    protected function readPossibleModes(WorkflowContainer $workflow_container) : Modes
+    protected function readPossibleModes(WorkflowContainer $workflow_container): Modes
     {
         return $this->checkModes($workflow_container->getPossiblesSyncModes());
     }
 
-    protected function checkModes(Modes $modes) : Modes
+    protected function checkModes(Modes $modes): Modes
     {
         if (!$modes instanceof SyncModes) {
-            throw new \InvalidArgumentException("Modes must be of type SyncModes");
+            throw new InvalidArgumentException("Modes must be of type SyncModes");
         }
         return $modes;
     }
 
-    protected function getHeader() : string
+    protected function getHeader(): string
     {
         return 'sync_modes';
     }

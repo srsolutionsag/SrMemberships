@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,6 +12,8 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Action\Helpers;
 
+use ilGroupParticipants;
+use ilObject2;
 use srag\Plugins\SrMemberships\Person\Account\Account;
 
 /**
@@ -43,11 +37,11 @@ trait GroupMembers
     public function __construct(int $group_ref_id)
     {
         $this->group_ref_id = $group_ref_id;
-        $this->group_members = new \ilGroupParticipants(\ilObject2::_lookupObjectId($this->group_ref_id));
+        $this->group_members = new ilGroupParticipants(ilObject2::_lookupObjectId($this->group_ref_id));
         $this->member_role_id = $this->resolveMemberRoleId();
     }
 
-    protected function addToContainer(Account $account) : void
+    protected function addToContainer(Account $account): void
     {
         $this->group_members->add(
             $account->getUserId(),
@@ -55,14 +49,14 @@ trait GroupMembers
         );
     }
 
-    protected function removeFromContainer(Account $account) : void
+    protected function removeFromContainer(Account $account): void
     {
         $this->group_members->delete($account->getUserId());
     }
 
-    protected function resolveMemberRoleId() : int
+    protected function resolveMemberRoleId(): int
     {
         /** @noinspection PhpUndefinedClassConstantInspection */
-        return defined('IL_GRP_MEMBER') ? \IL_GRP_MEMBER : \ilGroupParticipants::IL_GRP_MEMBER;
+        return defined('IL_GRP_MEMBER') ? \IL_GRP_MEMBER : ilGroupParticipants::IL_GRP_MEMBER;
     }
 }

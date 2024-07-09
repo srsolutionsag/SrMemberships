@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -28,7 +20,7 @@ use srag\Plugins\SrMemberships\Person\Account\Account;
  */
 abstract class AbstractSubscribe implements Action
 {
-    public function performFor(AccountList $accounts) : int
+    public function performFor(AccountList $accounts): int
     {
         $counter = 0;
         foreach ($accounts->getAccounts() as $account) {
@@ -38,5 +30,5 @@ abstract class AbstractSubscribe implements Action
         return $counter;
     }
 
-    abstract protected function addToContainer(Account $account) : void;
+    abstract protected function addToContainer(Account $account): void;
 }

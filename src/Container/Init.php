@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,6 +12,11 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Container;
 
+use ilSrMembershipsPlugin;
+use ilSrMsAccessHandler;
+use ilSrMsTranslator;
+use ilSrMembershipsDispatcherGUI;
+use ilSrMsTabManager;
 use srag\Plugins\SrMemberships\Config\Configs;
 use srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider;
 use srag\Plugins\SrMemberships\Provider\Context\UserAccessInfoProvider;
@@ -45,85 +42,76 @@ final class Init
 
     public static function init(
         \ILIAS\DI\Container $ilias_container,
-        ?\ilSrMembershipsPlugin $plugin = null
-    ) : Container {
+        ?ilSrMembershipsPlugin $plugin = null
+    ): Container {
         if (isset(self::$container)) {
             return self::$container;
         }
         $container = new Container();
 
         if ($plugin !== null) {
-            $container->glue(\ilSrMembershipsPlugin::class, function () use ($plugin) {
-                return $plugin;
-            });
+            $container->glue(ilSrMembershipsPlugin::class, fn() => $plugin);
         }
 
-        $container->glue(\ilSrMsAccessHandler::class, function () use ($ilias_container) : \ilSrMsAccessHandler {
-            return new \ilSrMsAccessHandler($ilias_container->rbac(), $ilias_container->user());
-        });
+        $container->glue(
+            ilSrMsAccessHandler::class,
+            fn(): ilSrMsAccessHandler => new ilSrMsAccessHandler($ilias_container->rbac(), $ilias_container->user())
+        );
 
-        $container->glue(Configs::class, function () use ($ilias_container) : Configs {
-            return new Configs($ilias_container->database());
-        });
+        $container->glue(Configs::class, fn(): Configs => new Configs($ilias_container->database()));
 
-        $container->glue(Translator::class, function () : Translator {
-            return new \ilSrMsTranslator();
-        });
+        $container->glue(Translator::class, fn(): Translator => new ilSrMsTranslator());
 
-        $container['_origin'] = function () : int {
-            return \ilSrMembershipsDispatcherGUI::getOriginType();
-        };
+        $container['_origin'] = fn(): int => ilSrMembershipsDispatcherGUI::getOriginType();
 
-        $container->glue(\ilSrMsTabManager::class, function (Container $c) : \ilSrMsTabManager {
-            return new \ilSrMsTabManager(
-                $c
-            );
-        });
+        $container->glue(ilSrMsTabManager::class, fn(Container $c): ilSrMsTabManager => new ilSrMsTabManager(
+            $c
+        ));
 
-        $container->glue(\ILIAS\DI\Container::class, function () use ($ilias_container) : \ILIAS\DI\Container {
-            return $ilias_container;
-        });
+        $container->glue(\ILIAS\DI\Container::class, fn(): \ILIAS\DI\Container => $ilias_container);
 
-        $container->glue(WorkflowContainerRepository::class, function (Container $c) : WorkflowContainerRepository {
-            return new WorkflowContainerRepository($c);
-        });
+        $container->glue(
+            WorkflowContainerRepository::class,
+            fn(Container $c): WorkflowContainerRepository => new WorkflowContainerRepository($c)
+        );
 
-        $container->glue(ContextFactory::class, function (Container $c) : ContextFactory {
-            return new ContextFactory($c);
-        });
+        $container->glue(ContextFactory::class, fn(Container $c): ContextFactory => new ContextFactory($c));
 
-        $container->glue(ObjectModeRepository::class, function (Container $c) : ObjectModeRepository {
-            return new ObjectModeDBRepository($c->dic()->database());
-        });
+        $container->glue(
+            ObjectModeRepository::class,
+            fn(Container $c): ObjectModeRepository => new ObjectModeDBRepository($c->dic()->database())
+        );
 
-        $container->glue(ToolObjectConfigRepository::class, function (Container $c) : ToolObjectConfigRepository {
-            return new ToolObjectConfigDBRepository($c->dic()->database());
-        });
+        $container->glue(
+            ToolObjectConfigRepository::class,
+            fn(Container $c): ToolObjectConfigRepository => new ToolObjectConfigDBRepository($c->dic()->database())
+        );
 
-        $container->glue(PersonListGenerators::class, function (Container $c) : PersonListGenerators {
-            return new PersonListGenerators($c);
-        });
+        $container->glue(
+            PersonListGenerators::class,
+            fn(Container $c): PersonListGenerators => new PersonListGenerators($c)
+        );
 
-        $container->glue(AccountListGenerators::class, function (Container $c) : AccountListGenerators {
-            return new AccountListGenerators($c);
-        });
+        $container->glue(
+            AccountListGenerators::class,
+            fn(Container $c): AccountListGenerators => new AccountListGenerators($c)
+        );
 
-        $container->glue(ObjectInfoProvider::class, function (Container $c) : ObjectInfoProvider {
-            return new ObjectInfoProvider(
-                $c->dic()->repositoryTree(),
-                $c->dic()->ctrl(),
-                $c->dic()->http()->request(),
-                $c->dic()->rbac()->review()
-            );
-        });
+        $container->glue(ObjectInfoProvider::class, fn(Container $c): ObjectInfoProvider => new ObjectInfoProvider(
+            $c->dic()->repositoryTree(),
+            $c->dic()->ctrl(),
+            $c->dic()->http()->request(),
+            $c->dic()->rbac()->review()
+        ));
 
-        $container->glue(UserAccessInfoProvider::class, function (Container $c) : UserAccessInfoProvider {
-            return new UserAccessInfoProvider(
+        $container->glue(
+            UserAccessInfoProvider::class,
+            fn(Container $c): UserAccessInfoProvider => new UserAccessInfoProvider(
                 $c->dic()->rbac()->system(),
                 $c->dic()->rbac()->review(),
                 $c->objectInfoProvider()
-            );
-        });
+            )
+        );
 
         return self::$container = $container;
     }

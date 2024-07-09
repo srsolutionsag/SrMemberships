@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,6 +12,10 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Container;
 
+use Closure;
+use ilSrMembershipsPlugin;
+use ilSrMsTabManager;
+use ilSrMsAccessHandler;
 use srag\Plugins\SrMemberships\Config\Configs;
 use srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider;
 use srag\Plugins\SrMemberships\Provider\Context\UserAccessInfoProvider;
@@ -36,87 +32,87 @@ use srag\Plugins\SrMemberships\Translator;
  */
 final class Container extends \Pimple\Container
 {
-    public function glue(string $fqdn, \Closure $factory) : void
+    public function glue(string $fqdn, Closure $factory): void
     {
         $this[$fqdn] = $this->factory($factory);
     }
 
-    public function get(string $fqdn) : object
+    public function get(string $fqdn): object
     {
         return $this[$fqdn];
     }
 
-    public function dic() : \ILIAS\DI\Container
+    public function dic(): \ILIAS\DI\Container
     {
         return $this->get(\ILIAS\DI\Container::class);
     }
 
-    public function objectInfoProvider() : ObjectInfoProvider
+    public function objectInfoProvider(): ObjectInfoProvider
     {
         return $this[ObjectInfoProvider::class];
     }
 
-    public function userAccessInfoProvider() : UserAccessInfoProvider
+    public function userAccessInfoProvider(): UserAccessInfoProvider
     {
         return $this[UserAccessInfoProvider::class];
     }
 
-    public function plugin() : \ilSrMembershipsPlugin
+    public function plugin(): ilSrMembershipsPlugin
     {
-        return $this[\ilSrMembershipsPlugin::class];
+        return $this[ilSrMembershipsPlugin::class];
     }
 
-    public function tabManager() : \ilSrMsTabManager
+    public function tabManager(): ilSrMsTabManager
     {
-        return $this[\ilSrMsTabManager::class];
+        return $this[ilSrMsTabManager::class];
     }
 
-    public function origin() : int
+    public function origin(): int
     {
         return $this['_origin'];
     }
 
-    public function config() : Configs
+    public function config(): Configs
     {
         return $this[Configs::class];
     }
 
-    public function translator() : Translator
+    public function translator(): Translator
     {
         return $this[Translator::class];
     }
 
-    public function accessHandler() : \ilSrMsAccessHandler
+    public function accessHandler(): ilSrMsAccessHandler
     {
-        return $this[\ilSrMsAccessHandler::class];
+        return $this[ilSrMsAccessHandler::class];
     }
 
-    public function workflows() : WorkflowContainerRepository
+    public function workflows(): WorkflowContainerRepository
     {
         return $this[WorkflowContainerRepository::class];
     }
 
-    public function contextFactory() : ContextFactory
+    public function contextFactory(): ContextFactory
     {
         return $this[ContextFactory::class];
     }
 
-    public function objectModeRepository() : ObjectModeRepository
+    public function objectModeRepository(): ObjectModeRepository
     {
         return $this[ObjectModeRepository::class];
     }
 
-    public function toolObjectConfigRepository() : ToolObjectConfigRepository
+    public function toolObjectConfigRepository(): ToolObjectConfigRepository
     {
         return $this[ToolObjectConfigRepository::class];
     }
 
-    public function personListGenerators() : PersonListGenerators
+    public function personListGenerators(): PersonListGenerators
     {
         return $this[PersonListGenerators::class];
     }
 
-    public function accountListGenerators() : AccountListGenerators
+    public function accountListGenerators(): AccountListGenerators
     {
         return $this[AccountListGenerators::class];
     }

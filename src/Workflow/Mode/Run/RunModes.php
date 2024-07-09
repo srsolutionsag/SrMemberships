@@ -1,19 +1,12 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
+ * https://sr.solutions
  *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
- */
+ *********************************************************************/
 
 declare(strict_types=1);
 
@@ -32,27 +25,27 @@ class RunModes extends AbstractModes
     public const RUN_AS_CRONJOB = 4;
     public const RUN_ON_SAVE = 16;
 
-    protected function getPrefix() : string
+    protected function getPrefix(): string
     {
         return "run_mode_";
     }
 
-    public function getDefaultMode() : Mode
+    public function getDefaultMode(): Mode
     {
         return self::runOnSave();
     }
 
-    public function isRunAsCron() : bool
+    public function isRunAsCron(): bool
     {
         return $this->isModeSet(self::RUN_AS_CRONJOB);
     }
 
-    public function isRunOnSave() : bool
+    public function isRunOnSave(): bool
     {
         return $this->isModeSet(self::RUN_ON_SAVE);
     }
 
-    public static function runAsCronJob() : Mode
+    public static function runAsCronJob(): Mode
     {
         return new Mode(
             self::RUN_AS_CRONJOB,
@@ -61,7 +54,7 @@ class RunModes extends AbstractModes
         );
     }
 
-    public static function runOnSave() : Mode
+    public static function runOnSave(): Mode
     {
         return new Mode(
             self::RUN_ON_SAVE,
@@ -70,7 +63,7 @@ class RunModes extends AbstractModes
         );
     }
 
-    public static function generic(int $mode_id, bool $selectable) : Mode
+    public static function generic(int $mode_id, bool $selectable): Mode
     {
         switch ($mode_id) {
             case self::RUN_AS_CRONJOB:

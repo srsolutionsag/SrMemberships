@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,31 +12,37 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Provider\Context;
 
+use ilTree;
+use ilCtrl;
 use Psr\Http\Message\ServerRequestInterface;
+use ilRbacReview;
+use ilCourseMembershipGUI;
+use ilRepositoryGUI;
+use ilObjCourseGUI;
+use ilGroupMembershipGUI;
+use ilObjGroupGUI;
+use ilObject2;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
 class ObjectInfoProvider
 {
+    /**
+     * @readonly
+     */
+    private ServerRequestInterface $request;
     public const TYPE_CRS = 'crs';
     public const TYPE_GRP = 'grp';
     /**
      * @var \ilTree
      */
     private $tree;
-    /**
-     * @var array
-     */
-    private $cache = [];
+    private array $cache = [];
     /**
      * @var \ilCtrl
      */
     private $ctrl;
-    /**
-     * @var ServerRequestInterface
-     */
-    private $request;
     /**
      * @var \ilRbacReview
      */
@@ -53,22 +51,21 @@ class ObjectInfoProvider
     /**
      * @var string[]
      */
-    private $valid_parent_types;
+    private array $valid_parent_types = ['crs', 'grp', 'root', 'cat'];
 
     public function __construct(
-        \ilTree $tree,
-        \ilCtrl $ctrl,
+        ilTree $tree,
+        ilCtrl $ctrl,
         ServerRequestInterface $request,
-        \ilRbacReview $rbac_review
+        ilRbacReview $rbac_review
     ) {
+        $this->request = $request;
         $this->tree = $tree;
         $this->ctrl = $ctrl;
-        $this->request = $request;
         $this->rbacreview = $rbac_review;
-        $this->valid_parent_types = ['crs', 'grp', 'root', 'cat'];
     }
 
-    public function getType(int $ref_id) : string
+    public function getType(int $ref_id): string
     {
         if (isset($this->cache[$ref_id])) {
             return $this->cache[$ref_id];
@@ -78,73 +75,74 @@ class ObjectInfoProvider
         $native_type = $node_info['type'] ?? null;
         switch ($native_type) {
             case 'crs':
-                return $this->cache[$ref_id] = self::TYPE_CRS;
+                $this->cache[$ref_id] = self::TYPE_CRS;
+                break;
             case 'grp':
-                return $this->cache[$ref_id] = self::TYPE_GRP;
+                $this->cache[$ref_id] = self::TYPE_GRP;
+                break;
             default:
-                return $this->cache[$ref_id] = $native_type ?? 'unknown';
+                $this->cache[$ref_id] = $native_type ?? 'unknown';
+                break;
         }
+
+        return $this->cache[$ref_id];
     }
 
-    public function getMembersTabLink(int $ref_id) : string
+    public function getMembersTabLink(int $ref_id): string
     {
         $type = $this->getType($ref_id);
         switch ($type) {
             case self::TYPE_CRS:
-                $this->ctrl->setParameterByClass(\ilCourseMembershipGUI::class, 'ref_id', $ref_id);
+                $this->ctrl->setParameterByClass(ilCourseMembershipGUI::class, 'ref_id', $ref_id);
                 return $this->ctrl->getLinkTargetByClass(
-                    [\ilRepositoryGUI::class, \ilObjCourseGUI::class, \ilCourseMembershipGUI::class]
+                    [ilRepositoryGUI::class, ilObjCourseGUI::class, ilCourseMembershipGUI::class]
                 );
             case self::TYPE_GRP:
-                $this->ctrl->setParameterByClass(\ilGroupMembershipGUI::class, 'ref_id', $ref_id);
+                $this->ctrl->setParameterByClass(ilGroupMembershipGUI::class, 'ref_id', $ref_id);
                 return $this->ctrl->getLinkTargetByClass(
-                    [\ilRepositoryGUI::class, \ilObjGroupGUI::class, \ilGroupMembershipGUI::class]
+                    [ilRepositoryGUI::class, ilObjGroupGUI::class, ilGroupMembershipGUI::class]
                 );
             default:
                 return 'unknown';
         }
     }
 
-    public function isOnMembersTab(int $ref_id) : bool
+    public function isOnMembersTab(int $ref_id): bool
     {
         $command_class = $this->request->getQueryParams()['cmdClass'] ?? '';
         switch ($this->getType($ref_id)) {
             case ObjectInfoProvider::TYPE_CRS:
-                $context_command_class_fits = strtolower($command_class) === strtolower(\ilCourseMembershipGUI::class);
-                break;
+                return strtolower((string) $command_class) === strtolower(ilCourseMembershipGUI::class);
             case ObjectInfoProvider::TYPE_GRP:
-                $context_command_class_fits = strtolower($command_class) === strtolower(\ilGroupMembershipGUI::class);
-                break;
+                return strtolower((string) $command_class) === strtolower(ilGroupMembershipGUI::class);
             default:
-                $context_command_class_fits = false;
-                break;
+                return false;
         }
-        return $context_command_class_fits;
     }
 
     /**
      * @param array $role_ids of int
      * @return array int => string
      */
-    public function translateRoleIds(array $role_ids) : array
+    public function translateRoleIds(array $role_ids): array
     {
         $roles = [];
         foreach ($role_ids as $role_id) {
             $role_id = (int) $role_id;
-            $roles[$role_id] = \ilObject2::_lookupTitle($role_id);
+            $roles[$role_id] = ilObject2::_lookupTitle($role_id);
         }
         return $roles;
     }
 
-    public function getGlobalAndLocalRoles() : array
+    public function getGlobalAndLocalRoles(): array
     {
         return $this->getGlobalRoles() + $this->getLocalRoles();
     }
 
-    public function getGlobalRoles() : array
+    public function getGlobalRoles(): array
     {
         $roles = [];
-        foreach ($this->rbacreview->getRolesByFilter(\ilRbacReview::FILTER_ALL_GLOBAL) as $role) {
+        foreach ($this->rbacreview->getRolesByFilter(ilRbacReview::FILTER_ALL_GLOBAL) as $role) {
             $role_id = (int) $role['obj_id'];
             if ($role_id === 14) {
                 continue;
@@ -155,10 +153,10 @@ class ObjectInfoProvider
         return $roles;
     }
 
-    public function getLocalRoles() : array
+    public function getLocalRoles(): array
     {
         $roles = [];
-        foreach ($this->rbacreview->getRolesByFilter(\ilRbacReview::FILTER_NOT_INTERNAL) as $role) {
+        foreach ($this->rbacreview->getRolesByFilter(ilRbacReview::FILTER_NOT_INTERNAL) as $role) {
             $parent = $this->tree->getNodeData($role['parent'] ?? 0);
             $parent_type = $parent['type'] ?? '';
             if (!in_array($parent_type, $this->valid_parent_types, true)) {

@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -25,22 +17,19 @@ namespace srag\Plugins\SrMemberships\Person\Persons;
  */
 class ExtAccountPerson implements Person
 {
-    /**
-     * @var string
-     */
-    protected $ext_account;
+    protected string $ext_account;
 
     public function __construct(string $ext_account)
     {
         $this->ext_account = $ext_account;
     }
 
-    public function getUniqueIdentification() : string
+    public function getUniqueIdentification(): string
     {
         return $this->ext_account;
     }
 
-    public function isAccountCreatable() : bool
+    public function isAccountCreatable(): bool
     {
         return false;
     }

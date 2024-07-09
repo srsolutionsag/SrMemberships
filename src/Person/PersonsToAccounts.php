@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,6 +12,9 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Person;
 
+use ilDBInterface;
+use ilObjUser;
+use InvalidArgumentException;
 use srag\Plugins\SrMemberships\Person\Account\ILIASAccount;
 use srag\Plugins\SrMemberships\Person\Persons\UserIdPerson;
 use srag\Plugins\SrMemberships\Person\Account\AccountList;
@@ -39,12 +34,12 @@ class PersonsToAccounts
      */
     protected $db;
 
-    public function __construct(\ilDBInterface $db)
+    public function __construct(ilDBInterface $db)
     {
         $this->db = $db;
     }
 
-    public function translate(PersonList $person_list, bool $remove_found = true) : AccountList
+    public function translate(PersonList $person_list, bool $remove_found = true): AccountList
     {
         $account_list = new AccountList();
         foreach ($person_list->getPersons() as $person) {
@@ -59,7 +54,7 @@ class PersonsToAccounts
         return $account_list;
     }
 
-    private function getUserID(Person $person) : ?int
+    private function getUserID(Person $person): ?int
     {
         switch (true) {
             case ($person instanceof UserIdPerson):
@@ -81,7 +76,7 @@ class PersonsToAccounts
                 return null;
             case ($person instanceof LoginPerson):
                 $login = $person->getUniqueIdentification();
-                $looked_up_id = (int) \ilObjUser::_lookupId($login);
+                $looked_up_id = (int) ilObjUser::_lookupId($login);
 
                 return $looked_up_id > 0 ? $looked_up_id : null;
             case ($person instanceof MatriculationPerson):
@@ -99,7 +94,7 @@ class PersonsToAccounts
                 }
                 return null;
             default:
-                throw new \InvalidArgumentException("Person " . get_class($person) . " is currently not supported");
+                throw new InvalidArgumentException("Person " . get_class($person) . " is currently not supported");
         }
     }
 }

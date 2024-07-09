@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,6 +12,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow\ToolObjectConfig;
 
+use Throwable;
 use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
@@ -30,23 +23,16 @@ use ILIAS\UI\Component\Input\Field\Section;
  */
 class ToolConfigFormHandler
 {
+    protected Context $context;
+    protected WorkflowContainer $workflow_container;
     /**
-     * @var \srag\Plugins\SrMemberships\Container\Container
+     * @readonly
      */
-    private $container;
+    private Container $container;
     /**
-     * @var ToolObjectConfigRepository
+     * @readonly
      */
-    private $repository;
-
-    /**
-     * @var WorkflowContainer
-     */
-    protected $workflow_container;
-    /**
-     * @var Context
-     */
-    protected $context;
+    private ToolObjectConfigRepository $repository;
 
     public function __construct(
         Container $container,
@@ -59,7 +45,7 @@ class ToolConfigFormHandler
         $this->container = $container;
     }
 
-    public function makeFormSectionStorable(Section $section) : Section
+    public function makeFormSectionStorable(Section $section): Section
     {
         /** @noinspection CallableParameterUseCaseInTypeContextInspection */
         $section = $section->withAdditionalTransformation(
@@ -80,7 +66,7 @@ class ToolConfigFormHandler
                     $this->workflow_container
                 )
             );
-        } catch (\Throwable $e) {
+        } catch (Throwable $exception) {
         }
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $section;

@@ -1,22 +1,16 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
 use srag\Plugins\SrMemberships\Container\Container;
+use srag\Plugins\SrMemberships\Workflow\Mode\Mode;
+use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
 use srag\Plugins\SrMemberships\Container\Init;
 use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
 
@@ -34,9 +28,9 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
 {
     public const SRMS_WORKFLOW_JOB = "srms_workflow_job";
     /**
-     * @var Container
+     * @readonly
      */
-    private $container;
+    private Container $container;
     /**
      * @var ilLogger
      */
@@ -49,27 +43,27 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
         $this->logger = $this->container->dic()->logger()->root();
     }
 
-    public function getTitle() : string
+    public function getTitle(): string
     {
         return "SRMS Workflow Job";
     }
 
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return "This job will run all workflows that are configured to run via cron.";
     }
 
-    public function getId() : string
+    public function getId(): string
     {
         return self::SRMS_WORKFLOW_JOB;
     }
 
-    public function hasAutoActivation() : bool
+    public function hasAutoActivation(): bool
     {
         return true;
     }
 
-    public function hasFlexibleSchedule() : bool
+    public function hasFlexibleSchedule(): bool
     {
         return true;
     }
@@ -79,12 +73,12 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
         return ilCronJob::SCHEDULE_TYPE_IN_HOURS;
     }
 
-    public function getDefaultScheduleValue() : ?int
+    public function getDefaultScheduleValue(): ?int
     {
         return 6;
     }
 
-    public function run() : ilCronJobResult
+    public function run(): ilCronJobResult
     {
         $result = new ilCronJobResult();
 
@@ -98,7 +92,7 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
                 $context = $this->container->contextFactory()->get($ref_id, $this->container->dic()->user()->getId());
 
                 $mode = $this->container->objectModeRepository()->getSyncMode($ref_id, $workflow);
-                if ($mode === null) {
+                if (!$mode instanceof Mode) {
                     continue;
                 }
                 $sync_modes = new SyncModes(
@@ -106,7 +100,7 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
                 );
                 $run_modes = $this->container->objectModeRepository()->getRunModes($ref_id, $workflow);
 
-                if ($run_modes === null) {
+                if (!$run_modes instanceof Modes) {
                     continue;
                 }
                 try {
@@ -121,9 +115,9 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
                         array_filter(
                             explode(
                                 "\n",
-                                $summary->getSummary()
+                                (string) $summary->getSummary()
                             ),
-                            static function ($line) {
+                            static function ($line): bool {
                                 return trim($line) !== ''; // Remove empty lines
                             }
                         )

@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,6 +12,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow\ByLogin\Action;
 
+use InvalidArgumentException;
 use srag\Plugins\SrMemberships\Workflow\General\AbstractByStringActionHandler;
 use srag\Plugins\SrMemberships\Person\Persons\PersonList;
 use srag\Plugins\SrMemberships\Workflow\ByLogin\Config\ByLoginConfig;
@@ -29,7 +22,7 @@ use srag\Plugins\SrMemberships\Workflow\ByLogin\Config\ByLoginConfig;
  */
 class ByLoginActionHandler extends AbstractByStringActionHandler
 {
-    protected function getPersonList(string $text, ?string $original_mime_type = null) : PersonList
+    protected function getPersonList(string $text, ?string $original_mime_type = null): PersonList
     {
         switch ($this->container->config()->byLogin()->get(ByLoginConfig::F_MATCHING_FIELD)) {
             case ByLoginConfig::MATCHING_FIELD_LOGIN:
@@ -43,7 +36,7 @@ class ByLoginActionHandler extends AbstractByStringActionHandler
                     $original_mime_type
                 );
             default:
-                throw new \InvalidArgumentException(
+                throw new InvalidArgumentException(
                     "Invalid matching field, an administrator must configure the workflow first."
                 );
         }

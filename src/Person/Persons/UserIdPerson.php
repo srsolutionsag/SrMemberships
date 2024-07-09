@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -25,22 +17,19 @@ namespace srag\Plugins\SrMemberships\Person\Persons;
  */
 class UserIdPerson implements Person
 {
-    /**
-     * @var int
-     */
-    protected $user_id;
+    protected int $user_id;
 
     public function __construct(int $user_id)
     {
         $this->user_id = $user_id;
     }
 
-    public function getUniqueIdentification() : string
+    public function getUniqueIdentification(): string
     {
         return (string) $this->user_id;
     }
 
-    public function isAccountCreatable() : bool
+    public function isAccountCreatable(): bool
     {
         return false;
     }

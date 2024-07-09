@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,6 +12,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow\ToolObjectConfig;
 
+use Generator;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 
 /**
@@ -31,19 +24,19 @@ interface ToolObjectConfigRepository
         int $ref_id,
         WorkflowContainer $workflow_container,
         array $data
-    ) : void;
+    ): void;
 
     public function get(
         int $ref_id,
         WorkflowContainer $workflow_container
-    ) : ?array;
+    ): ?array;
 
     public function clear(
         int $ref_id,
         WorkflowContainer $workflow_container
-    ) : void;
+    ): void;
 
-    public function getAssignedRefIds(WorkflowContainer $workflow) : \Generator;
+    public function getAssignedRefIds(WorkflowContainer $workflow): Generator;
 
-    public function countAssignedWorkflows(int $ref_id) : int;
+    public function countAssignedWorkflows(int $ref_id): int;
 }

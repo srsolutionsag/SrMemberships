@@ -1,16 +1,9 @@
-<?php /**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+<?php
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -73,7 +66,7 @@ class ilSrMsAccessHandler
      *
      * @return bool
      */
-    public function isAdministrator() : bool
+    public function isAdministrator(): bool
     {
         return $this->access->review()->isAssigned(
             $this->user->getId(),
@@ -87,7 +80,7 @@ class ilSrMsAccessHandler
      * @param int $ref_id
      * @return bool
      */
-    public function isAdministratorOf(int $ref_id) : bool
+    public function isAdministratorOf(int $ref_id): bool
     {
         if ($this->isAdministrator()) {
             return true;
@@ -95,7 +88,7 @@ class ilSrMsAccessHandler
 
         try {
             $participants = ilParticipants::getInstance($ref_id);
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $exception) {
             return false;
         }
 
@@ -111,7 +104,7 @@ class ilSrMsAccessHandler
      *
      * @return bool
      */
-    public function isAnonymous() : bool
+    public function isAnonymous(): bool
     {
         return (ANONYMOUS_USER_ID === $this->user->getId());
     }
@@ -122,7 +115,7 @@ class ilSrMsAccessHandler
      * @param int $user_id
      * @return bool
      */
-    public function isCurrentUser(int $user_id) : bool
+    public function isCurrentUser(int $user_id): bool
     {
         return ($user_id === $this->user->getId());
     }

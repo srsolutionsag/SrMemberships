@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,6 +12,13 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Provider\Tool;
 
+use srag\Plugins\SrMemberships\Translator;
+use srag\Plugins\SrMemberships\Config\Configs;
+use srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider;
+use srag\Plugins\SrMemberships\Provider\Context\UserAccessInfoProvider;
+use srag\Plugins\SrMemberships\Workflow\WorkflowContainerRepository;
+use srag\Plugins\SrMemberships\Provider\Context\ContextFactory;
+use srag\Plugins\SrMemberships\Container\Container;
 use ILIAS\GlobalScreen\ScreenContext\Stack\ContextCollection;
 use ILIAS\GlobalScreen\ScreenContext\Stack\CalledContexts;
 use ILIAS\GlobalScreen\Scope\Tool\Provider\AbstractDynamicToolPluginProvider;
@@ -29,33 +28,14 @@ use ILIAS\GlobalScreen\Scope\Tool\Provider\AbstractDynamicToolPluginProvider;
  */
 class CollectedMainBarProvider extends AbstractDynamicToolPluginProvider
 {
+    private ?Translator $translator = null;
+    private ?Configs $config = null;
+    private ?ObjectInfoProvider $object_info_resolver = null;
+    private ?UserAccessInfoProvider $access_info_resolver = null;
+    private ?WorkflowContainerRepository $workflow_repository = null;
+    private ?ContextFactory $context_factory = null;
 
-    /**
-     * @var \srag\Plugins\SrMemberships\Translator|null
-     */
-    private $translator;
-    /**
-     * @var \srag\Plugins\SrMemberships\Config\Configs|null
-     */
-    private $config;
-    /**
-     * @var \srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider|null
-     */
-    private $object_info_resolver;
-    /**
-     * @var \srag\Plugins\SrMemberships\Provider\Context\UserAccessInfoProvider|null
-     */
-    private $access_info_resolver;
-    /**
-     * @var \srag\Plugins\SrMemberships\Workflow\WorkflowContainerRepository|null
-     */
-    private $workflow_repository;
-    /**
-     * @var \srag\Plugins\SrMemberships\Provider\Context\ContextFactory|null
-     */
-    private $context_factory;
-
-    public function getToolsForContextStack(CalledContexts $called_contexts) : array
+    public function getToolsForContextStack(CalledContexts $called_contexts): array
     {
         $current_ref_id = $called_contexts->current()->hasReferenceId()
             ? $called_contexts->current()->getReferenceId()->toInt()
@@ -81,12 +61,12 @@ class CollectedMainBarProvider extends AbstractDynamicToolPluginProvider
         return $tools;
     }
 
-    public function isInterestedInContexts() : ContextCollection
+    public function isInterestedInContexts(): ContextCollection
     {
         return $this->context_collection->repository();
     }
 
-    public function init(\srag\Plugins\SrMemberships\Container\Container $container)
+    public function init(Container $container): void
     {
         $this->translator = $container->translator();
         $this->config = $container->config();

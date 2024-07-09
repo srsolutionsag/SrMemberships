@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -25,26 +17,17 @@ namespace srag\Plugins\SrMemberships\Provider\Context;
  */
 class Context
 {
+    protected int $current_ref_id;
+    protected int $user_id;
     /**
-     * @var bool
+     * @readonly
      */
-    private $user_can_administrate;
+    private bool $user_can_administrate;
     /**
-     * @var string
+     * @readonly
      */
-    private $object_type;
-    /**
-     * @var bool
-     */
-    protected $is_cli = false;
-    /**
-     * @var int
-     */
-    protected $current_ref_id;
-    /**
-     * @var int
-     */
-    protected $user_id;
+    private string $object_type;
+    protected bool $is_cli;
 
     public function __construct(
         int $current_ref_id,
@@ -59,12 +42,12 @@ class Context
         $this->is_cli = (PHP_SAPI === 'cli');
     }
 
-    public function getCurrentRefId() : int
+    public function getCurrentRefId(): int
     {
         return $this->current_ref_id;
     }
 
-    public function getUserId() : int
+    public function getUserId(): int
     {
         return $this->user_id;
     }
@@ -72,17 +55,17 @@ class Context
     /**
      * @return string|null a valid context type such as
      */
-    public function getContextType() : string
+    public function getContextType(): string
     {
         return $this->object_type;
     }
 
-    public function canUserAdministrateMembers() : bool
+    public function canUserAdministrateMembers(): bool
     {
         return $this->user_can_administrate;
     }
 
-    public function isCli() : bool
+    public function isCli(): bool
     {
         return $this->is_cli;
     }

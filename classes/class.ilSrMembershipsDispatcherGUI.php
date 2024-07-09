@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -39,10 +31,7 @@ class ilSrMembershipsDispatcherGUI
     public const ORIGIN_TYPE_REPOSITORY = 1;
     public const ORIGIN_TYPE_ADMINISTRATION = 2;
     public const ORIGIN_TYPE_UNKNOWN = 4;
-    /**
-     * @var Container
-     */
-    protected $container;
+    protected Container $container;
     /**
      * @var ilGlobalTemplateInterface
      */
@@ -64,7 +53,7 @@ class ilSrMembershipsDispatcherGUI
         $this->container = Init::init($DIC);
     }
 
-    public function executeCommand() : void
+    public function executeCommand(): void
     {
         $next_class = $this->ctrl->getNextClass();
 
@@ -106,22 +95,18 @@ class ilSrMembershipsDispatcherGUI
      *
      * @return int
      */
-    public static function getOriginType() : int
+    public static function getOriginType(): int
     {
         global $DIC;
         $call_history = $DIC->ctrl()->getCallHistory();
         $base_class = array_shift($call_history);
-        $base_class = strtolower($base_class['class'] ?? $base_class['cmdClass'] ?? '');
+        $base_class = strtolower((string) ($base_class['class'] ?? $base_class['cmdClass'] ?? ''));
 
         switch ($base_class) {
-            // because (somehow) this class cannot be called by ilRepositoryGUI,
-            // all requests from there will be handled via ilUIPluginRouterGUI.
             case strtolower(ilUIPluginRouterGUI::class):
                 return self::ORIGIN_TYPE_REPOSITORY;
-
             case strtolower(ilAdministrationGUI::class):
                 return self::ORIGIN_TYPE_ADMINISTRATION;
-
             default:
                 return self::ORIGIN_TYPE_UNKNOWN;
         }
@@ -137,7 +122,7 @@ class ilSrMembershipsDispatcherGUI
      * @param string $cmd
      * @return string
      */
-    public static function getLinkTarget(string $class, string $cmd) : string
+    public static function getLinkTarget(string $class, string $cmd): string
     {
         global $DIC;
 
@@ -157,7 +142,7 @@ class ilSrMembershipsDispatcherGUI
      *
      * @param string $class_name
      */
-    protected function safelyForward(string $class_name) : void
+    protected function safelyForward(string $class_name): void
     {
         try {
             $this->ctrl->forwardCommand(new $class_name());
@@ -171,7 +156,7 @@ class ilSrMembershipsDispatcherGUI
         }
     }
 
-    private function isDebugModeEnabled() : bool
+    private function isDebugModeEnabled(): bool
     {
         return true; // TODO move to config
     }
@@ -182,16 +167,15 @@ class ilSrMembershipsDispatcherGUI
      * @param Throwable $exception
      * @return string
      */
-    protected function getExceptionString(Throwable $exception) : string
+    protected function getExceptionString(Throwable $exception): string
     {
         $message = "{$exception->getMessage()} : ";
         $message .= "<br /><br />";
-        $message .= str_replace(
+
+        return $message . str_replace(
             PHP_EOL,
             "<br />",
             $exception->getTraceAsString()
         );
-
-        return $message;
     }
 }

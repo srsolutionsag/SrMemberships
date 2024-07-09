@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,6 +12,8 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow\General;
 
+use srag\Plugins\SrMemberships\Translator;
+use ilSrMsGeneralUploadHandlerGUI;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Workflow\ToolObjectConfig\ToolConfigFormProvider;
@@ -35,37 +29,28 @@ abstract class AbstractByStringListWorkflowToolConfigFormProvider implements Too
 {
     use TrafoGenerator;
 
+    protected Container $container;
+    protected WorkflowContainer $workflow_container;
+
     public const F_TYPE = 'type';
     public const F_CONTENT = 'content';
     public const TYPE_TEXT = 'text';
     public const TYPE_FILE = 'file';
     public const F_TEXT_LIST = 'text_list';
     public const F_FILE_LIST = 'file_list';
-
-    /**
-     * @var WorkflowContainer
-     */
-    protected $workflow_container;
-    /**
-     * @var \srag\Plugins\SrMemberships\Container\Container
-     */
-    protected $container;
     /**
      * @var \ILIAS\UI\Factory
      */
     protected $ui_factory;
-    /**
-     * @var \srag\Plugins\SrMemberships\Translator
-     */
-    protected $translator;
+    protected Translator $translator;
 
     public function __construct(
         Container $container,
         WorkflowContainer $workflow_container
     ) {
         $this->container = $container;
-        $this->translator = $this->container->translator();
         $this->workflow_container = $workflow_container;
+        $this->translator = $this->container->translator();
         $this->ui_factory = $this->container->dic()->ui()->factory();
     }
 
@@ -102,7 +87,7 @@ abstract class AbstractByStringListWorkflowToolConfigFormProvider implements Too
                                 [
                                     self::F_FILE_LIST => $factory
                                         ->file(
-                                            new \ilSrMsGeneralUploadHandlerGUI(),
+                                            new ilSrMsGeneralUploadHandlerGUI(),
                                             '',
                                             $this->translator->txt($this->getPrefix() . '_file_list_byline')
                                         )
@@ -127,15 +112,13 @@ abstract class AbstractByStringListWorkflowToolConfigFormProvider implements Too
             $this->container->translator()->txt($this->getPrefix() . '_header')
         )->withAdditionalTransformation(
             $this->trafo(
-                function ($v) {
-                    return [
-                        self::F_TYPE => $v[0][0],
-                        self::F_CONTENT => $v[0][1]
-                    ];
-                }
+                fn($v): array => [
+                    self::F_TYPE => $v[0][0],
+                    self::F_CONTENT => $v[0][1]
+                ]
             )
         );
     }
 
-    abstract protected function getPrefix() : string;
+    abstract protected function getPrefix(): string;
 }

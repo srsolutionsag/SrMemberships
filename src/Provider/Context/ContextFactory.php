@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -27,15 +19,14 @@ use srag\Plugins\SrMemberships\Container\Container;
  */
 class ContextFactory
 {
-
     /**
-     * @var UserAccessInfoProvider
+     * @readonly
      */
-    private $user_access_info_provider;
+    private UserAccessInfoProvider $user_access_info_provider;
     /**
-     * @var ObjectInfoProvider
+     * @readonly
      */
-    private $object_info_provider;
+    private ObjectInfoProvider $object_info_provider;
 
     public function __construct(Container $container)
     {
@@ -46,7 +37,7 @@ class ContextFactory
     public function get(
         int $ref_id,
         int $user_id
-    ) : Context {
+    ): Context {
         return new Context(
             $ref_id,
             $user_id,

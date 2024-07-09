@@ -1,19 +1,12 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
+ * https://sr.solutions
  *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
- */
+ *********************************************************************/
 
 declare(strict_types=1);
 
@@ -34,12 +27,12 @@ class SyncModes extends AbstractModes
     public const SYNC_BIDIRECTIONAL = 64;
     public const SYNC_REMOVE = 128;
 
-    protected function getPrefix() : string
+    protected function getPrefix(): string
     {
         return "sync_mode_";
     }
 
-    public static function syncMissing() : Mode
+    public static function syncMissing(): Mode
     {
         return new Mode(
             self::SYNC_MISSING_USERS,
@@ -48,12 +41,12 @@ class SyncModes extends AbstractModes
         );
     }
 
-    public function getDefaultMode() : Mode
+    public function getDefaultMode(): Mode
     {
         return self::syncMissing();
     }
 
-    public static function syncBidirectional() : Mode
+    public static function syncBidirectional(): Mode
     {
         return new Mode(
             self::SYNC_BIDIRECTIONAL,
@@ -62,7 +55,7 @@ class SyncModes extends AbstractModes
         );
     }
 
-    public static function syncRemove() : Mode
+    public static function syncRemove(): Mode
     {
         return new Mode(
             self::SYNC_REMOVE,
@@ -71,7 +64,7 @@ class SyncModes extends AbstractModes
         );
     }
 
-    public static function generic(int $mode_id, bool $selectable) : Mode
+    public static function generic(int $mode_id, bool $selectable): Mode
     {
         switch ($mode_id) {
             case self::SYNC_MISSING_USERS:

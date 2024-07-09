@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,6 +12,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Provider\Tool;
 
+use srag\Plugins\SrMemberships\Config\Config;
 use ILIAS\GlobalScreen\Scope\Tool\Factory\Tool;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
 use srag\Plugins\SrMemberships\Container\Container;
@@ -34,10 +27,13 @@ use srag\Plugins\SrMemberships\Workflow\WorkflowFormBuilder;
  */
 class StandardWorkflowToolProvider implements WorkflowToolProvider
 {
+    protected Container $container;
+    protected WorkflowContainer $workflow_container;
     /**
      * @var WorkflowConfig
+     * @readonly
      */
-    private $workflow_config;
+    private Config $workflow_config;
     /**
      * @var \ILIAS\UI\Factory
      */
@@ -47,18 +43,9 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
      */
     private $ui_renderer;
     /**
-     * @var WorkflowFormBuilder
+     * @readonly
      */
-    private $form_builder;
-    /**
-     * @var Container
-     */
-    protected $container;
-
-    /**
-     * @var WorkflowContainer
-     */
-    protected $workflow_container;
+    private WorkflowFormBuilder $form_builder;
 
     public function __construct(
         Container $container,
@@ -66,13 +53,13 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
     ) {
         $this->container = $container;
         $this->workflow_container = $workflow_container;
-        $this->workflow_config = $workflow_container->getConfig();
+        $this->workflow_config = $this->workflow_container->getConfig();
         //
-        $this->ui_factory = $container->dic()->ui()->factory();
-        $this->ui_renderer = $container->dic()->ui()->renderer();
+        $this->ui_factory = $this->container->dic()->ui()->factory();
+        $this->ui_renderer = $this->container->dic()->ui()->renderer();
 
         $this->form_builder = new WorkflowFormBuilder(
-            $container
+            $this->container
         );
     }
 
@@ -80,7 +67,7 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
         Context $context,
         ToolFactory $tool_factory,
         PluginIdentificationProvider $identification_factory
-    ) : ?Tool {
+    ): ?Tool {
         if (!$this->hasTool($context)) {
             return null;
         }
@@ -100,16 +87,18 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
         );
 
         if ($this->container->toolObjectConfigRepository()->get(
-                $context->getCurrentRefId(), $this->workflow_container
-            ) !== null) {
+            $context->getCurrentRefId(),
+            $this->workflow_container
+        ) !== null) {
             $components[] = $this->ui_factory->panel()->secondary()->legacy(
                 $this->container->translator()->txt('actions'),
                 $this->ui_factory->legacy('')
-            )->withActions($this->ui_factory->dropdown()->standard([
-                $remove_button
-            ]));
+            )->withActions(
+                $this->ui_factory->dropdown()->standard([
+                    $remove_button
+                ])
+            );
         }
-
 
         if ($this->container->toolObjectConfigRepository()->countAssignedWorkflows($context->getCurrentRefId()) > 1) {
             $components[] = $this->ui_factory->messageBox()->info(
@@ -124,16 +113,14 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $tool_factory->tool($identification)
                             ->withTitle($title)
-                            ->withContentWrapper(function () use ($components) {
-                                return $this->ui_factory->legacy(
-                                    $this->ui_renderer->render(
-                                        $components
-                                    )
-                                );
-                            });
+                            ->withContentWrapper(fn() => $this->ui_factory->legacy(
+                                $this->ui_renderer->render(
+                                    $components
+                                )
+                            ));
     }
 
-    protected function hasTool(Context $context) : bool
+    protected function hasTool(Context $context): bool
     {
         // check if context is valid
         $types = $this->workflow_config->getActivatedForTypes();
@@ -149,10 +136,6 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
         if (!$this->container->objectInfoProvider()->isOnMembersTab($context->getCurrentRefId())) {
             return false;
         }
-        if (!$context->canUserAdministrateMembers()) {
-            return false;
-        }
-
-        return true;
+        return $context->canUserAdministrateMembers();
     }
 }

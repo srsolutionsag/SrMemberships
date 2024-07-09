@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,6 +12,8 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow\ToolObjectConfig;
 
+use ilDBInterface;
+use Generator;
 use srag\Plugins\SrMemberships\Config\Packer;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use srag\Plugins\SrMemberships\Config\PackedValue;
@@ -31,13 +25,13 @@ class ToolObjectConfigDBRepository implements ToolObjectConfigRepository
 {
     use Packer;
 
-    const TABLE_NAME = 'srms_object_config';
+    public const TABLE_NAME = 'srms_object_config';
     /**
      * @var \ilDBInterface
      */
     protected $db;
 
-    public function __construct(\ilDBInterface $db)
+    public function __construct(ilDBInterface $db)
     {
         $this->db = $db;
     }
@@ -46,7 +40,7 @@ class ToolObjectConfigDBRepository implements ToolObjectConfigRepository
         int $ref_id,
         WorkflowContainer $workflow_container,
         array $data
-    ) : void {
+    ): void {
         $this->clear($ref_id, $workflow_container);
         $packed = $this->pack($data);
         $this->db->manipulateF(
@@ -59,7 +53,7 @@ class ToolObjectConfigDBRepository implements ToolObjectConfigRepository
     public function get(
         int $ref_id,
         WorkflowContainer $workflow_container
-    ) : ?array {
+    ): ?array {
         $q = "SELECT * FROM " . self::TABLE_NAME . " WHERE context_ref_id = %s AND workflow_id = %s";
         $res = $this->db->queryF($q, ['integer', 'text'], [$ref_id, $workflow_container->getWorkflowId()]);
         $data = $this->db->fetchObject($res);
@@ -69,7 +63,7 @@ class ToolObjectConfigDBRepository implements ToolObjectConfigRepository
     public function clear(
         int $ref_id,
         WorkflowContainer $workflow_container
-    ) : void {
+    ): void {
         $this->db->manipulateF(
             "DELETE FROM " . self::TABLE_NAME . " WHERE context_ref_id = %s AND workflow_id = %s",
             ['integer', 'text'],
@@ -77,7 +71,7 @@ class ToolObjectConfigDBRepository implements ToolObjectConfigRepository
         );
     }
 
-    public function getAssignedRefIds(WorkflowContainer $workflow) : \Generator
+    public function getAssignedRefIds(WorkflowContainer $workflow): Generator
     {
         $q = "SELECT DISTINCT context_ref_id FROM " . self::TABLE_NAME . " WHERE workflow_id = %s";
         $res = $this->db->queryF($q, ['text'], [$workflow->getWorkflowId()]);
@@ -86,7 +80,7 @@ class ToolObjectConfigDBRepository implements ToolObjectConfigRepository
         }
     }
 
-    public function countAssignedWorkflows(int $ref_id) : int
+    public function countAssignedWorkflows(int $ref_id): int
     {
         $q = "SELECT COUNT(*) AS cnt FROM " . self::TABLE_NAME . " WHERE context_ref_id = %s";
         $res = $this->db->queryF($q, ['integer'], [$ref_id]);

@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,7 +12,6 @@ use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use Psr\Http\Message\ServerRequestInterface;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
 use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
-use srag\Plugins\SrMemberships\Workflow\Mode\Run\StandardRunModes;
 use srag\Plugins\SrMemberships\Workflow\Mode\Run\NullRunModes;
 
 /**
@@ -30,13 +21,13 @@ use srag\Plugins\SrMemberships\Workflow\Mode\Run\NullRunModes;
  */
 class ilSrMsStoreObjectConfigGUI extends ilSrMsAbstractWorkflowProcessorGUI
 {
-    protected function setupGlobalTemplate(ilGlobalTemplateInterface $template, ilSrMsTabManager $tabs) : void
+    protected function setupGlobalTemplate(ilGlobalTemplateInterface $template, ilSrMsTabManager $tabs): void
     {
         parent::setupGlobalTemplate($template, $tabs);
         $template->setTitle($this->translator->txt('store_object_config'));
     }
 
-    protected function canUserExecute(ilSrMsAccessHandler $access_handler, string $command) : bool
+    protected function canUserExecute(ilSrMsAccessHandler $access_handler, string $command): bool
     {
         return true;
     }
@@ -45,7 +36,7 @@ class ilSrMsStoreObjectConfigGUI extends ilSrMsAbstractWorkflowProcessorGUI
         WorkflowContainer $workflow_container,
         ServerRequestInterface $request,
         Context $context
-    ) : void {
+    ): void {
         $form = $this->form_builder->getForm($context, $workflow_container)->withRequest($request);
         $data = $form->getData();
         if ($data !== null) {

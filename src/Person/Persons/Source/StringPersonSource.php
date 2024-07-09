@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,15 +12,23 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Person\Persons\Source;
 
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Generator;
+use InvalidArgumentException;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use ILIAS\Filesystem\Stream\Streams;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
 class StringPersonSource implements PersonSource
 {
+    /**
+     * @readonly
+     */
+    private string $list;
+    /**
+     * @readonly
+     */
+    private ?string $original_mime_type = null;
     public const MIME_TEXT_PLAIN = 'text/plain';
     public const MIME_TEXT_CSV = 'text/csv';
 
@@ -44,45 +44,34 @@ class StringPersonSource implements PersonSource
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     ];
 
-    /**
-     * @var string
-     */
-    private $list;
-
-    private $possible_separators = [
+    private array $possible_separators = [
         ';',
         ',',
         "\n",
         "\r\n",
         "\t",
     ];
-    /**
-     * @var string|null
-     */
-    private $original_mime_type;
 
-    public function __construct(
-        string $list,
-        ?string $original_mime_type = null
-    ) {
+    public function __construct(string $list, ?string $original_mime_type = null)
+    {
         $this->list = $list;
         $this->original_mime_type = $original_mime_type;
     }
 
-    private function yieldFromCsv() : \Generator
+    private function yieldFromCsv(): Generator
     {
         // first check if there are more than one column in the CSV
         $lines = explode("\n", $this->list);
         $first_line = array_shift($lines);
         try {
             $separator = $this->determineSeparator($first_line);
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $exception) {
             $separator = ',';
         }
 
         $first_line = str_getcsv($first_line, $separator);
         if (count($first_line) !== 1) {
-            throw new \InvalidArgumentException('msg_error_to_many_columns_in_csv');
+            throw new InvalidArgumentException('msg_error_to_many_columns_in_csv');
         }
         // now read the CSV and add items to the array
         $items = [];
@@ -94,7 +83,7 @@ class StringPersonSource implements PersonSource
         yield from $array_person_source->getRawEntries();
     }
 
-    private function determineSeparator(string $list) : string
+    private function determineSeparator(string $list): string
     {
         $separator_count = [
             ';' => 0,
@@ -103,23 +92,23 @@ class StringPersonSource implements PersonSource
             "\r\n" => 0,
             "\t" => 0,
         ];
-        foreach ($separator_count as $sep => $count) {
+        foreach (array_keys($separator_count) as $sep) {
             $separator_count[$sep] = substr_count($list, $sep);
         }
         arsort($separator_count);
         $key = key($separator_count);
         if ($separator_count[$key] === 0) {
-            throw new \InvalidArgumentException('No separator found in list');
+            throw new InvalidArgumentException('No separator found in list');
         }
         if (!in_array($key, $this->possible_separators, true)) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 'No valid separator found in list, possible separators are: ' . implode(' ', $this->possible_separators)
             );
         }
         return $key;
     }
 
-    public function getRawEntries() : \Generator
+    public function getRawEntries(): Generator
     {
         switch ($this->original_mime_type) {
             case self::MIME_TEXT_PLAIN:
@@ -128,7 +117,7 @@ class StringPersonSource implements PersonSource
                 break;
             case self::MIME_TEXT_CSV:
                 yield from $this->yieldFromCsv();
-            // no break
+                // no break
             default:
                 if (in_array($this->original_mime_type, self::MIME_EXCEL, true)) {
                     yield from $this->yieldFromExcel();
@@ -137,23 +126,23 @@ class StringPersonSource implements PersonSource
         }
     }
 
-    protected function yieldFromPlainText() : \Generator
+    protected function yieldFromPlainText(): Generator
     {
         // we try to determine which separator (;, , or \n) is used
         try {
             $separator = $this->determineSeparator($this->list);
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $exception) {
             $separator = '|||';
         }
         $items = explode($separator, $this->list);
         if (count($items) === 1 && $items[0] === '') {
-            throw new \InvalidArgumentException('No items found in list');
+            throw new InvalidArgumentException('No items found in list');
         }
         $array_person_source = new ArrayPersonSource($items);
         yield from $array_person_source->getRawEntries();
     }
 
-    private function yieldFromExcel() : \Generator
+    private function yieldFromExcel(): Generator
     {
         $spreadsheet = IOFactory::load($this->list);
 

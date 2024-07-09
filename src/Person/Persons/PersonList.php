@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -25,7 +17,7 @@ namespace srag\Plugins\SrMemberships\Person\Persons;
  */
 class PersonList
 {
-    private $persons = [];
+    private array $persons = [];
 
     public function __construct(array $persons = [])
     {
@@ -34,7 +26,7 @@ class PersonList
         }
     }
 
-    public function addPerson(Person $person) : void
+    public function addPerson(Person $person): void
     {
         if (isset($this->persons[$person->getUniqueIdentification()])) {
             return;
@@ -42,7 +34,7 @@ class PersonList
         $this->persons[$person->getUniqueIdentification()] = $person;
     }
 
-    public function removePerson(Person $person) : void
+    public function removePerson(Person $person): void
     {
         if (!isset($this->persons[$person->getUniqueIdentification()])) {
             return;
@@ -53,12 +45,12 @@ class PersonList
     /**
      * @return Person[]
      */
-    public function getPersons() : array
+    public function getPersons(): array
     {
         return $this->persons;
     }
 
-    public function count() : int
+    public function count(): int
     {
         return count($this->persons);
     }

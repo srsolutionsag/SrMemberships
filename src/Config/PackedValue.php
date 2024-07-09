@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,37 +12,34 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Config;
 
+use InvalidArgumentException;
+
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
 class PackedValue
 {
+    private ?string $packed_value;
     public const TYPE_STRING = 1;
     public const TYPE_INT = 2;
     public const TYPE_BOOL = 4;
     public const TYPE_ARRAY = 8;
     public const TYPE_FLOAT = 16;
     public const TYPE_NULL = 32;
-
     /**
-     * @var string
+     * @readonly
      */
-    private $packed_value;
-    /**
-     * @var int
-     */
-    private $type;
+    private int $type;
 
     public function __construct(?string $packed_value, int $type)
     {
+        $this->packed_value = $packed_value;
         // Check Type
         $this->checkType($type);
-
-        $this->packed_value = $packed_value;
-        $this->type = $packed_value === null ? self::TYPE_NULL : $type;
+        $this->type = $this->packed_value === null ? self::TYPE_NULL : $type;
     }
 
-    private function checkType(int $type) : void
+    private function checkType(int $type): void
     {
         if (!in_array($type, [
             self::TYPE_STRING,
@@ -60,16 +49,16 @@ class PackedValue
             self::TYPE_FLOAT,
             self::TYPE_NULL,
         ])) {
-            throw new \InvalidArgumentException("Invalid Type");
+            throw new InvalidArgumentException("Invalid Type");
         }
     }
 
-    public function getPackedValue() : string
+    public function getPackedValue(): string
     {
         return $this->packed_value;
     }
 
-    public function getType() : int
+    public function getType(): int
     {
         return $this->type;
     }

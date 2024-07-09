@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,6 +12,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Person\Persons\Resolver;
 
+use InvalidArgumentException;
 use srag\Plugins\SrMemberships\Person\Persons\Source\RolesPersonSource;
 use srag\Plugins\SrMemberships\Person\Persons\UserIdPerson;
 use srag\Plugins\SrMemberships\Person\Persons\Source\PersonSource;
@@ -30,10 +23,10 @@ use srag\Plugins\SrMemberships\Person\Persons\PersonList;
  */
 class RolesPersonResolver implements PersonResolver
 {
-    public function resolveFor(PersonSource $source) : PersonList
+    public function resolveFor(PersonSource $source): PersonList
     {
         if (!$source instanceof RolesPersonSource) {
-            throw new \InvalidArgumentException('RolesPersonResolver can only resolve RolesPersonSource');
+            throw new InvalidArgumentException('RolesPersonResolver can only resolve RolesPersonSource');
         }
         $list = new PersonList();
         foreach ($source->getRawEntries() as $user_id) {

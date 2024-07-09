@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -25,14 +17,14 @@ namespace srag\Plugins\SrMemberships\Person\Account;
  */
 class AccountList
 {
-    private $accounts;
+    private array $accounts = [];
 
     public function __construct(array $accounts = [])
     {
         $this->accounts = $accounts;
     }
 
-    public function addAccount(Account $account) : void
+    public function addAccount(Account $account): void
     {
         if (isset($this->accounts[$account->getUserId()])) {
             return;
@@ -40,7 +32,7 @@ class AccountList
         $this->accounts[$account->getUserId()] = $account;
     }
 
-    public function removeAccount(Account $account) : void
+    public function removeAccount(Account $account): void
     {
         if (!isset($this->accounts[$account->getUserId()])) {
             return;
@@ -51,22 +43,22 @@ class AccountList
     /**
      * @return Account[]
      */
-    public function getAccounts() : array
+    public function getAccounts(): array
     {
         return $this->accounts;
     }
 
-    public function has(Account $account) : bool
+    public function has(Account $account): bool
     {
         return isset($this->accounts[$account->getUserId()]);
     }
 
-    public function count() : int
+    public function count(): int
     {
         return count($this->accounts);
     }
 
-    public function isEmpty() : bool
+    public function isEmpty(): bool
     {
         return $this->count() === 0;
     }

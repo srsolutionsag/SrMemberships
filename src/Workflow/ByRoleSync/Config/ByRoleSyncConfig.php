@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -32,26 +24,18 @@ class ByRoleSyncConfig extends AbstractDBWorkflowConfig
     public const F_OFFER_WORKFLOW_TO = 'offer_workflow_to';
     public const F_SELECTABLE_LOCAL_ROLES = 'selectable_local_roles';
 
-    public function getNameSpace() : string
+    public function getNameSpace(): string
     {
         return 'by_role_sync';
     }
 
-    public function getAvailableRolesForSelection(ObjectInfoProvider $info) : array
+    public function getAvailableRolesForSelection(ObjectInfoProvider $info): array
     {
         $global_roles = $this->get(ByRoleSyncConfig::F_SELECTABLE_GLOBAL_ROLES) ?? [];
-        if ($global_roles === [-1]) {
-            $global_roles = $info->getGlobalRoles();
-        } else {
-            $global_roles = $info->translateRoleIds($global_roles);
-        }
+        $global_roles = $global_roles === [-1] ? $info->getGlobalRoles() : $info->translateRoleIds($global_roles);
 
         $local_roles = $this->get(ByRoleSyncConfig::F_SELECTABLE_LOCAL_ROLES) ?? [];
-        if ($local_roles === [-1]) {
-            $local_roles = $info->getLocalRoles();
-        } else {
-            $local_roles = $info->translateRoleIds($local_roles);
-        }
+        $local_roles = $local_roles === [-1] ? $info->getLocalRoles() : $info->translateRoleIds($local_roles);
         return $global_roles + $local_roles;
     }
 }

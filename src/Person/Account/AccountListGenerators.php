@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,6 +12,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Person\Account;
 
+use InvalidArgumentException;
 use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Person\Account\Resolver\ContainerAccountResolver;
 use srag\Plugins\SrMemberships\Person\Account\Source\CourseAccountSource;
@@ -32,16 +25,16 @@ use srag\Plugins\SrMemberships\Person\Account\Source\GroupAccountSource;
 class AccountListGenerators
 {
     /**
-     * @var \srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider
+     * @readonly
      */
-    private $object_info;
+    private ObjectInfoProvider $object_info;
 
     public function __construct(Container $container)
     {
         $this->object_info = $container->objectInfoProvider();
     }
 
-    public function fromContainerId(int $ref_id) : AccountList
+    public function fromContainerId(int $ref_id): AccountList
     {
         $resolver = new ContainerAccountResolver();
         $type = $this->object_info->getType($ref_id);
@@ -53,13 +46,13 @@ class AccountListGenerators
                 $source = new GroupAccountSource($ref_id);
                 break;
             default:
-                throw new \InvalidArgumentException('Unsupported object type for ref_id ' . $ref_id . ': ' . $type);
+                throw new InvalidArgumentException('Unsupported object type for ref_id ' . $ref_id . ': ' . $type);
         }
 
         return $resolver->resolveFor($source);
     }
 
-    public function diff(AccountList $current, AccountList $new) : AccountList
+    public function diff(AccountList $current, AccountList $new): AccountList
     {
         $diff = new AccountList();
         foreach ($current->getAccounts() as $account) {
@@ -71,7 +64,7 @@ class AccountListGenerators
         return $diff;
     }
 
-    public function intersect(AccountList $current, AccountList $new) : AccountList
+    public function intersect(AccountList $current, AccountList $new): AccountList
     {
         $intersect = new AccountList();
         // create an account list of accounts which are in both lists

@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,6 +12,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow;
 
+use InvalidArgumentException;
 use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Config\General\GeneralConfig;
 use srag\Plugins\SrMemberships\Workflow\ByRoleSync\ByRoleSyncWorkflowContainer;
@@ -31,22 +24,17 @@ use srag\Plugins\SrMemberships\Workflow\ByMatriculation\ByMatriculationWorkflowC
  */
 class WorkflowContainerRepository
 {
+    protected Container $container;
     protected $all_workflow_containers = [];
 
     /**
      * @var array
      */
-    protected $enabled_workflow_containers;
-    /**
-     * @var \srag\Plugins\SrMemberships\Container\Container
-     */
-    protected $container;
+    protected $enabled_workflow_containers = [];
 
     public function __construct(Container $container)
     {
         $this->container = $container;
-        $this->enabled_workflow_containers = [];
-
         // All available workflows
         $this->all_workflow_containers = [
             GeneralConfig::BY_ROLE_SYNC => new ByRoleSyncWorkflowContainer($this->container),
@@ -67,29 +55,29 @@ class WorkflowContainerRepository
     /**
      * @return WorkflowContainer[]
      */
-    public function getEnabledWorkflows() : array
+    public function getEnabledWorkflows(): array
     {
         return $this->enabled_workflow_containers;
     }
 
-    public function getAllWorkflows() : array
+    public function getAllWorkflows(): array
     {
         return $this->all_workflow_containers;
     }
 
     /**
-     * @throws \InvalidArgumentException if feature is not activated or exists.
+     * @throws InvalidArgumentException if feature is not activated or exists.
      */
-    public function getWorkflowById(string $workflow_id) : WorkflowContainer
+    public function getWorkflowById(string $workflow_id): WorkflowContainer
     {
         if (!isset($this->all_workflow_containers[$workflow_id])) {
-            throw new \InvalidArgumentException("Workflow with id $workflow_id does not exist.");
+            throw new InvalidArgumentException("Workflow with id $workflow_id does not exist.");
         }
 
         return $this->all_workflow_containers[$workflow_id];
     }
 
-    public function getEnabledWorkflowById(string $workflow_id) : ?WorkflowContainer
+    public function getEnabledWorkflowById(string $workflow_id): ?WorkflowContainer
     {
         return $this->enabled_workflow_containers[$workflow_id] ?? null;
     }

@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,12 +12,14 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Config;
 
+use InvalidArgumentException;
+
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
 trait Packer
 {
-    protected function pack($value) : PackedValue
+    protected function pack($value): PackedValue
     {
         if (is_string($value)) {
             return new PackedValue($value, PackedValue::TYPE_STRING);
@@ -42,7 +36,7 @@ trait Packer
         if (is_null($value)) {
             return new PackedValue('', PackedValue::TYPE_NULL);
         }
-        throw new \InvalidArgumentException(
+        throw new InvalidArgumentException(
             'Only strings, integers and arrays containing those values are allowed, ' . gettype($value) . ' given.'
         );
     }
@@ -61,7 +55,7 @@ trait Packer
             case PackedValue::TYPE_NULL:
                 return null;
             default:
-                throw new \InvalidArgumentException('Unknown type: ' . $value->getType());
+                throw new InvalidArgumentException('Unknown type: ' . $value->getType());
         }
     }
 }

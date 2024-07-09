@@ -1,24 +1,18 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
+ * https://sr.solutions
  *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
- */
+ *********************************************************************/
 
 declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow\Mode;
 
+use srag\Plugins\SrMemberships\Translator;
 use ILIAS\UI\Component\Input\Field\Section;
 use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
@@ -32,26 +26,12 @@ abstract class BaseForm
 {
     use TrafoGenerator;
 
-    /**
-     * @var \srag\Plugins\SrMemberships\Workflow\Mode\ObjectModeRepository
-     */
-    protected $repository;
-    /**
-     * @var WorkflowContainer
-     */
-    protected $workflow_container;
-    /**
-     * @var Context
-     */
-    protected $context;
-    /**
-     * @var Modes
-     */
-    protected $possible_modes;
-    /**
-     * @var \srag\Plugins\SrMemberships\Translator
-     */
-    protected $translator;
+    protected WorkflowContainer $workflow_container;
+    protected Context $context;
+
+    protected ObjectModeRepository $repository;
+    protected Modes $possible_modes;
+    protected Translator $translator;
     /**
      * @var \ILIAS\UI\Factory
      */
@@ -62,23 +42,23 @@ abstract class BaseForm
         Context $context,
         Container $container
     ) {
-        $this->context = $context;
         $this->workflow_container = $workflow_container;
-        $this->possible_modes = $this->readPossibleModes($workflow_container);
+        $this->context = $context;
+        $this->possible_modes = $this->readPossibleModes($this->workflow_container);
         $this->ui_factory = $container->dic()->ui()->factory();
         $this->translator = $container->translator();
         $this->repository = $container->objectModeRepository();
     }
 
-    abstract protected function checkModes(Modes $modes) : Modes;
+    abstract protected function checkModes(Modes $modes): Modes;
 
-    abstract protected function readPossibleModes(WorkflowContainer $workflow_container) : Modes;
+    abstract protected function readPossibleModes(WorkflowContainer $workflow_container): Modes;
 
-    abstract protected function getHeader() : string;
+    abstract protected function getHeader(): string;
 
-    abstract protected function getFields() : array;
+    abstract protected function getFields(): array;
 
-    public function getFormSection() : Section
+    public function getFormSection(): Section
     {
         return $this->ui_factory->input()->field()->section(
             $this->getFields(),

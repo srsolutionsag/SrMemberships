@@ -1,36 +1,29 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
+ * https://sr.solutions
  *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
- */
+ *********************************************************************/
 
 declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow\Mode\Run;
 
+use InvalidArgumentException;
 use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use srag\Plugins\SrMemberships\Workflow\Mode\BaseForm;
 use ILIAS\UI\Component\Input\Field\Section;
-use ILIAS\BookingManager\saveObjectSettingsCommand;
 
 /**
  * @author      Fabian Schmid <fabian@sr.solutions>
  */
 class Form extends BaseForm
 {
-    protected function getFields() : array
+    protected function getFields(): array
     {
         $options = [];
         $bylines = [];
@@ -60,7 +53,7 @@ class Form extends BaseForm
 
         // store value
         $multi_select = $multi_select->withAdditionalTransformation(
-            $this->trafo(function ($value) {
+            $this->trafo(function ($value): ?RunModes {
                 if (!is_array($value)) {
                     return null;
                 }
@@ -86,7 +79,7 @@ class Form extends BaseForm
     }
 
     /**  */
-    public function getFormSection() : Section
+    public function getFormSection(): Section
     {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return parent::getFormSection()->withAdditionalTransformation(
@@ -103,20 +96,20 @@ class Form extends BaseForm
         );
     }
 
-    protected function checkModes(Modes $modes) : Modes
+    protected function checkModes(Modes $modes): Modes
     {
         if (!$modes instanceof RunModes) {
-            throw new \InvalidArgumentException("Modes must be of type RunModes");
+            throw new InvalidArgumentException("Modes must be of type RunModes");
         }
         return $modes;
     }
 
-    protected function readPossibleModes(WorkflowContainer $workflow_container) : Modes
+    protected function readPossibleModes(WorkflowContainer $workflow_container): Modes
     {
         return $this->checkModes($workflow_container->getPossiblesRunModes());
     }
 
-    protected function getHeader() : string
+    protected function getHeader(): string
     {
         return 'run_modes';
     }

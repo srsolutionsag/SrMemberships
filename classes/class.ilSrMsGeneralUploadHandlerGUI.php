@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -29,24 +21,24 @@ use srag\Plugins\SrMemberships\Container\Init;
 class ilSrMsGeneralUploadHandlerGUI extends AbstractCtrlAwareUploadHandler
 {
     /**
-     * @var \ILIAS\ResourceStorage\Services
+     * @readonly
      */
-    private $irss;
+    private \ILIAS\ResourceStorage\Services $irss;
     /**
-     * @var ilSrMsStakeholder
+     * @readonly
      */
-    private $stakeholder;
+    private ilSrMsStakeholder $stakeholder;
 
     public function __construct()
     {
-        parent::__construct();
         global $DIC;
+        parent::__construct();
         $container = Init::init($DIC);
         $this->irss = $container->dic()->resourceStorage();
         $this->stakeholder = new ilSrMsStakeholder();
     }
 
-    protected function getUploadResult() : HandlerResult
+    protected function getUploadResult(): HandlerResult
     {
         if (!$this->upload->hasBeenProcessed()) {
             $this->upload->process();
@@ -84,7 +76,7 @@ class ilSrMsGeneralUploadHandlerGUI extends AbstractCtrlAwareUploadHandler
         );
     }
 
-    protected function getRemoveResult(string $identifier) : HandlerResult
+    protected function getRemoveResult(string $identifier): HandlerResult
     {
         return new BasicHandlerResult(
             $identifier,
@@ -111,33 +103,27 @@ class ilSrMsGeneralUploadHandlerGUI extends AbstractCtrlAwareUploadHandler
         );
     }
 
-    protected function getClassStack() : array
+    protected function getClassStack(): array
     {
         return [ilUIPluginRouterGUI::class, self::class];
     }
 
-    public function getInfoForExistingFiles(array $file_ids) : array
+    public function getInfoForExistingFiles(array $file_ids): array
     {
         return [];
     }
 
-    public function getUploadURL() : string
+    public function getUploadURL(): string
     {
         return $this->ctrl->getLinkTargetByClass($this->getClassStack(), self::CMD_UPLOAD);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getExistingFileInfoURL() : string
+    public function getExistingFileInfoURL(): string
     {
         return $this->ctrl->getLinkTargetByClass($this->getClassStack(), self::CMD_INFO);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getFileRemovalURL() : string
+    public function getFileRemovalURL(): string
     {
         return $this->ctrl->getLinkTargetByClass($this->getClassStack(), self::CMD_REMOVE);
     }

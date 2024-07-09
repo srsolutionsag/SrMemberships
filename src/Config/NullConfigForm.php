@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -30,14 +22,14 @@ class NullConfigForm extends AbstractConfigForm
 {
     public function getForm(
         ?ServerRequestInterface $with_request = null
-    ) : Standard {
+    ): Standard {
         return $this->ui_factory->input()->container()->form()->standard(
             '',
             $this->getFields()
         );
     }
 
-    protected function getFields() : array
+    protected function getFields(): array
     {
         return [
             $this->ui_factory->input()->field()->text('null', 'null')

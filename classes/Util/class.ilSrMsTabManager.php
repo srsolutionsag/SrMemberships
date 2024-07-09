@@ -1,22 +1,15 @@
 <?php
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
 declare(strict_types=1);
 
+use srag\Plugins\SrMemberships\Config\Configs;
 use srag\Plugins\SrMemberships\Translator;
 use srag\Plugins\SrMemberships\Container\Container;
 
@@ -38,23 +31,11 @@ class ilSrMsTabManager
     // ilSrTabManager language variables:
     protected const MSG_BACK_TO = 'msg_back_to';
     public const WORKFLOW_PREFIX = 'workflow_';
-    /**
-     * @var Container
-     */
-    protected $container;
-    /**
-     * @var \srag\Plugins\SrMemberships\Config\Configs
-     */
-    protected $config;
-    /**
-     * @var Translator
-     */
-    protected $translator;
+    protected Container $container;
+    protected Configs $config;
+    protected Translator $translator;
 
-    /**
-     * @var ilSrMsAccessHandler
-     */
-    protected $access_handler;
+    protected ilSrMsAccessHandler $access_handler;
 
     /**
      * @var ilTabsGUI
@@ -66,10 +47,7 @@ class ilSrMsTabManager
      */
     protected $ctrl;
 
-    /**
-     * @var int
-     */
-    protected $origin;
+    protected int $origin;
 
     public function __construct(
         Container $container
@@ -83,7 +61,7 @@ class ilSrMsTabManager
         $this->container = $container;
     }
 
-    public function addConfigurationTab(bool $is_active = false, string $activated_feature = null) : self
+    public function addConfigurationTab(bool $is_active = false, string $activated_feature = null): self
     {
         // add plugin-configuration tab only for administrator
         if (!$this->access_handler->isAdministrator()) {
@@ -118,7 +96,7 @@ class ilSrMsTabManager
         return $this;
     }
 
-    public function addFeaturesSubTabs(string $active_feature = null) : self
+    public function addFeaturesSubTabs(string $active_feature = null): self
     {
         if (!$this->access_handler->isAdministrator()) {
             return $this;
@@ -146,25 +124,25 @@ class ilSrMsTabManager
         return $this;
     }
 
-    public function addAnotherTab(bool $is_active = false) : self
+    public function addAnotherTab(bool $is_active = false): self
     {
         // add routine-tab only for routine managers.
-//        if (!$this->access_handler->canManageRoutines()) {
-//            return $this;
-//        }
-//
-//        $this->tabs->addTab(
-//            self::TAB_ROUTINES,
-//            $this->translator->txt(self::TAB_ROUTINES),
-//            $this->ctrl->getLinkTargetByClass(
-//                ilSrRoutineGUI::class,
-//                ilSrRoutineGUI::CMD_INDEX
-//            )
-//        );
-//
-//        if ($is_active) {
-//            $this->setActiveTab(self::TAB_ROUTINES);
-//        }
+        //        if (!$this->access_handler->canManageRoutines()) {
+        //            return $this;
+        //        }
+        //
+        //        $this->tabs->addTab(
+        //            self::TAB_ROUTINES,
+        //            $this->translator->txt(self::TAB_ROUTINES),
+        //            $this->ctrl->getLinkTargetByClass(
+        //                ilSrRoutineGUI::class,
+        //                ilSrRoutineGUI::CMD_INDEX
+        //            )
+        //        );
+        //
+        //        if ($is_active) {
+        //            $this->setActiveTab(self::TAB_ROUTINES);
+        //        }
 
         return $this;
     }
@@ -174,19 +152,19 @@ class ilSrMsTabManager
      * @see ilSrRoutineGUI::index().
      *
      */
-    public function addBackToRoutines() : self
+    public function addBackToRoutines(): self
     {
-//        $this->addBackToTarget(
-//            $this->ctrl->getLinkTargetByClass(
-//                ilSrRoutineGUI::class,
-//                ilSrRoutineGUI::CMD_INDEX
-//            )
-//        );
+        //        $this->addBackToTarget(
+        //            $this->ctrl->getLinkTargetByClass(
+        //                ilSrRoutineGUI::class,
+        //                ilSrRoutineGUI::CMD_INDEX
+        //            )
+        //        );
 
         return $this;
     }
 
-    public function addBackToIndex(string $class) : self
+    public function addBackToIndex(string $class): self
     {
         $this->addBackToTarget(
             $this->ctrl->getLinkTargetByClass(
@@ -198,20 +176,20 @@ class ilSrMsTabManager
         return $this;
     }
 
-    public function addBackToObject(int $ref_id) : self
+    public function addBackToObject(int $ref_id): self
     {
         $this->addBackToTarget(ilLink::_getLink($ref_id));
         return $this;
     }
 
-    public function addBackToObjectMembersTab(int $ref_id) : self
+    public function addBackToObjectMembersTab(int $ref_id): self
     {
         $members_tab_link = $this->container->objectInfoProvider()->getMembersTabLink($ref_id);
         $this->addBackToTarget($members_tab_link);
         return $this;
     }
 
-    public function addBackToTarget(string $target) : self
+    public function addBackToTarget(string $target): self
     {
         $this->tabs->setBackTarget(
             $this->translator->txt(self::MSG_BACK_TO),
@@ -227,7 +205,7 @@ class ilSrMsTabManager
      * @param string $tab_id
      * @return self
      */
-    public function setActiveTab(string $tab_id) : self
+    public function setActiveTab(string $tab_id): self
     {
         $this->tabs->activateTab($tab_id);
         return $this;
@@ -238,7 +216,7 @@ class ilSrMsTabManager
      *
      * @return $this
      */
-    public function deactivateTabs() : self
+    public function deactivateTabs(): self
     {
         $this->setActiveTab('§');
         return $this;
@@ -249,7 +227,7 @@ class ilSrMsTabManager
      *
      * @return bool
      */
-    protected function inAdministration() : bool
+    protected function inAdministration(): bool
     {
         return (ilSrMembershipsDispatcherGUI::ORIGIN_TYPE_ADMINISTRATION === $this->origin);
     }
@@ -259,7 +237,7 @@ class ilSrMsTabManager
      *
      * @return bool
      */
-    protected function inRepository() : bool
+    protected function inRepository(): bool
     {
         return (ilSrMembershipsDispatcherGUI::ORIGIN_TYPE_REPOSITORY === $this->origin);
     }

@@ -1,18 +1,10 @@
 <?php
 
-/**
- * This file is part of ILIAS, a powerful learning management system
- * published by ILIAS open source e-Learning e.V.
+/*********************************************************************
+ * This code is licensed under the GPL-3.0 license and is part of a
+ * ILIAS plugin developed by sr Solutions ag in Switzerland.
  *
- * ILIAS is licensed with the GPL-3.0,
- * see https://www.gnu.org/licenses/gpl-3.0.en.html
- * You should have received a copy of said license along with the
- * source code, too.
- *
- * If this is not the case or you just want to try ILIAS, you'll find
- * us at:
- * https://www.ilias.de
- * https://github.com/ILIAS-eLearning
+ * https://sr.solutions
  *
  *********************************************************************/
 
@@ -20,6 +12,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Action;
 
+use InvalidArgumentException;
 use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider;
 
@@ -28,23 +21,19 @@ use srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider;
  */
 class ActionBuilder
 {
+    protected Container $container;
     /**
-     * @var \srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider
+     * @readonly
      */
-    private $object_info;
-    /**
-     * @var \srag\Plugins\SrMemberships\Container\Container
-     */
-    protected $container;
+    private ObjectInfoProvider $object_info;
 
     public function __construct(Container $container)
     {
         $this->container = $container;
-
-        $this->object_info = $container->objectInfoProvider();
+        $this->object_info = $this->container->objectInfoProvider();
     }
 
-    public function subscribe(int $ref_id) : Action
+    public function subscribe(int $ref_id): Action
     {
         switch ($this->object_info->getType($ref_id)) {
             case ObjectInfoProvider::TYPE_CRS:
@@ -52,11 +41,11 @@ class ActionBuilder
             case ObjectInfoProvider::TYPE_GRP:
                 return new GroupSubscribe($ref_id);
             default:
-                throw new \InvalidArgumentException('Unsupported object type');
+                throw new InvalidArgumentException('Unsupported object type');
         }
     }
 
-    public function unsubscribe(int $ref_id) : Action
+    public function unsubscribe(int $ref_id): Action
     {
         switch ($this->object_info->getType($ref_id)) {
             case ObjectInfoProvider::TYPE_CRS:
@@ -64,7 +53,7 @@ class ActionBuilder
             case ObjectInfoProvider::TYPE_GRP:
                 return new GroupUnsubscribe($ref_id);
             default:
-                throw new \InvalidArgumentException('Unsupported object type');
+                throw new InvalidArgumentException('Unsupported object type');
         }
     }
 }
