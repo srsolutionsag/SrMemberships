@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 2.1.6
+
+- [FIX] Rector ILIAS 8 - code optimization and cleanup, no functional changes
+
+
 ## Version 2.1.5
 
 - [FIX] improved CSS for slate contents
