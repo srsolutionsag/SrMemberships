@@ -40,15 +40,9 @@ abstract class AbstractForm
     /**
      * @var \ilCtrl
      */
-    protected $ctrl;
-    /**
-     * @var \ILIAS\Refinery\Factory
-     */
-    protected $refinery;
-    /**
-     * @var Factory
-     */
-    protected $ui_factory;
+    protected \ilCtrlInterface $ctrl;
+    protected \ILIAS\Refinery\Factory $refinery;
+    protected Factory $ui_factory;
     /**
      * @var Config
      */

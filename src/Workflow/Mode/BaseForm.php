@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow\Mode;
 
+use ILIAS\UI\Factory;
 use srag\Plugins\SrMemberships\Translator;
 use ILIAS\UI\Component\Input\Field\Section;
 use srag\Plugins\SrMemberships\Container\Container;
@@ -32,10 +33,7 @@ abstract class BaseForm
     protected ObjectModeRepository $repository;
     protected Modes $possible_modes;
     protected Translator $translator;
-    /**
-     * @var \ILIAS\UI\Factory
-     */
-    protected $ui_factory;
+    protected Factory $ui_factory;
 
     public function __construct(
         WorkflowContainer $workflow_container,

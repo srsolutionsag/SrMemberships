@@ -8,6 +8,7 @@
  *
  *********************************************************************/
 
+use ILIAS\ResourceStorage\Services;
 use ILIAS\FileUpload\Handler\AbstractCtrlAwareUploadHandler;
 use ILIAS\FileUpload\Handler\FileInfoResult;
 use ILIAS\FileUpload\Handler\HandlerResult;
@@ -23,7 +24,7 @@ class ilSrMsGeneralUploadHandlerGUI extends AbstractCtrlAwareUploadHandler
     /**
      * @readonly
      */
-    private \ILIAS\ResourceStorage\Services $irss;
+    private Services $irss;
     /**
      * @readonly
      */

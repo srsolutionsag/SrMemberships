@@ -10,7 +10,6 @@
 declare(strict_types=1);
 
 use ILIAS\DI\RBACServices;
-use srag\Plugins\SrLifeCycleManager\Config\IConfig;
 
 /**
  * This is an abstraction for ILIAS command-class implementations.
@@ -33,24 +32,12 @@ use srag\Plugins\SrLifeCycleManager\Config\IConfig;
  */
 class ilSrMsAccessHandler
 {
-    /**
-     * @var RBACServices
-     */
-    protected $access;
+    protected RBACServices $access;
 
-    /**
-     * @var IConfig
-     */
-    protected $config;
-
-    /**
-     * @var ilObjUser
-     */
-    protected $user;
+    protected \ilObjUser $user;
 
     /**
      * @param RBACServices $access
-     * @param IConfig      $config
      * @param ilObjUser    $user
      */
     public function __construct(

@@ -24,15 +24,9 @@ class UserAccessInfoProvider
      * @readonly
      */
     private ObjectInfoProvider $object_info_provider;
-    /**
-     * @var \ilRbacSystem
-     */
-    private $rbac;
+    private \ilRbacSystem $rbac;
     private array $cache = [];
-    /**
-     * @var \ilRbacReview
-     */
-    private $rbac_review;
+    private \ilRbacReview $rbac_review;
 
     public function __construct(
         ilRbacSystem $rbac,

@@ -23,10 +23,7 @@ abstract class AbstractDBConfig implements Config
     use Packer;
 
     public const TABLE_NAME = 'srms_config';
-    /**
-     * @var \ilDBInterface
-     */
-    protected $db;
+    protected \ilDBInterface $db;
     /**
      * @var array
      */

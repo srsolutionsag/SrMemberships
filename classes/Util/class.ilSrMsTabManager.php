@@ -37,15 +37,12 @@ class ilSrMsTabManager
 
     protected ilSrMsAccessHandler $access_handler;
 
-    /**
-     * @var ilTabsGUI
-     */
-    protected $tabs;
+    protected \ilTabsGUI $tabs;
 
     /**
      * @var ilCtrl
      */
-    protected $ctrl;
+    protected \ilCtrlInterface $ctrl;
 
     protected int $origin;
 

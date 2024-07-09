@@ -12,6 +12,9 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Provider\Tool;
 
+use ILIAS\UI\Component\Legacy\Legacy;
+use ILIAS\UI\Factory;
+use ILIAS\UI\Renderer;
 use srag\Plugins\SrMemberships\Config\Config;
 use ILIAS\GlobalScreen\Scope\Tool\Factory\Tool;
 use srag\Plugins\SrMemberships\Provider\Context\Context;
@@ -34,14 +37,8 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
      * @readonly
      */
     private Config $workflow_config;
-    /**
-     * @var \ILIAS\UI\Factory
-     */
-    private $ui_factory;
-    /**
-     * @var \ILIAS\UI\Renderer
-     */
-    private $ui_renderer;
+    private Factory $ui_factory;
+    private Renderer $ui_renderer;
     /**
      * @readonly
      */
@@ -113,7 +110,7 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $tool_factory->tool($identification)
                             ->withTitle($title)
-                            ->withContentWrapper(fn() => $this->ui_factory->legacy(
+                            ->withContentWrapper(fn (): Legacy => $this->ui_factory->legacy(
                                 $this->ui_renderer->render(
                                     $components
                                 )

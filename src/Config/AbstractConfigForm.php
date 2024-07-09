@@ -44,15 +44,9 @@ abstract class AbstractConfigForm implements ConfigForm
     /**
      * @var \ilCtrl
      */
-    protected $ctrl;
-    /**
-     * @var \ILIAS\Refinery\Factory
-     */
-    protected $refinery;
-    /**
-     * @var Factory
-     */
-    protected $ui_factory;
+    protected \ilCtrlInterface $ctrl;
+    protected \ILIAS\Refinery\Factory $refinery;
+    protected Factory $ui_factory;
 
     public function __construct(
         ilSrMsAbstractGUI $target_gui,

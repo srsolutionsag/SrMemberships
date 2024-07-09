@@ -29,10 +29,7 @@ use srag\Plugins\SrMemberships\Person\Persons\Source\StringPersonSource;
  */
 abstract class AbstractByStringActionHandler extends BaseActionHandler
 {
-    /**
-     * @var Services
-     */
-    protected $irss;
+    protected Services $irss;
 
     public function __construct(Container $container)
     {
@@ -69,7 +66,7 @@ abstract class AbstractByStringActionHandler extends BaseActionHandler
             case 'file':
                 $rid = $object_config['content']['file_list'][0] ?? '';
                 $rid = $this->irss->manage()->find($rid);
-                if (!$rid) {
+                if ($rid === null) {
                     return Summary::error($this->container->translator()->txt('msg_file_not_found'));
                 }
                 $strings = (string) $this->irss->consume()->stream($rid)->getStream();

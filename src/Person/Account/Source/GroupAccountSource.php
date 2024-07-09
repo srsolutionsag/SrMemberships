@@ -21,10 +21,7 @@ use Generator;
  */
 class GroupAccountSource implements AccountSource
 {
-    /**
-     * @var \ilGroupParticipants
-     */
-    private $group_members;
+    private \ilGroupParticipants $group_members;
 
     public function __construct(int $ref_id)
     {

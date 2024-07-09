@@ -29,10 +29,7 @@ use srag\Plugins\SrMemberships\Person\Persons\ExtAccountPerson;
  */
 class PersonsToAccounts
 {
-    /**
-     * @var \ilDBInterface
-     */
-    protected $db;
+    protected \ilDBInterface $db;
 
     public function __construct(ilDBInterface $db)
     {
@@ -70,7 +67,7 @@ class PersonsToAccounts
                 );
                 $result = $this->db->fetchAssoc($result);
 
-                if (!empty($result)) {
+                if ($result !== null && $result !== []) {
                     return (int) $result["usr_id"];
                 }
                 return null;
@@ -89,7 +86,7 @@ class PersonsToAccounts
                 $result = $this->db->query($query);
                 $result = $this->db->fetchAssoc($result);
 
-                if (!empty($result)) {
+                if ($result !== null && $result !== []) {
                     return (int) $result["usr_id"];
                 }
                 return null;

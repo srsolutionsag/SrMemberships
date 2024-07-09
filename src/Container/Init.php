@@ -50,54 +50,54 @@ final class Init
         $container = new Container();
 
         if ($plugin !== null) {
-            $container->glue(ilSrMembershipsPlugin::class, fn() => $plugin);
+            $container->glue(ilSrMembershipsPlugin::class, fn () => $plugin);
         }
 
         $container->glue(
             ilSrMsAccessHandler::class,
-            fn(): ilSrMsAccessHandler => new ilSrMsAccessHandler($ilias_container->rbac(), $ilias_container->user())
+            fn (): ilSrMsAccessHandler => new ilSrMsAccessHandler($ilias_container->rbac(), $ilias_container->user())
         );
 
-        $container->glue(Configs::class, fn(): Configs => new Configs($ilias_container->database()));
+        $container->glue(Configs::class, fn (): Configs => new Configs($ilias_container->database()));
 
-        $container->glue(Translator::class, fn(): Translator => new ilSrMsTranslator());
+        $container->glue(Translator::class, fn (): Translator => new ilSrMsTranslator());
 
-        $container['_origin'] = fn(): int => ilSrMembershipsDispatcherGUI::getOriginType();
+        $container['_origin'] = fn (): int => ilSrMembershipsDispatcherGUI::getOriginType();
 
-        $container->glue(ilSrMsTabManager::class, fn(Container $c): ilSrMsTabManager => new ilSrMsTabManager(
+        $container->glue(ilSrMsTabManager::class, fn (Container $c): ilSrMsTabManager => new ilSrMsTabManager(
             $c
         ));
 
-        $container->glue(\ILIAS\DI\Container::class, fn(): \ILIAS\DI\Container => $ilias_container);
+        $container->glue(\ILIAS\DI\Container::class, fn (): \ILIAS\DI\Container => $ilias_container);
 
         $container->glue(
             WorkflowContainerRepository::class,
-            fn(Container $c): WorkflowContainerRepository => new WorkflowContainerRepository($c)
+            fn (Container $c): WorkflowContainerRepository => new WorkflowContainerRepository($c)
         );
 
-        $container->glue(ContextFactory::class, fn(Container $c): ContextFactory => new ContextFactory($c));
+        $container->glue(ContextFactory::class, fn (Container $c): ContextFactory => new ContextFactory($c));
 
         $container->glue(
             ObjectModeRepository::class,
-            fn(Container $c): ObjectModeRepository => new ObjectModeDBRepository($c->dic()->database())
+            fn (Container $c): ObjectModeRepository => new ObjectModeDBRepository($c->dic()->database())
         );
 
         $container->glue(
             ToolObjectConfigRepository::class,
-            fn(Container $c): ToolObjectConfigRepository => new ToolObjectConfigDBRepository($c->dic()->database())
+            fn (Container $c): ToolObjectConfigRepository => new ToolObjectConfigDBRepository($c->dic()->database())
         );
 
         $container->glue(
             PersonListGenerators::class,
-            fn(Container $c): PersonListGenerators => new PersonListGenerators($c)
+            fn (Container $c): PersonListGenerators => new PersonListGenerators($c)
         );
 
         $container->glue(
             AccountListGenerators::class,
-            fn(Container $c): AccountListGenerators => new AccountListGenerators($c)
+            fn (Container $c): AccountListGenerators => new AccountListGenerators($c)
         );
 
-        $container->glue(ObjectInfoProvider::class, fn(Container $c): ObjectInfoProvider => new ObjectInfoProvider(
+        $container->glue(ObjectInfoProvider::class, fn (Container $c): ObjectInfoProvider => new ObjectInfoProvider(
             $c->dic()->repositoryTree(),
             $c->dic()->ctrl(),
             $c->dic()->http()->request(),
@@ -106,7 +106,7 @@ final class Init
 
         $container->glue(
             UserAccessInfoProvider::class,
-            fn(Container $c): UserAccessInfoProvider => new UserAccessInfoProvider(
+            fn (Container $c): UserAccessInfoProvider => new UserAccessInfoProvider(
                 $c->dic()->rbac()->system(),
                 $c->dic()->rbac()->review(),
                 $c->objectInfoProvider()

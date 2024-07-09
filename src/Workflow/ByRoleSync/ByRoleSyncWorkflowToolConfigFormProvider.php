@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow\ByRoleSync;
 
+use ILIAS\UI\Factory;
 use srag\Plugins\SrMemberships\Config\Config;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use srag\Plugins\SrMemberships\Container\Container;
@@ -32,10 +33,7 @@ class ByRoleSyncWorkflowToolConfigFormProvider implements ToolConfigFormProvider
      * @readonly
      */
     private Config $config;
-    /**
-     * @var \ILIAS\UI\Factory
-     */
-    private $ui_factory;
+    private Factory $ui_factory;
 
     public function __construct(
         Container $container,

@@ -34,19 +34,10 @@ class ObjectInfoProvider
     private ServerRequestInterface $request;
     public const TYPE_CRS = 'crs';
     public const TYPE_GRP = 'grp';
-    /**
-     * @var \ilTree
-     */
-    private $tree;
+    private \ilTree $tree;
     private array $cache = [];
-    /**
-     * @var \ilCtrl
-     */
-    private $ctrl;
-    /**
-     * @var \ilRbacReview
-     */
-    private $rbacreview;
+    private \ilCtrl $ctrl;
+    private \ilRbacReview $rbacreview;
 
     /**
      * @var string[]

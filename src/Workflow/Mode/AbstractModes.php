@@ -98,7 +98,7 @@ abstract class AbstractModes implements Modes
     public function __toArray(bool $selectable_only = true): array
     {
         return array_map(
-            static fn(Mode $mode): int => $mode->getModeId(),
+            static fn (Mode $mode): int => $mode->getModeId(),
             array_filter($this->modes, static function (Mode $mode) use ($selectable_only): bool {
                 if ($selectable_only) {
                     return $mode->isSelectable();

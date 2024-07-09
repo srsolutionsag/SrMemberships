@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow\General;
 
+use ILIAS\UI\Factory;
 use srag\Plugins\SrMemberships\Translator;
 use ilSrMsGeneralUploadHandlerGUI;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
@@ -38,10 +39,7 @@ abstract class AbstractByStringListWorkflowToolConfigFormProvider implements Too
     public const TYPE_FILE = 'file';
     public const F_TEXT_LIST = 'text_list';
     public const F_FILE_LIST = 'file_list';
-    /**
-     * @var \ILIAS\UI\Factory
-     */
-    protected $ui_factory;
+    protected Factory $ui_factory;
     protected Translator $translator;
 
     public function __construct(
@@ -112,7 +110,7 @@ abstract class AbstractByStringListWorkflowToolConfigFormProvider implements Too
             $this->container->translator()->txt($this->getPrefix() . '_header')
         )->withAdditionalTransformation(
             $this->trafo(
-                fn($v): array => [
+                fn ($v): array => [
                     self::F_TYPE => $v[0][0],
                     self::F_CONTENT => $v[0][1]
                 ]

@@ -15,7 +15,6 @@ use ILIAS\ResourceStorage\Stakeholder\AbstractResourceStakeholder;
  */
 class ilSrMsStakeholder extends AbstractResourceStakeholder
 {
-
     public function __construct()
     {
     }

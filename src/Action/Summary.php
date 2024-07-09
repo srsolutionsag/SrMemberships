@@ -130,7 +130,7 @@ class Summary
             $this->additional_message = implode(
                 "\n",
                 array_map(
-                    static fn(Person $person): string => $person->getUniqueIdentification(),
+                    static fn (Person $person): string => $person->getUniqueIdentification(),
                     $this->persons_not_found->getPersons()
                 )
             );

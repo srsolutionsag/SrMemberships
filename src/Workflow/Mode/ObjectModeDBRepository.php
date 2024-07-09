@@ -24,10 +24,7 @@ use srag\Plugins\SrMemberships\Workflow\Mode\Run\NullRunModes;
 class ObjectModeDBRepository implements ObjectModeRepository
 {
     private const TABLE_NAME = 'srms_object_mode';
-    /**
-     * @var \ilDBInterface
-     */
-    private $db;
+    private \ilDBInterface $db;
     /**
      * @var array
      */

@@ -21,10 +21,7 @@ use Generator;
  */
 class CourseAccountSource implements AccountSource
 {
-    /**
-     * @var \ilCourseParticipants
-     */
-    private $course_memberships;
+    private \ilCourseParticipants $course_memberships;
 
     public function __construct(int $ref_id)
     {

@@ -39,10 +39,7 @@ final class Configs
      * @readonly
      */
     private ByMatriculationConfig $by_matriculation;
-    /**
-     * @var \ilDBInterface
-     */
-    protected $db;
+    protected \ilDBInterface $db;
 
     public function __construct(ilDBInterface $db)
     {

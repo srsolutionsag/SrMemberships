@@ -68,7 +68,7 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
         return true;
     }
 
-    public function getDefaultScheduleType() : int
+    public function getDefaultScheduleType(): int
     {
         return ilCronJob::SCHEDULE_TYPE_IN_HOURS;
     }
