@@ -17,7 +17,7 @@
     }
   ],
   "require": {
-    "php": ">=7.2",
+    "php": ">=7.4 <8.1",
     "phpoffice/phpspreadsheet": "^1.29"
   },
   "autoload": {

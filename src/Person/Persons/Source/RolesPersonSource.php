@@ -1,8 +1,8 @@
 <?php
 
 /*********************************************************************
- * This code is licensed under the GPL-3.0 license and is part of a
- * ILIAS plugin developed by sr Solutions ag in Switzerland.
+ * This Code is licensed under the GPL-3.0 License and is Part of a
+ * ILIAS Plugin developed by sr solutions ag in Switzerland.
  *
  * https://sr.solutions
  *
@@ -21,12 +21,12 @@ use Generator;
 class RolesPersonSource implements PersonSource
 {
     protected array $role_ids;
+    /**
+     * @readonly
+     */
     private \ilRbacReview $rbac_review;
-
-    public function __construct(
-        array $role_ids,
-        ilRbacReview $rbac_review
-    ) {
+    public function __construct(array $role_ids, \ilRbacReview $rbac_review)
+    {
         $this->role_ids = $role_ids;
         $this->rbac_review = $rbac_review;
     }

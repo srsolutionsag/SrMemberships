@@ -61,8 +61,8 @@ class ComposerStaticInit94d0872f604dd98676f7946c91232271
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -913,6 +913,7 @@ class ComposerStaticInit94d0872f604dd98676f7946c91232271
         'ilSrMsStoreObjectConfigGUI' => __DIR__ . '/../..' . '/classes/Handler/class.ilSrMsStoreObjectConfigGUI.php',
         'ilSrMsTabManager' => __DIR__ . '/../..' . '/classes/Util/class.ilSrMsTabManager.php',
         'ilSrMsTranslator' => __DIR__ . '/../..' . '/classes/Util/class.ilSrMsTranslator.php',
+        'srag\\Plugins\\SrMemberships\\AccountCreator' => __DIR__ . '/../..' . '/src/AccountCreator.php',
         'srag\\Plugins\\SrMemberships\\Action\\AbstractSubscribe' => __DIR__ . '/../..' . '/src/Action/AbstractSubscribe.php',
         'srag\\Plugins\\SrMemberships\\Action\\AbstractUnsubscribe' => __DIR__ . '/../..' . '/src/Action/AbstractUnsubscribe.php',
         'srag\\Plugins\\SrMemberships\\Action\\Action' => __DIR__ . '/../..' . '/src/Action/Action.php',
@@ -928,6 +929,7 @@ class ComposerStaticInit94d0872f604dd98676f7946c91232271
         'srag\\Plugins\\SrMemberships\\Action\\NullAction' => __DIR__ . '/../..' . '/src/Action/NullAction.php',
         'srag\\Plugins\\SrMemberships\\Action\\NullActionHandler' => __DIR__ . '/../..' . '/src/Action/NullActionHandler.php',
         'srag\\Plugins\\SrMemberships\\Action\\Summary' => __DIR__ . '/../..' . '/src/Action/Summary.php',
+        'srag\\Plugins\\SrMemberships\\Action\\UserCreation' => __DIR__ . '/../..' . '/src/Action/UserCreation.php',
         'srag\\Plugins\\SrMemberships\\Config\\AbstractConfigForm' => __DIR__ . '/../..' . '/src/Config/AbstractConfigForm.php',
         'srag\\Plugins\\SrMemberships\\Config\\AbstractDBConfig' => __DIR__ . '/../..' . '/src/Config/AbstractDBConfig.php',
         'srag\\Plugins\\SrMemberships\\Config\\Config' => __DIR__ . '/../..' . '/src/Config/Config.php',
@@ -951,6 +953,7 @@ class ComposerStaticInit94d0872f604dd98676f7946c91232271
         'srag\\Plugins\\SrMemberships\\Person\\Account\\Source\\CourseAccountSource' => __DIR__ . '/../..' . '/src/Person/Account/Source/CourseAccountSource.php',
         'srag\\Plugins\\SrMemberships\\Person\\Account\\Source\\GroupAccountSource' => __DIR__ . '/../..' . '/src/Person/Account/Source/GroupAccountSource.php',
         'srag\\Plugins\\SrMemberships\\Person\\PersonsToAccounts' => __DIR__ . '/../..' . '/src/Person/PersonsToAccounts.php',
+        'srag\\Plugins\\SrMemberships\\Person\\Persons\\BasePerson' => __DIR__ . '/../..' . '/src/Person/Persons/BasePerson.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\CreatablePerson' => __DIR__ . '/../..' . '/src/Person/Persons/CreatablePerson.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\EmailPerson' => __DIR__ . '/../..' . '/src/Person/Persons/EmailPerson.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\ExtAccountPerson' => __DIR__ . '/../..' . '/src/Person/Persons/ExtAccountPerson.php',
@@ -967,9 +970,11 @@ class ComposerStaticInit94d0872f604dd98676f7946c91232271
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\Resolver\\RolesPersonResolver' => __DIR__ . '/../..' . '/src/Person/Persons/Resolver/RolesPersonResolver.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\Source\\ArrayPersonSource' => __DIR__ . '/../..' . '/src/Person/Persons/Source/ArrayPersonSource.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\Source\\PersonSource' => __DIR__ . '/../..' . '/src/Person/Persons/Source/PersonSource.php',
+        'srag\\Plugins\\SrMemberships\\Person\\Persons\\Source\\RawPerson' => __DIR__ . '/../..' . '/src/Person/Persons/Source/RawPerson.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\Source\\RolesPersonSource' => __DIR__ . '/../..' . '/src/Person/Persons/Source/RolesPersonSource.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\Source\\StringPersonSource' => __DIR__ . '/../..' . '/src/Person/Persons/Source/StringPersonSource.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\UserIdPerson' => __DIR__ . '/../..' . '/src/Person/Persons/UserIdPerson.php',
+        'srag\\Plugins\\SrMemberships\\PluginTranslator' => __DIR__ . '/../..' . '/src/PluginTranslator.php',
         'srag\\Plugins\\SrMemberships\\Provider\\Context\\Context' => __DIR__ . '/../..' . '/src/Provider/Context/Context.php',
         'srag\\Plugins\\SrMemberships\\Provider\\Context\\ContextFactory' => __DIR__ . '/../..' . '/src/Provider/Context/ContextFactory.php',
         'srag\\Plugins\\SrMemberships\\Provider\\Context\\ObjectInfoProvider' => __DIR__ . '/../..' . '/src/Provider/Context/ObjectInfoProvider.php',

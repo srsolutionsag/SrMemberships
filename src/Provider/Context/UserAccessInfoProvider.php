@@ -1,8 +1,8 @@
 <?php
 
 /*********************************************************************
- * This code is licensed under the GPL-3.0 license and is part of a
- * ILIAS plugin developed by sr Solutions ag in Switzerland.
+ * This Code is licensed under the GPL-3.0 License and is Part of a
+ * ILIAS Plugin developed by sr solutions ag in Switzerland.
  *
  * https://sr.solutions
  *
@@ -23,19 +23,22 @@ class UserAccessInfoProvider
     /**
      * @readonly
      */
-    private ObjectInfoProvider $object_info_provider;
     private \ilRbacSystem $rbac;
-    private array $cache = [];
+    /**
+     * @readonly
+     */
     private \ilRbacReview $rbac_review;
+    /**
+     * @readonly
+     */
+    private ObjectInfoProvider $object_info_provider;
+    private array $cache = [];
 
-    public function __construct(
-        ilRbacSystem $rbac,
-        ilRbacReview $rbac_review,
-        ObjectInfoProvider $object_info_provider
-    ) {
-        $this->object_info_provider = $object_info_provider;
+    public function __construct(\ilRbacSystem $rbac, \ilRbacReview $rbac_review, ObjectInfoProvider $object_info_provider)
+    {
         $this->rbac = $rbac;
         $this->rbac_review = $rbac_review;
+        $this->object_info_provider = $object_info_provider;
     }
 
     public function hasUserPermissionToAdministrate(int $user_id, int $ref_id): bool

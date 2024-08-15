@@ -1,8 +1,8 @@
 <?php
 
 /*********************************************************************
- * This code is licensed under the GPL-3.0 license and is part of a
- * ILIAS plugin developed by sr Solutions ag in Switzerland.
+ * This Code is licensed under the GPL-3.0 License and is Part of a
+ * ILIAS Plugin developed by sr solutions ag in Switzerland.
  *
  * https://sr.solutions
  *
@@ -15,15 +15,19 @@ namespace srag\Plugins\SrMemberships\Person\Persons;
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class EmailPerson implements CreatablePerson
+class EmailPerson extends BasePerson implements CreatablePerson
 {
     protected string $email;
     protected string $login;
 
-    public function __construct(string $email, ?string $login = null)
-    {
+    public function __construct(
+        string $email,
+        ?string $login = null,
+        ?array $attributes = []
+    ) {
         $this->email = $email;
         $this->login = $login ?? $this->email;
+        parent::__construct($attributes);
     }
 
     public function getUniqueIdentification(): string

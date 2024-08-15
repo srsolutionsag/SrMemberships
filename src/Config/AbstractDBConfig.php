@@ -1,8 +1,8 @@
 <?php
 
 /*********************************************************************
- * This code is licensed under the GPL-3.0 license and is part of a
- * ILIAS plugin developed by sr Solutions ag in Switzerland.
+ * This Code is licensed under the GPL-3.0 License and is Part of a
+ * ILIAS Plugin developed by sr solutions ag in Switzerland.
  *
  * https://sr.solutions
  *
@@ -21,15 +21,15 @@ use JsonException;
 abstract class AbstractDBConfig implements Config
 {
     use Packer;
+    protected \ilDBInterface $db;
 
     public const TABLE_NAME = 'srms_config';
-    protected \ilDBInterface $db;
     /**
      * @var array
      */
     protected $values = [];
 
-    public function __construct(ilDBInterface $db)
+    public function __construct(\ilDBInterface $db)
     {
         $this->db = $db;
         $this->read();
@@ -62,9 +62,9 @@ abstract class AbstractDBConfig implements Config
 
     /**
      * @param string $key
-     * @param mixed  $value
      * @return void
      * @throws JsonException
+     * @param mixed $value
      */
     protected function saveToDB(string $key, $value): void
     {

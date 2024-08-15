@@ -1,8 +1,8 @@
 <?php
 
 /*********************************************************************
- * This code is licensed under the GPL-3.0 license and is part of a
- * ILIAS plugin developed by sr Solutions ag in Switzerland.
+ * This Code is licensed under the GPL-3.0 License and is Part of a
+ * ILIAS Plugin developed by sr solutions ag in Switzerland.
  *
  * https://sr.solutions
  *
@@ -20,6 +20,7 @@ use srag\Plugins\SrMemberships\Person\Persons\Source\StringPersonSource;
 use srag\Plugins\SrMemberships\Person\Persons\Source\ArrayPersonSource;
 use srag\Plugins\SrMemberships\Person\Persons\Resolver\MatriculationPersonResolver;
 use srag\Plugins\SrMemberships\Person\Persons\Resolver\ExtAccountPersonResolver;
+use srag\Plugins\SrMemberships\Person\Persons\Source\RawPerson;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -30,7 +31,6 @@ class PersonListGenerators
      * @readonly
      */
     private Container $container;
-
     public function __construct(Container $container)
     {
         $this->container = $container;
@@ -46,7 +46,7 @@ class PersonListGenerators
     public function byLogins(array $logins): PersonList
     {
         return (new LoginPersonResolver())->resolveFor(
-            new ArrayPersonSource($logins)
+            new ArrayPersonSource(array_map(static fn (string $login): RawPerson => new RawPerson($login), $logins))
         );
     }
 

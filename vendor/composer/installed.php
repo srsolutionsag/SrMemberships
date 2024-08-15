@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'srsolutions/srmemberships',
-        'pretty_version' => 'dev-staging/9',
-        'version' => 'dev-staging/9',
-        'reference' => 'cdbcfef2fc4de506808f115d0377714c6e1635a4',
+        'pretty_version' => 'dev-develop',
+        'version' => 'dev-develop',
+        'reference' => 'fa9f48be1b2acd3a5ab9c1b194c870dd3edca28b',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -101,9 +101,9 @@
             'dev_requirement' => false,
         ),
         'srsolutions/srmemberships' => array(
-            'pretty_version' => 'dev-staging/9',
-            'version' => 'dev-staging/9',
-            'reference' => 'cdbcfef2fc4de506808f115d0377714c6e1635a4',
+            'pretty_version' => 'dev-develop',
+            'version' => 'dev-develop',
+            'reference' => 'fa9f48be1b2acd3a5ab9c1b194c870dd3edca28b',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

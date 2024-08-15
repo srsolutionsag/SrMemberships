@@ -1,8 +1,8 @@
 <?php
 
 /*********************************************************************
- * This code is licensed under the GPL-3.0 license and is part of a
- * ILIAS plugin developed by sr Solutions ag in Switzerland.
+ * This Code is licensed under the GPL-3.0 License and is Part of a
+ * ILIAS Plugin developed by sr solutions ag in Switzerland.
  *
  * https://sr.solutions
  *
@@ -11,8 +11,8 @@
 use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Workflow\Mode\Mode;
 use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
-use srag\Plugins\SrMemberships\Container\Init;
 use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
+use ILIAS\Cron\Schedule\CronJobScheduleType;
 
 /**
  * This is the entry point of the plugin-configuration.
@@ -39,7 +39,8 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
     public function __construct(ilSrMembershipsPlugin $plugin)
     {
         global $DIC;
-        $this->container = Init::init($DIC, $plugin);
+        global $srmembershipsContainer;
+        $this->container = $srmembershipsContainer;
         $this->logger = $this->container->dic()->logger()->root();
     }
 

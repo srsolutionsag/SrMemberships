@@ -1,8 +1,8 @@
 <?php
 
 /*********************************************************************
- * This code is licensed under the GPL-3.0 license and is part of a
- * ILIAS plugin developed by sr Solutions ag in Switzerland.
+ * This Code is licensed under the GPL-3.0 License and is Part of a
+ * ILIAS Plugin developed by sr solutions ag in Switzerland.
  *
  * https://sr.solutions
  *
@@ -23,6 +23,7 @@ use srag\Plugins\SrMemberships\Workflow\ByMatriculation\Config\ByMatriculationCo
  */
 final class Configs
 {
+    protected \ilDBInterface $db;
     /**
      * @readonly
      */
@@ -39,9 +40,8 @@ final class Configs
      * @readonly
      */
     private ByMatriculationConfig $by_matriculation;
-    protected \ilDBInterface $db;
 
-    public function __construct(ilDBInterface $db)
+    public function __construct(\ilDBInterface $db)
     {
         $this->db = $db;
         $this->general = new GeneralConfig($this->db);

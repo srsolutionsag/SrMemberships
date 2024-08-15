@@ -1,8 +1,8 @@
 <?php
 
 /*********************************************************************
- * This code is licensed under the GPL-3.0 license and is part of a
- * ILIAS plugin developed by sr Solutions ag in Switzerland.
+ * This Code is licensed under the GPL-3.0 License and is Part of a
+ * ILIAS Plugin developed by sr solutions ag in Switzerland.
  *
  * https://sr.solutions
  *
@@ -21,9 +21,14 @@ use srag\Plugins\SrMemberships\StringSanitizer;
 class ArrayPersonSource implements PersonSource
 {
     use StringSanitizer;
-
+    /**
+     * @var RawPerson[]
+     */
     private array $items;
 
+    /**
+     * @param RawPerson[] $items
+     */
     public function __construct(array $items)
     {
         $this->items = $items;
@@ -32,7 +37,7 @@ class ArrayPersonSource implements PersonSource
     public function getRawEntries(): Generator
     {
         foreach ($this->items as $item) {
-            yield trim($this->sanitize($item));
+            yield $item; //trim($this->sanitize((string) $item));
         }
     }
 }

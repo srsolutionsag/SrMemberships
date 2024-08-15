@@ -1,8 +1,8 @@
 <?php
 
 /*********************************************************************
- * This code is licensed under the GPL-3.0 license and is part of a
- * ILIAS plugin developed by sr Solutions ag in Switzerland.
+ * This Code is licensed under the GPL-3.0 License and is Part of a
+ * ILIAS Plugin developed by sr solutions ag in Switzerland.
  *
  * https://sr.solutions
  *
@@ -29,7 +29,6 @@ use srag\Plugins\SrMemberships\Person\Persons\Source\StringPersonSource;
 abstract class AbstractByStringListWorkflowToolConfigFormProvider implements ToolConfigFormProvider
 {
     use TrafoGenerator;
-
     protected Container $container;
     protected WorkflowContainer $workflow_container;
 
@@ -62,7 +61,7 @@ abstract class AbstractByStringListWorkflowToolConfigFormProvider implements Too
             $this->workflow_container
         );
 
-        $type = $object_config[self::F_TYPE] ?? self::TYPE_TEXT;
+        $type = empty($object_config[self::F_TYPE]) ? self::TYPE_TEXT : $object_config[self::F_TYPE];
         $file_list = $object_config[self::F_CONTENT][self::F_FILE_LIST] ?? [];
         $text_list = $object_config[self::F_CONTENT][self::F_TEXT_LIST] ?? '';
         /** @noinspection PhpIncompatibleReturnTypeInspection */

@@ -10,21 +10,21 @@
 
 declare(strict_types=1);
 
-namespace srag\Plugins\SrMemberships\Person\Account;
+namespace srag\Plugins\SrMemberships\Person\Persons;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class ILIASAccount implements Account
+abstract class BasePerson implements Person
 {
-    protected int $user_id;
-    public function __construct(int $user_id)
+    protected ?array $attributes = [];
+    public function __construct(?array $attributes = [])
     {
-        $this->user_id = $user_id;
+        $this->attributes = $attributes;
     }
 
-    public function getUserId(): int
+    public function getAdditionalAttributes(): array
     {
-        return $this->user_id;
+        return $this->attributes ?? [];
     }
 }

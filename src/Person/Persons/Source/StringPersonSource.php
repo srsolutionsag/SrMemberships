@@ -1,8 +1,8 @@
 <?php
 
 /*********************************************************************
- * This code is licensed under the GPL-3.0 license and is part of a
- * ILIAS plugin developed by sr Solutions ag in Switzerland.
+ * This Code is licensed under the GPL-3.0 License and is Part of a
+ * ILIAS Plugin developed by sr solutions ag in Switzerland.
  *
  * https://sr.solutions
  *
@@ -21,13 +21,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
  */
 class StringPersonSource implements PersonSource
 {
-    /**
-     * @readonly
-     */
     private string $list;
-    /**
-     * @readonly
-     */
     private ?string $original_mime_type = null;
     public const MIME_TEXT_PLAIN = 'text/plain';
     public const MIME_TEXT_CSV = 'text/csv';
@@ -77,7 +71,7 @@ class StringPersonSource implements PersonSource
         $items = [];
         foreach ($lines as $line) {
             $line = str_getcsv($line, $separator);
-            $items[] = $line[0];
+            $items[] = new RawPerson($line[0], $line);
         }
         $array_person_source = new ArrayPersonSource($items);
         yield from $array_person_source->getRawEntries();
@@ -138,7 +132,7 @@ class StringPersonSource implements PersonSource
         if (count($items) === 1 && $items[0] === '') {
             throw new InvalidArgumentException('No items found in list');
         }
-        $array_person_source = new ArrayPersonSource($items);
+        $array_person_source = new ArrayPersonSource(array_map(fn ($item): RawPerson => new RawPerson($item), $items));
         yield from $array_person_source->getRawEntries();
     }
 
@@ -148,6 +142,7 @@ class StringPersonSource implements PersonSource
 
         $worksheet = $spreadsheet->getActiveSheet();
         $highestRow = $worksheet->getHighestRow();
+        $highestColumn = $worksheet->getHighestColumn();
 
         $items = [];
         for ($row = 2; $row <= $highestRow; ++$row) {
@@ -158,11 +153,15 @@ class StringPersonSource implements PersonSource
                 $col++;
                 $cell = $worksheet->getCell([$col, $row]);
             }
-            $maxCol = $col + 1;
+            $maxCol = $col + 0;
+            // current row as array
+            $currentRow = $worksheet->rangeToArray("A$row:$highestColumn" . (string) $row, null, true, true)[0];
             for (; $col <= $maxCol; ++$col) {
                 $value = $worksheet->getCell([$col, $row])->getValue();
                 if ($value !== null && $value !== '') {
-                    $items[] = $value;
+                    // remove first element of $currentRow
+                    array_shift($currentRow);
+                    $items[] = new RawPerson((string) $value, $currentRow);
                 }
             }
         }

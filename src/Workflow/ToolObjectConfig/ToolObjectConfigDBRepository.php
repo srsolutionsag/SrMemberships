@@ -1,8 +1,8 @@
 <?php
 
 /*********************************************************************
- * This code is licensed under the GPL-3.0 license and is part of a
- * ILIAS plugin developed by sr Solutions ag in Switzerland.
+ * This Code is licensed under the GPL-3.0 License and is Part of a
+ * ILIAS Plugin developed by sr solutions ag in Switzerland.
  *
  * https://sr.solutions
  *
@@ -24,11 +24,11 @@ use srag\Plugins\SrMemberships\Config\PackedValue;
 class ToolObjectConfigDBRepository implements ToolObjectConfigRepository
 {
     use Packer;
-
-    public const TABLE_NAME = 'srms_object_config';
     protected \ilDBInterface $db;
 
-    public function __construct(ilDBInterface $db)
+    public const TABLE_NAME = 'srms_object_config';
+
+    public function __construct(\ilDBInterface $db)
     {
         $this->db = $db;
     }

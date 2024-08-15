@@ -24,6 +24,8 @@ msg_object_config_stored#:#Stored settings
 offer_workflow_to#:#Workflow available for
 offer_workflow_to_info#:#The workflow is only offered to the selected groups of people.
 offer_workflow_to_object_admins#:#Object administrators (persons with the permission "Manage members" on the object)
+user_creation#:#User creation
+user_creation_info#:#Select whether the persons should be automatically created in ILIAS if they do not already exist. At least a login name and one e-mail address must be available.
 
 workflow_by_login#:#By Login
 by_login_header#:#Import List of Logins

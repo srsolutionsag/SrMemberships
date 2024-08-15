@@ -1,8 +1,8 @@
 <?php
 
 /*********************************************************************
- * This code is licensed under the GPL-3.0 license and is part of a
- * ILIAS plugin developed by sr Solutions ag in Switzerland.
+ * This Code is licensed under the GPL-3.0 License and is Part of a
+ * ILIAS Plugin developed by sr solutions ag in Switzerland.
  *
  * https://sr.solutions
  *
@@ -31,29 +31,34 @@ class ObjectInfoProvider
     /**
      * @readonly
      */
+    private \ilTree $tree;
+    /**
+     * @readonly
+     */
+    private \ilCtrl $ctrl;
+    /**
+     * @readonly
+     */
     private ServerRequestInterface $request;
+    /**
+     * @readonly
+     */
+    private \ilRbacReview $rbacreview;
     public const TYPE_CRS = 'crs';
     public const TYPE_GRP = 'grp';
-    private \ilTree $tree;
     private array $cache = [];
-    private \ilCtrl $ctrl;
-    private \ilRbacReview $rbacreview;
 
     /**
      * @var string[]
      */
     private array $valid_parent_types = ['crs', 'grp', 'root', 'cat'];
 
-    public function __construct(
-        ilTree $tree,
-        ilCtrl $ctrl,
-        ServerRequestInterface $request,
-        ilRbacReview $rbac_review
-    ) {
-        $this->request = $request;
+    public function __construct(\ilTree $tree, \ilCtrl $ctrl, ServerRequestInterface $request, \ilRbacReview $rbacreview)
+    {
         $this->tree = $tree;
         $this->ctrl = $ctrl;
-        $this->rbacreview = $rbac_review;
+        $this->request = $request;
+        $this->rbacreview = $rbacreview;
     }
 
     public function getType(int $ref_id): string

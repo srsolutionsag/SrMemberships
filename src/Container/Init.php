@@ -1,8 +1,8 @@
 <?php
 
 /*********************************************************************
- * This code is licensed under the GPL-3.0 license and is part of a
- * ILIAS plugin developed by sr Solutions ag in Switzerland.
+ * This Code is licensed under the GPL-3.0 License and is Part of a
+ * ILIAS Plugin developed by sr solutions ag in Switzerland.
  *
  * https://sr.solutions
  *
@@ -14,7 +14,6 @@ namespace srag\Plugins\SrMemberships\Container;
 
 use ilSrMembershipsPlugin;
 use ilSrMsAccessHandler;
-use ilSrMsTranslator;
 use ilSrMembershipsDispatcherGUI;
 use ilSrMsTabManager;
 use srag\Plugins\SrMemberships\Config\Configs;
@@ -29,38 +28,32 @@ use srag\Plugins\SrMemberships\Workflow\ToolObjectConfig\ToolObjectConfigDBRepos
 use srag\Plugins\SrMemberships\Person\Persons\PersonListGenerators;
 use srag\Plugins\SrMemberships\Person\Account\AccountListGenerators;
 use srag\Plugins\SrMemberships\Translator;
+use srag\Plugins\SrMemberships\PluginTranslator;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
 final class Init
 {
-    /**
-     * @var Container
-     */
-    private static $container;
-
     public static function init(
-        \ILIAS\DI\Container $ilias_container,
-        ?ilSrMembershipsPlugin $plugin = null
+        ilSrMembershipsPlugin $plugin,
+        \ilPluginLanguage $language
     ): Container {
-        if (isset(self::$container)) {
-            return self::$container;
-        }
+        global $DIC;
         $container = new Container();
 
-        if ($plugin !== null) {
-            $container->glue(ilSrMembershipsPlugin::class, fn () => $plugin);
-        }
+        $container->glue(ilSrMembershipsPlugin::class, fn (): \ilSrMembershipsPlugin => $plugin);
 
         $container->glue(
             ilSrMsAccessHandler::class,
-            fn (): ilSrMsAccessHandler => new ilSrMsAccessHandler($ilias_container->rbac(), $ilias_container->user())
+            fn (): ilSrMsAccessHandler => new ilSrMsAccessHandler($DIC->rbac(), $DIC->user())
         );
 
-        $container->glue(Configs::class, fn (): Configs => new Configs($ilias_container->database()));
+        $container->glue(Configs::class, fn (): Configs => new Configs($DIC->database()));
 
-        $container->glue(Translator::class, fn (): Translator => new ilSrMsTranslator());
+        $container->glue(Translator::class, fn (): Translator => new PluginTranslator(
+            $language
+        ));
 
         $container['_origin'] = fn (): int => ilSrMembershipsDispatcherGUI::getOriginType();
 
@@ -68,7 +61,7 @@ final class Init
             $c
         ));
 
-        $container->glue(\ILIAS\DI\Container::class, fn (): \ILIAS\DI\Container => $ilias_container);
+        $container->glue(\ILIAS\DI\Container::class, fn (): \ILIAS\DI\Container => $DIC);
 
         $container->glue(
             WorkflowContainerRepository::class,
@@ -113,6 +106,6 @@ final class Init
             )
         );
 
-        return self::$container = $container;
+        return $container;
     }
 }

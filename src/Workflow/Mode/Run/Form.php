@@ -1,8 +1,8 @@
 <?php
 
 /*********************************************************************
- * This code is licensed under the GPL-3.0 license and is part of a
- * ILIAS plugin developed by sr Solutions ag in Switzerland.
+ * This Code is licensed under the GPL-3.0 License and is Part of a
+ * ILIAS Plugin developed by sr solutions ag in Switzerland.
  *
  * https://sr.solutions
  *
@@ -46,7 +46,7 @@ class Form extends BaseForm
             $this->context->getCurrentRefId(),
             $this->workflow_container
         );
-        $selected_modes = $selected_modes ?: new RunModes();
+        $selected_modes = $selected_modes ?: new RunModes(RunModes::runOnSave());
         $multi_select = $multi_select->withValue(
             $selected_modes->__toArray()
         );

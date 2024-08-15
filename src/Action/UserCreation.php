@@ -10,21 +10,23 @@
 
 declare(strict_types=1);
 
-namespace srag\Plugins\SrMemberships\Person\Account;
+namespace srag\Plugins\SrMemberships\Action;
+
+use srag\Plugins\SrMemberships\Person\Account\AccountList;
+use srag\Plugins\SrMemberships\Person\Persons\PersonList;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class ILIASAccount implements Account
+class UserCreation implements Action
 {
-    protected int $user_id;
-    public function __construct(int $user_id)
+    public function performFor(AccountList $accounts): int
     {
-        $this->user_id = $user_id;
+        return 0;
     }
 
-    public function getUserId(): int
+    public function createMissing(PersonList $persons): int
     {
-        return $this->user_id;
     }
+
 }
