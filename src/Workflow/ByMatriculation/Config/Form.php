@@ -34,9 +34,13 @@ class Form extends AbstractConfigForm
                 $this->translator->txt('object_types_info'),
             ),
 
-            $this->getCheckbox(
+            $this->getAllOrMultiSelect(
                 WorkflowConfig::F_USER_CREATION,
                 $this->translator->txt(WorkflowConfig::F_USER_CREATION),
+                $this->translator->txt(WorkflowConfig::F_USER_CREATION.'_deactivated'),
+                -1,
+                $this->container->objectInfoProvider()->getGlobalRoles(),
+                $this->translator->txt(WorkflowConfig::F_USER_CREATION . '_role_info'),
                 $this->translator->txt(WorkflowConfig::F_USER_CREATION . '_info'),
             ),
 

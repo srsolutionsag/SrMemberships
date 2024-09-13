@@ -51,10 +51,12 @@ class ilSrMsStoreObjectConfigGUI extends ilSrMsAbstractWorkflowProcessorGUI
             $this->sendSuccessMessage($this->translator->txt('msg_object_config_stored'));
 
             // user creation allowed
-            $user_creation_allowed = (bool) $this->container->config()->byMatriculation()->get(
+            $user_creation = $this->container->config()->byMatriculation()->get(
                 WorkflowConfig::F_USER_CREATION,
-                false
+                -1
             );
+
+            $user_creation_allowed = $user_creation !== -1;
 
             // create missing accounts first
             if ($user_creation_allowed && $summary->getPersonsNotFound()->count() > 0) {
@@ -156,11 +158,17 @@ class ilSrMsStoreObjectConfigGUI extends ilSrMsAbstractWorkflowProcessorGUI
             return;
         }
 
+        $global_roles = (array) $this->container->config()->byMatriculation()->get(
+            WorkflowConfig::F_USER_CREATION,
+            -1
+        );
+
         $account_creator = new AccountCreator(
             $workflow_container,
             $context,
             $value,
-            false
+            false,
+            $global_roles
         );
 
         $account_creator->perform();

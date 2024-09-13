@@ -124,3 +124,12 @@ $ilDB->manipulateF(
     [16, 1]
 );
 ?>
+<#7>
+<?php
+// migrate other modes
+$ilDB->manipulateF(
+    "DELETE FROM srms_config WHERE namespace = %s AND config_key = %s",
+    ['text', 'text'],
+    ['by_matriculation', 'user_creation']
+);
+?>

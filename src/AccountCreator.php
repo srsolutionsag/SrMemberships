@@ -25,16 +25,24 @@ class AccountCreator
     private Context $context;
     private array $data;
     private bool $notify = false;
-    public function __construct(WorkflowContainer $workflow_container, Context $context, array $data, bool $notify = false)
+    public function __construct(
+        WorkflowContainer $workflow_container,
+        Context $context,
+        array $data,
+        bool $notify = false,
+        array $global_roles
+    )
     {
         $this->workflow_container = $workflow_container;
         $this->context = $context;
         $this->data = $data;
         $this->notify = $notify;
+        $this->global_roles = $global_roles;
     }
 
     public function perform(): AccountList
     {
+        global $DIC;
         $new_account = new AccountList();
 
         foreach ($this->data as $dataset) {
@@ -50,6 +58,10 @@ class AccountCreator
             $user->setActive(true);
             $user->create();
             $user->saveAsNew();
+
+            foreach ($this->global_roles as $global_role) {
+                $DIC->rbac()->admin()->assignUser($user->getId(), $global_role);
+            }
         }
 
         return $new_account;

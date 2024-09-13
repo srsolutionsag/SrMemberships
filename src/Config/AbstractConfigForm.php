@@ -110,7 +110,8 @@ abstract class AbstractConfigForm implements ConfigForm
         string $all_label,
         int $all_value,
         array $options,
-        string $byline = null
+        string $byline_select = null,
+        string $byline_all = null
     ): Group {
         $value = $this->config->get($config_key, null);
         $group_value = in_array($all_value, $value ?? [], true) ? self::GROUP_KEY_ALL : self::GROUP_KEY_SELECT;
@@ -136,7 +137,7 @@ abstract class AbstractConfigForm implements ConfigForm
         ];
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $factory
-            ->switchableGroup($group_fields, $label)
+            ->switchableGroup($group_fields, $label, $byline_all)
             ->withValue($group_value)
             ->withAdditionalTransformation(
                 $this->refinery->custom()->transformation(function ($value) use ($config_key, $all_value) {
