@@ -65,14 +65,16 @@ sync_remove_byline#:#Personen, die auf der Liste stehen, werden aus dem Kurs ode
 tab_config_index#:#Einstellungen
 user_creation#:#Benutzererstellung
 user_creation_create#:#Account anlegen
+user_creation_deactivated#:#Deaktiviert
 user_creation_email#:#E-Mail
 user_creation_ext_account#:#Externes Konto
 user_creation_firstname#:#Vorname
-user_creation_info#:#Wählen Sie, ob die Personen automatisch in ILIAS angelegt werden sollen, wenn sie nicht bereits vorhanden sind. Es muss mind. ein Accountname, Passwort und eine E-Mail-Adresse vorhanden sein.
+user_creation_info#:#Wählen Sie, ob die Personen automatisch in ILIAS angelegt werden sollen, wenn sie nicht bereits vorhanden sind. Es muss mind. ein Accountname, Passwort und eine E-Mail-Adresse vorhanden sein. Wählen Sie die globalen Rollen, die die erstellen Accounts erhalten sollen.
 user_creation_lastname#:#Nachname
 user_creation_login#:#Accountname
 user_creation_password#:#Passwort
 user_creation_prefill#:#Vorauswahl der Accountdaten
+user_creation_role_info#:#user_creation_role_info
 workflow_by_login#:#Nach Login
 workflow_by_matriculation#:#Nach Matrikelnummer
 workflow_by_role_sync#:#Nach Rollen
