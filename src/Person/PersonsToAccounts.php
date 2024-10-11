@@ -65,6 +65,11 @@ class PersonsToAccounts
 
     private function getUserID(Person $person): ?int
     {
+        $unique_identification = trim($person->getUniqueIdentification());
+        if ($unique_identification === "") {
+            return null;
+        }
+
         switch (true) {
             case ($person instanceof UserIdPerson):
                 return (int) $person->getUniqueIdentification();
