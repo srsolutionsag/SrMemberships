@@ -16,6 +16,7 @@ use srag\Plugins\SrMemberships\Translator;
 use Throwable;
 use srag\Plugins\SrMemberships\Person\Account\AccountList;
 use srag\Plugins\SrMemberships\Person\Persons\PersonList;
+use srag\Plugins\SrMemberships\Person\Account\Account;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -34,6 +35,8 @@ class Summary
 
     private int $status = self::OK;
     private ?string $additional_message = null;
+
+    private bool $show_which = false;
 
     private function __construct(
         private ?AccountList $accounts_added = null,
@@ -115,6 +118,15 @@ class Summary
         if ($this->accounts_added instanceof AccountList) {
             $placeholders = [$this->accounts_added->count()];
             $summary .= $this->buildStringWithPlaceholder('accounts_added', $placeholders) . "\n";
+            if ($this->show_which) {
+                $this->additional_message = implode(
+                    "\n",
+                    array_map(
+                        static fn (Account $account): int => $account->getUserId(),
+                        $this->accounts_added->getAccounts()
+                    )
+                );
+            }
         }
 
         if ($this->accounts_removed instanceof AccountList) {
@@ -125,13 +137,15 @@ class Summary
         if ($this->persons_not_found && $this->persons_not_found->count() > 0) {
             $placeholders = [$this->persons_not_found->count()];
             $summary .= $this->buildStringWithPlaceholder('persons_not_found', $placeholders) . "\n";
-            /*$this->additional_message = implode(
-                "\n",
-                array_map(
-                    static fn(Person $person): string => $person->getUniqueIdentification(),
-                    $this->persons_not_found->getPersons()
-                )
-            );*/
+            if ($this->show_which) {
+                $this->additional_message .= implode(
+                    "\n",
+                    array_map(
+                        static fn (Person $person): string => $person->getUniqueIdentification(),
+                        $this->persons_not_found->getPersons()
+                    )
+                );
+            }
         }
 
         return $summary . ($this->additional_message ?? '');

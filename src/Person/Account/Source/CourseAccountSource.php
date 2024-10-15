@@ -34,5 +34,7 @@ class CourseAccountSource implements AccountSource
     public function getRawEntries(): Generator
     {
         yield from $this->course_memberships->getMembers();
+        yield from $this->course_memberships->getTutors();
+        yield from $this->course_memberships->getAdmins();
     }
 }
