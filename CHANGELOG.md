@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 2.1.7
+- [FIX] Skip person if UniqueIdentification is an empty string
+- [FIX] global role assignment  for new users
+- [FEATURE] User Creation in Matriculation Workflow
+- [FIX] more type declarations
+
 ## Version 2.1.6
 
 - [FIX] Rector ILIAS 8 - code optimization and cleanup, no functional changes
