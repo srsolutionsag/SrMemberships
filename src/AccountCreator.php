@@ -24,15 +24,16 @@ class AccountCreator
     private WorkflowContainer $workflow_container;
     private Context $context;
     private array $data;
+    private array $global_roles;
     private bool $notify = false;
+
     public function __construct(
         WorkflowContainer $workflow_container,
         Context $context,
         array $data,
-        bool $notify = false,
-        array $global_roles
-    )
-    {
+        array $global_roles,
+        bool $notify = false
+    ) {
         $this->workflow_container = $workflow_container;
         $this->context = $context;
         $this->data = $data;

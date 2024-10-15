@@ -167,8 +167,8 @@ class ilSrMsStoreObjectConfigGUI extends ilSrMsAbstractWorkflowProcessorGUI
             $workflow_container,
             $context,
             $value,
-            false,
-            $global_roles
+            $global_roles,
+            false
         );
 
         $account_creator->perform();
