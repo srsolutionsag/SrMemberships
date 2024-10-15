@@ -34,5 +34,6 @@ class GroupAccountSource implements AccountSource
     public function getRawEntries(): Generator
     {
         yield from $this->group_members->getMembers();
+        yield from $this->group_members->getAdmins();
     }
 }

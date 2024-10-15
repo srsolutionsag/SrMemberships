@@ -21,18 +21,11 @@ use srag\Plugins\SrMemberships\Person\Account\Account;
  */
 trait GroupMembers
 {
-    /**
-     * @var int
-     */
-    private $group_ref_id;
-    /**
-     * @var \ilGroupParticipants
-     */
-    private $group_members;
-    /**
-     * @var int
-     */
-    private $member_role_id;
+    private int $group_ref_id;
+
+    private ilGroupParticipants $group_members;
+
+    private int $member_role_id;
 
     public function __construct(int $group_ref_id)
     {
@@ -43,6 +36,10 @@ trait GroupMembers
 
     protected function addToContainer(Account $account): void
     {
+        if ($this->group_members->isAssigned($account->getUserId())) {
+            return;
+        }
+
         $this->group_members->add(
             $account->getUserId(),
             $this->member_role_id
