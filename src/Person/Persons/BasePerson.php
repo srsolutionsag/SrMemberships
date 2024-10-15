@@ -15,22 +15,14 @@ namespace srag\Plugins\SrMemberships\Person\Persons;
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class LoginPerson extends BasePerson implements Person
+abstract class BasePerson implements Person
 {
-    public function __construct(
-        protected string $login,
-        ?array $attributes = []
-    ) {
-        parent::__construct($attributes);
+    public function __construct(protected ?array $attributes = [])
+    {
     }
 
-    public function getUniqueIdentification(): string
+    public function getAdditionalAttributes(): array
     {
-        return $this->login;
-    }
-
-    public function isAccountCreatable(): bool
-    {
-        return false;
+        return $this->attributes ?? [];
     }
 }

@@ -10,27 +10,23 @@
 
 declare(strict_types=1);
 
-namespace srag\Plugins\SrMemberships\Person\Persons;
+namespace srag\Plugins\SrMemberships\Action;
+
+use srag\Plugins\SrMemberships\Person\Account\AccountList;
+use srag\Plugins\SrMemberships\Person\Persons\PersonList;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class LoginPerson extends BasePerson implements Person
+class UserCreation implements Action
 {
-    public function __construct(
-        protected string $login,
-        ?array $attributes = []
-    ) {
-        parent::__construct($attributes);
+    public function performFor(AccountList $accounts): int
+    {
+        return 0;
     }
 
-    public function getUniqueIdentification(): string
+    public function createMissing(PersonList $persons): int
     {
-        return $this->login;
     }
 
-    public function isAccountCreatable(): bool
-    {
-        return false;
-    }
 }

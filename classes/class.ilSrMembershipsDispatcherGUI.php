@@ -11,7 +11,6 @@
 declare(strict_types=1);
 
 use srag\Plugins\SrMemberships\Container\Container;
-use srag\Plugins\SrMemberships\Container\Init;
 
 /**
  * @author            Fabian Schmid <fabian@sr.solutions>
@@ -48,9 +47,10 @@ class ilSrMembershipsDispatcherGUI
     public function __construct()
     {
         global $DIC;
+        global $srmembershipsContainer;
         $this->global_template = $DIC->ui()->mainTemplate();
         $this->ctrl = $DIC->ctrl();
-        $this->container = Init::init($DIC);
+        $this->container = $srmembershipsContainer;
     }
 
     public function executeCommand(): void

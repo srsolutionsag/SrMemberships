@@ -1,75 +1,80 @@
-handle_workflow_screen#:#Erweiterte Nutzerverwaltung
-msg_back_to#:#Zurück
-general_configuration#:#Allgemeine Einstellungen
-tab_config_index#:#Einstellungen
-workflow_by_role_sync#:#Nach Rollen
-enabled_workflows#:#Aktivierte Workflows
-enabled_workflows_info#:#Nach Aktivierung eines Workflows erscheint jeweils ein zusätzlicher Einstellungs-Subtab.
-selectable_global_roles#:#Wählbare globale Rollen
-selectable_global_roles#:#Wählbare globale Rollen
-selectable_global_roles_info#:#Nur die aktivierten Rollen können später durch die Nutzenden ausgewählt werden.
-selectable_local_roles#:#Wählbare lokale Rollen
-selectable_local_roles_info#:#Nur die aktivierten Rollen können später durch die Nutzenden ausgewählt werden.
-selectable_global_roles_all#:#Alle globalen Rollen
-select#:#Auswählen
-selectable_local_roles_all#:#Alle lokalen Rollen
-object_types#:#Anbieten in Objekttypen
-object_types_info#:#Die Funktion wird nur in den ausgewählten Objekttypen angeboten.
-object_type_crs#:#Kurse
-object_type_grp#:#Gruppen
-by_role_sync_role_selection#:#Rollen-Auswahl
-by_role_sync_role_selection_info#:#Wählen Sie die Rollen aus, die für die Synchronisation verwendet werden sollen. Personen, welche einer dieser Rollen zugewiesen sind, werden in den Kursen oder die Gruppen synchronisiert. Die Personen werden aber nicht ausgetragen, sollten sie die Rolle verlieren.
-by_role_sync_role_selection_header#:#Automatische Mitgliedersynchronisation
-store_object_config#:#Einstellungen speichern
-msg_object_config_stored#:#Einstellungen gespeichert
-offer_workflow_to#:#Workflow verfügbar für
-offer_workflow_to_info#:#Der Workflow wir nur den gewählten Personengruppen angeboten.
-offer_workflow_to_object_admins#:#Objekt-Administratoren (Personen mit dem Recht "Mitglieder verwalten" am Objekt)
-
-workflow_by_login#:#Nach Login
+accounts_added#:#Hinzufügte Konten: %s
+accounts_removed#:#Entfernte Konten: %s
+actions#:#Aktionen
+by_login_file_import#:#Dateiimport
+by_login_file_list_byline#:#Laden Sie hier eine Datei mit Logins hoch. Die Logins können dabei jeweils in einer neuen Zeile stehen oder durch folgende Trennzeichen getrennt sein: Komma, Semikolon, Tabulator. Bei CSV-Dateien müssen die relevanten Daten in der ersten Spalte sein.
 by_login_header#:#Import von Loginnamen
 by_login_source#:#Quelle
 by_login_text_list#:#Liste von Loginnamen
-by_login_file_import#:#Dateiimport
 by_login_text_list_byline#:#Fügen Sie hier eine Liste von Logins ein. Die Logins können dabei jeweils in einer neuen Zeile stehen oder durch folgende Trennzeichen getrennt sein: Komma, Semikolon, Tabulator.
-by_login_file_list_byline#:#Laden Sie hier eine Datei mit Logins hoch. Die Logins können dabei jeweils in einer neuen Zeile stehen oder durch folgende Trennzeichen getrennt sein: Komma, Semikolon, Tabulator. Bei CSV-Dateien müssen die relevanten Daten in der ersten Spalte sein.
-
-summary_ok#:#Zusammenfassung der durchgeführten Aktionen:
-summary_error#:#Bei der Bearbeitung der Personenliste ist ein Fehler aufgetreten:
-accounts_added#:#Hinzufügte Konten: %s
-accounts_removed#:#Entfernte Konten: %s
-persons_not_found#:#Konten nicht gefunden: %s
-msg_error_to_many_columns_in_csv#:#Zu viele Spalten im CSV, es werden nur Dateien mit einer Spalte unterstützt.
-
-workflow_by_matriculation#:#Nach Matrikelnummer
+by_matriculation_file_import#:#Dateiimport
+by_matriculation_file_list_byline#:#Laden Sie hier eine Datei mit Matrikelnummer hoch. Die Matrikelnummern können dabei jeweils in einer neuen Zeile stehen oder durch folgende Trennzeichen getrennt sein: Komma, Semikolon, Tabulator. Bei CSV-Dateien müssen die relevanten Daten in der ersten Spalte sein.
 by_matriculation_header#:#Import von Matrikelnummern
 by_matriculation_source#:#Quelle
-by_matriculation_text_list#:#Liste von Loginnamen
-by_matriculation_file_import#:#Dateiimport
+by_matriculation_text_list#:#Liste von Matrikelnummern
 by_matriculation_text_list_byline#:#Fügen Sie hier eine Liste von Matrikelnummern ein. Die Matrikelnummern können dabei jeweils in einer neuen Zeile stehen oder durch folgende Trennzeichen getrennt sein: Komma, Semikolon, Tabulator.
-by_matriculation_file_list_byline#:#Laden Sie hier eine Datei mit Matrikelnummer hoch. Die Matrikelnummern können dabei jeweils in einer neuen Zeile stehen oder durch folgende Trennzeichen getrennt sein: Komma, Semikolon, Tabulator. Bei CSV-Dateien müssen die relevanten Daten in der ersten Spalte sein.
-
-sync_modes#:#Synchronisationsmodus
-sync_mode#:#Wählen Sie das gewünschte Verhalten
-sync_missing_users#:#Fehlende Personen einschreiben
-sync_missing_users_byline#:#Die Personen werden in den Kurs oder die Gruppe eingeschrieben, wenn sie nicht bereits Mitglied sind.
-sync_bidirectional#:#Personenliste sichern
-sync_bidirectional_byline#:#Die Personen sind in den Kurs oder die Gruppe eingeschrieben, wenn sie nicht bereits Mitglied sind. Personen, die bereits Mitglied sind, aber nicht auf der Liste stehen, werden aus dem Kurs oder der Gruppe entfernt.
-sync_remove#:#Personen entfernen
-sync_remove_byline#:#Personen, die auf der Liste stehen, werden aus dem Kurs oder der Gruppe entfernt.
-
-run_modes#:#Verarbeitung
-run_mode#:#Wählen Sie die gewünschten Verarbeitungsvarianten für die Synchronisation
-run_on_save#:#Sofortiges Ausführen nach dem Speichern
-run_on_save_byline#:#Die Synchronisation wird sofort nach dem Speichern der Einstellungen durchgeführt.
-run_as_cronjob#:#Periodisch ausführen
-run_as_cronjob_byline#:#Die Synchronisierung wird periodisch durch einen Cronjob ausgeführt.
-
-msg_multiple_workflows_assigned#:#Es sind mehrere Workflows für dieses Objekt aktiviert. Bitte ebachten Sie, dass die Workflows sich gegenseitig beeinflussen können.
-remove_workflow#:#Workflow entfernen
-
-actions#:#Aktionen
+by_role_sync_role_selection#:#Rollen-Auswahl
+by_role_sync_role_selection_header#:#Automatische Mitgliedersynchronisation
+by_role_sync_role_selection_info#:#Wählen Sie die Rollen aus, die für die Synchronisation verwendet werden sollen. Personen, welche einer dieser Rollen zugewiesen sind, werden in den Kursen oder die Gruppen synchronisiert. Die Personen werden aber nicht ausgetragen, sollten sie die Rolle verlieren.
+enabled_workflows#:#Aktivierte Workflows
+enabled_workflows_info#:#Nach Aktivierung eines Workflows erscheint jeweils ein zusätzlicher Einstellungs-Subtab.
+ext_account#:#Externer Account
+general_configuration#:#Allgemeine Einstellungen
+handle_workflow_screen#:#Erweiterte Nutzerverwaltung
+login#:#Login-Name
 matching_field#:#Account-Feld für den Abgleich
 matching_field_byline#:#Wählen Sie das Feld, welches für den Abgleich verwendet werden soll. Die Felder "Login" und "Externer Account" können für den Abgleich verwendet werden. Im Falle von "Externer Account" ist zu beachten, dass dieses Feld nicht einmalig in ILIAS ist und es zu unerwarteten Ergebnissen kommen kann.
-login#:#Login-Name
-ext_account#:#Externer Account
+msg_back_to#:#Zurück
+msg_error_to_many_columns_in_csv#:#Zu viele Spalten im CSV, es werden nur Dateien mit einer Spalte unterstützt.
+msg_multiple_workflows_assigned#:#Es sind mehrere Workflows für dieses Objekt aktiviert. Bitte ebachten Sie, dass die Workflows sich gegenseitig beeinflussen können.
+msg_object_config_stored#:#Einstellungen gespeichert
+object_type_crs#:#Kurse
+object_type_grp#:#Gruppen
+object_types#:#Anbieten in Objekttypen
+object_types_info#:#Die Funktion wird nur in den ausgewählten Objekttypen angeboten.
+offer_workflow_to#:#Workflow verfügbar für
+offer_workflow_to_info#:#Der Workflow wir nur den gewählten Personengruppen angeboten.
+offer_workflow_to_object_admins#:#Objekt-Administratoren (Personen mit dem Recht "Mitglieder verwalten" am Objekt)
+persons_not_found#:#Konten nicht gefunden: %s
+remove_workflow#:#Workflow entfernen
+run_as_cronjob#:#Periodisch ausführen
+run_as_cronjob_byline#:#Die Synchronisierung wird periodisch durch einen Cronjob ausgeführt.
+run_mode#:#Wählen Sie die gewünschten Verarbeitungsvarianten für die Synchronisation
+run_modes#:#Verarbeitung
+run_on_save#:#Sofortiges Ausführen nach dem Speichern
+run_on_save_byline#:#Die Synchronisation wird sofort nach dem Speichern der Einstellungen durchgeführt.
+select#:#Auswählen
+selectable_global_roles#:#Wählbare globale Rollen
+selectable_global_roles#:#Wählbare globale Rollen
+selectable_global_roles_all#:#Alle globalen Rollen
+selectable_global_roles_info#:#Nur die aktivierten Rollen können später durch die Nutzenden ausgewählt werden.
+selectable_local_roles#:#Wählbare lokale Rollen
+selectable_local_roles_all#:#Alle lokalen Rollen
+selectable_local_roles_info#:#Nur die aktivierten Rollen können später durch die Nutzenden ausgewählt werden.
+store_object_config#:#Einstellungen speichern
+summary_error#:#Bei der Bearbeitung der Personenliste ist ein Fehler aufgetreten:
+summary_ok#:#Zusammenfassung der durchgeführten Aktionen:
+sync_bidirectional#:#Personenliste sichern
+sync_bidirectional_byline#:#Die Personen sind in den Kurs oder die Gruppe eingeschrieben, wenn sie nicht bereits Mitglied sind. Personen, die bereits Mitglied sind, aber nicht auf der Liste stehen, werden aus dem Kurs oder der Gruppe entfernt.
+sync_missing_users#:#Fehlende Personen einschreiben
+sync_missing_users_byline#:#Die Personen werden in den Kurs oder die Gruppe eingeschrieben, wenn sie nicht bereits Mitglied sind.
+sync_mode#:#Wählen Sie das gewünschte Verhalten
+sync_modes#:#Synchronisationsmodus
+sync_remove#:#Personen entfernen
+sync_remove_byline#:#Personen, die auf der Liste stehen, werden aus dem Kurs oder der Gruppe entfernt.
+tab_config_index#:#Einstellungen
+user_creation#:#Benutzererstellung
+user_creation_create#:#Account anlegen
+user_creation_deactivated#:#Deaktiviert
+user_creation_email#:#E-Mail
+user_creation_ext_account#:#Externes Konto
+user_creation_firstname#:#Vorname
+user_creation_info#:#Wählen Sie, ob die Personen automatisch in ILIAS angelegt werden sollen, wenn sie nicht bereits vorhanden sind. Es muss mind. ein Accountname, Passwort und eine E-Mail-Adresse vorhanden sein. Wählen Sie die globalen Rollen, die die erstellen Accounts erhalten sollen.
+user_creation_lastname#:#Nachname
+user_creation_login#:#Accountname
+user_creation_password#:#Passwort
+user_creation_prefill#:#Vorauswahl der Accountdaten
+user_creation_role_info#:#user_creation_role_info
+workflow_by_login#:#Nach Login
+workflow_by_matriculation#:#Nach Matrikelnummer
+workflow_by_role_sync#:#Nach Rollen

@@ -20,4 +20,5 @@ use srag\Plugins\SrMemberships\Person\Account\AccountList;
 interface Action
 {
     public function performFor(AccountList $accounts): int;
+
 }

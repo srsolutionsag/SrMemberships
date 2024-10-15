@@ -65,11 +65,11 @@ trait StringSanitizer
             $string
         );
 
-        return htmlspecialchars(
+        return trim(htmlspecialchars(
             strip_tags($string),
             ENT_QUOTES,
             'UTF-8',
             false
-        );
+        ));
     }
 }

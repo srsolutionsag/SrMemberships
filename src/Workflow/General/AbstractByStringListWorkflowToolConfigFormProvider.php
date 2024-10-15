@@ -57,7 +57,7 @@ abstract class AbstractByStringListWorkflowToolConfigFormProvider implements Too
             $this->workflow_container
         );
 
-        $type = $object_config[self::F_TYPE] ?? self::TYPE_TEXT;
+        $type = empty($object_config[self::F_TYPE]) ? self::TYPE_TEXT : $object_config[self::F_TYPE];
         $file_list = $object_config[self::F_CONTENT][self::F_FILE_LIST] ?? [];
         $text_list = $object_config[self::F_CONTENT][self::F_TEXT_LIST] ?? '';
         /** @noinspection PhpIncompatibleReturnTypeInspection */

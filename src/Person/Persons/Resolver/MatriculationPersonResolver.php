@@ -25,7 +25,7 @@ class MatriculationPersonResolver implements PersonResolver
     {
         $persons = [];
         foreach ($source->getRawEntries() as $item) {
-            $persons[] = new MatriculationPerson($item);
+            $persons[] = new MatriculationPerson($item->getIdentifier(), $item->getAttributes());
         }
 
         return new PersonList($persons);

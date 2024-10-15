@@ -19,6 +19,7 @@ use srag\Plugins\SrMemberships\Workflow\ByRoleSync\ByRoleSyncWorkflowToolConfigF
 use srag\Plugins\SrMemberships\Action\Summary;
 use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
 use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
+use srag\Plugins\SrMemberships\Person\Persons\PersonList;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>

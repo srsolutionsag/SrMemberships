@@ -46,7 +46,7 @@ class Form extends BaseForm
             $this->context->getCurrentRefId(),
             $this->workflow_container
         );
-        $selected_modes = $selected_modes ?: new RunModes();
+        $selected_modes = $selected_modes ?: new RunModes(RunModes::runOnSave());
         $multi_select = $multi_select->withValue(
             $selected_modes->__toArray()
         );

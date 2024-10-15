@@ -38,7 +38,7 @@ class ByRoleSyncWorkflowToolConfigFormProvider implements ToolConfigFormProvider
     private Factory $ui_factory;
 
     public function __construct(
-        private Container $container,
+        private readonly Container $container,
         WorkflowContainer $workflow_container
     ) {
         $this->config = $workflow_container->getConfig();

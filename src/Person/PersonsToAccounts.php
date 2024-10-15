@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Person;
 
-use ilDBInterface;
 use ilObjUser;
 use InvalidArgumentException;
 use srag\Plugins\SrMemberships\Person\Account\ILIASAccount;
@@ -29,6 +28,8 @@ use srag\Plugins\SrMemberships\Person\Persons\ExtAccountPerson;
  */
 class PersonsToAccounts
 {
+    private const MIN_USR_ID = 13;
+
     public function __construct(protected \ilDBInterface $db)
     {
     }
@@ -48,8 +49,25 @@ class PersonsToAccounts
         return $account_list;
     }
 
+    public function filterFound(PersonList $person_list): PersonList
+    {
+        foreach ($person_list->getPersons() as $person) {
+            $user_id = $this->getUserID($person);
+            if ($user_id !== null) {
+                $person_list->removePerson($person);
+            }
+        }
+
+        return $person_list;
+    }
+
     private function getUserID(Person $person): ?int
     {
+        $unique_identification = trim($person->getUniqueIdentification());
+        if ($unique_identification === "") {
+            return null;
+        }
+
         switch (true) {
             case ($person instanceof UserIdPerson):
                 return (int) $person->getUniqueIdentification();
@@ -65,14 +83,15 @@ class PersonsToAccounts
                 $result = $this->db->fetchAssoc($result);
 
                 if ($result !== null && $result !== []) {
-                    return (int) $result["usr_id"];
+                    $usr_id = (int) ($result["usr_id"] ?? 0);
+                    return $usr_id > self::MIN_USR_ID ? $usr_id : null;
                 }
                 return null;
             case ($person instanceof LoginPerson):
                 $login = $person->getUniqueIdentification();
                 $looked_up_id = (int) ilObjUser::_lookupId($login);
 
-                return $looked_up_id > 0 ? $looked_up_id : null;
+                return $looked_up_id > self::MIN_USR_ID ? $looked_up_id : null;
             case ($person instanceof MatriculationPerson):
                 $matriculation = $person->getUniqueIdentification();
 
@@ -84,7 +103,8 @@ class PersonsToAccounts
                 $result = $this->db->fetchAssoc($result);
 
                 if ($result !== null && $result !== []) {
-                    return (int) $result["usr_id"];
+                    $usr_id = (int) ($result["usr_id"] ?? 0);
+                    return $usr_id > self::MIN_USR_ID ? $usr_id : null;
                 }
                 return null;
             default:

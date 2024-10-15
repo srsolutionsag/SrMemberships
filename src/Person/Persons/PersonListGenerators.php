@@ -20,6 +20,7 @@ use srag\Plugins\SrMemberships\Person\Persons\Source\StringPersonSource;
 use srag\Plugins\SrMemberships\Person\Persons\Source\ArrayPersonSource;
 use srag\Plugins\SrMemberships\Person\Persons\Resolver\MatriculationPersonResolver;
 use srag\Plugins\SrMemberships\Person\Persons\Resolver\ExtAccountPersonResolver;
+use srag\Plugins\SrMemberships\Person\Persons\Source\RawPerson;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -40,7 +41,7 @@ class PersonListGenerators
     public function byLogins(array $logins): PersonList
     {
         return (new LoginPersonResolver())->resolveFor(
-            new ArrayPersonSource($logins)
+            new ArrayPersonSource(array_map(static fn(string $login): RawPerson => new RawPerson($login), $logins))
         );
     }
 

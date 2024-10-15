@@ -14,7 +14,6 @@ namespace srag\Plugins\SrMemberships;
 
 use Closure;
 use ILIAS\Refinery\Transformation;
-use srag\Plugins\SrMemberships\Container\Init;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -23,7 +22,8 @@ trait TrafoGenerator
 {
     public function trafo(Closure $closure): Transformation
     {
-        $container = Init::init($GLOBALS['DIC']);
+        global $srmembershipsContainer;
+        $container = $srmembershipsContainer;
         $refinery = $container->dic()->refinery();
 
         return $refinery->custom()->transformation($closure);

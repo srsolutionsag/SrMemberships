@@ -25,7 +25,6 @@ class ActionBuilder
      * @readonly
      */
     private ObjectInfoProvider $object_info;
-
     public function __construct(protected Container $container)
     {
         $this->object_info = $this->container->objectInfoProvider();

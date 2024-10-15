@@ -37,7 +37,7 @@ abstract class AbstractByStringActionHandler extends BaseActionHandler
         $this->irss = $container->dic()->resourceStorage();
     }
 
-    abstract protected function getPersonList(string $text, ?string $original_mime_type = null): PersonList;
+    abstract public function getPersonList(string $text, ?string $original_mime_type = null): PersonList;
 
     public function performActions(
         WorkflowContainer $workflow_container,
@@ -52,12 +52,49 @@ abstract class AbstractByStringActionHandler extends BaseActionHandler
             return $summary;
         }
 
+        $raw_data = $this->getRawData($workflow_container, $context);
+        $strings = $raw_data['strings'];
+        $mime_type = $raw_data['mime_type'];
+
+        try {
+            $person_list = $this->getPersonList($strings, $mime_type);
+        } catch (InvalidArgumentException $e) {
+            return Summary::throwable($e);
+        }
+
+        $account_list = $this->persons_to_accounts->translate($person_list, true);
+        // $person_list now contains only the persons that could not be translated
+
+        return $this->generalHandling(
+            $context,
+            $account_list,
+            $person_list,
+            $sync_modes
+        );
+    }
+
+    public function getNotFoundPersonsList(
+        WorkflowContainer $workflow_container,
+        Context $context
+    ): PersonList {
+        $raw_data = $this->getRawData($workflow_container, $context);
+        $strings = $raw_data['strings'];
+        $mime_type = $raw_data['mime_type'];
+
+        return $this->persons_to_accounts->filterFound($this->getPersonList($strings, $mime_type));
+    }
+
+    public function getRawData(
+        WorkflowContainer $workflow_container,
+        Context $context
+    ): array {
         $object_config = $this->container->toolObjectConfigRepository()->get(
             $context->getCurrentRefId(),
             $workflow_container
         );
 
         $type = $object_config['type'] ?? null;
+        $strings = '';
         switch ($type) {
             case 'text':
                 $mime_type = null;
@@ -80,19 +117,10 @@ abstract class AbstractByStringActionHandler extends BaseActionHandler
                 $strings = '';
         }
 
-        try {
-            $person_list = $this->getPersonList($strings, $mime_type);
-        } catch (InvalidArgumentException $e) {
-            return Summary::throwable($e);
-        }
-
-        $account_list = $this->persons_to_accounts->translate($person_list, true);
-
-        return $this->generalHandling(
-            $context,
-            $account_list,
-            $person_list,
-            $sync_modes
-        );
+        return [
+            'strings' => $strings,
+            'mime_type' => $mime_type
+        ];
     }
+
 }

@@ -14,7 +14,6 @@ use ILIAS\FileUpload\Handler\FileInfoResult;
 use ILIAS\FileUpload\Handler\HandlerResult;
 use ILIAS\FileUpload\Handler\BasicHandlerResult;
 use ILIAS\FileUpload\Handler\BasicFileInfoResult;
-use srag\Plugins\SrMemberships\Container\Init;
 
 /**
  * @ilCtrl_IsCalledBy ilSrMsGeneralUploadHandlerGUI: ilUIPluginRouterGUI
@@ -34,8 +33,7 @@ class ilSrMsGeneralUploadHandlerGUI extends AbstractCtrlAwareUploadHandler
     {
         global $DIC;
         parent::__construct();
-        $container = Init::init($DIC);
-        $this->irss = $container->dic()->resourceStorage();
+        $this->irss = $DIC->resourceStorage();
         $this->stakeholder = new ilSrMsStakeholder();
     }
 

@@ -44,6 +44,24 @@ abstract class BaseActionHandler implements ActionHandler
         $this->action_builder = new ActionBuilder($this->container);
     }
 
+    public function newUser(array $data): \ilObjUser
+    {
+        return new \ilObjUser();
+    }
+
+    public function getNotFoundPersonsList(WorkflowContainer $workflow_container, Context $context): PersonList
+    {
+        return new PersonList(); //???
+    }
+
+
+    public function getRawData(
+        WorkflowContainer $workflow_container,
+        Context $context
+    ): array {
+        return [];
+    }
+
     protected function generalHandling(
         Context $context,
         AccountList $account_list,
@@ -64,7 +82,7 @@ abstract class BaseActionHandler implements ActionHandler
                 $this->action_builder->subscribe($context->getCurrentRefId())
                                      ->performFor($missing_account_list);
 
-                return Summary::from($missing_account_list);
+                return Summary::from($missing_account_list, null, $not_found_persons);
             case SyncModes::SYNC_BIDIRECTIONAL:
                 // Subscribe members that are not already subscribed
                 $missing_account_list = $this->account_list_generators->diff($account_list, $current_members);

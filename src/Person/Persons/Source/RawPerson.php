@@ -12,27 +12,30 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Person\Persons\Source;
 
-use Generator;
 use srag\Plugins\SrMemberships\StringSanitizer;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class ArrayPersonSource implements PersonSource
+class RawPerson implements \Stringable
 {
     use StringSanitizer;
-
-    /**
-     * @param RawPerson[] $items
-     */
-    public function __construct(private array $items)
-    {
+    public function __construct(
+        private string $identifier,
+        private array $attributes = []
+    ) {
+        $this->identifier = $this->sanitize($this->identifier);
     }
-
-    public function getRawEntries(): Generator
+    public function __toString(): string
     {
-        foreach ($this->items as $item) {
-            yield $item; //trim($this->sanitize((string) $item));
-        }
+        return $this->identifier;
+    }
+    public function getIdentifier(): string
+    {
+        return $this->identifier;
+    }
+    public function getAttributes(): array
+    {
+        return $this->attributes;
     }
 }

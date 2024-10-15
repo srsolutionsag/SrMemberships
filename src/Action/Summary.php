@@ -14,10 +14,8 @@ namespace srag\Plugins\SrMemberships\Action;
 
 use srag\Plugins\SrMemberships\Translator;
 use Throwable;
-use srag\Plugins\SrMemberships\Container\Init;
 use srag\Plugins\SrMemberships\Person\Account\AccountList;
 use srag\Plugins\SrMemberships\Person\Persons\PersonList;
-use srag\Plugins\SrMemberships\Person\Persons\Person;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -42,8 +40,13 @@ class Summary
         private ?AccountList $accounts_removed = null,
         private ?PersonList $persons_not_found = null
     ) {
-        $container = Init::init($GLOBALS['DIC']);
-        $this->translator = $container->translator();
+        global $srmembershipsContainer;
+        $this->translator = $srmembershipsContainer->translator();
+    }
+
+    public function getPersonsNotFound(): PersonList
+    {
+        return $this->persons_not_found ?? new PersonList();
     }
 
     public static function empty(): self
@@ -61,8 +64,9 @@ class Summary
 
     public static function throwable(Throwable $t): self
     {
+        global $srmembershipsContainer;
         $txt_key = $t->getMessage();
-        $container = Init::init($GLOBALS['DIC']);
+        $container = $srmembershipsContainer;
 
         return self::error($container->translator()->txt($txt_key));
     }
@@ -121,13 +125,13 @@ class Summary
         if ($this->persons_not_found && $this->persons_not_found->count() > 0) {
             $placeholders = [$this->persons_not_found->count()];
             $summary .= $this->buildStringWithPlaceholder('persons_not_found', $placeholders) . "\n";
-            $this->additional_message = implode(
+            /*$this->additional_message = implode(
                 "\n",
                 array_map(
                     static fn(Person $person): string => $person->getUniqueIdentification(),
                     $this->persons_not_found->getPersons()
                 )
-            );
+            );*/
         }
 
         return $summary . ($this->additional_message ?? '');
@@ -141,6 +145,11 @@ class Summary
     public function isOK(): bool
     {
         return $this->status === self::OK;
+    }
+
+    public function isNOK(): bool
+    {
+        return $this->status !== self::OK;
     }
 
     protected function buildStringWithPlaceholder(string $message_key, array $placeholders): string

@@ -30,7 +30,7 @@ class PackedValue
      */
     private int $type;
 
-    public function __construct(private ?string $packed_value, int $type)
+    public function __construct(private readonly ?string $packed_value, int $type)
     {
         // Check Type
         $this->checkType($type);

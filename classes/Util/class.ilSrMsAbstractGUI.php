@@ -18,7 +18,6 @@ use ILIAS\Refinery\Factory as Refinery;
 use ILIAS\UI\Component\Component;
 use ILIAS\UI\Renderer;
 use ILIAS\UI\Factory;
-use srag\Plugins\SrMemberships\Container\Init;
 
 /**
  * This is an abstraction for ILIAS command-class implementations.
@@ -127,6 +126,7 @@ abstract class ilSrMsAbstractGUI
     public function __construct()
     {
         global $DIC;
+        global $srmembershipsContainer;
 
         $this->global_template = $DIC->ui()->mainTemplate();
         $this->ui_factory = $DIC->ui()->factory();
@@ -137,7 +137,7 @@ abstract class ilSrMsAbstractGUI
         $this->user = $DIC->user();
         $this->database = $DIC->database();
 
-        $this->container = Init::init($DIC);
+        $this->container = $srmembershipsContainer;
         $this->access_handler = $this->container->accessHandler();
         $this->translator = $this->container->translator();
         $this->tab_manager = $this->container->tabManager();
@@ -236,9 +236,9 @@ abstract class ilSrMsAbstractGUI
     /**
      * Renders a given UI component to the current page (global template).
      *
-     * @param Component $component
+     * @param Component|Component[] $component
      */
-    protected function render(Component $component): void
+    protected function render($component): void
     {
         $this->global_template->setContent(
             $this->renderer->render($component)

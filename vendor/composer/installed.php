@@ -3,11 +3,11 @@
         'name' => 'srsolutions/srmemberships',
         'pretty_version' => 'dev-release_9',
         'version' => 'dev-release_9',
-        'reference' => '9b6b851c570b80a55583f13962b3752c713e68c3',
+        'reference' => '2514bce3186665514624e001db3c96de307bd096',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'dev' => true,
+        'dev' => false,
     ),
     'versions' => array(
         'ezyang/htmlpurifier' => array(
@@ -103,7 +103,7 @@
         'srsolutions/srmemberships' => array(
             'pretty_version' => 'dev-release_9',
             'version' => 'dev-release_9',
-            'reference' => '9b6b851c570b80a55583f13962b3752c713e68c3',
+            'reference' => '2514bce3186665514624e001db3c96de307bd096',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

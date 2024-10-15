@@ -15,13 +15,17 @@ namespace srag\Plugins\SrMemberships\Person\Persons;
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class EmailPerson implements CreatablePerson
+class EmailPerson extends BasePerson implements CreatablePerson
 {
     protected string $login;
 
-    public function __construct(protected string $email, ?string $login = null)
-    {
+    public function __construct(
+        protected string $email,
+        ?string $login = null,
+        ?array $attributes = []
+    ) {
         $this->login = $login ?? $this->email;
+        parent::__construct($attributes);
     }
 
     public function getUniqueIdentification(): string

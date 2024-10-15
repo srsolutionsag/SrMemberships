@@ -19,5 +19,8 @@ use Generator;
  */
 interface PersonSource
 {
+    /**
+     * @return Generator|RawPerson[]
+     */
     public function getRawEntries(): Generator;
 }

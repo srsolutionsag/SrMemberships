@@ -15,10 +15,13 @@ namespace srag\Plugins\SrMemberships\Person\Persons;
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class MatriculationPerson implements Person
+class MatriculationPerson extends BasePerson implements Person
 {
-    public function __construct(protected string $matriculation)
-    {
+    public function __construct(
+        protected string $matriculation,
+        ?array $attributes = []
+    ) {
+        parent::__construct($attributes);
     }
 
     public function getUniqueIdentification(): string

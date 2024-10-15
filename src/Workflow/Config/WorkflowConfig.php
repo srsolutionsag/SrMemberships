@@ -20,6 +20,7 @@ use srag\Plugins\SrMemberships\Config\Config;
 interface WorkflowConfig extends Config
 {
     public const F_OBJECT_TYPES = 'object_types';
+    public const F_USER_CREATION = 'user_creation';
 
     public function getActivatedForTypes(): array;
 }

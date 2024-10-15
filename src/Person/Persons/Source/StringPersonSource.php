@@ -44,7 +44,7 @@ class StringPersonSource implements PersonSource
         "\t",
     ];
 
-    public function __construct(private string $list, private ?string $original_mime_type = null)
+    public function __construct(private readonly string $list, private ?string $original_mime_type = null)
     {
     }
 
@@ -67,7 +67,7 @@ class StringPersonSource implements PersonSource
         $items = [];
         foreach ($lines as $line) {
             $line = str_getcsv($line, $separator);
-            $items[] = $line[0];
+            $items[] = new RawPerson($line[0], $line);
         }
         $array_person_source = new ArrayPersonSource($items);
         yield from $array_person_source->getRawEntries();
@@ -128,7 +128,7 @@ class StringPersonSource implements PersonSource
         if (count($items) === 1 && $items[0] === '') {
             throw new InvalidArgumentException('No items found in list');
         }
-        $array_person_source = new ArrayPersonSource($items);
+        $array_person_source = new ArrayPersonSource(array_map(fn($item): RawPerson => new RawPerson($item), $items));
         yield from $array_person_source->getRawEntries();
     }
 
@@ -138,6 +138,7 @@ class StringPersonSource implements PersonSource
 
         $worksheet = $spreadsheet->getActiveSheet();
         $highestRow = $worksheet->getHighestRow();
+        $highestColumn = $worksheet->getHighestColumn();
 
         $items = [];
         for ($row = 2; $row <= $highestRow; ++$row) {
@@ -148,11 +149,15 @@ class StringPersonSource implements PersonSource
                 $col++;
                 $cell = $worksheet->getCell([$col, $row]);
             }
-            $maxCol = $col + 1;
+            $maxCol = $col + 0;
+            // current row as array
+            $currentRow = $worksheet->rangeToArray("A$row:$highestColumn" . (string) $row, null, true, true)[0];
             for (; $col <= $maxCol; ++$col) {
                 $value = $worksheet->getCell([$col, $row])->getValue();
                 if ($value !== null && $value !== '') {
-                    $items[] = $value;
+                    // remove first element of $currentRow
+                    array_shift($currentRow);
+                    $items[] = new RawPerson((string) $value, $currentRow);
                 }
             }
         }

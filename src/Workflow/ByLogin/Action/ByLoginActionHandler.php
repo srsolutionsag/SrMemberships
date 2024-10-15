@@ -22,7 +22,7 @@ use srag\Plugins\SrMemberships\Workflow\ByLogin\Config\ByLoginConfig;
  */
 class ByLoginActionHandler extends AbstractByStringActionHandler
 {
-    protected function getPersonList(string $text, ?string $original_mime_type = null): PersonList
+    public function getPersonList(string $text, ?string $original_mime_type = null): PersonList
     {
         return match ($this->container->config()->byLogin()->get(ByLoginConfig::F_MATCHING_FIELD)) {
             ByLoginConfig::MATCHING_FIELD_LOGIN => $this->person_list_generators->byLoginsFromString(

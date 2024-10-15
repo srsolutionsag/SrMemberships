@@ -11,9 +11,6 @@
 use srag\Plugins\SrMemberships\Provider\Tool\CollectedMainBarProvider;
 use srag\Plugins\SrMemberships\Container\Init;
 
-/** @noRector */
-require_once(__DIR__ . '/../vendor/autoload.php');
-
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
@@ -26,25 +23,27 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
         ilComponentRepositoryWrite $component_repository,
         string $id
     ) {
+        global $srmembershipsContainer;
         parent::__construct($db, $component_repository, $id);
-        $this->init(); // we must double init the plugin to have provider_collection available
+        $GLOBALS['srmembershipsContainer'] = $srmembershipsContainer = Init::init($this, $this->getLanguageHandler());
+        $this->afterInit(); // we must double init the plugin to have provider_collection available
     }
 
-    protected function init(): void
+    protected function afterInit(): void
     {
         global $DIC;
+        global $srmembershipsContainer;
         if ($this->provider_collection === null) {
             return;
         }
         if (isset($DIC['global_screen']) && $this->isActive()) {
-            $container = Init::init($DIC, $this);
-            $dynamic_tool_provider = new CollectedMainBarProvider($container->dic(), $container->plugin());
-            $dynamic_tool_provider->init($container);
+            $dynamic_tool_provider = new CollectedMainBarProvider($srmembershipsContainer->dic(), $srmembershipsContainer->plugin());
+            $dynamic_tool_provider->init($srmembershipsContainer);
 
             $this->provider_collection->setToolProvider($dynamic_tool_provider);
 
             // Put form labels to 100% width
-            $container->dic()->globalScreen()->layout()->meta()->addInlineCss(
+            $srmembershipsContainer->dic()->globalScreen()->layout()->meta()->addInlineCss(
                 '.il-maincontrols-slate-content .il-standard-form .col-sm-2, .il-maincontrols-slate-content .il-standard-form .col-sm-4 { width:100%; text-align:left; }'
                 . '.il-maincontrols-slate-content .il-standard-form .col-sm-8 { width:100%; }'
                 . '.il-maincontrols-slate-content .il-standard-form li, .il-maincontrols-slate-content .il-standard-form .il-input-radiooption { padding: 5px 0px !important; }'
@@ -89,7 +88,8 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
     protected function afterUninstall(): void
     {
         global $DIC;
-        $container = Init::init($DIC, $this);
+        global $srmembershipsContainer;
+        $container = $srmembershipsContainer;
         $container->dic()->database()->dropTable('srms_config', false);
         $container->dic()->database()->dropTable('srms_object_config', false);
         $container->dic()->database()->dropTable('srms_object_mode', false);

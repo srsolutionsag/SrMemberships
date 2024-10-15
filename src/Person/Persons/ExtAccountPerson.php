@@ -15,10 +15,13 @@ namespace srag\Plugins\SrMemberships\Person\Persons;
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class ExtAccountPerson implements Person
+class ExtAccountPerson extends BasePerson implements Person
 {
-    public function __construct(protected string $ext_account)
-    {
+    public function __construct(
+        protected string $ext_account,
+        ?array $attributes = []
+    ) {
+        parent::__construct($attributes);
     }
 
     public function getUniqueIdentification(): string

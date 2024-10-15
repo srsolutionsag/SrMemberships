@@ -9,7 +9,6 @@
  *********************************************************************/
 
 use srag\Plugins\SrMemberships\Config\AbstractConfigForm;
-use srag\Plugins\SrMemberships\Container\Init;
 use srag\Plugins\SrMemberships\Config\Configs;
 use srag\Plugins\SrMemberships\Container\Container;
 
@@ -37,8 +36,8 @@ abstract class ilSrMsBaseConfigurationGUI extends ilSrMsAbstractGUI
     protected function container(): Container
     {
         if (!$this->container instanceof Container) {
-            global $DIC;
-            return Init::init($DIC);
+            global $srmembershipsContainer;
+            return $srmembershipsContainer;
         }
         return $this->container;
     }
