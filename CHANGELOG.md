@@ -1,10 +1,14 @@
 # Changelog
 
-## Version 3.0.0
-
-- [FEATURE] ILIAS 9 Support
+## Version 3.0.1
+- [FIX] Skip person if UniqueIdentification is an empty string
+- [FIX] global role assignment  for new users
+- [FEATURE] User Creation in Matriculation Workflow
 - [FIX] more type declarations
 
+## Version 3.0.0
+- [FEATURE] ILIAS 9 Support
+- [FIX] more type declarations
 
 ## Version 2.1.6
 
