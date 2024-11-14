@@ -129,7 +129,7 @@ abstract class AbstractConfigForm implements ConfigForm
             ),
             self::GROUP_KEY_SELECT => $factory->group(
                 [
-                    $factory->multiSelect($label, $options, $byline)
+                    $factory->multiSelect($label, $options, $byline_select)
                             ->withValue($group_value === self::GROUP_KEY_SELECT ? $value : null)
                 ],
                 $this->translator->txt(self::GROUP_KEY_SELECT)
