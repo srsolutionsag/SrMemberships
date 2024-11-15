@@ -12,11 +12,13 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Action;
 
+use srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider;
 use srag\Plugins\SrMemberships\Translator;
 use Throwable;
 use srag\Plugins\SrMemberships\Person\Account\AccountList;
 use srag\Plugins\SrMemberships\Person\Persons\PersonList;
 use srag\Plugins\SrMemberships\Person\Account\Account;
+use srag\Plugins\SrMemberships\Person\Persons\Person;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -36,7 +38,13 @@ class Summary
     private int $status = self::OK;
     private ?string $additional_message = null;
 
-    private bool $show_which = false;
+    private bool $show_which_added = false;
+    private bool $show_which_removed = false;
+    private bool $show_which_not_found = false;
+    /**
+     * @readonly
+     */
+    private ObjectInfoProvider $info;
 
     private function __construct(
         private ?AccountList $accounts_added = null,
@@ -45,6 +53,7 @@ class Summary
     ) {
         global $srmembershipsContainer;
         $this->translator = $srmembershipsContainer->translator();
+        $this->info = $srmembershipsContainer->objectInfoProvider();
     }
 
     public function getPersonsNotFound(): PersonList
@@ -118,11 +127,11 @@ class Summary
         if ($this->accounts_added instanceof AccountList) {
             $placeholders = [$this->accounts_added->count()];
             $summary .= $this->buildStringWithPlaceholder('accounts_added', $placeholders) . "\n";
-            if ($this->show_which) {
+            if ($this->show_which_added) {
                 $this->additional_message = implode(
                     "\n",
                     array_map(
-                        static fn (Account $account): int => $account->getUserId(),
+                        fn (Account $account): string => $this->info->getUserLogin($account->getUserId()),
                         $this->accounts_added->getAccounts()
                     )
                 );
@@ -132,12 +141,22 @@ class Summary
         if ($this->accounts_removed instanceof AccountList) {
             $placeholders = [$this->accounts_removed->count()];
             $summary .= $this->buildStringWithPlaceholder('accounts_removed', $placeholders) . "\n";
+            if ($this->show_which_removed) {
+                $this->additional_message = implode(
+                    "\n",
+                    array_map(
+                        fn (Account $account): string => $this->info->getUserLogin($account->getUserId()),
+                        $this->accounts_removed->getAccounts()
+                    )
+                );
+            }
+
         }
 
         if ($this->persons_not_found && $this->persons_not_found->count() > 0) {
             $placeholders = [$this->persons_not_found->count()];
             $summary .= $this->buildStringWithPlaceholder('persons_not_found', $placeholders) . "\n";
-            if ($this->show_which) {
+            if ($this->show_which_not_found) {
                 $this->additional_message .= implode(
                     "\n",
                     array_map(
@@ -169,5 +188,23 @@ class Summary
     protected function buildStringWithPlaceholder(string $message_key, array $placeholders): string
     {
         return sprintf($this->translator->txt($message_key), ...$placeholders);
+    }
+
+    public function showWhichAdded(bool $status): self
+    {
+        $this->show_which_added = $status;
+        return $this;
+    }
+
+    public function showWhichRemoved(bool $status): self
+    {
+        $this->show_which_removed = $status;
+        return $this;
+    }
+
+    public function showWhichNotFound(bool $status): self
+    {
+        $this->show_which_not_found = $status;
+        return $this;
     }
 }

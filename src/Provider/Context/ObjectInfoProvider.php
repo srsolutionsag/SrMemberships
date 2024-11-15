@@ -37,8 +37,12 @@ class ObjectInfoProvider
      */
     private array $valid_parent_types = ['crs', 'grp', 'root', 'cat'];
 
-    public function __construct(private readonly \ilTree $tree, private readonly \ilCtrl $ctrl, private readonly ServerRequestInterface $request, private readonly \ilRbacReview $rbacreview)
-    {
+    public function __construct(
+        private readonly \ilTree $tree,
+        private readonly \ilCtrl $ctrl,
+        private readonly ServerRequestInterface $request,
+        private readonly \ilRbacReview $rbacreview
+    ) {
     }
 
     public function getType(int $ref_id): string
@@ -134,5 +138,10 @@ class ObjectInfoProvider
         }
 
         return $roles;
+    }
+
+    public function getUserLogin(int $usr_id): ?string
+    {
+        return \ilObjUser::_lookupLogin($usr_id);
     }
 }
