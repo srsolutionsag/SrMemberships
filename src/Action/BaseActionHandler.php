@@ -84,7 +84,7 @@ abstract class BaseActionHandler implements ActionHandler
                 $this->action_builder->subscribe($context->getCurrentRefId())
                                      ->performFor($missing_account_list);
 
-                return Summary::from($missing_account_list, null, $not_found_persons);
+                return Summary::from($missing_account_list, null, $not_found_persons)->showWhichNotFound(true);
             case SyncModes::SYNC_BIDIRECTIONAL:
                 // Subscribe members that are not already subscribed
                 $missing_account_list = $this->account_list_generators->diff($account_list, $current_members);
@@ -95,7 +95,7 @@ abstract class BaseActionHandler implements ActionHandler
                 $this->action_builder->unsubscribe($context->getCurrentRefId())
                                      ->performFor($superfluous_account_list);
 
-                return Summary::from($missing_account_list, $superfluous_account_list, $not_found_persons);
+                return Summary::from($missing_account_list, $superfluous_account_list, $not_found_persons)->showWhichNotFound(true)->showWhichRemoved(true);
 
             case SyncModes::SYNC_REMOVE:
                 // remove all from the given list
@@ -104,7 +104,7 @@ abstract class BaseActionHandler implements ActionHandler
                 $this->action_builder->unsubscribe($context->getCurrentRefId())
                                      ->performFor($accounts_to_remove);
 
-                return Summary::from(new AccountList(), $accounts_to_remove, $not_found_persons);
+                return Summary::from(new AccountList(), $accounts_to_remove, $not_found_persons)->showWhichNotFound(true)->showWhichRemoved(true);
             default:
                 break;
         }
