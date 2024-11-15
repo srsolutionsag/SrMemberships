@@ -36,4 +36,16 @@ class GroupAccountSource implements AccountSource
         yield from $this->group_members->getMembers();
         yield from $this->group_members->getAdmins();
     }
+
+    public function getEntries(): Generator
+    {
+        yield from array_map(
+            static fn ($user_id): RawAccount => new RawAccount((int) $user_id, RawAccount::ROLE_MEMBER),
+            $this->group_members->getMembers()
+        );
+        yield from array_map(
+            static fn ($user_id): RawAccount => new RawAccount((int) $user_id, RawAccount::ROLE_ADMIN),
+            $this->group_members->getAdmins()
+        );
+    }
 }

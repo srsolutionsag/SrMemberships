@@ -20,4 +20,9 @@ use Generator;
 interface AccountSource
 {
     public function getRawEntries(): Generator;
+
+    /**
+     * @return RawAccount[]|Generator
+     */
+    public function getEntries(): Generator;
 }

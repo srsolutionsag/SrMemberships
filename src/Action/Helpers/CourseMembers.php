@@ -15,6 +15,7 @@ namespace srag\Plugins\SrMemberships\Action\Helpers;
 use ilCourseParticipants;
 use ilObject2;
 use srag\Plugins\SrMemberships\Person\Account\Account;
+use srag\Plugins\SrMemberships\Person\Account\Source\RawAccount;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -34,6 +35,10 @@ trait CourseMembers
 
     protected function addToContainer(Account $account): void
     {
+        if ($this->course_members->isAssigned($account->getUserId())) {
+            return;
+        }
+
         $this->course_members->add(
             $account->getUserId(),
             $this->member_role_id
@@ -42,6 +47,10 @@ trait CourseMembers
 
     protected function removeFromContainer(Account $account): void
     {
+        if ($account->getInternalRole() !== RawAccount::ROLE_MEMBER) {
+            return;
+        }
+
         $this->course_members->delete($account->getUserId());
     }
 
