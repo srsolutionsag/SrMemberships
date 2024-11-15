@@ -30,10 +30,7 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
      * @readonly
      */
     private Container $container;
-    /**
-     * @var ilLogger
-     */
-    private $logger;
+    private ilLogger $logger;
 
     public function __construct(ilSrMembershipsPlugin $plugin)
     {
@@ -68,9 +65,9 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
         return true;
     }
 
-    public function getDefaultScheduleType(): int
+    public function getDefaultScheduleType(): CronJobScheduleType
     {
-        return ilCronJob::SCHEDULE_TYPE_IN_HOURS;
+        return CronJobScheduleType::SCHEDULE_TYPE_IN_HOURS;
     }
 
     public function getDefaultScheduleValue(): ?int
