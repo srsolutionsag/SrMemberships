@@ -41,17 +41,29 @@ class AccountListGenerators
         $source = match ($type) {
             ObjectInfoProvider::TYPE_CRS => new CourseAccountSource($ref_id),
             ObjectInfoProvider::TYPE_GRP => new GroupAccountSource($ref_id),
-            default => throw new InvalidArgumentException('Unsupported object type for ref_id ' . $ref_id . ': ' . $type),
+            default => throw new InvalidArgumentException(
+                'Unsupported object type for ref_id ' . $ref_id . ': ' . $type
+            ),
         };
 
         return $resolver->resolveFor($source);
     }
 
-    public function diff(AccountList $current, AccountList $new): AccountList
+    private function syncInternalRole(AccountList $new, AccountList $current): void
     {
-        $diff = new AccountList();
         foreach ($current->getAccounts() as $account) {
-            if (!$new->has($account)) {
+            if ($new->has($account)) {
+                $new->get($account)->setInternalRole($account->getInternalRole());
+            }
+        }
+    }
+
+    public function diff(AccountList $new, AccountList $current): AccountList
+    {
+        $this->syncInternalRole($new, $current);
+        $diff = new AccountList();
+        foreach ($new->getAccounts() as $account) {
+            if (!$current->has($account)) {
                 $diff->addAccount($account);
             }
         }
@@ -59,12 +71,13 @@ class AccountListGenerators
         return $diff;
     }
 
-    public function intersect(AccountList $current, AccountList $new): AccountList
+    public function intersect(AccountList $new, AccountList $current): AccountList
     {
+        $this->syncInternalRole($new, $current);
         $intersect = new AccountList();
         // create an account list of accounts which are in both lists
-        foreach ($current->getAccounts() as $account) {
-            if ($new->has($account)) {
+        foreach ($new->getAccounts() as $account) {
+            if ($current->has($account)) {
                 $intersect->addAccount($account);
             }
         }

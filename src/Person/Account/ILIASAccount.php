@@ -22,6 +22,7 @@ class ILIASAccount implements Account
     public function __construct(protected int $user_id, protected int $internal_role = RawAccount::ROLE_NONE)
     {
     }
+
     public function getUserId(): int
     {
         return $this->user_id;
@@ -30,6 +31,11 @@ class ILIASAccount implements Account
     public function getInternalRole(): int
     {
         return $this->internal_role;
+    }
+
+    public function setInternalRole(int $internal_role): void
+    {
+        $this->internal_role = $internal_role;
     }
 
 }

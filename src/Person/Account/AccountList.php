@@ -50,6 +50,11 @@ class AccountList
         return isset($this->accounts[$account->getUserId()]);
     }
 
+    public function get(Account $account): ?Account
+    {
+        return $this->accounts[$account->getUserId()] ?? null;
+    }
+
     public function count(): int
     {
         return count($this->accounts);
