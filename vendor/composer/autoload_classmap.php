@@ -861,6 +861,7 @@ return array(
     'srag\\Plugins\\SrMemberships\\Person\\Account\\Source\\AccountSource' => $baseDir . '/src/Person/Account/Source/AccountSource.php',
     'srag\\Plugins\\SrMemberships\\Person\\Account\\Source\\CourseAccountSource' => $baseDir . '/src/Person/Account/Source/CourseAccountSource.php',
     'srag\\Plugins\\SrMemberships\\Person\\Account\\Source\\GroupAccountSource' => $baseDir . '/src/Person/Account/Source/GroupAccountSource.php',
+    'srag\\Plugins\\SrMemberships\\Person\\Account\\Source\\RawAccount' => $baseDir . '/src/Person/Account/Source/RawAccount.php',
     'srag\\Plugins\\SrMemberships\\Person\\PersonsToAccounts' => $baseDir . '/src/Person/PersonsToAccounts.php',
     'srag\\Plugins\\SrMemberships\\Person\\Persons\\BasePerson' => $baseDir . '/src/Person/Persons/BasePerson.php',
     'srag\\Plugins\\SrMemberships\\Person\\Persons\\CreatablePerson' => $baseDir . '/src/Person/Persons/CreatablePerson.php',
