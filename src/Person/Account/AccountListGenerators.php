@@ -38,6 +38,7 @@ class AccountListGenerators
     {
         $resolver = new ContainerAccountResolver();
         $type = $this->object_info->getType($ref_id);
+
         switch ($type) {
             case ObjectInfoProvider::TYPE_CRS:
                 $source = new CourseAccountSource($ref_id);
@@ -52,11 +53,21 @@ class AccountListGenerators
         return $resolver->resolveFor($source);
     }
 
-    public function diff(AccountList $current, AccountList $new): AccountList
+    private function syncInternalRole(AccountList $new, AccountList $current): void
     {
-        $diff = new AccountList();
         foreach ($current->getAccounts() as $account) {
-            if (!$new->has($account)) {
+            if ($new->has($account)) {
+                $new->get($account)->setInternalRole($account->getInternalRole());
+            }
+        }
+    }
+
+    public function diff(AccountList $new, AccountList $current): AccountList
+    {
+        $this->syncInternalRole($new, $current);
+        $diff = new AccountList();
+        foreach ($new->getAccounts() as $account) {
+            if (!$current->has($account)) {
                 $diff->addAccount($account);
             }
         }
@@ -64,12 +75,13 @@ class AccountListGenerators
         return $diff;
     }
 
-    public function intersect(AccountList $current, AccountList $new): AccountList
+    public function intersect(AccountList $new, AccountList $current): AccountList
     {
+        $this->syncInternalRole($new, $current);
         $intersect = new AccountList();
         // create an account list of accounts which are in both lists
-        foreach ($current->getAccounts() as $account) {
-            if ($new->has($account)) {
+        foreach ($new->getAccounts() as $account) {
+            if ($current->has($account)) {
                 $intersect->addAccount($account);
             }
         }

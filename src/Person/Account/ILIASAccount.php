@@ -38,4 +38,9 @@ class ILIASAccount implements Account
         return $this->internal_role;
     }
 
+    public function setInternalRole(int $internal_role): void
+    {
+        $this->internal_role = $internal_role;
+    }
+
 }
