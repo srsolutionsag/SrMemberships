@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 3.0.3
+- [FIX] missing import, fixes Could not check compatibility between ilSrMembershipsWorkflowJob::getDefaultScheduleType(): CronJobScheduleType and ilCronJob::getDefaultScheduleType()
+- 
 ## Version 3.0.2
 - [FIX] issue with accounts not removed
 - [FIX] updated classmap
