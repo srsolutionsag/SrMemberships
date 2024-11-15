@@ -10,18 +10,22 @@
 
 declare(strict_types=1);
 
-namespace srag\Plugins\SrMemberships\Person\Account;
-
-use srag\Plugins\SrMemberships\Person\Account\Source\RawAccount;
+namespace srag\Plugins\SrMemberships\Person\Account\Source;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
-class ILIASAccount implements Account
+class RawAccount
 {
-    public function __construct(protected int $user_id, protected int $internal_role = RawAccount::ROLE_NONE)
+    public const ROLE_NONE = -1;
+    public const ROLE_MEMBER = 1;
+    public const ROLE_TUTOR = 2;
+    public const ROLE_ADMIN = 3;
+
+    public function __construct(private readonly int $user_id, private readonly int $internal_role = self::ROLE_NONE)
     {
     }
+
     public function getUserId(): int
     {
         return $this->user_id;

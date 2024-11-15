@@ -31,8 +31,8 @@ class ContainerAccountResolver implements AccountResolver
         }
 
         $accounts = new AccountList();
-        foreach ($source->getRawEntries() as $user_id) {
-            $accounts->addAccount(new ILIASAccount((int) $user_id));
+        foreach ($source->getEntries() as $raw_account) {
+            $accounts->addAccount(new ILIASAccount($raw_account->getUserId(), $raw_account->getInternalRole()));
         }
 
         return $accounts;

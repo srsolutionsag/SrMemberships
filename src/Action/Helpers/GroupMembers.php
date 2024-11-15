@@ -15,6 +15,7 @@ namespace srag\Plugins\SrMemberships\Action\Helpers;
 use ilGroupParticipants;
 use ilObject2;
 use srag\Plugins\SrMemberships\Person\Account\Account;
+use srag\Plugins\SrMemberships\Person\Account\Source\RawAccount;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -48,6 +49,10 @@ trait GroupMembers
 
     protected function removeFromContainer(Account $account): void
     {
+        if ($account->getInternalRole() !== RawAccount::ROLE_MEMBER) {
+            return;
+        }
+
         $this->group_members->delete($account->getUserId());
     }
 
