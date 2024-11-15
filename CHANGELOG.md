@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 3.0.2
+- [FIX] issue with accounts not removed
+- [FIX] updated classmap
+- [FIX] ILIAS 9 cron compatibility
+- [FIX] 0042312: Logging of SrMemberships does not work (anymore)
+- [FIX] 0042397: Deactivating a workflow does not deactivate its cronjob
+- [FIX] fixed issue that caused error when opening the role config
+- [FIX] keep admins in courses and groups in any case
+- [FIX] adding members only if not already in course/group with another role
+
 ## Version 3.0.1
 - [FIX] Skip person if UniqueIdentification is an empty string
 - [FIX] global role assignment  for new users
