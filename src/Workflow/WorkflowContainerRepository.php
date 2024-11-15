@@ -24,12 +24,8 @@ use srag\Plugins\SrMemberships\Workflow\ByMatriculation\ByMatriculationWorkflowC
  */
 class WorkflowContainerRepository
 {
-    protected $all_workflow_containers = [];
-
-    /**
-     * @var array
-     */
-    protected $enabled_workflow_containers = [];
+    protected array $all_workflow_containers = [];
+    protected array $enabled_workflow_containers = [];
 
     public function __construct(protected Container $container)
     {

@@ -12,7 +12,6 @@ use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Workflow\Mode\Mode;
 use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
 use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
-use ILIAS\Cron\Schedule\CronJobScheduleType;
 
 /**
  * This is the entry point of the plugin-configuration.
@@ -88,6 +87,10 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
             if (!$workflow->getPossiblesRunModes()->isRunAsCron()) {
                 continue;
             }
+            if(!$workflow->isActivated()) {
+                continue;
+            }
+
             // Get all assigned objects of this workflow
             foreach ($this->container->toolObjectConfigRepository()->getAssignedRefIds($workflow) as $ref_id) {
                 $context = $this->container->contextFactory()->get($ref_id, $this->container->dic()->user()->getId());
