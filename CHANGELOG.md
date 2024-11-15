@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 2.1.10
+- [FIX] issue with accounts not removed
+
 ## Version 2.1.9
 - [FIX] 0042312: Logging of SrMemberships does not work (anymore)
 - [FIX] 0042397: Deactivating a workflow does not deactivate its cronjob
