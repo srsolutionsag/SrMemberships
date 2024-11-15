@@ -952,6 +952,7 @@ class ComposerStaticInit94d0872f604dd98676f7946c91232271
         'srag\\Plugins\\SrMemberships\\Person\\Account\\Source\\AccountSource' => __DIR__ . '/../..' . '/src/Person/Account/Source/AccountSource.php',
         'srag\\Plugins\\SrMemberships\\Person\\Account\\Source\\CourseAccountSource' => __DIR__ . '/../..' . '/src/Person/Account/Source/CourseAccountSource.php',
         'srag\\Plugins\\SrMemberships\\Person\\Account\\Source\\GroupAccountSource' => __DIR__ . '/../..' . '/src/Person/Account/Source/GroupAccountSource.php',
+        'srag\\Plugins\\SrMemberships\\Person\\Account\\Source\\RawAccount' => __DIR__ . '/../..' . '/src/Person/Account/Source/RawAccount.php',
         'srag\\Plugins\\SrMemberships\\Person\\PersonsToAccounts' => __DIR__ . '/../..' . '/src/Person/PersonsToAccounts.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\BasePerson' => __DIR__ . '/../..' . '/src/Person/Persons/BasePerson.php',
         'srag\\Plugins\\SrMemberships\\Person\\Persons\\CreatablePerson' => __DIR__ . '/../..' . '/src/Person/Persons/CreatablePerson.php',
