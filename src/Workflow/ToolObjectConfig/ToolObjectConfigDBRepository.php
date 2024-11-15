@@ -24,6 +24,7 @@ use srag\Plugins\SrMemberships\Config\PackedValue;
 class ToolObjectConfigDBRepository implements ToolObjectConfigRepository
 {
     use Packer;
+
     protected \ilDBInterface $db;
 
     public const TABLE_NAME = 'srms_object_config';
@@ -77,11 +78,32 @@ class ToolObjectConfigDBRepository implements ToolObjectConfigRepository
         }
     }
 
-    public function countAssignedWorkflows(int $ref_id): int
+    public function countAssignedWorkflows(int $ref_id, bool $active_only = true): int
     {
-        $q = "SELECT COUNT(*) AS cnt FROM " . self::TABLE_NAME . " WHERE context_ref_id = %s";
+        $q = "SELECT COUNT(*) AS cnt FROM " . self::TABLE_NAME;
+        $q .= " WHERE context_ref_id = %s ";
+
+        if ($active_only) {
+            $active_workflows = $this->findActivatedWorkflows();
+            $q .= " AND " . $this->db->in('workflow_id', $active_workflows, false, 'text');
+        }
+
         $res = $this->db->queryF($q, ['integer'], [$ref_id]);
         $row = $this->db->fetchAssoc($res);
         return (int) $row['cnt'];
+    }
+
+    protected function findActivatedWorkflows(): array
+    {
+        static $active_workflows;
+        if (isset($active_workflows)) {
+            return $active_workflows;
+        }
+        // find activated workflows. maybe use the config repo for this later
+        $aq = "SELECT value FROM srms_config WHERE namespace = %s and config_key = %s";
+        $res = $this->db->queryF($aq, ['text', 'text'], ['general', 'enabled_workflows']);
+        $value = $this->db->fetchAssoc($res);
+        $active_workflows = $this->unpack(new PackedValue($value['value'] ?? null, PackedValue::TYPE_ARRAY));
+        return $active_workflows;
     }
 }
