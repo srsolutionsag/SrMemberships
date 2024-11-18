@@ -35,25 +35,29 @@ trait GroupMembers
         $this->member_role_id = $this->resolveMemberRoleId();
     }
 
-    protected function addToContainer(Account $account): void
+    protected function addToContainer(Account $account): bool
     {
         if ($this->group_members->isAssigned($account->getUserId())) {
-            return;
+            return false;
         }
 
         $this->group_members->add(
             $account->getUserId(),
             $this->member_role_id
         );
+
+        return true;
     }
 
-    protected function removeFromContainer(Account $account): void
+    protected function removeFromContainer(Account $account): bool
     {
         if ($account->getInternalRole() !== RawAccount::ROLE_MEMBER) {
-            return;
+            return false;
         }
 
         $this->group_members->delete($account->getUserId());
+
+        return true;
     }
 
     protected function resolveMemberRoleId(): int

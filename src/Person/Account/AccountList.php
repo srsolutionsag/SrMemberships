@@ -17,6 +17,9 @@ namespace srag\Plugins\SrMemberships\Person\Account;
  */
 class AccountList
 {
+    /**
+     * @var Account[]
+     */
     private array $accounts = [];
     public function __construct(array $accounts = [])
     {
@@ -60,6 +63,17 @@ class AccountList
     public function count(): int
     {
         return count($this->accounts);
+    }
+
+    public function countProcessed(): int
+    {
+        $count = 0;
+        foreach ($this->accounts as $account) {
+            if ($account->hasBeenProcessed()) {
+                $count++;
+            }
+        }
+        return $count;
     }
 
     public function isEmpty(): bool

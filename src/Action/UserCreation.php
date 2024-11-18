@@ -13,20 +13,14 @@ declare(strict_types=1);
 namespace srag\Plugins\SrMemberships\Action;
 
 use srag\Plugins\SrMemberships\Person\Account\AccountList;
-use srag\Plugins\SrMemberships\Person\Persons\PersonList;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
 class UserCreation implements Action
 {
-    public function performFor(AccountList $accounts): int
+    public function performFor(AccountList $accounts): void
     {
-        return 0;
+        return;
     }
-
-    public function createMissing(PersonList $persons): int
-    {
-    }
-
 }

@@ -20,15 +20,12 @@ use srag\Plugins\SrMemberships\Person\Account\Account;
  */
 abstract class AbstractSubscribe implements Action
 {
-    public function performFor(AccountList $accounts): int
+    public function performFor(AccountList $accounts): void
     {
-        $counter = 0;
         foreach ($accounts->getAccounts() as $account) {
-            $this->addToContainer($account);
-            $counter++;
+            $account->setProcessed($this->addToContainer($account));
         }
-        return $counter;
     }
 
-    abstract protected function addToContainer(Account $account): void;
+    abstract protected function addToContainer(Account $account): bool;
 }

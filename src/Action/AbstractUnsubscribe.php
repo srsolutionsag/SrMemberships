@@ -20,15 +20,12 @@ use srag\Plugins\SrMemberships\Person\Account\Account;
  */
 abstract class AbstractUnsubscribe implements Action
 {
-    public function performFor(AccountList $accounts): int
+    public function performFor(AccountList $accounts): void
     {
-        $counter = 0;
         foreach ($accounts->getAccounts() as $account) {
-            $this->removeFromContainer($account);
-            $counter++;
+            $account->setProcessed($this->removeFromContainer($account));
         }
-        return $counter;
     }
 
-    abstract protected function removeFromContainer(Account $account): void;
+    abstract protected function removeFromContainer(Account $account): bool;
 }

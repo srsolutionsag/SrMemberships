@@ -44,6 +44,9 @@ class Summary
     private bool $show_which_added = false;
     private bool $show_which_removed = false;
     private bool $show_which_not_found = false;
+    /**
+     * @readonly
+     */
     private ObjectInfoProvider $info;
 
     private function __construct(
@@ -128,7 +131,7 @@ class Summary
         $summary = $this->header . "\n\n";
 
         if ($this->accounts_added instanceof AccountList) {
-            $placeholders = [$this->accounts_added->count()];
+            $placeholders = [$this->accounts_added->countProcessed()];
             $summary .= $this->buildStringWithPlaceholder('accounts_added', $placeholders) . "\n";
             if ($this->show_which_added) {
                 $this->additional_message = implode(
@@ -142,7 +145,7 @@ class Summary
         }
 
         if ($this->accounts_removed instanceof AccountList) {
-            $placeholders = [$this->accounts_removed->count()];
+            $placeholders = [$this->accounts_removed->countProcessed()];
             $summary .= $this->buildStringWithPlaceholder('accounts_removed', $placeholders) . "\n";
             if ($this->show_which_removed) {
                 $this->additional_message = implode(
