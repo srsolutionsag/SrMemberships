@@ -19,8 +19,8 @@ use srag\Plugins\SrMemberships\Person\Account\AccountList;
  */
 class NullAction implements Action
 {
-    public function performFor(AccountList $accounts): int
+    public function performFor(AccountList $accounts): void
     {
-        return 0;
+        return;
     }
 }

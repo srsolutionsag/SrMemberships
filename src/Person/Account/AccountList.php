@@ -60,6 +60,17 @@ class AccountList
         return count($this->accounts);
     }
 
+    public function countProcessed(): int
+    {
+        $count = 0;
+        foreach ($this->accounts as $account) {
+            if ($account->hasBeenProcessed()) {
+                $count++;
+            }
+        }
+        return $count;
+    }
+
     public function isEmpty(): bool
     {
         return $this->count() === 0;

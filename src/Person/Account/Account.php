@@ -20,5 +20,8 @@ interface Account
     public function getUserId(): int;
 
     public function getInternalRole(): int;
-    public function setInternalRole(int $internal_role): void;
+    public function setInternalRole(int $internal_role): self;
+
+    public function setProcessed(bool $status): self;
+    public function hasBeenProcessed(): bool;
 }

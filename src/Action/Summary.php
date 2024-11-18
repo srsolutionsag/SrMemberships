@@ -125,13 +125,13 @@ class Summary
         $summary = $this->header . "\n\n";
 
         if ($this->accounts_added instanceof AccountList) {
-            $placeholders = [$this->accounts_added->count()];
+            $placeholders = [$this->accounts_added->countProcessed()];
             $summary .= $this->buildStringWithPlaceholder('accounts_added', $placeholders) . "\n";
             if ($this->show_which_added) {
                 $this->additional_message = implode(
                     "\n",
                     array_map(
-                        fn (Account $account): string => $this->info->getUserLogin($account->getUserId()),
+                        fn(Account $account): string => $this->info->getUserLogin($account->getUserId()),
                         $this->accounts_added->getAccounts()
                     )
                 );
@@ -139,13 +139,13 @@ class Summary
         }
 
         if ($this->accounts_removed instanceof AccountList) {
-            $placeholders = [$this->accounts_removed->count()];
+            $placeholders = [$this->accounts_removed->countProcessed()];
             $summary .= $this->buildStringWithPlaceholder('accounts_removed', $placeholders) . "\n";
             if ($this->show_which_removed) {
                 $this->additional_message = implode(
                     "\n",
                     array_map(
-                        fn (Account $account): string => $this->info->getUserLogin($account->getUserId()),
+                        fn(Account $account): string => $this->info->getUserLogin($account->getUserId()),
                         $this->accounts_removed->getAccounts()
                     )
                 );
@@ -160,7 +160,7 @@ class Summary
                 $this->additional_message .= implode(
                     "\n",
                     array_map(
-                        static fn (Person $person): string => $person->getUniqueIdentification(),
+                        static fn(Person $person): string => $person->getUniqueIdentification(),
                         $this->persons_not_found->getPersons()
                     )
                 );

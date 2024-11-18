@@ -19,6 +19,7 @@ use srag\Plugins\SrMemberships\Person\Account\Source\RawAccount;
  */
 class ILIASAccount implements Account
 {
+    protected bool $processed = false;
     public function __construct(protected int $user_id, protected int $internal_role = RawAccount::ROLE_NONE)
     {
     }
@@ -33,9 +34,22 @@ class ILIASAccount implements Account
         return $this->internal_role;
     }
 
-    public function setInternalRole(int $internal_role): void
+    public function setInternalRole(int $internal_role): self
     {
         $this->internal_role = $internal_role;
+
+        return $this;
+    }
+
+    public function setProcessed(bool $status): self
+    {
+        $this->processed = $status;
+        return $this;
+    }
+
+    public function hasBeenProcessed(): bool
+    {
+        return $this->processed;
     }
 
 }
