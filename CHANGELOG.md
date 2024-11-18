@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 3.0.4
+- [FIX] correct amount of prcessed accounts in summary
+
 ## Version 3.0.3
 - [FIX] missing import, fixes Could not check compatibility between ilSrMembershipsWorkflowJob::getDefaultScheduleType(): CronJobScheduleType and ilCronJob::getDefaultScheduleType()
 - 
