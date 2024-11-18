@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 2.1.11
+- [FIX] correct amount of prcessed accounts in summary
+- [FIX] updated classmap
+
 ## Version 2.1.10
 - [FIX] issue with accounts not removed
 
