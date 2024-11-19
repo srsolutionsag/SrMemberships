@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 3.0.5
+- [FIX] import issue with logins and emails
+
 ## Version 3.0.4
 - [FIX] correct amount of prcessed accounts in summary
 
