@@ -25,7 +25,7 @@ class ExtAccountPersonResolver implements PersonResolver
     {
         $persons = [];
         foreach ($source->getRawEntries() as $item) {
-            $persons[] = new ExtAccountPerson($item);
+            $persons[] = new ExtAccountPerson($item->getIdentifier(), $item->getAttributes());
         }
 
         return new PersonList($persons);

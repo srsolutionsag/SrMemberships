@@ -25,7 +25,7 @@ class LoginPersonResolver implements PersonResolver
     {
         $persons = [];
         foreach ($source->getRawEntries() as $item) {
-            $persons[] = new LoginPerson($item);
+            $persons[] = new LoginPerson($item->getIdentifier(), $item->getAttributes());
         }
 
         return new PersonList($persons);
