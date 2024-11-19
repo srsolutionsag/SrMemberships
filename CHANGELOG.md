@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 2.1.12
+- [FIX] import issue with logins and emails
+
 ## Version 2.1.11
 - [FIX] correct amount of prcessed accounts in summary
 - [FIX] updated classmap
