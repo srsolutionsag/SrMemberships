@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Person\Persons\Source;
 
-use ilRbacReview;
 use Generator;
 
 /**
@@ -25,19 +24,22 @@ class RolesPersonSource implements PersonSource
      * @readonly
      */
     private \ilRbacReview $rbac_review;
+
     public function __construct(array $role_ids, \ilRbacReview $rbac_review)
     {
         $this->role_ids = $role_ids;
         $this->rbac_review = $rbac_review;
     }
 
+    /**
+     * @return Generator|RawPerson[]
+     */
     public function getRawEntries(): Generator
     {
         foreach ($this->role_ids as $role_id) {
-            yield from array_map(
-                fn ($user_id): int => (int) $user_id,
-                $this->rbac_review->assignedUsers((int) $role_id)
-            );
+            foreach ($this->rbac_review->assignedUsers((int) $role_id) as $assigned_user) {
+                yield new RawPerson((string) $assigned_user);
+            }
         }
     }
 }

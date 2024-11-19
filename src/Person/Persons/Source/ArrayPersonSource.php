@@ -32,6 +32,11 @@ class ArrayPersonSource implements PersonSource
     public function __construct(array $items)
     {
         $this->items = $items;
+        foreach ($this->items as $item) {
+            if (!($item instanceof RawPerson)) {
+                throw new \InvalidArgumentException("Item must be instance of " . RawPerson::class . "!");
+            }
+        }
     }
 
     public function getRawEntries(): Generator

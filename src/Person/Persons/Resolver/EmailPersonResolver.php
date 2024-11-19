@@ -25,7 +25,7 @@ class EmailPersonResolver implements PersonResolver
     {
         $persons = [];
         foreach ($source->getRawEntries() as $item) {
-            $persons[] = new EmailPerson($item);
+            $persons[] = new EmailPerson($item->getIdentifier(), $item->getAttributes());
         }
 
         return new PersonList($persons);

@@ -29,8 +29,8 @@ class RolesPersonResolver implements PersonResolver
             throw new InvalidArgumentException('RolesPersonResolver can only resolve RolesPersonSource');
         }
         $list = new PersonList();
-        foreach ($source->getRawEntries() as $user_id) {
-            $list->addPerson(new UserIdPerson($user_id));
+        foreach ($source->getRawEntries() as $item) {
+            $list->addPerson(new UserIdPerson((int) $item->getIdentifier(), $item->getAttributes()));
         }
         return $list;
     }
