@@ -30,7 +30,7 @@ abstract class AbstractBaseWorkflowContainer implements WorkflowContainer
 
     public function isActivated(): bool
     {
-        return $this->container->config()->general()->getEnabledWorkflows()[$this->getWorkflowID()] ?? false;
+        return in_array($this->getWorkflowID(), $this->container->config()->general()->getEnabledWorkflows(), true);
     }
 
     public function getToolProvider(): WorkflowToolProvider
