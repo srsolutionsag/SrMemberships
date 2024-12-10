@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 3.1.0
+- [FIX] cronjobs not working in some cases
+- [FEATURE] cleanup unsupported or no longer valid woklflow assignments
+
 ## Version 3.0.5
 - [FIX] import issue with logins and emails
 
