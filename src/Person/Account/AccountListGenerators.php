@@ -18,6 +18,7 @@ use srag\Plugins\SrMemberships\Person\Account\Resolver\ContainerAccountResolver;
 use srag\Plugins\SrMemberships\Person\Account\Source\CourseAccountSource;
 use srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider;
 use srag\Plugins\SrMemberships\Person\Account\Source\GroupAccountSource;
+use srag\Plugins\SrMemberships\Exceptions\UnsupportedRefIdException;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -47,7 +48,7 @@ class AccountListGenerators
                 $source = new GroupAccountSource($ref_id);
                 break;
             default:
-                throw new InvalidArgumentException('Unsupported object type for ref_id ' . $ref_id . ': ' . $type);
+                throw new UnsupportedRefIdException($ref_id, $type);
         }
 
         return $resolver->resolveFor($source);

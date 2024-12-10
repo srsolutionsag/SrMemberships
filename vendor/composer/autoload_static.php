@@ -943,6 +943,8 @@ class ComposerStaticInit94d0872f604dd98676f7946c91232271
         'srag\\Plugins\\SrMemberships\\Config\\Packer' => __DIR__ . '/../..' . '/src/Config/Packer.php',
         'srag\\Plugins\\SrMemberships\\Container\\Container' => __DIR__ . '/../..' . '/src/Container/Container.php',
         'srag\\Plugins\\SrMemberships\\Container\\Init' => __DIR__ . '/../..' . '/src/Container/Init.php',
+        'srag\\Plugins\\SrMemberships\\Exceptions\\InvalidRefIdException' => __DIR__ . '/../..' . '/src/Exceptions/InvalidRefIdException.php',
+        'srag\\Plugins\\SrMemberships\\Exceptions\\UnsupportedRefIdException' => __DIR__ . '/../..' . '/src/Exceptions/UnsupportedRefIdException.php',
         'srag\\Plugins\\SrMemberships\\Person\\Account\\Account' => __DIR__ . '/../..' . '/src/Person/Account/Account.php',
         'srag\\Plugins\\SrMemberships\\Person\\Account\\AccountList' => __DIR__ . '/../..' . '/src/Person/Account/AccountList.php',
         'srag\\Plugins\\SrMemberships\\Person\\Account\\AccountListGenerators' => __DIR__ . '/../..' . '/src/Person/Account/AccountListGenerators.php',
