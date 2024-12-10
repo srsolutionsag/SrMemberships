@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 2.2.0
+- [FIX] cronjobs not working in some cases
+- [FEATURE] cleanup unsupported or no longer valid woklflow assignments
+
 ## Version 2.1.12
 - [FIX] import issue with logins and emails
 
