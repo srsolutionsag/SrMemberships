@@ -852,6 +852,8 @@ return array(
     'srag\\Plugins\\SrMemberships\\Config\\Packer' => $baseDir . '/src/Config/Packer.php',
     'srag\\Plugins\\SrMemberships\\Container\\Container' => $baseDir . '/src/Container/Container.php',
     'srag\\Plugins\\SrMemberships\\Container\\Init' => $baseDir . '/src/Container/Init.php',
+    'srag\\Plugins\\SrMemberships\\Exceptions\\InvalidRefIdException' => $baseDir . '/src/Exceptions/InvalidRefIdException.php',
+    'srag\\Plugins\\SrMemberships\\Exceptions\\UnsupportedRefIdException' => $baseDir . '/src/Exceptions/UnsupportedRefIdException.php',
     'srag\\Plugins\\SrMemberships\\Person\\Account\\Account' => $baseDir . '/src/Person/Account/Account.php',
     'srag\\Plugins\\SrMemberships\\Person\\Account\\AccountList' => $baseDir . '/src/Person/Account/AccountList.php',
     'srag\\Plugins\\SrMemberships\\Person\\Account\\AccountListGenerators' => $baseDir . '/src/Person/Account/AccountListGenerators.php',

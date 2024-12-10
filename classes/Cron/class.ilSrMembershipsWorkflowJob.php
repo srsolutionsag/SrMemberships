@@ -13,6 +13,8 @@ use srag\Plugins\SrMemberships\Workflow\Mode\Mode;
 use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
 use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
 use ILIAS\Cron\Schedule\CronJobScheduleType;
+use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
+use srag\Plugins\SrMemberships\Exceptions\InvalidRefIdException;
 
 /**
  * This is the entry point of the plugin-configuration.
@@ -81,11 +83,13 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
         $result = new ilCronJobResult();
 
         $workflows = $this->container->workflows()->getEnabledWorkflows();
+
+        $status = ilCronJobResult::STATUS_OK;
         foreach ($workflows as $workflow) {
             if (!$workflow->getPossiblesRunModes()->isRunAsCron()) {
                 continue;
             }
-            if(!$workflow->isActivated()) {
+            if (!$workflow->isActivated()) {
                 continue;
             }
 
@@ -102,7 +106,7 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
                 );
                 $run_modes = $this->container->objectModeRepository()->getRunModes($ref_id, $workflow);
 
-                if (!$run_modes instanceof Modes) {
+                if (!$run_modes instanceof RunModes) {
                     continue;
                 }
                 try {
@@ -126,12 +130,18 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
                     );
 
                     $this->logger->info('Ref-ID ' . $context->getCurrentRefId() . ': ' . $summary_text);
+                } catch (InvalidRefIdException $e) {
+                    $this->container->toolObjectConfigRepository()->clear($e->getRefId(), $workflow);
+                    continue;
                 } catch (Throwable $e) {
+                    $status = ilCronJobResult::STATUS_FAIL;
+                    $result->setMessage(substr($e->getMessage(), 0, 350));
                     $this->logger->info($e->getMessage());
                 }
             }
         }
-        $result->setStatus(ilCronJobResult::STATUS_OK);
+
+        $result->setStatus($status);
 
         return $result;
     }
