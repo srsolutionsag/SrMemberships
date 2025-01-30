@@ -2,9 +2,11 @@ SrMemberships
 ====================
 
 SrMemberships offers several workflows for importing people into courses and
-groups. For example, a list of account names (logins) can be imported and
-existing accounts are automatically enrolled into the course or group. Another
-workflow offers to automatically enroll people from local or global roles.
+groups:
+- The first workflow imports a list of account names (logins) and automatically enrolls the corresponding accounts into the course or group.
+- The second workflow offers to automatically enroll people from local or global roles.
+- The third workflow imports a list of matriculation numbers and automatically enrolls the corresponding accounts into the course or group.
+  - This workflow comes with an added option of creating non-existent accounts, if the imported data contains at least login-names, passwords and mail-addresses.
 
 ## Installation
 
