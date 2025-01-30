@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 2.2.1
+- [FIX] PLSRMEM-14: Added account creation info to readme
+- [FIX] PLSRMEM-12: Added missing translation
+- [FIX] PLSRMEM-13: Fixed issue with account creation
+
 ## Version 2.2.0
 - [FIX] cronjobs not working in some cases
 - [FEATURE] cleanup unsupported or no longer valid woklflow assignments
