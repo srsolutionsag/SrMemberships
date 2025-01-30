@@ -61,7 +61,7 @@ class AccountCreator
             $user->saveAsNew();
 
             foreach ($this->global_roles as $global_role) {
-                $DIC->rbac()->admin()->assignUser($user->getId(), $global_role);
+                $DIC->rbac()->admin()->assignUser((int) $global_role, $user->getId());
             }
         }
 
