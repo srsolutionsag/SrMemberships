@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 3.1.3
+- [FIX] 0044389: Adding a list of empty accounts interprets empty lines
+
 ## Version 3.1.2
 - [FIX] 0044388: Deactivation of user creation does not work
 
