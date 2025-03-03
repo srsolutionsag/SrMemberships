@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 2.2.2
+- [FIX] 0044388: Deactivation of user creation does not work
+
 ## Version 2.2.1
 - [FIX] PLSRMEM-14: Added account creation info to readme
 - [FIX] PLSRMEM-12: Added missing translation
