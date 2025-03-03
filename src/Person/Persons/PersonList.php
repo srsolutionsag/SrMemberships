@@ -31,6 +31,10 @@ class PersonList
         if (isset($this->persons[$person->getUniqueIdentification()])) {
             return;
         }
+        if (empty($person->getUniqueIdentification())) {
+            return;
+        }
+
         $this->persons[$person->getUniqueIdentification()] = $person;
     }
 
