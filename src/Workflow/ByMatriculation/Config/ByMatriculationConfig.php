@@ -25,4 +25,9 @@ class ByMatriculationConfig extends AbstractDBWorkflowConfig
     {
         return 'by_matriculation';
     }
+
+    public function isUserCreationEnabled(): bool
+    {
+        return $this->get(self::F_USER_CREATION, [-1]) !== [-1];
+    }
 }
