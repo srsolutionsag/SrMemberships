@@ -51,12 +51,8 @@ class ilSrMsStoreObjectConfigGUI extends ilSrMsAbstractWorkflowProcessorGUI
             $this->sendSuccessMessage($this->translator->txt('msg_object_config_stored'));
 
             // user creation allowed
-            $user_creation = $this->container->config()->byMatriculation()->get(
-                WorkflowConfig::F_USER_CREATION,
-                -1
-            );
 
-            $user_creation_allowed = $user_creation !== -1;
+            $user_creation_allowed = $this->container->config()->byMatriculation()->isUserCreationEnabled();
 
             // create missing accounts first
             if ($user_creation_allowed && $summary->getPersonsNotFound()->count() > 0) {
