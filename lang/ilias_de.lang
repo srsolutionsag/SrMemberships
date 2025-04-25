@@ -28,6 +28,7 @@ msg_back_to#:#Zurück
 msg_error_to_many_columns_in_csv#:#Zu viele Spalten im CSV, es werden nur Dateien mit einer Spalte unterstützt.
 msg_multiple_workflows_assigned#:#Es sind mehrere Workflows für dieses Objekt aktiviert. Bitte ebachten Sie, dass die Workflows sich gegenseitig beeinflussen können.
 msg_object_config_stored#:#Einstellungen gespeichert
+native_error#:#Interne Fehlermeldung:
 object_type_crs#:#Kurse
 object_type_grp#:#Gruppen
 object_types#:#Anbieten in Objekttypen

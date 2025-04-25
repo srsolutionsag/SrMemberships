@@ -86,7 +86,7 @@ class Summary
         $txt_key = $t->getMessage();
         $container = $srmembershipsContainer;
 
-        return self::error($container->translator()->txt($txt_key));
+        return self::error($container->translator()->txt('native_error') . ': ' . $txt_key);
     }
 
     public static function error(string $error_message): self

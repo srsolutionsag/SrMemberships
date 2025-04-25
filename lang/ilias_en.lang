@@ -21,6 +21,7 @@ by_role_sync_role_selection_info#:#Select the roles to be used for synchronisati
 by_role_sync_role_selection_header#:#Automatic member synchronisation
 store_object_config#:#Save settings
 msg_object_config_stored#:#Stored settings
+native_error#:#Internal Error:
 offer_workflow_to#:#Workflow available for
 offer_workflow_to_info#:#The workflow is only offered to the selected groups of people.
 offer_workflow_to_object_admins#:#Object administrators (persons with the permission "Manage members" on the object)
