@@ -104,7 +104,10 @@ abstract class AbstractByStringActionHandler extends BaseActionHandler
                 $rid = $object_config['content']['file_list'][0] ?? '';
                 $rid = $this->irss->manage()->find($rid);
                 if ($rid === null) {
-                    return Summary::error($this->container->translator()->txt('msg_file_not_found'));
+                    return [
+                        'strings' => '',
+                        'mime_type' => null
+                    ];
                 }
                 $strings = (string) $this->irss->consume()->stream($rid)->getStream();
                 $mime_type = $this->irss->manage()->getCurrentRevision($rid)->getInformation()->getMimeType();
