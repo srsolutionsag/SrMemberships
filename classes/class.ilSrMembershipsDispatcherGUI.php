@@ -23,6 +23,7 @@ use srag\Plugins\SrMemberships\Container\Container;
  * @ilCtrl_Calls      ilSrMembershipsDispatcherGUI : ilSrMsByRoleSyncConfigurationGUI
  * @ilCtrl_Calls      ilSrMembershipsDispatcherGUI : ilSrMsByLoginConfigurationGUI
  * @ilCtrl_Calls      ilSrMembershipsDispatcherGUI : ilSrMsByMatriculationConfigurationGUI
+ * @ilCtrl_Calls      ilSrMembershipsDispatcherGUI : ilSrMsByEmailConfigurationGUI
  * @ilCtrl_Calls      ilSrMembershipsDispatcherGUI : ilSrMsGeneralUploadHandlerGUI
  */
 class ilSrMembershipsDispatcherGUI
@@ -75,7 +76,6 @@ class ilSrMembershipsDispatcherGUI
                 break;
             case strtolower(self::class):
                 throw new LogicException(self::class . " MUST never be the executing class.");
-                break;
         }
 
         // if requests have other classes than the ilAdministrationGUI as
@@ -92,8 +92,6 @@ class ilSrMembershipsDispatcherGUI
      * current baseclass is crucial. The plugin will currently distinguish
      * between the administration and the repository. External origins
      * are not considered here.
-     *
-     * @return int
      */
     public static function getOriginType(): int
     {
@@ -117,10 +115,6 @@ class ilSrMembershipsDispatcherGUI
      *
      * This method can be used whenever a link to a command class of this plugin
      * is made from outside ilCtrl's current scope (e.g. MenuProvider)
-     *
-     * @param string $class
-     * @param string $cmd
-     * @return string
      */
     public static function getLinkTarget(string $class, string $cmd): string
     {
@@ -139,8 +133,6 @@ class ilSrMembershipsDispatcherGUI
      * required GET parameters are missing, they might throw an according
      * LogicException. This method therefore wraps the mechanism and catches
      * possible exceptions to display an on-screen message instead.
-     *
-     * @param string $class_name
      */
     protected function safelyForward(string $class_name): void
     {
@@ -163,9 +155,6 @@ class ilSrMembershipsDispatcherGUI
 
     /**
      * Helper function to nicely format the exception message to display on screen.
-     *
-     * @param Throwable $exception
-     * @return string
      */
     protected function getExceptionString(Throwable $exception): string
     {

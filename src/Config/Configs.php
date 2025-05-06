@@ -17,13 +17,14 @@ use srag\Plugins\SrMemberships\Config\General\GeneralConfig;
 use srag\Plugins\SrMemberships\Workflow\ByRoleSync\Config\ByRoleSyncConfig;
 use srag\Plugins\SrMemberships\Workflow\ByLogin\Config\ByLoginConfig;
 use srag\Plugins\SrMemberships\Workflow\ByMatriculation\Config\ByMatriculationConfig;
+use srag\Plugins\SrMemberships\Workflow\ByEmail\Config\ByEmailConfig;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
  */
 final class Configs
 {
-    protected \ilDBInterface $db;
+    private \ilDBInterface $db;
     /**
      * @readonly
      */
@@ -40,6 +41,10 @@ final class Configs
      * @readonly
      */
     private ByMatriculationConfig $by_matriculation;
+    /**
+     * @readonly
+     */
+    private ByEmailConfig $by_email;
 
     public function __construct(\ilDBInterface $db)
     {
@@ -48,6 +53,7 @@ final class Configs
         $this->by_role_sync = new ByRoleSyncConfig($this->db);
         $this->by_login = new ByLoginConfig($this->db);
         $this->by_matriculation = new ByMatriculationConfig($this->db);
+        $this->by_email = new ByEmailConfig($this->db);
     }
 
     public function general(): GeneralConfig
@@ -63,6 +69,11 @@ final class Configs
     public function byLogin(): ByLoginConfig
     {
         return $this->by_login;
+    }
+
+    public function byEmail(): ByEmailConfig
+    {
+        return $this->by_email;
     }
 
     public function byMatriculation(): ByMatriculationConfig
