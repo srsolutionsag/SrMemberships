@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 2.3.0
+- [FEATURE] By E-Mail Workflow
+
 ## Version 2.2.4
 - [FIX] Error if file not found
 
