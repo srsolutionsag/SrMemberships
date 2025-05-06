@@ -1,27 +1,17 @@
-include:
-  remote: https://git.sr.solutions/gitlab-ci/templates/review.yml
-
 stages:
+  - build
   - review
 
-review:
-  extends: .review_deployment
-  variables:
-    REVIEW_APP_IMAGE: srsolutions/ilias:8-php7.4-apache
-    REVIEW_APP_DEST: /var/www/html/Customizing/global/plugins/Services/Cron/CronHook/SrMemberships
-    ILIAS_DEVMODE: 1
-    ILIAS_INSTALL_ARGUMENTS: --no-plugins
-  environment:
-    name: review/${CI_COMMIT_REF_SLUG}
-    url: http://${CI_PROJECT_PATH_SLUG}_${CI_COMMIT_REF_SLUG}.review.sr.solutions
-    on_stop: stop_review
-  script:
-    - srag-review deploy
+include:
+  - component: $CI_SERVER_FQDN/Intern/gitlab-ci-components/build-ilias@master
+    inputs:
+      ilias_image: "srsolutions/ilias:9"
+      target_dir: Customizing/global/plugins/Services/Cron/CronHook/SrMemberships
+    rules:
+      - if: $CI_COMMIT_BRANCH
 
-stop_review:
-  extends: .review_deployment
-  environment:
-    name: review/${CI_COMMIT_REF_SLUG}
-    action: stop
-  script:
-    - srag-review stop
+  - component: $CI_SERVER_FQDN/Intern/gitlab-ci-components/review-ilias@master
+    inputs:
+      app_name: srmemberships-${CI_COMMIT_REF_SLUG}
+    rules:
+      - if: $CI_COMMIT_BRANCH
