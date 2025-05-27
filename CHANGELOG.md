@@ -1,89 +1,81 @@
 # Changelog
 
-## Version 3.2.0
-- [FEATURE] By E-Mail Workflow
-
-## Version 3.1.5
+## Version 2.3.1
+- [FIX] missing language variables
+- [FIX] General Code Update
 - [FIX] too many columns error with CSV import
 
-## Version 3.1.4
+## Version 2.3.0
+- [FEATURE] By E-Mail Workflow
+
+## Version 2.2.4
 - [FIX] Error if file not found
 
-## Version 3.1.3
+## Version 2.2.3
 - [FIX] 0044389: Adding a list of empty accounts interprets empty lines
 
-## Version 3.1.2
+## Version 2.2.2
 - [FIX] 0044388: Deactivation of user creation does not work
 
-## Version 3.1.1
+## Version 2.2.1
 - [FIX] PLSRMEM-14: Added account creation info to readme
 - [FIX] PLSRMEM-12: Added missing translation
 - [FIX] PLSRMEM-13: Fixed issue with account creation
 
-## Version 3.1.0
+## Version 2.2.0
 - [FIX] cronjobs not working in some cases
 - [FEATURE] cleanup unsupported or no longer valid woklflow assignments
 
-## Version 3.0.5
+## Version 2.1.12
 - [FIX] import issue with logins and emails
 
-## Version 3.0.4
+## Version 2.1.11
 - [FIX] correct amount of prcessed accounts in summary
-
-## Version 3.0.3
-- [FIX] missing import, fixes Could not check compatibility between ilSrMembershipsWorkflowJob::getDefaultScheduleType(): CronJobScheduleType and ilCronJob::getDefaultScheduleType()
-- 
-## Version 3.0.2
-- [FIX] issue with accounts not removed
 - [FIX] updated classmap
-- [FIX] ILIAS 9 cron compatibility
+
+## Version 2.1.10
+- [FIX] issue with accounts not removed
+
+## Version 2.1.9
 - [FIX] 0042312: Logging of SrMemberships does not work (anymore)
 - [FIX] 0042397: Deactivating a workflow does not deactivate its cronjob
 - [FIX] fixed issue that caused error when opening the role config
 - [FIX] keep admins in courses and groups in any case
-- [FIX] adding members only if not already in course/group with another role
 
-## Version 3.0.1
+## Version 2.1.8
+- [FIX] adding members only if not already in course/group with another role
+- [FIX] missing property declaration and parameter order
+
+## Version 2.1.7
 - [FIX] Skip person if UniqueIdentification is an empty string
 - [FIX] global role assignment  for new users
 - [FEATURE] User Creation in Matriculation Workflow
 - [FIX] more type declarations
 
-## Version 3.0.0
-- [FEATURE] ILIAS 9 Support
-- [FIX] more type declarations
-
 ## Version 2.1.6
-
 - [FIX] Rector ILIAS 8 - code optimization and cleanup, no functional changes
 
 
 ## Version 2.1.5
-
 - [FIX] improved CSS for slate contents
 - [FIX] Supported versions in Readme
 
 ## Version 2.1.4
-
 - [FIX] fixed an issue with CLI installation/update
 - [FIX] improved CSS for in-slate forms
 
 ## Version 2.1.3
-
 - [FIX] unsupported object type lead to an error
 - [FIX] array access for object_type
 - [FIX] write errors to log instead of collection in cron result
 
 ## Version 2.1.2
-
 - [FIX] migrate other modes to new modes (fixed step)
 
 ## Version 2.1.1
-
 - [FIX] migrate other modes to new modes
 
 ## Version 2.1.0
-
 - [FIX] an issue in some database calls
 - [FIX] migrate old mode 8 to new SyncMode:64
 - [FEATURE] added support CLI installation
@@ -94,26 +86,9 @@
 - [FIX] updated classmap to avoid php version check
 
 ## Version 2.0.0
-
 - Support for ILIAS 8
 
 ## Version 1.0.0
-
 - The plugin currently supports three workflows: Import of persons via
   login/external account, import of persons via matriculation numbers,
   enrollment of persons based on role affiliation.
-- Logins and matriculation numbers can be imported as text lists or files (TXT,
-  CSV, Excel).
-- Three processing methods are available: Enroll persons of the list, match list
-  of persons (enroll missing memberships, remove unnecessary memberships) or
-  remove list of persons.
-  The actions can be executed ad-hoc when saving or, if desired, also regularly
-  as a cronjob.
-- The workflows are currently available in courses and groups (configurable per
-  workflow).
-- Workflows can be made available to persons who can manage members in the
-  respective object or be granted to a set of local and global roles.
-- More workflows will be added in future versions of the plugin, contact
-  support@sr.solutions if you are interested in another workflow.
-
-
