@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 3.1.5
+- [FIX] too many columns error with CSV import
+
 ## Version 3.1.4
 - [FIX] Error if file not found
 
