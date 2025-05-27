@@ -100,7 +100,11 @@ class ObjectInfoProvider
         $roles = [];
         foreach ($role_ids as $role_id) {
             $role_id = (int) $role_id;
-            $roles[$role_id] = ilObject2::_lookupTitle($role_id);
+            $role_title = ilObject2::_lookupTitle($role_id);
+            if(!$role_title) {
+                continue;
+            }
+            $roles[$role_id] = $role_title;
         }
         return $roles;
     }
