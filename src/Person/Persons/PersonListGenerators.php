@@ -21,6 +21,7 @@ use srag\Plugins\SrMemberships\Person\Persons\Source\ArrayPersonSource;
 use srag\Plugins\SrMemberships\Person\Persons\Resolver\MatriculationPersonResolver;
 use srag\Plugins\SrMemberships\Person\Persons\Resolver\ExtAccountPersonResolver;
 use srag\Plugins\SrMemberships\Person\Persons\Source\RawPerson;
+use srag\Plugins\SrMemberships\Person\Persons\Resolver\EmailPersonResolver;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -63,6 +64,13 @@ class PersonListGenerators
     {
         return (new MatriculationPersonResolver())->resolveFor(
             new StringPersonSource($matriculations, $original_mime_type)
+        );
+    }
+
+    public function byEmailsFromString(string $emails, ?string $original_mime_type = null): PersonList
+    {
+        return (new EmailPersonResolver())->resolveFor(
+            new StringPersonSource($emails, $original_mime_type)
         );
     }
 }

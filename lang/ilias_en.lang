@@ -1,78 +1,78 @@
-handle_workflow_screen#:#Advanced user management
-msg_back_to#:#Back
-general_configuration#:#General settings
-tab_config_index#:#Settings
-workflow_by_role_sync#:#By Roles
-enabled_workflows#:#Enabled workflows
-enabled_workflows_info#:#After activating a workflow, an additional settings subtab appears in each case.
-selectable_global_roles#:#Selectable global roles
-selectable_global_roles_info#:#Only the activated roles can be selected later by the users.
-selectable_local_roles#:#Selectable local roles
-selectable_local_roles_info#:#Only the activated roles can be selected later by the users.
-selectable_global_roles_all#:#All global roles
-select#:#Select
-selectable_local_roles_all#:#All local roles
-object_types#:#Provide in object types
-object_types_info#:#The function is only offered in the selected object types.
-object_type_crs#:#Courses
-object_type_grp#:#Groups
-by_role_sync_role_selection#:#role selection
-by_role_sync_role_selection_info#:#Select the roles to be used for synchronisation. People who are assigned to one of these roles will be synchronised in the courses or the groups. However, the persons will not be signed out should they lose the role.
-by_role_sync_role_selection_header#:#Automatic member synchronisation
-store_object_config#:#Save settings
-msg_object_config_stored#:#Stored settings
-native_error#:#Internal Error:
-offer_workflow_to#:#Workflow available for
-offer_workflow_to_info#:#The workflow is only offered to the selected groups of people.
-offer_workflow_to_object_admins#:#Object administrators (persons with the permission "Manage members" on the object)
-user_creation#:#User creation
-user_creation_info#:#Select whether the persons should be automatically created in ILIAS if they do not already exist. At least a login name and one e-mail address must be available.
-user_creation_role_info#:#Select the global roles which shall be given to the newly created accounts.
-
-workflow_by_login#:#By Login
+accounts_added#:#Accounts enrolled: %s
+accounts_removed#:#Accounts removed: %s
+actions#:#Actions
+by_email_file_import#:#File import
+by_email_file_list_byline#:#Upload a file with email addresses here. The email addresses can be in a new line or separated by the following delimiters: comma, semicolon, tab. For CSV files, the relevant data must be in the first column.
+by_email_header#:#Email addresses
+by_email_source#:#Source
+by_email_text_list#:#List of email addresses
+by_email_text_list_byline#:#Insert a list of email addresses here. The email addresses can be entered on a new line or separated by the following delimiters: comma, semicolon, tab.
+by_login_file_import#:#File Import
+by_login_file_list_byline#:#Upload a text file containing a list of Logins. The Logins numbers can be in a new line or separated by the following characters: comma, semicolon, tabulator. For CSV files, the relevant data must be in the first column.
 by_login_header#:#Import List of Logins
 by_login_source#:#Source
 by_login_text_list#:#List of Logins
-by_login_file_import#:#File Import
 by_login_text_list_byline#:#Insert a list of Logins here. The Logins numbers can be in a new line or separated by the following characters: comma, semicolon, tabulator.
-by_login_file_list_byline#:#Upload a text file containing a list of Logins. The Logins numbers can be in a new line or separated by the following characters: comma, semicolon, tabulator. For CSV files, the relevant data must be in the first column.
-
-summary_ok#:#Summary of the performed actions:
-summary_error#:#An error occurred during the processing of the list of persons:
-accounts_added#:#Accounts enrolled: %s
-accounts_removed#:#Accounts removed: %s
-persons_not_found#:#Accounts not found: %s
-msg_error_to_many_columns_in_csv#:#Too many columns in CSV, only files with one column are supported.
-
-workflow_by_matriculation#:#By Matriculation Number
+by_matriculation_file_import#:#File Import
+by_matriculation_file_list_byline#:#Upload a text file containing a list of matriculation numbers. The matriculation numbers can be in a new line or separated by the following characters: comma, semicolon, tabulator. For CSV files, the relevant data must be in the first column.
 by_matriculation_header#:#Import List of Matriculation Numbers
 by_matriculation_source#:#Source
 by_matriculation_text_list#:#List of Matriculation Numbers
-by_matriculation_file_import#:#File Import
 by_matriculation_text_list_byline#:#Insert a list of matriculation numbers here. The matriculation numbers can be in a new line or separated by the following characters: comma, semicolon, tabulator.
-by_matriculation_file_list_byline#:#Upload a text file containing a list of matriculation numbers. The matriculation numbers can be in a new line or separated by the following characters: comma, semicolon, tabulator. For CSV files, the relevant data must be in the first column.
-
-sync_modes#:#Synchronisation mode
-sync_mode#:#Select the desired behavior
-sync_missing_users#:#Enroll missing persons
-sync_missing_users_byline#:#The persons are enrolled in the course or group if they are not already members.
-sync_bidirectional#:#Ensure list of persons
-sync_bidirectional_byline#:#The persons are enrolled in the course or group if they are not already members. Persons who are already members but are not on the list are removed from the course or group.
-sync_remove#:#Remove persons
-sync_remove_byline#:#Persons who are on the list are removed from the course or group.
-
-run_modes#:#Processing
-run_mode#:#Select the desired processing variants for synchronization
-run_on_save#:#Run immediately after saving
-run_on_save_byline#:#The synchronization is performed immediately after saving the settings.
-run_as_cronjob#:#Run periodically
-run_as_cronjob_byline#:#The synchronization is performed periodically by a cronjob.
-
-msg_multiple_workflows_assigned#:#There are multiple workflows enabled for this Container. Please note that the workflows can influence each other.
-remove_workflow#:#Remove Workflow
-
-actions#:#Actions
+by_role_sync_role_selection#:#role selection
+by_role_sync_role_selection_header#:#Automatic member synchronisation
+by_role_sync_role_selection_info#:#Select the roles to be used for synchronisation. People who are assigned to one of these roles will be synchronised in the courses or the groups. However, the persons will not be signed out should they lose the role.
+enabled_workflows#:#Enabled workflows
+enabled_workflows_info#:#After activating a workflow, an additional settings subtab appears in each case.
+ext_account#:#External account
+general_configuration#:#General settings
+handle_workflow_screen#:#Advanced user management
+login#:#Login Name
 matching_field#:#Account field for matching.
 matching_field_byline#:#Select the field to be used for matching. The "Login" and "External account" fields can be used for matching. In case of "External Account" please note that this field is not unique in ILIAS and unexpected results may occur.
-login#:#Login Name
-ext_account#:#External account
+msg_back_to#:#Back
+msg_error_to_many_columns_in_csv#:#Too many columns in CSV, only files with one column are supported.
+msg_multiple_workflows_assigned#:#There are multiple workflows enabled for this Container. Please note that the workflows can influence each other.
+msg_object_config_stored#:#Stored settings
+native_error#:#Internal Error:
+object_type_crs#:#Courses
+object_type_grp#:#Groups
+object_types#:#Provide in object types
+object_types_info#:#The function is only offered in the selected object types.
+offer_workflow_to#:#Workflow available for
+offer_workflow_to_info#:#The workflow is only offered to the selected groups of people.
+offer_workflow_to_object_admins#:#Object administrators (persons with the permission "Manage members" on the object)
+persons_not_found#:#Accounts not found: %s
+remove_workflow#:#Remove Workflow
+run_as_cronjob#:#Run periodically
+run_as_cronjob_byline#:#The synchronization is performed periodically by a cronjob.
+run_mode#:#Select the desired processing variants for synchronization
+run_modes#:#Processing
+run_on_save#:#Run immediately after saving
+run_on_save_byline#:#The synchronization is performed immediately after saving the settings.
+select#:#Select
+selectable_global_roles#:#Selectable global roles
+selectable_global_roles_all#:#All global roles
+selectable_global_roles_info#:#Only the activated roles can be selected later by the users.
+selectable_local_roles#:#Selectable local roles
+selectable_local_roles_all#:#All local roles
+selectable_local_roles_info#:#Only the activated roles can be selected later by the users.
+store_object_config#:#Save settings
+summary_error#:#An error occurred during the processing of the list of persons:
+summary_ok#:#Summary of the performed actions:
+sync_bidirectional#:#Ensure list of persons
+sync_bidirectional_byline#:#The persons are enrolled in the course or group if they are not already members. Persons who are already members but are not on the list are removed from the course or group.
+sync_missing_users#:#Enroll missing persons
+sync_missing_users_byline#:#The persons are enrolled in the course or group if they are not already members.
+sync_mode#:#Select the desired behavior
+sync_modes#:#Synchronisation mode
+sync_remove#:#Remove persons
+sync_remove_byline#:#Persons who are on the list are removed from the course or group.
+tab_config_index#:#Settings
+user_creation#:#User creation
+user_creation_info#:#Select whether the persons should be automatically created in ILIAS if they do not already exist. At least a login name and one e-mail address must be available.
+user_creation_role_info#:#Select the global roles which shall be given to the newly created accounts.
+workflow_by_email#:#By email addresses
+workflow_by_login#:#By Login
+workflow_by_matriculation#:#By Matriculation Number
+workflow_by_role_sync#:#By Roles

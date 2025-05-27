@@ -22,6 +22,7 @@ use srag\Plugins\SrMemberships\Person\Persons\PersonList;
 use srag\Plugins\SrMemberships\Person\Persons\LoginPerson;
 use srag\Plugins\SrMemberships\Person\Persons\MatriculationPerson;
 use srag\Plugins\SrMemberships\Person\Persons\ExtAccountPerson;
+use srag\Plugins\SrMemberships\Person\Persons\EmailPerson;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -100,6 +101,21 @@ class PersonsToAccounts
                     "text"
                 );
                 $result = $this->db->query($query);
+                $result = $this->db->fetchAssoc($result);
+
+                if ($result !== null && $result !== []) {
+                    $usr_id = (int) ($result["usr_id"] ?? 0);
+                    return $usr_id > self::MIN_USR_ID ? $usr_id : null;
+                }
+                return null;
+            case ($person instanceof EmailPerson):
+                $email = $person->getUniqueIdentification();
+                $query = "SELECT usr_id FROM usr_data WHERE email LIKE %s OR second_email LIKE %s LIMIT 1";
+                $result = $this->db->queryF(
+                    $query,
+                    ['text', 'text'],
+                    [$email, $email]
+                );
                 $result = $this->db->fetchAssoc($result);
 
                 if ($result !== null && $result !== []) {

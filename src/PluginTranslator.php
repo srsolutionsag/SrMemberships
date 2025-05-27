@@ -17,16 +17,20 @@ namespace srag\Plugins\SrMemberships;
  */
 class PluginTranslator implements Translator
 {
+    private const LANG = "de";
     private bool $auto_language_update = false;
+    private bool $sort = false;
 
     public function __construct(private readonly \ilPluginLanguage $language_handler)
     {
         if ($this->auto_language_update) {
             // sort language file entries
-            $en_lang = __DIR__ . "/../lang/ilias_de.lang";
+            $en_lang = __DIR__ . "/../lang/ilias_" . self::LANG . ".lang";
             $current_content = file_get_contents($en_lang);
             $lines = explode("\n", $current_content);
-            sort($lines);
+            if ($this->sort) {
+                sort($lines);
+            }
             $lines = array_filter($lines, fn($line): bool => trim($line) !== '' && trim($line) !== '0');
             file_put_contents($en_lang, implode("\n", $lines) . "\n");
 
@@ -38,7 +42,7 @@ class PluginTranslator implements Translator
     {
         $language_variable = ($module === null ? '' : $module . '_') . $a_var;
         if ($this->auto_language_update) {
-            $en_lang = __DIR__ . "/../lang/ilias_de.lang";
+            $en_lang = __DIR__ . "/../lang/ilias_" . self::LANG . ".lang";
 
             $current_content = file_get_contents($en_lang);
 
