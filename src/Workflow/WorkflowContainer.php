@@ -24,6 +24,7 @@ use srag\Plugins\SrMemberships\Provider\Context\Context;
 use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
 use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
 use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
+use srag\Plugins\SrMemberships\Config\General\GeneralConfig;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -51,6 +52,7 @@ interface WorkflowContainer
     public function isToolAvailable(Context $context): bool;
 
     public function getConfig(): Config;
+    public function getGeneralConfig(): GeneralConfig;
 
     public function getConfigForm(): ConfigForm;
 

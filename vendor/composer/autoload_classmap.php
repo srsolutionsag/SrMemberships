@@ -933,6 +933,7 @@ return array(
     'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\ObjectModeRepository' => $baseDir . '/src/Workflow/Mode/ObjectModeRepository.php',
     'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Run\\Form' => $baseDir . '/src/Workflow/Mode/Run/Form.php',
     'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Run\\NullRunModes' => $baseDir . '/src/Workflow/Mode/Run/NullRunModes.php',
+    'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Run\\PreselectedRunModes' => $baseDir . '/src/Workflow/Mode/Run/PreselectedRunModes.php',
     'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Run\\RunModes' => $baseDir . '/src/Workflow/Mode/Run/RunModes.php',
     'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Run\\StandardRunModes' => $baseDir . '/src/Workflow/Mode/Run/StandardRunModes.php',
     'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Sync\\Form' => $baseDir . '/src/Workflow/Mode/Sync/Form.php',

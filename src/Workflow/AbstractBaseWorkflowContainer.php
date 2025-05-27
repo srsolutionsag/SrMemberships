@@ -18,6 +18,7 @@ use srag\Plugins\SrMemberships\Provider\Tool\StandardWorkflowToolProvider;
 use srag\Plugins\SrMemberships\Workflow\Mode\Sync\StandardSyncModes;
 use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
 use srag\Plugins\SrMemberships\Workflow\Mode\Run\StandardRunModes;
+use srag\Plugins\SrMemberships\Config\General\GeneralConfig;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -50,4 +51,10 @@ abstract class AbstractBaseWorkflowContainer implements WorkflowContainer
     {
         return new StandardRunModes();
     }
+
+    public function getGeneralConfig(): GeneralConfig
+    {
+        return $this->container->config()->general();
+    }
+
 }

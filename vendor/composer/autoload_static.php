@@ -1024,6 +1024,7 @@ class ComposerStaticInit94d0872f604dd98676f7946c91232271
         'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\ObjectModeRepository' => __DIR__ . '/../..' . '/src/Workflow/Mode/ObjectModeRepository.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Run\\Form' => __DIR__ . '/../..' . '/src/Workflow/Mode/Run/Form.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Run\\NullRunModes' => __DIR__ . '/../..' . '/src/Workflow/Mode/Run/NullRunModes.php',
+        'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Run\\PreselectedRunModes' => __DIR__ . '/../..' . '/src/Workflow/Mode/Run/PreselectedRunModes.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Run\\RunModes' => __DIR__ . '/../..' . '/src/Workflow/Mode/Run/RunModes.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Run\\StandardRunModes' => __DIR__ . '/../..' . '/src/Workflow/Mode/Run/StandardRunModes.php',
         'srag\\Plugins\\SrMemberships\\Workflow\\Mode\\Sync\\Form' => __DIR__ . '/../..' . '/src/Workflow/Mode/Sync/Form.php',
