@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 3.2.0
+- [FEATURE] By E-Mail Workflow
+
 ## Version 3.1.5
 - [FIX] too many columns error with CSV import
 
