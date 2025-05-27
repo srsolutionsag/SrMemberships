@@ -12,10 +12,6 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Provider\Tool;
 
-use srag\Plugins\SrMemberships\Translator;
-use srag\Plugins\SrMemberships\Config\Configs;
-use srag\Plugins\SrMemberships\Provider\Context\ObjectInfoProvider;
-use srag\Plugins\SrMemberships\Provider\Context\UserAccessInfoProvider;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainerRepository;
 use srag\Plugins\SrMemberships\Provider\Context\ContextFactory;
 use srag\Plugins\SrMemberships\Container\Container;
@@ -30,10 +26,6 @@ use ILIAS\GlobalScreen\Identification\IdentificationProviderInterface;
 class CollectedMainBarProvider extends AbstractDynamicToolPluginProvider
 {
     protected IdentificationProviderInterface $if;
-    private ?Translator $translator = null;
-    private ?Configs $config = null;
-    private ?ObjectInfoProvider $object_info_resolver = null;
-    private ?UserAccessInfoProvider $access_info_resolver = null;
     private ?WorkflowContainerRepository $workflow_repository = null;
     private ?ContextFactory $context_factory = null;
 
@@ -70,10 +62,6 @@ class CollectedMainBarProvider extends AbstractDynamicToolPluginProvider
 
     public function init(Container $container): void
     {
-        $this->translator = $container->translator();
-        $this->config = $container->config();
-        $this->object_info_resolver = $container->objectInfoProvider();
-        $this->access_info_resolver = $container->userAccessInfoProvider();
         $this->workflow_repository = $container->workflows();
         $this->context_factory = $container->contextFactory();
     }

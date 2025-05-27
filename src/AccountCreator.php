@@ -21,7 +21,7 @@ use srag\Plugins\SrMemberships\Provider\Context\Context;
  */
 class AccountCreator
 {
-    public function __construct(private readonly WorkflowContainer $workflow_container, private readonly Context $context, private readonly array $data, private readonly array $global_roles, private bool $notify = false)
+    public function __construct(private readonly WorkflowContainer $workflow_container, private readonly Context $context, private readonly array $data, private readonly array $global_roles)
     {
     }
 

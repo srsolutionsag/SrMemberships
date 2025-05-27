@@ -21,6 +21,5 @@ class NullAction implements Action
 {
     public function performFor(AccountList $accounts): void
     {
-        return;
     }
 }

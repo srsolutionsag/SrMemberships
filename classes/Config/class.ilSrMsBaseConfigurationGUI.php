@@ -66,8 +66,5 @@ abstract class ilSrMsBaseConfigurationGUI extends ilSrMsAbstractGUI
         return $access_handler->isAdministrator();
     }
 
-    /**
-     * @return string
-     */
     abstract protected function getSubTabId(): string;
 }

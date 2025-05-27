@@ -1,4 +1,5 @@
 <?php
+
 /*********************************************************************
  * This Code is licensed under the GPL-3.0 License and is Part of a
  * ILIAS Plugin developed by sr solutions ag in Switzerland.
@@ -198,9 +199,6 @@ class ilSrMsTabManager
 
     /**
      * Shows a given tab-id as activated (can only be one at a time).
-     *
-     * @param string $tab_id
-     * @return self
      */
     public function setActiveTab(string $tab_id): self
     {
@@ -221,8 +219,6 @@ class ilSrMsTabManager
 
     /**
      * Returns whether the current user is in the administration context or not.
-     *
-     * @return bool
      */
     protected function inAdministration(): bool
     {
@@ -231,8 +227,6 @@ class ilSrMsTabManager
 
     /**
      * Returns whether the current user is in the repository context or not.
-     *
-     * @return bool
      */
     protected function inRepository(): bool
     {

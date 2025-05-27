@@ -17,12 +17,9 @@ namespace srag\Plugins\SrMemberships\Exceptions;
  */
 class UnsupportedRefIdException extends InvalidRefIdException
 {
-    private string $type;
-
-    public function __construct(int $ref_id, string $type)
+    public function __construct(int $ref_id, private string $type)
     {
-        $this->type = $type;
-        parent::__construct($ref_id, "Unsupported object type for ref_id " . $ref_id . ": " . $type);
+        parent::__construct($ref_id, "Unsupported object type for ref_id " . $ref_id . ": " . $this->type);
     }
 
     public function getType(): string

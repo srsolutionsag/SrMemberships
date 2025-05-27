@@ -10,7 +10,6 @@
 
 use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Workflow\Mode\Mode;
-use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
 use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
 use ILIAS\Cron\Schedule\CronJobScheduleType;
 use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
@@ -35,7 +34,7 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
     private Container $container;
     private ilLogger $logger;
 
-    public function __construct(ilSrMembershipsPlugin $plugin)
+    public function __construct()
     {
         global $DIC;
         global $srmembershipsContainer;

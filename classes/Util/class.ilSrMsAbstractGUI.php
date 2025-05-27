@@ -1,4 +1,5 @@
 <?php
+
 /*********************************************************************
  * This Code is licensed under the GPL-3.0 License and is Part of a
  * ILIAS Plugin developed by sr solutions ag in Switzerland.
@@ -224,9 +225,6 @@ abstract class ilSrMsAbstractGUI
     /**
      * Returns the value for a given parameter-name from the requests
      * current GET parameters.
-     *
-     * @param string $parameter
-     * @return string|null
      */
     protected function getRequestParameter(string $parameter): ?string
     {
@@ -247,8 +245,6 @@ abstract class ilSrMsAbstractGUI
 
     /**
      * Helper function that redirects to the given object (ref-id).
-     *
-     * @param int $ref_id
      */
     protected function redirectToRefId(int $ref_id): void
     {
@@ -262,9 +258,7 @@ abstract class ilSrMsAbstractGUI
      * submitted ($_GET) and if so, the parameter will be appended or used for
      * the form-action.
      *
-     * @param string      $command
      * @param string|null $query_parameter
-     * @return string
      */
     protected function getFormAction(string $command, string $query_parameter = null): string
     {
@@ -305,17 +299,12 @@ abstract class ilSrMsAbstractGUI
 
     /**
      * displays an error message for given lang-var on the current page.
-     *
-     * @param string $lang_var
      */
     protected function displayErrorMessage(string $lang_var): void
     {
         $this->displayMessageToast($lang_var, 'failure');
     }
 
-    /**
-     * @param string $text
-     */
     protected function sendSuccessMessage(string $text): void
     {
         if (method_exists(ilUtil::class, 'sendSuccess')) {
@@ -332,8 +321,6 @@ abstract class ilSrMsAbstractGUI
 
     /**
      * displays an success message for given lang-var on the current page.
-     *
-     * @param string $lang_var
      */
     protected function displaySuccessMessage(string $lang_var): void
     {
@@ -356,8 +343,6 @@ abstract class ilSrMsAbstractGUI
 
     /**
      * displays an info message for given lang-var on the current page.
-     *
-     * @param string $lang_var
      */
     protected function displayInfoMessage(string $lang_var): void
     {
@@ -367,7 +352,6 @@ abstract class ilSrMsAbstractGUI
     /**
      * displays a message-toast for given lang-var and type on the current page.
      *
-     * @param string $lang_var
      * @param string $type (info|success|failure)
      */
     private function displayMessageToast(string $lang_var, string $type): void

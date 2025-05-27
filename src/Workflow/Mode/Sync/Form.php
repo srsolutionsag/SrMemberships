@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow\Mode\Sync;
 
+use srag\Plugins\SrMemberships\Workflow\Mode\Mode;
 use InvalidArgumentException;
 use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
@@ -48,7 +49,7 @@ class Form extends BaseForm
 
         // store value
         $radio = $radio->withAdditionalTransformation(
-            $this->trafo(function ($value) {
+            $this->trafo(function ($value): Mode {
                 $mode = SyncModes::generic((int) $value, true);
                 $this->repository->storeSyncMode(
                     $this->context->getCurrentRefId(),

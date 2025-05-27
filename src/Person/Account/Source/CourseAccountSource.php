@@ -41,16 +41,16 @@ class CourseAccountSource implements AccountSource
     public function getEntries(): Generator
     {
         yield from array_map(
-            static fn ($user_id): RawAccount => new RawAccount((int) $user_id, RawAccount::ROLE_MEMBER),
-            $this->course_memberships->getMembers()
+            static fn(int $user_id): RawAccount => new RawAccount($user_id, RawAccount::ROLE_MEMBER),
+            array_map('intval', $this->course_memberships->getMembers())
         );
         yield from array_map(
-            static fn ($user_id): RawAccount => new RawAccount((int) $user_id, RawAccount::ROLE_ADMIN),
-            $this->course_memberships->getAdmins()
+            static fn(int $user_id): RawAccount => new RawAccount($user_id, RawAccount::ROLE_ADMIN),
+            array_map('intval', $this->course_memberships->getAdmins())
         );
         yield from array_map(
-            static fn ($user_id): RawAccount => new RawAccount((int) $user_id, RawAccount::ROLE_TUTOR),
-            $this->course_memberships->getTutors()
+            static fn(int $user_id): RawAccount => new RawAccount($user_id, RawAccount::ROLE_TUTOR),
+            array_map('intval', $this->course_memberships->getTutors())
         );
     }
 }

@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Person\Account;
 
-use InvalidArgumentException;
 use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Person\Account\Resolver\ContainerAccountResolver;
 use srag\Plugins\SrMemberships\Person\Account\Source\CourseAccountSource;

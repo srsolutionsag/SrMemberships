@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'srsolutions/srmemberships',
-        'pretty_version' => 'v3.2.0',
-        'version' => '3.2.0.0',
-        'reference' => '570b294a6439e4f8b8887c02ba6bfd246e76e656',
+        'pretty_version' => '1.0.0+no-version-set',
+        'version' => '1.0.0.0',
+        'reference' => null,
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -101,9 +101,9 @@
             'dev_requirement' => false,
         ),
         'srsolutions/srmemberships' => array(
-            'pretty_version' => 'v3.2.0',
-            'version' => '3.2.0.0',
-            'reference' => '570b294a6439e4f8b8887c02ba6bfd246e76e656',
+            'pretty_version' => '1.0.0+no-version-set',
+            'version' => '1.0.0.0',
+            'reference' => null,
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

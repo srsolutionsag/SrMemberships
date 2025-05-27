@@ -21,6 +21,5 @@ class UserCreation implements Action
 {
     public function performFor(AccountList $accounts): void
     {
-        return;
     }
 }

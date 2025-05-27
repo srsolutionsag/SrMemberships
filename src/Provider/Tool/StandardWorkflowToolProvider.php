@@ -112,7 +112,7 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $tool_factory->tool($identification)
                             ->withTitle($title)
-                            ->withContentWrapper(fn (): Legacy => $this->ui_factory->legacy(
+                            ->withContentWrapper(fn(): Legacy => $this->ui_factory->legacy(
                                 $this->ui_renderer->render(
                                     $components
                                 )

@@ -59,8 +59,6 @@ abstract class AbstractDBConfig implements Config
     }
 
     /**
-     * @param string $key
-     * @return void
      * @throws JsonException
      */
     protected function saveToDB(string $key, mixed $value): void

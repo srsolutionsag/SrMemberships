@@ -147,9 +147,9 @@ class StringPersonSource implements PersonSource
                 $col++;
                 $cell = $worksheet->getCell([$col, $row]);
             }
-            $maxCol = $col + 0;
+            $maxCol = $col;
             // current row as array
-            $currentRow = $worksheet->rangeToArray("A$row:$highestColumn" . (string) $row, null, true, true)[0];
+            $currentRow = $worksheet->rangeToArray("A$row:$highestColumn" . $row, null, true, true)[0];
             for (; $col <= $maxCol; ++$col) {
                 $value = $worksheet->getCell([$col, $row])->getValue();
                 if ($value !== null && $value !== '') {

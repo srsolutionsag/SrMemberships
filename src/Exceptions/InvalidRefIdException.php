@@ -17,12 +17,9 @@ namespace srag\Plugins\SrMemberships\Exceptions;
  */
 class InvalidRefIdException extends \InvalidArgumentException
 {
-    private int $ref_id;
-
-    public function __construct(int $ref_id, string $message = "", int $code = 0, ?\Throwable $previous = null)
+    public function __construct(private int $ref_id, string $message = "", int $code = 0, ?\Throwable $previous = null)
     {
-        $this->ref_id = $ref_id;
-        parent::__construct($message ?: "Invalid ref_id: " . $ref_id . ".", $code, $previous);
+        parent::__construct($message ?: "Invalid ref_id: " . $this->ref_id . ".", $code, $previous);
     }
 
     public function getRefId(): int
