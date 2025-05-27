@@ -1,87 +1,104 @@
 # Changelog
 
-## Version 2.3.0
+## Version 3.2.0
 - [FEATURE] By E-Mail Workflow
 
-## Version 2.2.4
+## Version 3.1.5
+- [FIX] too many columns error with CSV import
+
+## Version 3.1.4
 - [FIX] Error if file not found
 
-## Version 2.2.3
+## Version 3.1.3
 - [FIX] 0044389: Adding a list of empty accounts interprets empty lines
 
-## Version 2.2.2
+## Version 3.1.2
 - [FIX] 0044388: Deactivation of user creation does not work
 
-## Version 2.2.1
+## Version 3.1.1
 - [FIX] PLSRMEM-14: Added account creation info to readme
 - [FIX] PLSRMEM-12: Added missing translation
 - [FIX] PLSRMEM-13: Fixed issue with account creation
 
-## Version 2.2.0
+## Version 3.1.0
 - [FIX] cronjobs not working in some cases
 - [FEATURE] cleanup unsupported or no longer valid woklflow assignments
 
-## Version 2.1.12
+## Version 3.0.5
 - [FIX] import issue with logins and emails
 
-## Version 2.1.11
+## Version 3.0.4
 - [FIX] correct amount of prcessed accounts in summary
-- [FIX] updated classmap
 
-## Version 2.1.10
+## Version 3.0.3
+- [FIX] missing import, fixes Could not check compatibility between ilSrMembershipsWorkflowJob::getDefaultScheduleType(): CronJobScheduleType and ilCronJob::getDefaultScheduleType()
+- 
+## Version 3.0.2
 - [FIX] issue with accounts not removed
-
-## Version 2.1.9
+- [FIX] updated classmap
+- [FIX] ILIAS 9 cron compatibility
 - [FIX] 0042312: Logging of SrMemberships does not work (anymore)
 - [FIX] 0042397: Deactivating a workflow does not deactivate its cronjob
 - [FIX] fixed issue that caused error when opening the role config
 - [FIX] keep admins in courses and groups in any case
-
-## Version 2.1.8
 - [FIX] adding members only if not already in course/group with another role
-- [FIX] missing property declaration and parameter order
 
-## Version 2.1.7
+## Version 3.0.1
 - [FIX] Skip person if UniqueIdentification is an empty string
 - [FIX] global role assignment  for new users
 - [FEATURE] User Creation in Matriculation Workflow
 - [FIX] more type declarations
 
+## Version 3.0.0
+- [FEATURE] ILIAS 9 Support
+- [FIX] more type declarations
+
 ## Version 2.1.6
+
 - [FIX] Rector ILIAS 8 - code optimization and cleanup, no functional changes
 
+
 ## Version 2.1.5
+
 - [FIX] improved CSS for slate contents
 - [FIX] Supported versions in Readme
 
 ## Version 2.1.4
+
 - [FIX] fixed an issue with CLI installation/update
 - [FIX] improved CSS for in-slate forms
 
 ## Version 2.1.3
+
 - [FIX] unsupported object type lead to an error
 - [FIX] array access for object_type
 - [FIX] write errors to log instead of collection in cron result
 
 ## Version 2.1.2
+
 - [FIX] migrate other modes to new modes (fixed step)
 
 ## Version 2.1.1
+
 - [FIX] migrate other modes to new modes
 
 ## Version 2.1.0
+
 - [FIX] an issue in some database calls
 - [FIX] migrate old mode 8 to new SyncMode:64
 - [FEATURE] added support CLI installation
 
 ## Version 2.0.1
+
 - [FIX] an issue with newer PHP versions (wrong type)
 - [FIX] updated classmap to avoid php version check
 
 ## Version 2.0.0
+
 - Support for ILIAS 8
 
 ## Version 1.0.0
+
 - The plugin currently supports three workflows: Import of persons via
   login/external account, import of persons via matriculation numbers,
   enrollment of persons based on role affiliation.

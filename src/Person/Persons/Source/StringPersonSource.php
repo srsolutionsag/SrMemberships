@@ -21,6 +21,9 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
  */
 class StringPersonSource implements PersonSource
 {
+    /**
+     * @readonly
+     */
     private string $list;
     private ?string $original_mime_type = null;
     public const MIME_TEXT_PLAIN = 'text/plain';
@@ -55,7 +58,7 @@ class StringPersonSource implements PersonSource
     private function yieldFromCsv(): Generator
     {
         // first check if there are more than one column in the CSV
-        $lines = explode("\n", $this->list);
+        $lines = preg_split('/\r\n|\r|\n/', $this->list);
         $first_line = array_shift($lines);
         try {
             $separator = $this->determineSeparator($first_line);
@@ -63,10 +66,6 @@ class StringPersonSource implements PersonSource
             $separator = ',';
         }
 
-        $first_line = str_getcsv($first_line, $separator);
-        if (count($first_line) !== 1) {
-            throw new InvalidArgumentException('msg_error_to_many_columns_in_csv');
-        }
         // now read the CSV and add items to the array
         $items = [];
         foreach ($lines as $line) {
@@ -153,9 +152,9 @@ class StringPersonSource implements PersonSource
                 $col++;
                 $cell = $worksheet->getCell([$col, $row]);
             }
-            $maxCol = $col + 0;
+            $maxCol = $col;
             // current row as array
-            $currentRow = $worksheet->rangeToArray("A$row:$highestColumn" . (string) $row, null, true, true)[0];
+            $currentRow = $worksheet->rangeToArray("A$row:$highestColumn" . $row, null, true, true)[0];
             for (; $col <= $maxCol; ++$col) {
                 $value = $worksheet->getCell([$col, $row])->getValue();
                 if ($value !== null && $value !== '') {

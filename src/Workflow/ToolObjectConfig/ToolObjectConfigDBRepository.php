@@ -24,7 +24,6 @@ use srag\Plugins\SrMemberships\Config\PackedValue;
 class ToolObjectConfigDBRepository implements ToolObjectConfigRepository
 {
     use Packer;
-
     protected \ilDBInterface $db;
 
     public const TABLE_NAME = 'srms_object_config';

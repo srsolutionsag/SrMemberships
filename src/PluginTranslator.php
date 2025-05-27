@@ -17,11 +17,11 @@ namespace srag\Plugins\SrMemberships;
  */
 class PluginTranslator implements Translator
 {
-    private const LANG = "de";
     /**
      * @readonly
      */
     private \ilPluginLanguage $language_handler;
+    private const LANG = "de";
     private bool $auto_language_update = false;
     private bool $sort = false;
 

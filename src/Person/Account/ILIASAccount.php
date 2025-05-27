@@ -20,9 +20,8 @@ use srag\Plugins\SrMemberships\Person\Account\Source\RawAccount;
 class ILIASAccount implements Account
 {
     protected int $user_id;
-    private int $internal_role = RawAccount::ROLE_NONE;
+    protected int $internal_role = RawAccount::ROLE_NONE;
     protected bool $processed = false;
-
     public function __construct(int $user_id, int $internal_role = RawAccount::ROLE_NONE)
     {
         $this->user_id = $user_id;

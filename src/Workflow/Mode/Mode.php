@@ -18,8 +18,17 @@ namespace srag\Plugins\SrMemberships\Workflow\Mode;
  */
 final class Mode
 {
+    /**
+     * @readonly
+     */
     private int $mode_id;
+    /**
+     * @readonly
+     */
     private string $mode_title;
+    /**
+     * @readonly
+     */
     private bool $is_selectable;
     private ?\srag\Plugins\SrMemberships\Workflow\Mode\Mode $depends_on = null;
     public function __construct(int $mode_id, string $mode_title, bool $is_selectable, ?\srag\Plugins\SrMemberships\Workflow\Mode\Mode $depends_on = null)

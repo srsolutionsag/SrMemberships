@@ -53,12 +53,8 @@ class ObjectInfoProvider
      */
     private array $valid_parent_types = ['crs', 'grp', 'root', 'cat'];
 
-    public function __construct(
-        \ilTree $tree,
-        \ilCtrl $ctrl,
-        ServerRequestInterface $request,
-        \ilRbacReview $rbacreview
-    ) {
+    public function __construct(\ilTree $tree, \ilCtrl $ctrl, ServerRequestInterface $request, \ilRbacReview $rbacreview)
+    {
         $this->tree = $tree;
         $this->ctrl = $ctrl;
         $this->request = $request;

@@ -26,6 +26,9 @@ use ILIAS\UI\Component\Input\Field\Section;
  */
 class ByRoleSyncWorkflowToolConfigFormProvider implements ToolConfigFormProvider
 {
+    /**
+     * @readonly
+     */
     private Container $container;
     public const ROLE_SELECTION = 'role_selection';
     /**

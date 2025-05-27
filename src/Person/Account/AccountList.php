@@ -17,9 +17,6 @@ namespace srag\Plugins\SrMemberships\Person\Account;
  */
 class AccountList
 {
-    /**
-     * @var Account[]
-     */
     private array $accounts = [];
     public function __construct(array $accounts = [])
     {

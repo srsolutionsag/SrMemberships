@@ -24,7 +24,6 @@ class RolesPersonSource implements PersonSource
      * @readonly
      */
     private \ilRbacReview $rbac_review;
-
     public function __construct(array $role_ids, \ilRbacReview $rbac_review)
     {
         $this->role_ids = $role_ids;

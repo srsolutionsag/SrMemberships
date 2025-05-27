@@ -27,7 +27,6 @@ class WorkflowContainerRepository
 {
     protected Container $container;
     protected array $all_workflow_containers = [];
-
     protected array $enabled_workflow_containers = [];
 
     public function __construct(Container $container)

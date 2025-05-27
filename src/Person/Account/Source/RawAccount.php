@@ -17,13 +17,18 @@ namespace srag\Plugins\SrMemberships\Person\Account\Source;
  */
 class RawAccount
 {
+    /**
+     * @readonly
+     */
+    private int $user_id;
+    /**
+     * @readonly
+     */
+    private int $internal_role = self::ROLE_NONE;
     public const ROLE_NONE = -1;
     public const ROLE_MEMBER = 1;
     public const ROLE_TUTOR = 2;
     public const ROLE_ADMIN = 3;
-
-    private int $user_id;
-    private int $internal_role;
 
     public function __construct(int $user_id, int $internal_role = self::ROLE_NONE)
     {

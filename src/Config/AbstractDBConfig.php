@@ -61,8 +61,6 @@ abstract class AbstractDBConfig implements Config
     }
 
     /**
-     * @param string $key
-     * @return void
      * @throws JsonException
      * @param mixed $value
      */

@@ -19,6 +19,9 @@ use InvalidArgumentException;
  */
 class PackedValue
 {
+    /**
+     * @readonly
+     */
     private ?string $packed_value;
     public const TYPE_STRING = 1;
     public const TYPE_INT = 2;

@@ -54,15 +54,6 @@ class ilSrMembershipsPlugin extends ilCronHookPlugin
         }
     }
 
-    private function isPluginActive(): bool
-    {
-        // if parent has method isActive, we use this, otherwise we use getActive
-        if (method_exists(get_parent_class($this), 'isActive')) {
-            return parent::isActive();
-        }
-        return $this->getActive();
-    }
-
     // we must get a copatible signature with and without string as return type to be compatible with both versions of ILIAS
 
     public function getPluginName(): string

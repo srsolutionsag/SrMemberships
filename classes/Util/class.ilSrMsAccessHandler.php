@@ -1,4 +1,5 @@
 <?php
+
 /*********************************************************************
  * This Code is licensed under the GPL-3.0 License and is Part of a
  * ILIAS Plugin developed by sr solutions ag in Switzerland.
@@ -32,18 +33,8 @@ use ILIAS\DI\RBACServices;
  */
 class ilSrMsAccessHandler
 {
-    /**
-     * @var RBACServices
-     */
     protected RBACServices $access;
-    /**
-     * @var ilObjUser
-     */
     protected \ilObjUser $user;
-    /**
-     * @param RBACServices $access
-     * @param ilObjUser    $user
-     */
     public function __construct(RBACServices $access, \ilObjUser $user)
     {
         $this->access = $access;
@@ -52,8 +43,6 @@ class ilSrMsAccessHandler
 
     /**
      * Checks if the current user is assigned the global administrator role.
-     *
-     * @return bool
      */
     public function isAdministrator(): bool
     {
@@ -65,9 +54,6 @@ class ilSrMsAccessHandler
 
     /**
      * Checks if the current user is administrator of the given object (ref-id).
-     *
-     * @param int $ref_id
-     * @return bool
      */
     public function isAdministratorOf(int $ref_id): bool
     {
@@ -90,8 +76,6 @@ class ilSrMsAccessHandler
 
     /**
      * Checks if the current user is not logged in (anonymous).
-     *
-     * @return bool
      */
     public function isAnonymous(): bool
     {
@@ -100,9 +84,6 @@ class ilSrMsAccessHandler
 
     /**
      * Checks if the given user id matches the current user id.
-     *
-     * @param int $user_id
-     * @return bool
      */
     public function isCurrentUser(int $user_id): bool
     {

@@ -10,8 +10,8 @@
 
 use srag\Plugins\SrMemberships\Container\Container;
 use srag\Plugins\SrMemberships\Workflow\Mode\Mode;
-use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
 use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
+use ILIAS\Cron\Schedule\CronJobScheduleType;
 use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
 use srag\Plugins\SrMemberships\Exceptions\InvalidRefIdException;
 
@@ -32,12 +32,9 @@ class ilSrMembershipsWorkflowJob extends ilCronJob
      * @readonly
      */
     private Container $container;
-    /**
-     * @var ilLogger
-     */
-    private $logger;
+    private ilLogger $logger;
 
-    public function __construct(ilSrMembershipsPlugin $plugin)
+    public function __construct()
     {
         global $DIC;
         global $srmembershipsContainer;
