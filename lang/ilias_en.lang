@@ -76,3 +76,13 @@ workflow_by_email#:#By email addresses
 workflow_by_login#:#By Login
 workflow_by_matriculation#:#By Matriculation Number
 workflow_by_role_sync#:#By Roles
+user_creation#:#User creation
+user_creation_create#:#Create account
+user_creation_email#:#Email
+user_creation_ext_account#:#External account
+user_creation_firstname#:#First name
+user_creation_info#:#Select whether persons should be automatically created in ILIAS if they do not already exist. At least one account name, password and email address must be provided.
+user_creation_lastname#:#Surname
+user_creation_login#:#Account name
+user_creation_password#:#Password
+user_creation_prefill#:#Preselection of account data

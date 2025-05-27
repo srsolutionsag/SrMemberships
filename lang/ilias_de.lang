@@ -86,3 +86,13 @@ workflow_by_email#:#Nach E-Mailadressen
 workflow_by_login#:#Nach Login
 workflow_by_matriculation#:#Nach Matrikelnummer
 workflow_by_role_sync#:#Nach Rollen
+user_creation#:#Benutzererstellung
+user_creation_create#:#Account anlegen
+user_creation_email#:#E-Mail
+user_creation_ext_account#:#Externes Konto
+user_creation_firstname#:#Vorname
+user_creation_info#:#Wählen Sie, ob die Personen automatisch in ILIAS angelegt werden sollen, wenn sie nicht bereits vorhanden sind. Es muss mind. ein Accountname, Passwort und eine E-Mail-Adresse vorhanden sein.
+user_creation_lastname#:#Nachname
+user_creation_login#:#Accountname
+user_creation_password#:#Passwort
+user_creation_prefill#:#Vorauswahl der Accountdaten
