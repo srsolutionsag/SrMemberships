@@ -51,7 +51,7 @@ class StringPersonSource implements PersonSource
     private function yieldFromCsv(): Generator
     {
         // first check if there are more than one column in the CSV
-        $lines = explode("\n", $this->list);
+        $lines = preg_split('/\r\n|\r|\n/', $this->list);
         $first_line = array_shift($lines);
         try {
             $separator = $this->determineSeparator($first_line);
@@ -60,9 +60,7 @@ class StringPersonSource implements PersonSource
         }
 
         $first_line = str_getcsv($first_line, $separator);
-        if (count($first_line) !== 1) {
-            throw new InvalidArgumentException('msg_error_to_many_columns_in_csv');
-        }
+
         // now read the CSV and add items to the array
         $items = [];
         foreach ($lines as $line) {
