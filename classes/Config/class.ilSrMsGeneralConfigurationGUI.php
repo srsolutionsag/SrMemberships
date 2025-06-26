@@ -8,6 +8,7 @@
  *
  *********************************************************************/
 
+use srag\Plugins\SrMemberships\Config\General\GeneralConfig;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
 use srag\Plugins\SrMemberships\Config\General\GeneralConfigForm;
 
@@ -58,7 +59,14 @@ class ilSrMsGeneralConfigurationGUI extends ilSrMsAbstractGUI
     protected function save(): void
     {
         $sent_form = $this->form->getForm()->withRequest($this->request);
-        if ($sent_form->getData() === null) {
+        $data = $sent_form->getData();
+        if ($data === [null]) {
+            $this->config->general()->set(
+                GeneralConfig::F_ENABLED_WORKFLOWS,
+                []
+            );
+        }
+        if ($data === null) {
             $this->render($sent_form);
             return;
         }
