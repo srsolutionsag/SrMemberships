@@ -70,6 +70,7 @@ sync_remove#:#Remove persons
 sync_remove_byline#:#Persons who are on the list are removed from the course or group.
 tab_config_index#:#Settings
 user_creation#:#User creation
+user_creation_deactivated#:#Deactivated
 user_creation_info#:#Select whether the persons should be automatically created in ILIAS if they do not already exist. At least a login name and one e-mail address must be available.
 user_creation_role_info#:#Select the global roles which shall be given to the newly created accounts.
 workflow_by_email#:#By E-Mail Addresses
