@@ -96,7 +96,7 @@ abstract class AbstractByStringListWorkflowToolConfigFormProvider implements Too
                                         ->withValue($file_list)
 
                                 ],
-                                $this->translator->txt($this->getPrefix() . '_file_import')
+                                $this->translator->txt($this->getPrefix() . '_file_list')
                             ),
                     ],
                     $this->translator->txt($this->getPrefix() . '_source')

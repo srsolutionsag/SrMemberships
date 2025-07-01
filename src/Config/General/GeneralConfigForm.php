@@ -46,7 +46,12 @@ class GeneralConfigForm extends AbstractConfigForm
                     RunModes::RUN_AS_CRONJOB => $this->translator->txt('run_as_cronjob'),
                 ],
                 $this->translator->txt('preselected_run_modes_info')
-            )
+            ),
+            $this->getCheckbox(
+                GeneralConfig::F_SHOW_INFO_TOOL,
+                $this->translator->txt('show_info_tool'),
+                $this->translator->txt('show_info_tool_info')
+            ),
         ];
     }
 }

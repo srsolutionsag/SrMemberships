@@ -1,19 +1,19 @@
 accounts_added#:#Accounts enrolled: %s
 accounts_removed#:#Accounts removed: %s
 actions#:#Actions
-by_email_file_import#:#File import
+by_email_file_list#:#File import
 by_email_file_list_byline#:#Upload a file with email addresses here. The email addresses can be in a new line or separated by the following delimiters: comma, semicolon, tab. For CSV files, the relevant data must be in the first column.
 by_email_header#:#Email addresses
 by_email_source#:#Source
 by_email_text_list#:#List of email addresses
 by_email_text_list_byline#:#Insert a list of email addresses here. The email addresses can be entered on a new line or separated by the following delimiters: comma, semicolon, tab.
-by_login_file_import#:#File Import
+by_login_file_list#:#File Import
 by_login_file_list_byline#:#Upload a text file containing a list of Logins. The Logins numbers can be in a new line or separated by the following characters: comma, semicolon, tabulator. For CSV files, the relevant data must be in the first column.
 by_login_header#:#Import List of Logins
 by_login_source#:#Source
 by_login_text_list#:#List of Logins
 by_login_text_list_byline#:#Insert a list of Logins here. The Logins numbers can be in a new line or separated by the following characters: comma, semicolon, tabulator.
-by_matriculation_file_import#:#File Import
+by_matriculation_file_list#:#File Import
 by_matriculation_file_list_byline#:#Upload a text file containing a list of matriculation numbers. The matriculation numbers can be in a new line or separated by the following characters: comma, semicolon, tabulator. For CSV files, the relevant data must be in the first column.
 by_matriculation_header#:#Import List of Matriculation Numbers
 by_matriculation_source#:#Source
@@ -78,3 +78,5 @@ workflow_by_matriculation#:#By Matriculation Number
 workflow_by_role_sync#:#By Roles
 preselected_run_modes#:#Preselection of processing variants
 preselected_run_modes_info#:#The processing variants selected here are preselected when the workflow is activated. Users can change these settings later.
+show_info_tool#:#Show Info in Tool
+show_info_tool_info#:#If activated, inside the tool of a configured workflow, an info box is displayed with the configured settings of the workflow.

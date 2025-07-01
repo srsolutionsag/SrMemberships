@@ -27,6 +27,7 @@ class GeneralConfig extends AbstractDBConfig
     public const BY_MATRICULATION = 'by_matriculation';
     public const F_ENABLED_WORKFLOWS = 'enabled_workflows';
     public const F_PRESELECTED_RUN_MODES = 'preselected_run_modes';
+    public const F_SHOW_INFO_TOOL = 'show_info_tool';
 
     public function getEnabledWorkflows()
     {
@@ -36,6 +37,11 @@ class GeneralConfig extends AbstractDBConfig
     public function getPreselectedRunModes(): array
     {
         return $this->get(self::F_PRESELECTED_RUN_MODES, []); // ['16']
+    }
+
+    public function showInfoTool(): bool
+    {
+        return (bool) ($this->get(self::F_SHOW_INFO_TOOL, true));
     }
 
     public function getNameSpace(): string

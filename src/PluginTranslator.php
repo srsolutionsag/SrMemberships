@@ -18,7 +18,7 @@ namespace srag\Plugins\SrMemberships;
 class PluginTranslator implements Translator
 {
     private const LANG = "en";
-    private bool $auto_language_update = false;
+    private bool $auto_language_update = true;
     private bool $sort = false;
 
     public function __construct(private readonly \ilPluginLanguage $language_handler)

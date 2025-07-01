@@ -85,18 +85,35 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
             )
         );
 
-        if ($this->container->toolObjectConfigRepository()->get(
+        $tool_activated = $this->container->config()->general()->showInfoTool();
+
+        if ($tool_activated && ($config_data = $this->container->toolObjectConfigRepository()->get(
             $context->getCurrentRefId(),
             $this->workflow_container
-        ) !== null) {
-            $components[] = $this->ui_factory->panel()->secondary()->legacy(
-                $this->container->translator()->txt('actions'),
-                $this->ui_factory->legacy('')
-            )->withActions(
-                $this->ui_factory->dropdown()->standard([
-                    $remove_button
-                ])
+        )) !== null) {
+            // Message Box which informs the user that the workflow is already configured
+            $run_modes = $this->container->objectModeRepository()->getRunModes(
+                $context->getCurrentRefId(),
+                $this->workflow_container
             );
+
+            $sync_mode = $this->container->objectModeRepository()->getSyncMode(
+                $context->getCurrentRefId(),
+                $this->workflow_container
+            );
+
+            $infos = $this->workflow_container->getWorkflowInfos(
+                $this->container->translator(),
+                $run_modes,
+                $sync_mode,
+                $config_data
+            );
+
+            $components[] = $this->ui_factory->messageBox()->info(
+                $this->ui_renderer->render(
+                    $this->ui_factory->listing()->descriptive($infos)
+                )
+            )->withButtons([$remove_button]);
         }
 
         if ($this->container->toolObjectConfigRepository()->countAssignedWorkflows($context->getCurrentRefId(), true) > 1) {

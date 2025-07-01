@@ -25,6 +25,8 @@ use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
 use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
 use srag\Plugins\SrMemberships\Workflow\Mode\Sync\SyncModes;
 use srag\Plugins\SrMemberships\Config\General\GeneralConfig;
+use srag\Plugins\SrMemberships\Translator;
+use srag\Plugins\SrMemberships\Workflow\Mode\Mode;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -57,6 +59,7 @@ interface WorkflowContainer
     public function getConfigForm(): ConfigForm;
 
     public function getToolProvider(): WorkflowToolProvider;
+    public function getWorkflowInfos(Translator $t, RunModes $run_modes, Mode $sync_mode, array $config_data): array;
 
     public function getWorkflowToolForm(): ToolConfigFormProvider;
 

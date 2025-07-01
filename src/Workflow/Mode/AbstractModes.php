@@ -81,7 +81,7 @@ abstract class AbstractModes implements Modes
                 continue;
             }
             $modes_as_strings[$mode->getModeId()] = $translator->txt(
-                $this->getPrefix() . strtolower($mode->getModeTitle())
+                strtolower($mode->getModeTitle())
             );
         }
 

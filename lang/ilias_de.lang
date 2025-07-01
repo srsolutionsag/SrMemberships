@@ -1,19 +1,19 @@
 accounts_added#:#Hinzufügte Konten: %s
 accounts_removed#:#Entfernte Konten: %s
 actions#:#Aktionen
-by_email_file_import#:#Dateiimport
+by_email_file_list#:#Dateiimport
 by_email_file_list_byline#:#Laden Sie hier eine Datei mit E-Mailadressen hoch. Die E-Mailadressen können dabei jeweils in einer neuen Zeile stehen oder durch folgende Trennzeichen getrennt sein: Komma, Semikolon, Tabulator. Bei CSV-Dateien müssen die relevanten Daten in der ersten Spalte sein.
 by_email_header#:#E-Mailadressen
 by_email_source#:#Quelle
 by_email_text_list#:#Liste von E-Mailadressen
 by_email_text_list_byline#:#Fügen Sie hier eine Liste von E-Mailadressen ein. Die E-Mailadressen können dabei jeweils in einer neuen Zeile stehen oder durch folgende Trennzeichen getrennt sein: Komma, Semikolon, Tabulator.
-by_login_file_import#:#Dateiimport
+by_login_file_list#:#Dateiimport
 by_login_file_list_byline#:#Laden Sie hier eine Datei mit Logins hoch. Die Logins können dabei jeweils in einer neuen Zeile stehen oder durch folgende Trennzeichen getrennt sein: Komma, Semikolon, Tabulator. Bei CSV-Dateien müssen die relevanten Daten in der ersten Spalte sein.
 by_login_header#:#Import von Loginnamen
 by_login_source#:#Quelle
 by_login_text_list#:#Liste von Loginnamen
 by_login_text_list_byline#:#Fügen Sie hier eine Liste von Logins ein. Die Logins können dabei jeweils in einer neuen Zeile stehen oder durch folgende Trennzeichen getrennt sein: Komma, Semikolon, Tabulator.
-by_matriculation_file_import#:#Dateiimport
+by_matriculation_file_list#:#Dateiimport
 by_matriculation_file_list_byline#:#Laden Sie hier eine Datei mit Matrikelnummer hoch. Die Matrikelnummern können dabei jeweils in einer neuen Zeile stehen oder durch folgende Trennzeichen getrennt sein: Komma, Semikolon, Tabulator. Bei CSV-Dateien müssen die relevanten Daten in der ersten Spalte sein.
 by_matriculation_header#:#Import von Matrikelnummern
 by_matriculation_source#:#Quelle
@@ -88,5 +88,5 @@ workflow_by_matriculation#:#Nach Matrikelnummer
 workflow_by_role_sync#:#Nach Rollen
 preselected_run_modes#:#Vorauswahl der Verarbeitungsvarianten
 preselected_run_modes_info#:#Die Verarbeitungsvarianten, die hier ausgewählt sind, werden bei der Aktivierung des Workflows vorausgewählt. Die Nutzenden können diese Einstellungen später noch ändern.
-workflow_16#:#workflow_16
-workflow_4#:#workflow_4
+show_info_tool#:#Informationen im Tool anzeigen
+show_info_tool_info#:#Wenn diese Option aktiviert ist, wird innerhalb des Tools eines konfigurierten Workflows ein Informationsfeld mit den konfigurierten Einstellungen des Workflows angezeigt.

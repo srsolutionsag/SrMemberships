@@ -19,6 +19,9 @@ use srag\Plugins\SrMemberships\Workflow\Mode\Sync\StandardSyncModes;
 use srag\Plugins\SrMemberships\Workflow\Mode\Modes;
 use srag\Plugins\SrMemberships\Workflow\Mode\Run\StandardRunModes;
 use srag\Plugins\SrMemberships\Config\General\GeneralConfig;
+use srag\Plugins\SrMemberships\Translator;
+use srag\Plugins\SrMemberships\Workflow\Mode\Mode;
+use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -55,6 +58,17 @@ abstract class AbstractBaseWorkflowContainer implements WorkflowContainer
     public function getGeneralConfig(): GeneralConfig
     {
         return $this->container->config()->general();
+    }
+
+    public function getWorkflowInfos(Translator $t, RunModes $run_modes, Mode $sync_mode, array $config_data): array
+    {
+        return [
+            $t->txt($this->getWorkflowID() . '_' . 'source') . ':' => $t->txt(
+                $this->getWorkflowID() . '_' . $config_data['type'] . '_list'
+            ),
+            $t->txt('sync_modes') . ':' => $t->txt(strtolower($sync_mode->getModeTitle())),
+            $t->txt('run_modes') . ':' => implode(', ', $run_modes->getModesAsStrings($t))
+        ];
     }
 
 }
