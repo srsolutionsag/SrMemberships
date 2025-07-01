@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace srag\Plugins\SrMemberships\Config\General;
 
 use srag\Plugins\SrMemberships\Config\AbstractConfigForm;
+use srag\Plugins\SrMemberships\Workflow\Mode\Run\RunModes;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -36,6 +37,16 @@ class GeneralConfigForm extends AbstractConfigForm
                 $all_workflows,
                 $this->translator->txt('enabled_workflows_info')
             ),
+
+            $this->getMultiSelect(
+                GeneralConfig::F_PRESELECTED_RUN_MODES,
+                $this->translator->txt('preselected_run_modes'),
+                [
+                    RunModes::RUN_ON_SAVE => $this->translator->txt('run_on_save'),
+                    RunModes::RUN_AS_CRONJOB => $this->translator->txt('run_as_cronjob'),
+                ],
+                $this->translator->txt('preselected_run_modes_info')
+            )
         ];
     }
 }

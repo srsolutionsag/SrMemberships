@@ -86,3 +86,7 @@ workflow_by_email#:#Nach E-Mailadressen
 workflow_by_login#:#Nach Login
 workflow_by_matriculation#:#Nach Matrikelnummer
 workflow_by_role_sync#:#Nach Rollen
+preselected_run_modes#:#Vorauswahl der Verarbeitungsvarianten
+preselected_run_modes_info#:#Die Verarbeitungsvarianten, die hier ausgewählt sind, werden bei der Aktivierung des Workflows vorausgewählt. Die Nutzenden können diese Einstellungen später noch ändern.
+workflow_16#:#workflow_16
+workflow_4#:#workflow_4

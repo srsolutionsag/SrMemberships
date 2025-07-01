@@ -17,7 +17,7 @@ namespace srag\Plugins\SrMemberships;
  */
 class PluginTranslator implements Translator
 {
-    private const LANG = "de";
+    private const LANG = "en";
     private bool $auto_language_update = false;
     private bool $sort = false;
 
@@ -31,7 +31,7 @@ class PluginTranslator implements Translator
             if ($this->sort) {
                 sort($lines);
             }
-            $lines = array_filter($lines, fn ($line): bool => trim($line) !== '' && trim($line) !== '0');
+            $lines = array_filter($lines, fn($line): bool => trim($line) !== '' && trim($line) !== '0');
             file_put_contents($en_lang, implode("\n", $lines) . "\n");
 
             $this->language_handler->updateLanguages();
