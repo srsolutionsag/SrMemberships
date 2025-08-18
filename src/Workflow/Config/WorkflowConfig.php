@@ -23,4 +23,6 @@ interface WorkflowConfig extends Config
     public const F_USER_CREATION = 'user_creation';
 
     public function getActivatedForTypes(): array;
+
+    public function isUserCreationEnabled(): bool;
 }

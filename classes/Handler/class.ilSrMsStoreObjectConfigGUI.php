@@ -52,7 +52,7 @@ class ilSrMsStoreObjectConfigGUI extends ilSrMsAbstractWorkflowProcessorGUI
 
             // user creation allowed
 
-            $user_creation_allowed = $this->container->config()->byMatriculation()->isUserCreationEnabled();
+            $user_creation_allowed = $workflow_container->getConfig()->isUserCreationEnabled();
 
             // create missing accounts first
             if ($user_creation_allowed && $summary->getPersonsNotFound()->count() > 0) {
@@ -154,7 +154,7 @@ class ilSrMsStoreObjectConfigGUI extends ilSrMsAbstractWorkflowProcessorGUI
             return;
         }
 
-        $global_roles = (array) $this->container->config()->byMatriculation()->get(
+        $global_roles = (array) $workflow_container->getConfig()->get(
             WorkflowConfig::F_USER_CREATION,
             -1
         );

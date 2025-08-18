@@ -12,12 +12,14 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Config;
 
-use ilDBInterface;
 use srag\Plugins\SrMemberships\Config\General\GeneralConfig;
 use srag\Plugins\SrMemberships\Workflow\ByRoleSync\Config\ByRoleSyncConfig;
 use srag\Plugins\SrMemberships\Workflow\ByLogin\Config\ByLoginConfig;
 use srag\Plugins\SrMemberships\Workflow\ByMatriculation\Config\ByMatriculationConfig;
 use srag\Plugins\SrMemberships\Workflow\ByEmail\Config\ByEmailConfig;
+use srag\Plugins\SrMemberships\Workflow\Config\AbstractDBWorkflowConfig;
+use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
+use srag\Plugins\SrMemberships\Workflow\ByEmail\ByEmailWorkflowContainer;
 
 /**
  * @author Fabian Schmid <fabian@sr.solutions>
@@ -52,6 +54,19 @@ final class Configs
         $this->by_login = new ByLoginConfig($this->db);
         $this->by_matriculation = new ByMatriculationConfig($this->db);
         $this->by_email = new ByEmailConfig($this->db);
+    }
+
+    public function byWorkflow(WorkflowContainer $workflow): AbstractDBWorkflowConfig
+    {
+        return match ($workflow::class) {
+            ByEmailWorkflowContainer::class => $this->by_email,
+            ByRoleSyncConfig::class => $this->by_role_sync,
+            ByLoginConfig::class => $this->by_login,
+            ByMatriculationConfig::class => $this->by_matriculation,
+            default => throw new \InvalidArgumentException(
+                "Unknown workflow container class: " . $workflow::class
+            ),
+        };
     }
 
     public function general(): GeneralConfig

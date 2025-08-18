@@ -23,4 +23,9 @@ abstract class AbstractDBWorkflowConfig extends AbstractDBConfig implements Work
     {
         return $this->get(self::F_OBJECT_TYPES, []);
     }
+
+    public function isUserCreationEnabled(): bool
+    {
+        return $this->get(self::F_USER_CREATION, [-1]) !== [-1];
+    }
 }
