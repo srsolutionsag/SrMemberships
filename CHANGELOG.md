@@ -1,5 +1,15 @@
 # Changelog
 
+## Version 3.4.0
+- [FIX] reenabled user creation for logins and email
+- [FIX] make multiple workflows message more clear
+- [FIX] remove modes as well on workflow deletion
+- [FIX] show actions bar if infos not activated
+- [FIX] missing language variable in EN
+- [FEATURE] Info in Tool about activated Workflows
+- [FEATURE] Preselection of Processing Variants
+- [FIX] filter roles with no titles
+
 ## Version 3.3.0
 - [FIX] cannot deactivate all workflows
 - [FIX] Prepared Preselected Run Models
