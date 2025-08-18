@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace srag\Plugins\SrMemberships\Workflow\ToolObjectConfig;
 
-use ilDBInterface;
 use Generator;
 use srag\Plugins\SrMemberships\Config\Packer;
 use srag\Plugins\SrMemberships\Workflow\WorkflowContainer;
@@ -64,6 +63,14 @@ class ToolObjectConfigDBRepository implements ToolObjectConfigRepository
             ['integer', 'text'],
             [$ref_id, $workflow_container->getWorkflowId()]
         );
+
+        // TODO move to other repository if possible
+        $this->db->manipulateF(
+            "DELETE FROM srms_object_mode WHERE context_ref_id = %s AND workflow_id = %s",
+            ['integer', 'text'],
+            [$ref_id, $workflow_container->getWorkflowId()]
+        );
+
     }
 
     public function getAssignedRefIds(WorkflowContainer $workflow): Generator
