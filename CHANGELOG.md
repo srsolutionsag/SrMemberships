@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 3.4.1
+- change to lang var
+
 ## Version 3.4.0
 - [FIX] reenabled user creation for logins and email
 - [FIX] make multiple workflows message more clear
