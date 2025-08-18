@@ -127,13 +127,8 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
             }
         }
 
-
-
-
-
-
         if ($this->container->toolObjectConfigRepository()->countAssignedWorkflows($context->getCurrentRefId(), true) > 1) {
-            $components[] = $this->ui_factory->messageBox()->info(
+            $components[] = $this->ui_factory->messageBox()->failure(
                 $this->container->translator()->txt('msg_multiple_workflows_assigned')
             )->withButtons([
                 $remove_button

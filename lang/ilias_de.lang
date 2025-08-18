@@ -32,7 +32,7 @@ matching_field#:#Account-Feld für den Abgleich
 matching_field_byline#:#Wählen Sie das Feld, welches für den Abgleich verwendet werden soll. Die Felder "Login" und "Externer Account" können für den Abgleich verwendet werden. Im Falle von "Externer Account" ist zu beachten, dass dieses Feld nicht einmalig in ILIAS ist und es zu unerwarteten Ergebnissen kommen kann.
 msg_back_to#:#Zurück
 msg_error_to_many_columns_in_csv#:#Zu viele Spalten im CSV, es werden nur Dateien mit einer Spalte unterstützt.
-msg_multiple_workflows_assigned#:#Es sind mehrere Workflows für dieses Objekt aktiviert. Bitte ebachten Sie, dass die Workflows sich gegenseitig beeinflussen können.
+msg_multiple_workflows_assigned#:#Achtung: Bitte prüfen Sie in den Tool-Reitern die aktivierten Workflows. Es sind mehrere Workflows für dieses Objekt aktiviert, die sich gegenseitig beeinflussen können.
 msg_object_config_stored#:#Einstellungen gespeichert
 native_error#:#Interne Fehlermeldung:
 object_type_crs#:#Kurse
@@ -43,7 +43,7 @@ offer_workflow_to#:#Workflow verfügbar für
 offer_workflow_to_info#:#Der Workflow wir nur den gewählten Personengruppen angeboten.
 offer_workflow_to_object_admins#:#Objekt-Administratoren (Personen mit dem Recht "Mitglieder verwalten" am Objekt)
 persons_not_found#:#Konten nicht gefunden: %s
-remove_workflow#:#Workflow entfernen
+remove_workflow#:#Diesen Workflow entfernen
 run_as_cronjob#:#Periodisch ausführen
 run_as_cronjob_byline#:#Die Synchronisierung wird periodisch durch einen Cronjob ausgeführt.
 run_mode#:#Wählen Sie die gewünschten Verarbeitungsvarianten für die Synchronisation
