@@ -87,6 +87,15 @@ class StandardWorkflowToolProvider implements WorkflowToolProvider
 
         $tool_activated = $this->container->config()->general()->showInfoTool();
 
+        $run_modes = $this->container->objectModeRepository()->getRunModes(
+            $context->getCurrentRefId(),
+            $this->workflow_container
+        );
+        if (!$run_modes) {
+            $tool_activated = null;
+        }
+
+
         if (($config_data = $this->container->toolObjectConfigRepository()->get(
             $context->getCurrentRefId(),
             $this->workflow_container
