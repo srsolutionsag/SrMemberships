@@ -62,9 +62,10 @@ abstract class AbstractBaseWorkflowContainer implements WorkflowContainer
 
     public function getWorkflowInfos(Translator $t, RunModes $run_modes, Mode $sync_mode, array $config_data): array
     {
+        $type = $config_data['type'] ?? 'default';
         return [
             $t->txt($this->getWorkflowID() . '_' . 'source') . ':' => $t->txt(
-                $this->getWorkflowID() . '_' . $config_data['type'] . '_list'
+                $this->getWorkflowID() . '_' . $type . '_list'
             ),
             $t->txt('sync_modes') . ':' => $t->txt(strtolower($sync_mode->getModeTitle())),
             $t->txt('run_modes') . ':' => implode(', ', $run_modes->getModesAsStrings($t))

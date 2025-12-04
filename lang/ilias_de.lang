@@ -90,3 +90,5 @@ preselected_run_modes#:#Vorauswahl der Verarbeitungsvarianten
 preselected_run_modes_info#:#Die Verarbeitungsvarianten, die hier ausgewählt sind, werden bei der Aktivierung des Workflows vorausgewählt. Die Nutzenden können diese Einstellungen später noch ändern.
 show_info_tool#:#Informationen im Tool anzeigen
 show_info_tool_info#:#Wenn diese Option aktiviert ist, wird innerhalb des Tools eines konfigurierten Workflows ein Informationsfeld mit den konfigurierten Einstellungen des Workflows angezeigt.
+by_role_sync_source#:#Rolle als Synchronisationsquelle
+by_role_sync_default_list#:#Rollenauswahl

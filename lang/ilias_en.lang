@@ -81,3 +81,5 @@ preselected_run_modes#:#Preselection of processing variants
 preselected_run_modes_info#:#The processing variants selected here are preselected when the workflow is activated. Users can change these settings later.
 show_info_tool#:#Show Info in Tool
 show_info_tool_info#:#If activated, inside the tool of a configured workflow, an info box is displayed with the configured settings of the workflow.
+by_role_sync_source#:#Role
+by_role_sync_default_list#:#Role-Selection
