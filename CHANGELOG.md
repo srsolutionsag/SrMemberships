@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 3.4.2
+- [FIX] missing type info ror role based sync
+
 ## Version 3.4.1
 - change to lang var
 
