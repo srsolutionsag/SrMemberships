@@ -1,5 +1,8 @@
 # Changelog
 
+## Version 3.4.3
+- Check run modes before setting
+
 ## Version 3.4.2
 - [FIX] missing type info ror role based sync
 
